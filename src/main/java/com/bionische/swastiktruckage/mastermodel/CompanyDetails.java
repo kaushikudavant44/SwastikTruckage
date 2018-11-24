@@ -1,6 +1,5 @@
 package com.bionische.swastiktruckage.mastermodel;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,11 +16,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
+
 @Entity
 @Table(name="m_company")
 @EntityListeners(AuditingEntityListener.class)
 public class CompanyDetails {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="company_id",length=11)
@@ -90,7 +91,7 @@ public class CompanyDetails {
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
-	
+
 	public int getCompanyId() {
 		return companyId;
 	}
@@ -243,6 +244,22 @@ public class CompanyDetails {
 		this.rtgsCode = rtgsCode;
 	}
 
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
 	@Override
 	public String toString() {
 		return "CompanyDetails [companyId=" + companyId + ", companyName=" + companyName + ", address=" + address
@@ -250,9 +267,9 @@ public class CompanyDetails {
 				+ contactNo2 + ", contactNo3=" + contactNo3 + ", gstin=" + gstin + ", sacCode=" + sacCode + ", panNo="
 				+ panNo + ", email=" + email + ", helplineNo=" + helplineNo + ", website=" + website + ", bankName="
 				+ bankName + ", bankbranch=" + bankbranch + ", accNo=" + accNo + ", micrNo=" + micrNo + ", rtgsCode="
-				+ rtgsCode + "]";
+				+ rtgsCode + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
 	
 	
-	
+
 }
