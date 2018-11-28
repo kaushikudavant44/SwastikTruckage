@@ -36,6 +36,14 @@ public class States {
 	@Column(name="is_used")
 	private boolean isUsed;
 	
+	public int getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
+
 	@Column(name="create_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
