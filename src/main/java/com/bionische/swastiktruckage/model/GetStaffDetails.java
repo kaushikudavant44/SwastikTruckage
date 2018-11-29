@@ -1,73 +1,48 @@
-package com.bionische.swastiktruckage.mastermodel;
-
-import java.util.Date;
+package com.bionische.swastiktruckage.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name="m_office_staff")
-@EntityListeners(AuditingEntityListener.class)
-public class OfficeStaff {
+public class GetStaffDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="staff_id",length=11)
+	@Column(name="staff_id")
 	private int staffId;
 	
-	@Column(name="staff_office_id",length=11)
+	@Column(name="staff_office_id")
 	private int staffOfficeId;
 	
-	@Column(name="staff_name",length=200)
+	@Column(name="staff_name")
 	private String staffName;
 	
-	@Column(name="staff_contact_no",length=13)
+	@Column(name="staff_contact_no")
 	private String staffContactNo;
 	
-	@Column(name="staff_address",length=200)
+	@Column(name="staff_address")
 	private String staffAddress;
 	
-	@Column(name="user_name",length=200)
+	@Column(name="user_name")
 	private String userName;
 	
-	@Column(name="password",length=200)
+	@Column(name="password")
 	private String password;
 	
-	@Column(name="role_id",length=200)
+	@Column(name="role_id")
 	private int roleId;
 	
 	@Column(name="is_used")
 	private boolean isUsed;
 	
+	@Column(name="role_name")
+	private String roleName;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreatedDate
-	private Date createDate;
-	
-	
-	@LastModifiedDate
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifiedDate;
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
+	@Column(name="office_name")
+	private String officeName;
 
 	public int getStaffId() {
 		return staffId;
@@ -141,13 +116,29 @@ public class OfficeStaff {
 		this.isUsed = isUsed;
 	}
 
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getOfficeName() {
+		return officeName;
+	}
+
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
+	}
+
 	@Override
 	public String toString() {
-		return "OfficeStaff [staffId=" + staffId + ", staffOfficeId=" + staffOfficeId + ", staffName=" + staffName
+		return "GetStaffDetails [staffId=" + staffId + ", staffOfficeId=" + staffOfficeId + ", staffName=" + staffName
 				+ ", staffContactNo=" + staffContactNo + ", staffAddress=" + staffAddress + ", userName=" + userName
-				+ ", password=" + password + ", roleId=" + roleId + ", isUsed=" + isUsed + "]";
+				+ ", password=" + password + ", roleId=" + roleId + ", isUsed=" + isUsed + ", roleName=" + roleName
+				+ ", officeName=" + officeName + "]";
 	}
-	
 	
 	
 	

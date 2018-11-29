@@ -119,7 +119,7 @@
 
 
 	<!-- Left Panel -->
-	<jsp:include page="/WEB-INF/views/common/left.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 	<!-- Left Panel -->
 
 
@@ -148,8 +148,8 @@
 									<div class="input-group">
 
 										<h3 style="color: red; font-family: fantasy;">
-											<spring:message code="label.mobileNoExixts" />
-											!!!!
+											404 Error !!!!
+											
 										</h3>
 
 									</div>

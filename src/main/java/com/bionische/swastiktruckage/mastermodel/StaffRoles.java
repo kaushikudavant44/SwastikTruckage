@@ -28,7 +28,7 @@ public class StaffRoles {
 	private int roleId;
 	
 	@Column(name="roleName",length=11)
-	private String role_name;
+	private String roleName;
 	
 	@Column(name="role",length=11)
 	private String role;
@@ -70,13 +70,7 @@ public class StaffRoles {
 		this.roleId = roleId;
 	}
 
-	public String getRole_name() {
-		return role_name;
-	}
-
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
-	}
+	
 
 	public String getRole() {
 		return role;
@@ -94,11 +88,21 @@ public class StaffRoles {
 		this.isUsed = isUsed;
 	}
 
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
 	@Override
 	public String toString() {
-		return "StaffRoles [roleId=" + roleId + ", role_name=" + role_name + ", role=" + role + ", isUsed=" + isUsed
-				+ "]";
+		return "StaffRoles [roleId=" + roleId + ", roleName=" + roleName + ", role=" + role + ", isUsed=" + isUsed
+				+ ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
+
+	
 	
 	
 }

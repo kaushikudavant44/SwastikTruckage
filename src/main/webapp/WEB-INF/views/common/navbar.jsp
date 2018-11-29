@@ -26,7 +26,19 @@
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOffices"></a></li>
+							href="${pageContext.request.contextPath}/showOfficeReg">Add New Office</a></li>
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showStaffRoleReg">Add New Role</a></li>
+								
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOfficeStaffReg">Add New Staff</a></li>
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOfficesDetails">Offices</a></li>
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showStaffDetails">Staffs</a></li>	
 
 						</ul></li>
 

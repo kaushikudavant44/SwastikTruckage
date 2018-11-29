@@ -22,9 +22,9 @@ import com.bionische.swastiktruckage.repository.StatesRepository;
 @Controller
 public class HomeController {
 	
-	public List<States> stateList;
+	public static List<States> stateList;
 	
-	public List<City> cityList;
+	public static List<City> cityList;
 	@Autowired
 	StatesRepository statesRepository;
 	
@@ -42,7 +42,7 @@ public class HomeController {
 		
 	}	*/
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String  welcomePage() {
 		
 		try {
@@ -54,19 +54,30 @@ public class HomeController {
 			e.getMessage();
 		}
 		return "redirect:/showHome";
+	}*/
+	
+	@RequestMapping(value = "/errorMessage", method = RequestMethod.GET)
+	public ModelAndView errorMessage(HttpServletRequest request) {
+		
+		ModelAndView model=new ModelAndView("common/errorMsg");
+		
+		return model;
 	}
 	
 	@RequestMapping(value="/getCityByStateId", method=RequestMethod.GET)
 
 	public @ResponseBody List getCityByStateId(HttpServletRequest request,HttpServletResponse response)
 	{
-		int stateId=Integer.parseInt(request.getParameter("stateId"));
 		ModelAndView model=new ModelAndView("master/officeRegistration");
+		
+		int stateId=Integer.parseInt(request.getParameter("stateId"));
+		
 		
 		MultiValueMap<String, Object> map=new LinkedMultiValueMap<String, Object>();
 		map.add("stateId",stateId);
 	  
 		cityList=cityRepository.findByStateId(stateId);
+		System.out.println(cityList);
 		
 		return cityList;
 		

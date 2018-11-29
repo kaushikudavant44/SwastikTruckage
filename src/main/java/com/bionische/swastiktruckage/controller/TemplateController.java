@@ -21,7 +21,6 @@ import com.bionische.swastiktruckage.mastermodel.User;
 
 
 @Controller
-@RequestMapping(value = "/templates")
 public class TemplateController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TemplateController.class);
