@@ -27,6 +27,9 @@ public class TransactionLrHeader {
 	@Column(name="lr_header_id",length=11)
 	private int lrHeaderId;
 	
+	@Column(name="lr_id",length=11)
+	private int lrId;
+	
 	@Column(name="inv_header_id",length=11)
 	private int invHeaderId;
 	

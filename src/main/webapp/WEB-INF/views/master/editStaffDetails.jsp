@@ -124,7 +124,7 @@
 									<div class="col-md-4">
 									<div class="input-group">
 										<select id="staffOfficeId" name="staffOfficeId" class="standardSelect" tabindex="1" onchange="getCityList()">
-											<option value=""></option>
+											
 
 											<c:forEach items="${officeList}" var="officeList">
 
@@ -150,7 +150,7 @@
 									<div class="col-md-4">
 									<div class="input-group">
 										<select id="roleId" name="roleId" class="standardSelect" tabindex="1">
-										<option value=""></option>
+										
 
 											<c:forEach items="${roleList}" var="roleList">
 

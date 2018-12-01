@@ -40,13 +40,13 @@ public class CompanyDetails {
 	@Column(name="state_id",length=11)
 	int stateId;
 	
-	@Column(name="country_no1",length=13)
+	@Column(name="contact_no1",length=13)
 	String contactNo1;
 	
-	@Column(name="country_no2",length=13)
+	@Column(name="contact_no2",length=13)
 	String contactNo2;
 	
-	@Column(name="country_no3",length=13)
+	@Column(name="contact_no3",length=13)
 	String contactNo3;
 	
 	@Column(name="gstin",length=12)
