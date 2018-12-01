@@ -107,7 +107,7 @@
 										<td>${vehicleDricerList.driverLicenseNo}</td>
 										
 										<th ><a href="${pageContext.request.contextPath}/showEditDriverDetails/${vehicleDricerList.driverId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteDriver(${vehiclsList.driverId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
+										<a href="#" onclick="deleteDriver(${vehicleDricerList.driverId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
 									</tr>
 									</c:forEach>
 								</tbody>

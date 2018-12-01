@@ -315,6 +315,7 @@ public class VehicleController {
 	public @ResponseBody Info deleteDriverById(HttpServletRequest request)   
 	{
 		int driverId = Integer.parseInt(request.getParameter("driverId")); 	
+		System.out.println("driverId:"+driverId);
 		Info info = new Info();
 		try
 		{
