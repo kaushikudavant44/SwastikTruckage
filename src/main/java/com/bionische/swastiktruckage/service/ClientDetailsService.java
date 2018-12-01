@@ -18,5 +18,9 @@ public interface ClientDetailsService {
 	Info insertClientAddresses(ClientAddresses clientAddresses);
 	
 	ClientAddresses getClientAddressByClientId(int clientId);
+	
+	ClientDetails getClientDetailsById(int clientId);
+	
+	Info deleteClientById(int clientId);
 
 }

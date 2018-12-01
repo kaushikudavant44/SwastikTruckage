@@ -36,7 +36,7 @@ public class ClientDetails {
 	@Column(name="pincode",length=11)
 	private int pincode;
 	
-	@Column(name="client_contact_no",length=50)
+	@Column(name="client_contact_no",length=200)
 	private String clientContactNo;
 	
 	@Column(name="gstin",length=11)

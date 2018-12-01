@@ -2,18 +2,12 @@ package com.bionische.swastiktruckage.mastermodel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name="m_vehicles_drivers")
-@EntityListeners(AuditingEntityListener.class)
-public class VehiclesDrivers {
+public class VehicleDriverWithVehNo {
 	
 
 	@Id
@@ -36,16 +30,8 @@ public class VehiclesDrivers {
 	@Column(name="is_used")
 	private boolean isUsed;
 	
-	
-	
-
-	public boolean isUsed() {
-		return isUsed;
-	}
-
-	public void setUsed(boolean isUsed) {
-		this.isUsed = isUsed;
-	}
+	@Column(name="veh_no",length=11)
+	private String vehNo;
 
 	public int getDriverId() {
 		return driverId;
@@ -55,7 +41,6 @@ public class VehiclesDrivers {
 		this.driverId = driverId;
 	}
 
-	
 	public int getVehId() {
 		return vehId;
 	}
@@ -88,13 +73,29 @@ public class VehiclesDrivers {
 		this.driverContactNo = driverContactNo;
 	}
 
-	@Override
-	public String toString() {
-		return "VehiclesDrivers [driverId=" + driverId + ", vehId=" + vehId + ", driverName=" + driverName
-				+ ", driverLicenseNo=" + driverLicenseNo + ", driverContactNo=" + driverContactNo + ", isUsed=" + isUsed
-				+ "]";
+	public boolean isUsed() {
+		return isUsed;
 	}
 
+	public void setUsed(boolean isUsed) {
+		this.isUsed = isUsed;
+	}
+
+	public String getVehNo() {
+		return vehNo;
+	}
+
+	public void setVehNo(String vehNo) {
+		this.vehNo = vehNo;
+	}
+
+	@Override
+	public String toString() {
+		return "VehicleDriverWithVehNo [driverId=" + driverId + ", vehId=" + vehId + ", driverName=" + driverName
+				+ ", driverLicenseNo=" + driverLicenseNo + ", driverContactNo=" + driverContactNo + ", isUsed=" + isUsed
+				+ ", vehNo=" + vehNo + "]";
+	}
 	
-    
+	
+
 }

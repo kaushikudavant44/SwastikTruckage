@@ -22,6 +22,6 @@ public interface OfficeStaffRepository extends JpaRepository<OfficeStaff, Intege
 	@Query("UPDATE OfficeStaff s SET s.isUsed=false  WHERE s.staffId=:staffId")
 	int removeStaffByStaffId(@Param("staffId") int staffId);
 	
-	
+	OfficeStaff findByStaffContactNoAndPassword(String contactNo,String password);
 	
 }
