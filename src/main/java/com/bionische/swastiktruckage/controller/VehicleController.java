@@ -122,7 +122,7 @@ public class VehicleController {
 	
 	@RequestMapping(value="/deleteVehicleOwnerById", method=RequestMethod.GET)
 
-	public Info deleteVehicleOwnerById(HttpServletRequest request)   
+	public @ResponseBody Info deleteVehicleOwnerById(HttpServletRequest request)   
 	{
 	    int ownerId = Integer.parseInt(request.getParameter("ownerId")); 		
 		Info info = vehicleService.deleteVehicleOwnerById(ownerId);

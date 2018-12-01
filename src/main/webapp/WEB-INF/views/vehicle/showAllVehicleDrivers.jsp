@@ -182,8 +182,9 @@
     		
     		if(data.message=="success"){
     			
-    			location.reload();
     			alert("deleted successfully");
+    			location.reload();
+    			
     		}
 
     	});

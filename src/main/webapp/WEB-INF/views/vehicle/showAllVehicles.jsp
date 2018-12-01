@@ -209,8 +209,9 @@
     		
             if(data.message=="success"){
     			
+            	alert("deleted successfully");
     			location.reload();
-    			alert("deleted successfully");
+    		
     		}
 
     	});
