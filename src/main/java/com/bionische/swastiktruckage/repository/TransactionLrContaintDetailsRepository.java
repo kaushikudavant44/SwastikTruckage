@@ -11,6 +11,6 @@ import com.bionische.swastiktruckage.mastermodel.TransactionLrContaintDetails;
 
 public interface TransactionLrContaintDetailsRepository extends JpaRepository<TransactionLrContaintDetails, Integer>{
 
-	List<TransactionLrContaintDetails> saveAll(List<TransactionLrContaintDetails> transactionLrContaintDetailsList);
+//	List<TransactionLrContaintDetails> saveAll(List<TransactionLrContaintDetails> transactionLrContaintDetailsList);
  	
 }

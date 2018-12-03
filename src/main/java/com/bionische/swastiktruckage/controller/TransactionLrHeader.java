@@ -1,4 +1,4 @@
-package com.bionische.swastiktruckage.mastermodel;
+package com.bionische.swastiktruckage.controller;
 
 import java.util.Date;
 
@@ -40,12 +40,12 @@ public class TransactionLrHeader {
 	private int toId;
 	
 	@Column(name="consignor",length=200)
-	private String consignor;
+	private int consignor;
 	
 	@Column(name="consignee",length=200)
 	private String consignee;
 	
-	@Column(name="consigneeId",length=200)
+	@Column(name="consigneeId",length=11)
 	private int consigneeId;
 	
 	@Column(name="lr_date",length=50)
@@ -153,12 +153,30 @@ public class TransactionLrHeader {
 		this.toId = toId;
 	}
 
-	public String getConsignor() {
+	
+
+	public int getLrId() {
+		return lrId;
+	}
+
+	public void setLrId(int lrId) {
+		this.lrId = lrId;
+	}
+
+	public int getConsignor() {
 		return consignor;
 	}
 
-	public void setConsignor(String consignor) {
+	public void setConsignor(int consignor) {
 		this.consignor = consignor;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getConsignee() {
@@ -289,34 +307,15 @@ public class TransactionLrHeader {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public int getLrId() {
-		return lrId;
-	}
-
-	public void setLrId(int lrId) {
-		this.lrId = lrId;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
 	@Override
 	public String toString() {
-		return "TransactionLrHeader [lrHeaderId=" + lrHeaderId + ", lrId=" + lrId + ", invHeaderId=" + invHeaderId
-				+ ", fromId=" + fromId + ", toId=" + toId + ", consignor=" + consignor + ", consignee=" + consignee
-				+ ", consigneeId=" + consigneeId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight
-				+ ", freight=" + freight + ", gst=" + gst + ", hamali=" + hamali + ", b_c_charge=" + b_c_charge
-				+ ", kata=" + kata + ", localTempo=" + localTempo + ", bharai=" + bharai + ", dd_charges=" + dd_charges
-				+ ", total=" + total + ", isUsed=" + isUsed + ", paymentBy=" + paymentBy + ", status=" + status
-				+ ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
+		return "TransactionLrHeader [lrHeaderId=" + lrHeaderId + ", invHeaderId=" + invHeaderId + ", fromId=" + fromId
+				+ ", toId=" + toId + ", consignor=" + consignor + ", consignee=" + consignee + ", lrDate=" + lrDate
+				+ ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight + ", gst=" + gst + ", hamali="
+				+ hamali + ", b_c_charge=" + b_c_charge + ", kata=" + kata + ", localTempo=" + localTempo + ", bharai="
+				+ bharai + ", dd_charges=" + dd_charges + ", total=" + total + ", isUsed=" + isUsed + ", paymentBy="
+				+ paymentBy + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
-
-	
 
 	
 	}

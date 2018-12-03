@@ -114,7 +114,7 @@
 											<div class="col-md-2">From</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<select id="officeId" name="officeId" class="standardSelect" tabindex="1">
+													<select id="fromId" name="fromId" class="standardSelect" tabindex="1">
 														<option value=""> </option>
 													<c:forEach items="${officeList}" var="officeList">
 
@@ -139,7 +139,7 @@
 											<div class="col-md-3">
 												<div class="input-group">
 
-													<select id="officeId" name="officeId" class="standardSelect" tabindex="1">
+													<select id="toId" name="toId" class="standardSelect" tabindex="1">
 														<option value=""></option>
 													<c:forEach items="${officeList}" var="officeList">
 
@@ -153,9 +153,9 @@
 												</div>
 											</div>
 
+											<div class="col-md-2"></div>
 
-
-											<div class="col-md-1">LR No.</div>
+											<!-- <div class="col-md-1">LR No.</div>
 											<div class="col-md-1">
 
 												<div class="input-group">
@@ -166,7 +166,7 @@
 														class="error" aria-live="polite"></span>
 
 												</div>
-											</div>
+											</div> -->
 										</div>
 									</div>
 									
@@ -177,7 +177,7 @@
 											<div class="col-md-2">CONSIGNOR:</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<select id="officeId" name="clientId" class="standardSelect" tabindex="1">
+													<select id="consignor" name="consignor" class="standardSelect" tabindex="1">
 														<option value=""></option>
 													<c:forEach items="${clientList}" var="clientList">
 
@@ -196,11 +196,88 @@
 													<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<input type="text" id="datepicker">
+									<input type="text" id="datepicker" name="lrDate">
 
 												</div>
 											</div>
 
+										</div>
+									</div>
+									
+									
+									&nbsp;
+									
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+											<div class="col-md-2">CONSIGNEE:</div>
+											<div class="col-md-3">
+												<div class="input-group">
+													<select id="consigneeId" name="consigneeId" class="standardSelect" tabindex="1">
+														<option value=""></option>
+													<c:forEach items="${clientList}" var="clientList">
+
+															
+																	<option value="${clientList.clientId}">${clientList.clientName}
+																	</option>
+																													</c:forEach>
+																													
+															
+													</select>
+													<br>
+													<input class="form-control" name="consignee" id="consignee"
+														type="text" required placeholder="Other"/> <span
+														class="error" aria-live="polite"></span>
+												</div>
+											</div>
+
+											<div class="col-md-2">TRUCK No.:</div>
+											<div class="col-md-3">
+												<div class="input-group">
+
+													<input class="form-control" name="truckNo" id="truckNo"
+														type="text" required value="1"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+
+										<div class="col-md-2"></div>
+										</div>
+									</div>
+									
+									
+									&nbsp;
+									
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+											
+
+											<div class="col-md-2">Payment By:</div>
+											<div class="col-md-2">CONSIGNOR</div>
+											<div class="col-md-3">
+												<div class="input-group">
+
+													<input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="0" required/> <span
+														class="error" aria-live="polite"></span>
+														
+												
+
+												</div>
+											</div>
+											
+
+										<div class="col-md-2">CONSIGNEE</div>
+										
+										<div class="col-md-3">
+												<div class="input-group">
+
+													<input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="1" required/> <span
+														class="error" aria-live="polite"></span>
+														
+												</div>
+											</div>
 										</div>
 									</div>
 									
@@ -210,7 +287,7 @@
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 										
-											<div class="col-md-1">WEIGHT</div>
+											<div class="col-md-2">WEIGHT</div>
 											<div class="col-md-2">
 												<div class="input-group">
 													
@@ -220,7 +297,7 @@
 												</div>
 											</div>
 
-											<div class="col-md-1">FREIGHT</div>
+											<div class="col-md-2">FREIGHT</div>
 											<div class="col-md-2">
 												<div class="input-group">
 
@@ -231,7 +308,7 @@
 												</div>
 											</div>
 										
-											<div class="col-md-1">GST</div>
+											<div class="col-md-2">GST</div>
 											<div class="col-md-2">
 
 												<div class="input-group">
@@ -243,7 +320,19 @@
 												</div>
 											</div>
 										
-											<div class="col-md-1">HAMALI</div>
+											
+										</div>
+									</div>
+
+								&nbsp;
+									
+									<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+										
+											
+											<div class="col-md-2">HAMALI</div>
 											<div class="col-md-2">
 
 												<div class="input-group">
@@ -254,15 +343,6 @@
 
 												</div>
 											</div>
-											
-										</div>
-									</div>
-
-								&nbsp;
-									
-									<hr>
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
 										
 											<div class="col-md-2">B. C. CHARGE</div>
 											<div class="col-md-2">
@@ -285,6 +365,18 @@
 												</div>
 											</div>
 										
+											
+											
+										</div>
+									</div>
+									
+									&nbsp;
+									
+									<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+										
 											<div class="col-md-2">LOCAL TEMPO</div>
 											<div class="col-md-2">
 
@@ -296,15 +388,6 @@
 
 												</div>
 											</div>
-											
-										</div>
-									</div>
-									
-									&nbsp;
-									
-									<hr>
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
 										
 											<div class="col-md-2">BHARAI</div>
 											<div class="col-md-2">
@@ -327,21 +410,32 @@
 												</div>
 											</div>
 										
-											<div class="col-md-2">TOTAL</div>
+											
+											
+										</div>
+									</div>
+								&nbsp;
+								<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+										
+										<div  class="col-md-4"></div>
+										<div  class="col-md-4"></div>
+										
+								<div class="col-md-2"><strong>TOTAL</strong></div>
 											<div class="col-md-2">
 
 												<div class="input-group">
 													
 													<input class="form-control" name="total" id="total"
-														type="text"/> <span
+														type="text"/ readonly> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-											
-										</div>
-									</div>
 
+								</div>
+								</div>
 
 								</div>
 								
@@ -349,11 +443,13 @@
 								
 								&nbsp;
 								<hr>
+								<strong>Invoice Details</strong>
+								<hr>
 								<div class="col-xs-12 col-sm-12">
 										<div class="row">
 										
 											<div class="col-md-1">Invoice No.</div>
-											<div class="col-md-1">
+											<div class="col-md-3">
 												<div class="input-group">
 													
 													<input class="form-control" name="invoiceNo" id="invoiceNo"
@@ -371,7 +467,7 @@
 												</div>
 											</div>
 										
-											<div class="col-md-2">Invoice Numbers</div>
+										<!-- 	<div class="col-md-2">Invoice Numbers</div> -->
 											<div class="col-md-6">
 
 												<div class="input-group">
@@ -408,8 +504,8 @@
 								
 
 								&nbsp;
-						
-
+								<hr>
+								<strong>Containt Details</strong>
 								<hr>
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
