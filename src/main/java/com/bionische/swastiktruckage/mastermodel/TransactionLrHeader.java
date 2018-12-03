@@ -87,6 +87,9 @@ public class TransactionLrHeader {
 	@Column(name="payment_by",length=11)
 	private int paymentBy;
 	
+	@Column(name="status",length=11)
+	private int status;
+	
 	@Column(name="create_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
@@ -273,14 +276,31 @@ public class TransactionLrHeader {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public int getLrId() {
+		return lrId;
+	}
+
+	public void setLrId(int lrId) {
+		this.lrId = lrId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
-		return "TransactionLrHeader [lrHeaderId=" + lrHeaderId + ", invHeaderId=" + invHeaderId + ", fromId=" + fromId
-				+ ", toId=" + toId + ", consignor=" + consignor + ", consignee=" + consignee + ", lrDate=" + lrDate
-				+ ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight + ", gst=" + gst + ", hamali="
-				+ hamali + ", b_c_charge=" + b_c_charge + ", kata=" + kata + ", localTempo=" + localTempo + ", bharai="
-				+ bharai + ", dd_charges=" + dd_charges + ", total=" + total + ", isUsed=" + isUsed + ", paymentBy="
-				+ paymentBy + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
+		return "TransactionLrHeader [lrHeaderId=" + lrHeaderId + ", lrId=" + lrId + ", invHeaderId=" + invHeaderId
+				+ ", fromId=" + fromId + ", toId=" + toId + ", consignor=" + consignor + ", consignee=" + consignee
+				+ ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight
+				+ ", gst=" + gst + ", hamali=" + hamali + ", b_c_charge=" + b_c_charge + ", kata=" + kata
+				+ ", localTempo=" + localTempo + ", bharai=" + bharai + ", dd_charges=" + dd_charges + ", total="
+				+ total + ", isUsed=" + isUsed + ", paymentBy=" + paymentBy + ", status=" + status + ", createDate="
+				+ createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
 
 	
