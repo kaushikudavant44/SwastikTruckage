@@ -174,7 +174,7 @@ public class ClientController {
 		{
 			message="";
 			session.setAttribute("staffDetails", officeStaffDetails);
-			url="redirect:/";
+			url="redirect:/showHome";
 		}
 		else
 		{
