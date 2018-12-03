@@ -56,6 +56,10 @@
 
 
 <c:url var="addContaint" value="/addContaint" />
+<c:url var="deleteContaint" value="/deleteContaint" />
+<c:url var="addInvoiceNumber" value="/addInvoiceNumber" />
+<c:url var="deleteInvoice" value="/deleteInvoice" />
+
 
 </head>
 <body>
@@ -103,7 +107,7 @@
 							<strong>Make LR</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertOfficeStaff" method="post">
+							<form action="${pageContext.request.contextPath}/insertLR" method="post">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
@@ -206,6 +210,210 @@
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 										
+											<div class="col-md-1">WEIGHT</div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													<input class="form-control" name="weight" id="weight"
+														type="number" required value="" /> <span
+														class="error" aria-live="polite"></span>
+												</div>
+											</div>
+
+											<div class="col-md-1">FREIGHT</div>
+											<div class="col-md-2">
+												<div class="input-group">
+
+													<input class="form-control" name="freight" id="freight"
+														type="text" onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+										
+											<div class="col-md-1">GST</div>
+											<div class="col-md-2">
+
+												<div class="input-group">
+													
+													<input class="form-control" name="gst" id="gst"
+														type="text"  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+										
+											<div class="col-md-1">HAMALI</div>
+											<div class="col-md-2">
+
+												<div class="input-group">
+													
+													<input class="form-control" name="hamali" id="hamali"
+														type="text"  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+											
+										</div>
+									</div>
+
+								&nbsp;
+									
+									<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+											<div class="col-md-2">B. C. CHARGE</div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													<input class="form-control" name="bccharge" id="bccharge"
+														type="number" required value="10"  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+												</div>
+											</div>
+
+											<div class="col-md-2">KATA</div>
+											<div class="col-md-2">
+												<div class="input-group">
+
+													<input class="form-control" name="kata" id="kata"
+														type="text"  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+										
+											<div class="col-md-2">LOCAL TEMPO</div>
+											<div class="col-md-2">
+
+												<div class="input-group">
+													
+													<input class="form-control" name="localtempo" id="localtempo"
+														type="text"  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+											
+										</div>
+									</div>
+									
+									&nbsp;
+									
+									<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+											<div class="col-md-2">BHARAI</div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													<input class="form-control" name="bharai" id="bharai"
+														type="number" required value=""  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+												</div>
+											</div>
+
+											<div class="col-md-2">DD CHARGES</div>
+											<div class="col-md-2">
+												<div class="input-group">
+
+													<input class="form-control" name="ddcharges" id="ddcharges"
+														type="text"  onchange="getTotal()"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+										
+											<div class="col-md-2">TOTAL</div>
+											<div class="col-md-2">
+
+												<div class="input-group">
+													
+													<input class="form-control" name="total" id="total"
+														type="text"/> <span
+														class="error" aria-live="polite"></span>
+
+												</div>
+											</div>
+											
+										</div>
+									</div>
+
+
+								</div>
+								
+								
+								
+								&nbsp;
+								<hr>
+								<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+											<div class="col-md-1">Invoice No.</div>
+											<div class="col-md-1">
+												<div class="input-group">
+													
+													<input class="form-control" name="invoiceNo" id="invoiceNo"
+														type="text" required value="" /> <span
+														class="error" aria-live="polite"></span>
+												</div>
+											</div>
+
+										
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													<input  type="button" onclick="addInvoice()" value="add" /> 
+								
+												</div>
+											</div>
+										
+											<div class="col-md-2">Invoice Numbers</div>
+											<div class="col-md-6">
+
+												<div class="input-group">
+													<table id="invoiceTable" class="table">
+													<thead>
+													<th>Sr No</th>
+													<th>Invoice Numbers</th>
+													<th>Action</th>
+													</thead>
+													<tbody>
+													<%-- <tr>
+													<td>1</td>
+													<td>12345</td>
+													<td><div class="fa-hover col-lg-3 col-md-6">
+													<a
+														href="${pageContext.request.contextPath}/editStaffDetails"><i
+														class="fa fa-edit"></i> <span class="text-muted"></span></a>
+												</div>
+												<div class="fa-hover col-lg-3 col-md-6">
+													<a href="#" onclick="deleteStaff()"><i
+														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+
+												</div></td>
+													</tr> --%>
+													</tbody>
+													</table>
+
+												</div>
+											</div>
+											
+										</div>
+									</div>
+										
+								
+
+								&nbsp;
+						
+
+								<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
 											<div class="col-md-2">No. of Contains</div>
 											<div class="col-md-1">
 												<div class="input-group">
@@ -240,9 +448,8 @@
 											<div class="col-md-1"><input type="button" value="add" onclick="addContaints()"/></div>
 										</div>
 									</div>
-									
-
-								</div>
+										
+								
 
 								&nbsp;
 								<hr>
@@ -416,11 +623,12 @@ function deleteStaff(staffId){
 }
 </script>
 <script type="text/javascript">
+var dataTable = $('#bootstrap-data-table').DataTable();
 function addContaints(){
 	var noOfContaint=document.getElementById("noOfContaint").value;
 	var goods=document.getElementById("goods").value;
 	var description=document.getElementById("description").value;
-	 var dataTable = $('#bootstrap-data-table').DataTable();
+	
 	
 $.getJSON('${addContaint}', {
 		
@@ -442,18 +650,143 @@ $.getJSON('${addContaint}', {
 			
 			
 			
-			  dataTable.row.add(  [key+1 ,transactionLrContaintDetailsList.noOfContaints,  transactionLrContaintDetailsList.goods, transactionLrContaintDetailsList.description, transactionLrContaintDetailsList.noOfContaints ] ).draw();
+			  dataTable.row.add(  [key+1 ,transactionLrContaintDetailsList.noOfContaints,  transactionLrContaintDetailsList.goods, transactionLrContaintDetailsList.description,  
+		                 '<a href="#" onclick="deleteContaint('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
 			
 					});
 		
 
 	});
-	
-	
-  	
 
+}
+
+function deleteContaint(index){
 	
+	//window.open("${pageContext.request.contextPath}/deleteContaint?index="+index,"_self");
+	
+	$.getJSON('${deleteContaint}', {
+		
+		
+		index: index,
+			ajax : 'true'
+			
+		}, function(data) {
+				
+			dataTable.clear().draw();
+			
+				$.each(
+						data,
+						function(key, transactionLrContaintDetailsList) {
+			
+							 dataTable.row.add(  [key+1 ,transactionLrContaintDetailsList.noOfContaints,  transactionLrContaintDetailsList.goods, transactionLrContaintDetailsList.description,  
+			                 '<a href="#" onclick="deleteContaint('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
+				
+						});
+			
+
+		});
 }
 </script>
+
+<script type="text/javascript">
+function getTotal(){
+	
+	var freight=document.getElementById("freight").value;
+	var gst=document.getElementById("gst").value;
+	var hamali=document.getElementById("hamali").value;
+	var bccharge=document.getElementById("bccharge").value;
+	var kata=document.getElementById("kata").value;
+	var localtempo=document.getElementById("localtempo").value;
+	var bharai=document.getElementById("bharai").value;
+	var ddcharges=document.getElementById("ddcharges").value;
+	
+	var total=Number(freight)+Number(gst)+Number(hamali)+Number(bccharge)+Number(kata)+Number(localtempo)+Number(bharai)+Number(ddcharges);
+	document.getElementById("total").value=total;
+	
+	
+}
+
+</script>
+
+<script type="text/javascript">
+function addInvoice(){
+	
+	alert("dc");
+	var invoiceNo=document.getElementById("invoiceNo").value;
+	$.getJSON('${addInvoiceNumber}', {
+		
+			invoiceNo: invoiceNo,
+			ajax : 'true'
+			
+		}, function(data) {
+			
+			$('#invoiceTable td').remove();
+				
+			 $.each(
+						data,
+						function(key, transactionLrInvoiceDetailList) {
+			
+							alert(transactionLrInvoiceDetailList.invNo);
+							
+							var tr = $('<tr></tr>');
+							
+							tr.append($('<td></td>').html(key+1));
+							tr.append($('<td></td>').html(transactionLrInvoiceDetailList.invNo));
+							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteInvoice("+key+")'><i class='fa fa-trash-o'></i> </a>"));
+						
+				
+							$('#invoiceTable tbody').append(tr);
+						
+				
+						});			
+			 
+			
+		});
+
+	}
+	
+	
+function deleteInvoice(index){
+	
+	//window.open("${pageContext.request.contextPath}/deleteContaint?index="+index,"_self");
+	
+	$.getJSON('${deleteInvoice}', {
+		
+		
+		index: index,
+			ajax : 'true'
+			
+		}, function(data) {
+				
+			$('#invoiceTable td').remove();
+			
+				$.each(
+						data,
+						function(key, transactionLrInvoiceDetailList) {
+							
+
+							var tr = $('<tr></tr>');
+							
+							tr.append($('<td></td>').html(key+1));
+							tr.append($('<td></td>').html(transactionLrInvoiceDetailList.invNo));
+							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteInvoice("+key+")'><i class='fa fa-trash-o'></i> </a>"));
+						
+							//var str="<tr><td>"+key+1+"</td><td>"+transactionLrInvoiceDetailList.invNo+"</td><td><a href='#' onclick='deleteInvoice("+key+")'><i class='fa fa-trash-o'></i> <span class='text-muted'></span></a></td></tr>";
+							//dataTable.row.add(  [key+1 ,transactionLrInvoiceDetailList.invoiceNo,'<a href="#" onclick="deleteInvoice('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
+							$('#invoiceTable tbody').append(tr);
+						});
+			//	 $("#invoiceTable tbody").append(str);
+			
+
+		});
+}
+</script>
+	
+	
+	
+
+
+
+
 </body>
 </html>
