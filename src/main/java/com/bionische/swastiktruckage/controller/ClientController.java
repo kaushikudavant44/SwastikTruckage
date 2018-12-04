@@ -148,7 +148,7 @@ public class ClientController {
 
 	public ModelAndView showStaffLogin(HttpServletRequest request)   
 	{
-		ModelAndView model=new ModelAndView("master/staffLoginPage");		
+		ModelAndView model=new ModelAndView("login/login");		
 
 		model.addObject("message",message);
 		message="";
