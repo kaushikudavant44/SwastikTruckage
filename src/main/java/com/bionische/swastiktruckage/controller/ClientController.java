@@ -20,10 +20,18 @@ import com.bionische.swastiktruckage.mastermodel.City;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 import com.bionische.swastiktruckage.mastermodel.Info;
+import com.bionische.swastiktruckage.mastermodel.LrBilling;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
 import com.bionische.swastiktruckage.mastermodel.States;
+import com.bionische.swastiktruckage.mastermodel.TransactionBillDetails;
+import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
+import com.bionische.swastiktruckage.mastermodel.TransactionBillLogs;
 import com.bionische.swastiktruckage.repository.CityRepository;
+import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.OfficeStaffRepository;
+import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
+import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
+import com.bionische.swastiktruckage.repository.TransactionBillLogsRepository;
 import com.bionische.swastiktruckage.service.ClientDetailsService;
 import com.bionische.swastiktruckage.service.StateDetailsService;
 
@@ -39,8 +47,18 @@ public class ClientController {
 	@Autowired
 	CityRepository cityRepository;
 	
+	
 	@Autowired
-	OfficeStaffRepository officeStaffRepository;
+	LrBillingRepository lrBillingRepository;
+	
+	@Autowired
+	TransactionBillHeaderRepository transactionBillHeaderRepository;
+	
+	@Autowired
+	TransactionBillDetailsRepository transactionBillDetailsRepository;
+	
+	@Autowired
+	TransactionBillLogsRepository transactionBillLogsRepository;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
 	
@@ -77,7 +95,7 @@ public class ClientController {
 		clientDetails.setClientAddress(request.getParameter("address"));
 		clientDetails.setClientContactNo(request.getParameter("contactNo"));
 		clientDetails.setClientName(request.getParameter("name"));
-		clientDetails.setGstin(Float.parseFloat(request.getParameter("gst")));
+		clientDetails.setGstin(request.getParameter("gst"));
 		clientDetails.setPincode(Integer.parseInt(request.getParameter("pincode")));
 		clientDetails.setStateId(Integer.parseInt(request.getParameter("stateId")));
 		clientDetails.setUsed(true);
@@ -101,7 +119,7 @@ public class ClientController {
 
 	public ModelAndView showAllClientDetails(HttpServletRequest request)   
 	{
-		ModelAndView model=new ModelAndView("client/showAllClients");
+		ModelAndView model=new ModelAndView("client/testing");
 		List<ClientFullDetails> allClientDetails = clientDetailsService.getAllClientDetailsByStatus(1);
 		
 		System.out.println("message:"+message);
@@ -144,53 +162,89 @@ public class ClientController {
 		
 	}	
 	
-	@RequestMapping(value="/showStaffLogin", method=RequestMethod.GET)
+	
+	//billing
+	
+	@RequestMapping(value="/showLrBilling", method=RequestMethod.GET)
 
-	public ModelAndView showStaffLogin(HttpServletRequest request)   
+	public ModelAndView showLrBilling(HttpServletRequest request)   
 	{
-		ModelAndView model=new ModelAndView("login/login");		
-
-		model.addObject("message",message);
-		message="";
+		ModelAndView model=new ModelAndView("client/lrBilling");
+		List<ClientFullDetails> allClientDetails = clientDetailsService.getAllClientDetailsByStatus(1);
+		
+		model.addObject("allClientDetails",allClientDetails);
+	
 		return model;
 		
-	}	
+	}
 	
-	@RequestMapping(value="/staffLoginProcess", method=RequestMethod.POST)
+	
+	@RequestMapping(value="/saveClientBillDetails", method=RequestMethod.POST)
 
-	public String staffLoginProcess(HttpServletRequest request)   
+	public ModelAndView saveClientBillDetails(HttpServletRequest request)   
 	{
-		String url ="redirect:/showStaffLogin";
-		 HttpSession session = request.getSession();
-		 
-		String contactNo = request.getParameter("contactNo"); 
-		String password = request.getParameter("password"); 
+		ModelAndView model=new ModelAndView("client/lrBilling");
 		
-		try
-		{
-		OfficeStaff officeStaffDetails = officeStaffRepository.findByStaffContactNoAndPassword(contactNo, password);
+        int clientId = Integer.parseInt(request.getParameter("clientId"));
 		
-		if(officeStaffDetails!=null)
+		List<LrBilling> clientBillDetails = lrBillingRepository.getBillDetailByClientId(clientId);
+		System.out.println("clientBillDetailsList:"+clientBillDetails.toString());
+		
+		float totalBill=0;
+		for(LrBilling clientBill : clientBillDetails)
 		{
-			message="";
-			session.setAttribute("staffDetails", officeStaffDetails);
-			url="redirect:/showHome";
+			totalBill+=clientBill.getTotal();					
+		}
+		
+		
+		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
+		List<TransactionBillHeader> billHeaderList = transactionBillHeaderRepository.findAll();
+		
+		if(billHeaderList==null)
+		{
+			transactionBillHeader.setBillNo(00000001);
 		}
 		else
 		{
-			message="Invalid Credential";
-			url="redirect:/showStaffLogin";
+			int billNo = transactionBillHeader.getBillNo()+1;
+			transactionBillHeader.setBillNo(billNo);
 		}
+		transactionBillHeader.setBillTo(Integer.parseInt(request.getParameter("clientId")));
+		transactionBillHeader.setBillPayableBy(Integer.parseInt(request.getParameter("clientId")));
+		transactionBillHeader.setBillDate(request.getParameter("billDate"));
+		transactionBillHeader.setBillTotal(totalBill);
+		transactionBillHeader.setGstPayableBy((Integer.parseInt(request.getParameter("gstBy"))));
+		transactionBillHeader.setBillStatus(0);
+		transactionBillHeader.isUsed();
 		
+		TransactionBillHeader res = transactionBillHeaderRepository.save(transactionBillHeader);
+		System.out.println("TransactionBillHeader:"+res.toString());
 		
+		if(res!=null)
+		{
+		for(LrBilling  bill: clientBillDetails)
+		{
+			TransactionBillDetails transactionBillDetails = new TransactionBillDetails();
+		    
+			transactionBillDetails.setBillHeaderId(res.getBillHeaderId());
+			transactionBillDetails.setLrHeaderId(bill.getLrHeaderId());
+			transactionBillDetailsRepository.save(transactionBillDetails);
+			
 		}
-		catch (Exception e) {
-			e.getMessage();
 		}
+		 HttpSession session = request.getSession();
+		 OfficeStaff officeStaffDetails = (OfficeStaff)session.getAttribute("staffDetails");
+		 
+		TransactionBillLogs transactionBillLogs = new TransactionBillLogs();
 		
-		return url;
+		transactionBillLogs.setBillHeaderId(res.getBillHeaderId());
+		transactionBillLogs.setModifiedById(officeStaffDetails.getStaffId());
+		transactionBillLogs.setModifiedByOffice(officeStaffDetails.getStaffOfficeId());
 		
-	}	
-	
+		transactionBillLogsRepository.save(transactionBillLogs);
+		
+		return model;
+		
+	}
 	
 }

@@ -133,10 +133,13 @@
 							<br>
 							<div class="clearfix"></div>
 							<hr>
+                		<br>
+							<hr>
                 		<div class="col-sm-12 text-center">
-							<div class="form-group">
-							<input type="submit"   value="Submit" name="submit" class="btn-style-all" >
-							</div>
+							
+<button type="submit" class="btn btn-primary" >
+										Submit
+									</button>							
 							</div>
 							
 							</div>

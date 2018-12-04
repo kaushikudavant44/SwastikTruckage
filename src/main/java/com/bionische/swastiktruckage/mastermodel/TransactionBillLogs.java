@@ -25,8 +25,8 @@ public class TransactionBillLogs {
 	@Column(name="log_id",length=11)
 	private int logId;
 	
-	@Column(name="bill_id",length=11)
-	private int billId;
+	@Column(name="bill_header_id",length=11)
+	private int billHeaderId;
 	
 	@Column(name="modified_by_office",length=11)
 	private int modifiedByOffice;
@@ -45,14 +45,6 @@ public class TransactionBillLogs {
 
 	public void setLogId(int logId) {
 		this.logId = logId;
-	}
-
-	public int getBillId() {
-		return billId;
-	}
-
-	public void setBillId(int billId) {
-		this.billId = billId;
 	}
 
 	public int getModifiedByOffice() {
@@ -79,13 +71,19 @@ public class TransactionBillLogs {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public int getBillHeaderId() {
+		return billHeaderId;
+	}
+
+	public void setBillHeaderId(int billHeaderId) {
+		this.billHeaderId = billHeaderId;
+	}
+
 	@Override
 	public String toString() {
-		return "TransactionBillLogs [logId=" + logId + ", billId=" + billId + ", modifiedByOffice=" + modifiedByOffice
-				+ ", modifiedById=" + modifiedById + ", modifiedDate=" + modifiedDate + "]";
+		return "TransactionBillLogs [logId=" + logId + ", billHeaderId=" + billHeaderId + ", modifiedByOffice="
+				+ modifiedByOffice + ", modifiedById=" + modifiedById + ", modifiedDate=" + modifiedDate + "]";
 	}
 
 	
-	
-
 }

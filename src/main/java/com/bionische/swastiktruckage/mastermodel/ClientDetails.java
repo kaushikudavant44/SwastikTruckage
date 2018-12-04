@@ -40,7 +40,7 @@ public class ClientDetails {
 	private String clientContactNo;
 	
 	@Column(name="gstin",length=11)
-	private float gstin;
+	private String gstin;
 	
 	@Column(name="is_used")
 	private boolean isUsed;
@@ -116,11 +116,11 @@ public class ClientDetails {
 	}
 
 
-	public float getGstin() {
+	public String getGstin() {
 		return gstin;
 	}
 
-	public void setGstin(float gstin) {
+	public void setGstin(String gstin) {
 		this.gstin = gstin;
 	}
 

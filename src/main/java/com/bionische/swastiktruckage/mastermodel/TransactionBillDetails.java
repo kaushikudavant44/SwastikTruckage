@@ -24,8 +24,8 @@ public class TransactionBillDetails {
 	@Column(name="bill_header_id",length=11)
 	private int billHeaderId;
 	
-	@Column(name="lr_id",length=11)
-	private int lrId;
+	@Column(name="lr_header_id",length=11)
+	private int lrHeaderId;
 
 	public int getBillDetailId() {
 		return billDetailId;
@@ -43,20 +43,20 @@ public class TransactionBillDetails {
 		this.billHeaderId = billHeaderId;
 	}
 
-	public int getLrId() {
-		return lrId;
+	public int getLrHeaderId() {
+		return lrHeaderId;
 	}
 
-	public void setLrId(int lrId) {
-		this.lrId = lrId;
+	public void setLrHeaderId(int lrHeaderId) {
+		this.lrHeaderId = lrHeaderId;
 	}
 
 	@Override
 	public String toString() {
-		return "TransactionBillDetails [billDetailId=" + billDetailId + ", billHeaderId=" + billHeaderId + ", lrId="
-				+ lrId + "]";
+		return "TransactionBillDetails [billDetailId=" + billDetailId + ", billHeaderId=" + billHeaderId
+				+ ", lrHeaderId=" + lrHeaderId + "]";
 	}
-	
+
 	
 	
 }

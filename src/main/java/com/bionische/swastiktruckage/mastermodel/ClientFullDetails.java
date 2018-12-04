@@ -11,34 +11,34 @@ public class ClientFullDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="client_id",length=11)
+	@Column(name="client_id")
 	private int clientId;
 	
-	@Column(name="client_name",length=200)
+	@Column(name="client_name")
 	private String clientName;
 	
-	@Column(name="client_address",length=200)
+	@Column(name="client_address")
 	private String clientAddress;
 	
-	@Column(name="state_id",length=11)
+	@Column(name="state_id")
 	private int stateId;
 	
-	@Column(name="city_id",length=11)
+	@Column(name="city_id")
 	private int cityId;
 	
-	@Column(name="pincode",length=11)
+	@Column(name="pincode")
 	private int pincode;
 	
-	@Column(name="client_contact_no",length=50)
+	@Column(name="client_contact_no")
 	private String clientContactNo;
 	
-	@Column(name="gstin",length=11)
-	private float gstin;	
+	@Column(name="gstin")
+	private String gstin;	
 
-	@Column(name="city_name",length=100)
+	@Column(name="city_name")
 	private String cityName;
 	
-	@Column(name="state_name",length=100)
+	@Column(name="state_name")
 	private String stateName;
 
 	public int getClientId() {
@@ -97,11 +97,11 @@ public class ClientFullDetails {
 		this.clientContactNo = clientContactNo;
 	}
 
-	public float getGstin() {
+	public String getGstin() {
 		return gstin;
 	}
 
-	public void setGstin(float gstin) {
+	public void setGstin(String gstin) {
 		this.gstin = gstin;
 	}
 

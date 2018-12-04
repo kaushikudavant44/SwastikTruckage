@@ -41,6 +41,12 @@ public class TransactionBillHeader {
 	@Column(name="gst_payable_by",length=11)
 	private int gstPayableBy;
 	
+	@Column(name="bill_status",length=11)
+	private int billStatus;
+	
+	@Column(name="bill_payable_by",length=11)
+	private int billPayableBy;
+	
 	@Column(name="is_used")
 	private boolean isUsed;
 	
@@ -126,11 +132,28 @@ public class TransactionBillHeader {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public int getBillStatus() {
+		return billStatus;
+	}
+
+	public void setBillStatus(int billStatus) {
+		this.billStatus = billStatus;
+	}
+
+	public int getBillPayableBy() {
+		return billPayableBy;
+	}
+
+	public void setBillPayableBy(int billPayableBy) {
+		this.billPayableBy = billPayableBy;
+	}
+
 	@Override
 	public String toString() {
 		return "TransactionBillHeader [billHeaderId=" + billHeaderId + ", billNo=" + billNo + ", billDate=" + billDate
-				+ ", billTo=" + billTo + ", billTotal=" + billTotal + ", gstPayableBy=" + gstPayableBy + ", isUsed="
-				+ isUsed + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
+				+ ", billTo=" + billTo + ", billTotal=" + billTotal + ", gstPayableBy=" + gstPayableBy + ", billStatus="
+				+ billStatus + ", billPayableBy=" + billPayableBy + ", isUsed=" + isUsed + ", createDate=" + createDate
+				+ ", modifiedDate=" + modifiedDate + "]";
 	}
 
 	
