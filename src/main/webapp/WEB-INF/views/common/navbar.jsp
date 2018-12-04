@@ -39,7 +39,9 @@
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showStaffDetails">Staffs</a></li>	
-
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showLRRegistration">Generate LR</a></li>	
+							
 						</ul></li>
 
 				<li class="menu-item-has-children dropdown"><a href="#"
