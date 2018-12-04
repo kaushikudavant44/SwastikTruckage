@@ -42,7 +42,7 @@
 					<br>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Enter Mobile No">
-						<input class="input100" type="text" name="mobile">
+						<input class="input100" type="text" name="contactNo">
 						<span class="focus-input100" data-placeholder="Mobile No"></span>
 					</div>
 
@@ -50,7 +50,7 @@
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="pwd">
+						<input class="input100" type="password" name="password">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 
