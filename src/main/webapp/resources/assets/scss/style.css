@@ -825,7 +825,7 @@ textarea {
   width: 100%; }
 
 aside.left-panel {
-  background: #272c33;
+  background: #334166;
   display: table-cell;
   height: 100vh;
   min-height: 100%;
@@ -835,7 +835,7 @@ aside.left-panel {
   transition: width 0.3s ease; }
 
 .navbar {
-  background: #272c33;
+  background: #334166;
   border-radius: 0;
   border: none;
   display: block;
@@ -940,7 +940,7 @@ aside.left-panel {
           .navbar .navbar-nav li.menu-item-has-children a:hover:before {
             color: #fff; }
         .navbar .navbar-nav li.menu-item-has-children .sub-menu {
-          background: #272c33;
+          background: #334166;
           border: none;
           box-shadow: none;
           overflow-y: hidden;
@@ -1107,7 +1107,7 @@ body.open .navbar .navbar-brand.hidden {
       content: "/\00a0"; }
 
 .right-panel header.header {
-  background: #fff;
+  background: #334166;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
   clear: both;
   display: inline-block;

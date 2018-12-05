@@ -114,7 +114,7 @@ textarea {
     width: 100%;
 }
 aside.left-panel {
-    background: $menu-bg;
+    background: 	#334166;
     display: table-cell;
     height: 100vh;
     min-height: 100%;
@@ -251,7 +251,7 @@ aside.left-panel {
                     }
                 }
                 .sub-menu {
-                    background: $menu-bg;
+                    background: #334166;
                     border: none;
                     box-shadow: none;
                     overflow-y: hidden;
@@ -498,7 +498,7 @@ header.fixed-top {
     position: inherit;
 }
 .menutoggle {
-    background: #e74c3c;
+    background: #D7333C;
     border-radius: 50%;
     color: #fff !important;
     cursor: pointer;
