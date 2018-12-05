@@ -8,8 +8,8 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<i class="fa fa-bars"></i>
 			</button>
-			<a class="navbar-brand" href="./getLogin">John
-			</a> <a class="navbar-brand hidden" href="./"> H</a>
+			<a class="navbar-brand" href="./getLogin">Swastik Truckage
+			</a> <a class="navbar-brand hidden" href="./"> S</a>
 		</div>
 		
 		<div id="main-menu" class="main-menu collapse navbar-collapse">
