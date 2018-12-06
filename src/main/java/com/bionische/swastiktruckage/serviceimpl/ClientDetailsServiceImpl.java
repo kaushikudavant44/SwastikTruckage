@@ -26,7 +26,7 @@ public class ClientDetailsServiceImpl implements ClientDetailsService{
 	
 	@Autowired
 	ClientAddressesRepository clientAddressesRepository;
-	
+	 
 	
 	@Override
 	public Info insertClientDetails(ClientDetails clientDetails)

@@ -19,7 +19,7 @@ public class StateDetailsServiceImpl implements StateDetailsService{
 
 	@Autowired
 	StatesRepository statesRepository;
-	
+	 
 	@Autowired
 	CityRepository cityRepository;
 	
