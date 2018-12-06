@@ -27,6 +27,7 @@ import com.bionische.swastiktruckage.mastermodel.TransactionBillDetails;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillLogs;
 import com.bionische.swastiktruckage.repository.CityRepository;
+import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.ClientFullDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.OfficeStaffRepository;
@@ -49,6 +50,8 @@ public class ClientController {
 	@Autowired
 	CityRepository cityRepository;
 	
+	@Autowired
+	ClientDetailsRepository clientDetailsRepository;
 	
 	@Autowired
 	LrBillingRepository lrBillingRepository;
@@ -288,5 +291,32 @@ public class ClientController {
 		return model;
 		
 	}
+	
+	@RequestMapping(value="/clientNameValidation", method=RequestMethod.GET)
+
+	public @ResponseBody int clientNameValidation(HttpServletRequest request)   
+	{
+		int i=0;
+		
+		String clientName = request.getParameter("clientName"); 	
+				
+		ClientDetails clientDetails = new ClientDetails();
+		
+		try {
+			
+			clientDetails=clientDetailsRepository.findByClientName(clientName);	
+			 
+			 if(clientDetails==null)
+			 {
+				i=1;
+			 }
+			 
+
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+			return i;
+		
+	}	
 	
 }

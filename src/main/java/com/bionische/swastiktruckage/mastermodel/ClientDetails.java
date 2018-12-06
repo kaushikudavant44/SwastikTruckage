@@ -24,6 +24,9 @@ public class ClientDetails {
 	@Column(name="client_name",length=200)
 	private String clientName;
 	
+	@Column(name="billing_name",length=200)
+	private String billingName;
+	
 	@Column(name="client_address",length=200)
 	private String clientAddress;
 	
@@ -124,14 +127,21 @@ public class ClientDetails {
 		this.gstin = gstin;
 	}
 
+	
+	public String getBillingName() {
+		return billingName;
+	}
+
+	public void setBillingName(String billingName) {
+		this.billingName = billingName;
+	}
+
 	@Override
 	public String toString() {
-		return "ClientDetails [clientId=" + clientId + ", clientName=" + clientName + ", clientAddress=" + clientAddress
-				+ ", stateId=" + stateId + ", cityId=" + cityId + ", pincode=" + pincode + ", clientContactNo="
-				+ clientContactNo + ", gstin=" + gstin + ", isUsed=" + isUsed + "]";
+		return "ClientDetails [clientId=" + clientId + ", clientName=" + clientName + ", billingName=" + billingName
+				+ ", clientAddress=" + clientAddress + ", stateId=" + stateId + ", cityId=" + cityId + ", pincode="
+				+ pincode + ", clientContactNo=" + clientContactNo + ", gstin=" + gstin + ", isUsed=" + isUsed + "]";
 	}
 
 	
-
-
 }

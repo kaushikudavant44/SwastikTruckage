@@ -33,6 +33,7 @@
 </head>
 <body>
 <c:url var="getCityByStateId" value="/getCityByStateId" />
+<c:url var="clientNameValidation" value="/clientNameValidation" />
 
 <div  ><jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 
@@ -68,8 +69,9 @@
 							<div class="col-sm-6 col-md-6">
 							<div class="form-group">
 								<label class=" form-control-label">Full Name</label>
-										<input required name="name" class="form-control">							
-							</div>							
+										<input required name="name" id="name" class="form-control" onblur="nameValidation()">							
+							</div>	
+							<p id="validationMsg" style="position:absolute; color:red;"></p>						
 							</div>
 							
 							<div class="col-sm-6 col-md-6">
@@ -88,8 +90,8 @@
 							<div class="form-group">
 								<label class=" form-control-label">Select State</label>
 								
-							<select required data-placeholder="Choose a Country..."
-								class="standardSelect form-control" tabindex="1" id="stateId" name="stateId" onchange="getCityList()">
+							<select required 
+								class="standardSelect" tabindex="1" id="stateId" name="stateId" onchange="getCityList()">
 								<option>--select--</option>
                              
 								<c:forEach items="${stateList}" var="stateList"
@@ -107,7 +109,7 @@
 							<div class="form-group">
 								<label class=" form-control-label">Select City</label>
 								
-							<select required data-placeholder="Choose a Country..."
+							<select required 
 								class="standardSelect form-control" tabindex="1" id="cityId" name="cityId" >
 											
 							</select>
@@ -133,6 +135,8 @@
 										<input required class="form-control" name="gst">							
 							</div>							
 							</div>
+							
+							
 							
 							<br>
 							<br>
@@ -168,25 +172,57 @@
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
-    
-    
-    
+   <script
+		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
+<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chart-js/Chart.bundle.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/widgets.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-       <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-       <script
+	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+		
+		
+		
+		<script>
+		jQuery(document).ready(function() {
+	        jQuery(".standardSelect").chosen({
+	            disable_search_threshold: 2,
+	            no_results_text: "Oops, nothing found!",
+	            width: "100%"
+	        });
+	    });
+		
+		
+		
+		</script>
    
     <script>
         ( function ( $ ) {
@@ -210,8 +246,12 @@
                         setTimeout(function() {
     $('#messageAnimation').fadeOut('slow');
 }, 5000);
-                        </script>
-
+                        </script> 
+ <script>
+                        setTimeout(function() {
+    $('#validationMsg').fadeOut('slow');
+}, 10000);
+                        </script>  
 <script>
 function getCityList(){
 		
@@ -243,14 +283,40 @@ function getCityList(){
 }
 
 
-    jQuery(document).ready(function() {
-        jQuery(".standardSelect").chosen({
-            disable_search_threshold: 10,
-            no_results_text: "Oops, nothing found!",
-            width: "100%"
-        });
-    });
+    
 </script>
+
+<script>
+
+function nameValidation(){
+	
+	var clientName=document.getElementById("name").value;
+	alert(clientName);
+	
+	$.getJSON('${clientNameValidation}', {
+		
+		clientName : clientName,
+		ajax : 'true'
+		
+	}, function(data) {
+		
+		alert(data);
+		 if(data==1)
+			{
+			
+			}
+		else
+			{
+			
+			document.getElementById("name").value="";
+			document.getElementById("validationMsg").innerHTML="already exist";
+			} 
+		
+
+	});
+	
+}
+
 
 </script>
 </body>
