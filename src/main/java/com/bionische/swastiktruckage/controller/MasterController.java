@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.mastermodel.City;
+import com.bionische.swastiktruckage.mastermodel.Info;
 import com.bionische.swastiktruckage.mastermodel.OfficeDetails;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
 import com.bionische.swastiktruckage.mastermodel.StaffRoles;
@@ -365,5 +366,27 @@ public class MasterController {
 		return staffDetails;
 	}
 	
-	
+	@RequestMapping(value="/staffContactValidation", method=RequestMethod.GET)
+
+	public @ResponseBody int staffContactValidation(HttpServletRequest request,HttpServletResponse response)
+	{		
+		OfficeStaff officeDetails = new OfficeStaff();
+		String contactNo = request.getParameter("contactNo");
+		int i = 0;
+		
+		try {
+		
+		 officeDetails=officeStaffRepository.findByStaffContactNo(contactNo);	
+		 
+		 if(officeDetails==null)
+		 {
+			i=1;
+		 }
+		 
+
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		return i;
+	}	
 }
