@@ -27,11 +27,13 @@ import com.bionische.swastiktruckage.mastermodel.TransactionBillDetails;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillLogs;
 import com.bionische.swastiktruckage.repository.CityRepository;
+import com.bionische.swastiktruckage.repository.ClientFullDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.OfficeStaffRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillLogsRepository;
+import com.bionische.swastiktruckage.repository.TransactionLrInvoiceDetailRepository;
 import com.bionische.swastiktruckage.service.ClientDetailsService;
 import com.bionische.swastiktruckage.service.StateDetailsService;
 
@@ -59,6 +61,12 @@ public class ClientController {
 	
 	@Autowired
 	TransactionBillLogsRepository transactionBillLogsRepository;
+	
+	@Autowired
+	TransactionLrInvoiceDetailRepository transactionLrInvoiceDetailRepository;
+	
+	@Autowired
+	ClientFullDetailsRepository clientFullDetailsRepository;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
 	
@@ -100,6 +108,7 @@ public class ClientController {
 		clientDetails.setStateId(Integer.parseInt(request.getParameter("stateId")));
 		clientDetails.setUsed(true);
 		
+		try {
 		Info info = clientDetailsService.insertClientDetails(clientDetails);
 		
 		if(info.isError())
@@ -110,7 +119,11 @@ public class ClientController {
 		{
 			message = "Successfull";
 		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			url = "redirect:/errorMessage";
 
+		}
 		return url;
 
 	}
@@ -122,7 +135,6 @@ public class ClientController {
 		ModelAndView model=new ModelAndView("client/testing");
 		List<ClientFullDetails> allClientDetails = clientDetailsService.getAllClientDetailsByStatus(1);
 		
-		System.out.println("message:"+message);
 		model.addObject("message",message);
 		model.addObject("allClientDetails",allClientDetails);
 		message="";
@@ -137,12 +149,19 @@ public class ClientController {
 		ClientDetails clientDetails = clientDetailsService.getClientDetailsById(clientId);
 		
 		ModelAndView model=new ModelAndView("client/editClientDetails");
+		
+		try {
 		List<States> stateList = stateDetailsService.getAllStates();
 		List<City> cityList= cityRepository.findByStateId(clientDetails.getStateId());
 	
 		model.addObject("stateList",stateList);
 		model.addObject("cityList",cityList);
 		model.addObject("clientDetails",clientDetails);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
 		return model;
 		
 	}	
@@ -152,8 +171,6 @@ public class ClientController {
 	public @ResponseBody Info deleteClientById(HttpServletRequest request)   
 	{
 		
-		
-		System.out.println("lkjhgf");
 		int clientId = Integer.parseInt(request.getParameter("clientId")); 	
 				
 		Info info = clientDetailsService.deleteClientById(clientId);
@@ -177,25 +194,40 @@ public class ClientController {
 		return model;
 		
 	}
+	@RequestMapping(value="/showLrBillPage", method=RequestMethod.GET)
+
+	public ModelAndView showLrBillPage(HttpServletRequest request)   
+	{
+		ModelAndView model=new ModelAndView("client/showBillPage");
+		
+		return model;
+		
+	}
 	
 	
 	@RequestMapping(value="/saveClientBillDetails", method=RequestMethod.POST)
 
 	public ModelAndView saveClientBillDetails(HttpServletRequest request)   
 	{
-		ModelAndView model=new ModelAndView("client/lrBilling");
+		ModelAndView model=new ModelAndView("client/showBillPage");
 		
         int clientId = Integer.parseInt(request.getParameter("clientId"));
 		
+        //get client details
+        ClientFullDetails clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientId);
+        
 		List<LrBilling> clientBillDetails = lrBillingRepository.getBillDetailByClientId(clientId);
-		System.out.println("clientBillDetailsList:"+clientBillDetails.toString());
 		
 		float totalBill=0;
+		int totalQty=0;
 		for(LrBilling clientBill : clientBillDetails)
 		{
-			totalBill+=clientBill.getTotal();					
+			totalBill+=clientBill.getTotal();	
+			totalQty+=clientBill.getQuantity();
+			clientBill.setInvoiceDetailList(transactionLrInvoiceDetailRepository.findByInvHeaderId(clientBill.getInvHeaderId()));
 		}
 		
+		//save bill header
 		
 		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
 		List<TransactionBillHeader> billHeaderList = transactionBillHeaderRepository.findAll();
@@ -217,31 +249,41 @@ public class ClientController {
 		transactionBillHeader.setBillStatus(0);
 		transactionBillHeader.isUsed();
 		
-		TransactionBillHeader res = transactionBillHeaderRepository.save(transactionBillHeader);
-		System.out.println("TransactionBillHeader:"+res.toString());
+		TransactionBillHeader billHeader = transactionBillHeaderRepository.save(transactionBillHeader);
+	
+		// save bill details
 		
-		if(res!=null)
+		if(billHeader!=null)
 		{
 		for(LrBilling  bill: clientBillDetails)
 		{
 			TransactionBillDetails transactionBillDetails = new TransactionBillDetails();
 		    
-			transactionBillDetails.setBillHeaderId(res.getBillHeaderId());
+			transactionBillDetails.setBillHeaderId(billHeader.getBillHeaderId());
 			transactionBillDetails.setLrHeaderId(bill.getLrHeaderId());
 			transactionBillDetailsRepository.save(transactionBillDetails);
 			
 		}
 		}
+		
+		//save staff logs
 		 HttpSession session = request.getSession();
 		 OfficeStaff officeStaffDetails = (OfficeStaff)session.getAttribute("staffDetails");
 		 
 		TransactionBillLogs transactionBillLogs = new TransactionBillLogs();
 		
-		transactionBillLogs.setBillHeaderId(res.getBillHeaderId());
+		transactionBillLogs.setBillHeaderId(billHeader.getBillHeaderId());
 		transactionBillLogs.setModifiedById(officeStaffDetails.getStaffId());
 		transactionBillLogs.setModifiedByOffice(officeStaffDetails.getStaffOfficeId());
 		
 		transactionBillLogsRepository.save(transactionBillLogs);
+		
+		model.addObject("clientFullDetails",clientFullDetails);
+		model.addObject("clientBillDetails",clientBillDetails);
+		model.addObject("trBillHeader",billHeader);
+		model.addObject("totalBill",totalBill);
+		model.addObject("totalQty",totalQty);
+		
 		
 		return model;
 		

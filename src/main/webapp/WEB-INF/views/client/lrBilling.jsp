@@ -31,6 +31,8 @@
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
 
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
@@ -76,16 +78,19 @@
 				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong> Add New Office</strong>
+							<strong>Billing</strong>
 						</div>
+						
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/saveClientBillDetails"
 								method="post">
-																
-						<div class="row">
-							<div class="col-sm-6 col-md-6">
-							<div class="input-group">
-							<label class=" form-control-label">To</label>
+								
+								<div class="row">
+									<div class="col-md-2">
+									To
+									</div>
+									<div class="col-md-4">
+									<div class="input-group">
 										<select id="clientId" name="clientId" class="standardSelect" tabindex="1" >
 											<option value="">--select--</option>
 
@@ -98,22 +103,14 @@
 												
 											</c:forEach>
 										</select>
-										</div>						
-							</div>
-							
-							<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">Bill Date</label>
-								<div class="input-group">
-									
-									<input required class="form-control" name="billDate" id="datepicker" value="2018-12-04">
-								</div>
-							</div>
-							</div>
-						
-						<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">Bill Payable By</label>
+										</div>
+									</div>
+
+									<div class="col-md-2">
+									Bill Payble By
+									</div>
+									<div class="col-md-4">
+									<div class="input-group">
 										<select id="clientId" name="clientId" class="standardSelect" tabindex="1" >
 											<option value="">--select--</option>
 
@@ -125,43 +122,54 @@
 												
 												
 											</c:forEach>
-										</select>							
-							</div>							
-							</div>
-							<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">GST Payable By</label>
+										</select>		
+									</div>
+									</div>
+								</div>
+								
+								&nbsp;
+								
+								
+								<div class="row">
+									<div class="col-md-2">
+										 Bill Date
+									</div>
+									<div class="col-md-4">
+
+										<div class="input-group">
+
+											<input required class="form-control" name="billDate" id="datepicker" value="2018-12-05">
+										</div>
+									</div>
+
+									<div class="col-md-2">
+									GST Payble By
+									</div>
+									<div class="col-md-4">
+										<div class="input-group">
+
 										<input type="radio" required class="form-control" name="gstBy" value="0">	Sender
-										<input type="radio" required class="form-control" name="gstBy" value="1"> Reciever							
-							</div>							
-							</div>
-							
-							<br>
-							<br>
-							<div class="clearfix"></div>
-							<br>
-							<hr>
-                		<div class="col-sm-12 text-center">
-							
-<button type="submit" class="btn btn-primary" >
+										<input type="radio" required class="form-control" name="gstBy" value="1"> Reciever				
+										</div>
+									</div>
+								</div>
+								&nbsp;
+								
+								
+								<div class="col-lg-12" align="center">
+
+
+									<button type="submit" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;">
 										Submit
-									</button>							
-							</div>
-							</div>
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
+									</button>
+								</div>
 							</form>
 						</div>
+						
+						
+						
+					
 					</div>
 				</div>
 			</div>
@@ -207,12 +215,14 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
+<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 		
-		<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-
+		
 	<script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({

@@ -137,10 +137,13 @@
 							<br>
 							<br>
 							<div class="clearfix"></div>
+							<br>
 							<hr>
                 		<div class="col-sm-12 text-center">
-							<div class="form-group">
-							<input type="submit" required  value="Submit" name="submit" class="btn-style-all" >
+							
+<button type="submit" class="btn btn-primary" >
+										Submit
+									</button>							
 							</div>
 							</div>
 							
@@ -169,7 +172,6 @@
     
     
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
@@ -182,6 +184,10 @@
     <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+       <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+       <script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+   
     <script>
         ( function ( $ ) {
             "use strict";
@@ -210,7 +216,7 @@
 function getCityList(){
 		
 	var stateId=document.getElementById("stateId").value;
-	alert(stateId);
+	
 	$.getJSON('${getCityByStateId}', {
 		
 		stateId : stateId,
@@ -236,6 +242,15 @@ function getCityList(){
 	
 }
 
+
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+</script>
 
 </script>
 </body>

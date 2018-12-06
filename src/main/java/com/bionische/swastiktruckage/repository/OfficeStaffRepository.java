@@ -24,4 +24,6 @@ public interface OfficeStaffRepository extends JpaRepository<OfficeStaff, Intege
 	
 	OfficeStaff findByStaffContactNoAndPassword(String contactNo,String password);
 	
+	OfficeStaff findByStaffContactNo(String contactNo);
+	
 }

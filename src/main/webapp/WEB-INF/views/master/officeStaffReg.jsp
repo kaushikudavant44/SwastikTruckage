@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -53,6 +54,7 @@
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
 
 <c:url var="getCityByStateId" value="/getCityByStateId" />
+<c:url var="staffContactValidation" value="/staffContactValidation" />
 
 <body>
 
@@ -107,14 +109,15 @@
 
 										<div class="input-group">
 
-											<input class="form-control" name="staffContactNo" id="staffContactNo"
+											<input class="form-control" name="staffContactNo" id="staffContactNo" onblur="contactNoValidation()"
 												type="text" required
 												oninvalid="setCustomValidity('Please enter name ')"
 												onchange="try{setCustomValidity('')}catch(e){}" /> <span
 												class="error" aria-live="polite"></span>
 										</div>
+										<p id="messageAnimation" style="position:absolute; color:red;"></p>
 									</div>
-
+                                  
 								</div>
 								&nbsp;
 								<div class="row">
@@ -235,8 +238,7 @@
 
 
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
 	<script
@@ -267,8 +269,11 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
+<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+		
 
 	<script>
 		jQuery(document).ready(function() {
@@ -279,10 +284,16 @@
 			});
 		});
 	</script>
-
-<script type="text/javascript">
-function getCityList(){
+	  <script>
+                        setTimeout(function() {
+    $('#messageAnimation').fadeOut('slow');
+}, 10000);
+                        </script> 
 	
+
+<script>
+
+function getCityList(){
 	
 	var stateId=document.getElementById("stateId").value;
 	
@@ -306,6 +317,36 @@ function getCityList(){
 		$('#cityId').html(html);
 		
 		$("#cityId").trigger("chosen:updated");
+
+	});
+	
+}
+
+
+
+function contactNoValidation(){
+	
+	var contactNo=document.getElementById("staffContactNo").value;
+	alert(contactNo);
+	
+	$.getJSON('${staffContactValidation}', {
+		
+		contactNo : contactNo,
+		ajax : 'true'
+		
+	}, function(data) {
+		
+		 if(data==1)
+			{
+			
+			}
+		else
+			{
+			
+			document.getElementById("staffContactNo").value="";
+			document.getElementById("messageAnimation").innerHTML="already exist";
+			} 
+		
 
 	});
 	

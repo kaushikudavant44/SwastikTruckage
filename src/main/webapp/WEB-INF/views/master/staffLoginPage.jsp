@@ -42,7 +42,7 @@
       
         <div  ><jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include> 
        
-       <div class="breadcrumbs">
+       <!-- <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
   <div class="content mt-3">
  
  <div class="form-group ">
@@ -72,7 +72,7 @@
  <div class="row">
  
  
-  <div class="col-lg-3">
+  <div class="col-lg-4">
  </div> 
  
  		<div class="col-lg-4">
@@ -118,7 +118,7 @@
 							</form>
 						</div>
 					</div>
-	<div class="col-lg-3">
+	<div class="col-lg-4">
 	</div>			
  
 

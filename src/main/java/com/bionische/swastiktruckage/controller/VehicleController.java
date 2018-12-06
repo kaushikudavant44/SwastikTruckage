@@ -77,6 +77,9 @@ public class VehicleController {
 	    
 		vehicleOwners.setUsed(true);
 		
+		try
+		{
+		
 		Info info = vehicleService.insertVehicleOwners(vehicleOwners);
 		
 		if(info.isError())
@@ -86,6 +89,12 @@ public class VehicleController {
 		else
 		{
 			message = "Successfull";
+		}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			url = "redirect:/errorMessage";
+
 		}
 
 		return url;
@@ -113,9 +122,16 @@ public class VehicleController {
 			
 		ModelAndView model=new ModelAndView("vehicle/editVehicleOwnerDetails");
 		
+		try
+		{
 		VehicleOwners vehicleOwner = vehicleService.getVehicleOwnerByOwnerId(ownerId);
-		
 		model.addObject("vehicleOwner",vehicleOwner);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
 		return model;
 		
 	}	
@@ -166,6 +182,8 @@ public class VehicleController {
 	    
 	    vehicleDetails.setUsed(true);
 		
+	    try
+	    {
 		Info info = vehicleService.insertVehicleDetails(vehicleDetails);
 		
 		if(info.isError())
@@ -176,7 +194,11 @@ public class VehicleController {
 		{
 			message = "Successfull";
 		}
+	    } catch (Exception e) {
+			e.printStackTrace();
+			url = "redirect:/errorMessage";
 
+		}
 		return url;
 
 	}
@@ -186,12 +208,19 @@ public class VehicleController {
 	public ModelAndView showAllVehicleDetails(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("vehicle/showAllVehicles");
+		try
+		{
 		List<VehicleDetailsWithOwnerName> vehiclsList = vehicleService.getAllVehicleDetailsByStatus();
-		System.out.println("alll:"+vehiclsList.toString());
 		
 		model.addObject("message",message);
 		model.addObject("vehiclsList",vehiclsList);
 		message="";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
 		return model;
 		
 	}	
@@ -202,11 +231,19 @@ public class VehicleController {
 	{
 		ModelAndView model=new ModelAndView("vehicle/editVehicleDetails");
 		
+		try
+		{
 		List<VehicleOwners> vehicleOwners = vehicleService.getVehicleOwnersByStatus();
 		VehicleDetails vehicleDetails = vehicleService.getVehicleDetailsById(vehId);
 		
 		model.addObject("vehicleOwners",vehicleOwners);
 		model.addObject("vehicleDetails",vehicleDetails);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
 		
 		return model;
 
@@ -219,9 +256,7 @@ public class VehicleController {
 			
 		int vehId = Integer.parseInt(request.getParameter("vehId"));
 	
-		System.out.println("vehId:"+vehId);
-		Info info = vehicleService.deleteVehicleById(vehId);
-		
+		Info info = vehicleService.deleteVehicleById(vehId);	
 		
 		return info;
 		
@@ -265,6 +300,8 @@ public class VehicleController {
 	    
 	    vehiclesDrivers.setUsed(true);
 		
+	    try
+	    {
 		Info info = vehicleService.insertVehicleDrivers(vehiclesDrivers);
 		
 		if(info.isError())
@@ -275,7 +312,12 @@ public class VehicleController {
 		{
 			message = "Successfull";
 		}
+	    }
+	    catch (Exception e) {
+			e.printStackTrace();
+			url = "redirect:/errorMessage";
 
+		}
 		return url;
 
 	}
@@ -285,11 +327,22 @@ public class VehicleController {
 	public ModelAndView showAllVehicleDriverDetails(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("vehicle/showAllVehicleDrivers");
+		
+		try
+		{
 		List<VehicleDriverWithVehNo> vehicleDricerList = vehicleDriverWithVehNoRepository.getAllVehicleDriverDetails(1);
 			
 		model.addObject("message",message);
 		model.addObject("vehicleDricerList",vehicleDricerList);
 		message="";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
+		
+		
 		return model;
 		
 	}	
@@ -300,11 +353,20 @@ public class VehicleController {
 	{
 		ModelAndView model=new ModelAndView("vehicle/editVehicleDriverDetails");
 		
+		try
+		{
 		VehiclesDrivers vehiclesDrivers = vehiclesDriversRepository.findByDriverId(driverId);
 		List<VehicleDetails> vehicleDetails = vehicleService.getVehicleDetailsByStatus();
 		
 		model.addObject("vehiclesDrivers",vehiclesDrivers);
 		model.addObject("vehicleDetails",vehicleDetails);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
+		
 		
 		return model;
 
@@ -315,7 +377,7 @@ public class VehicleController {
 	public @ResponseBody Info deleteDriverById(HttpServletRequest request)   
 	{
 		int driverId = Integer.parseInt(request.getParameter("driverId")); 	
-		System.out.println("driverId:"+driverId);
+	
 		Info info = new Info();
 		try
 		{

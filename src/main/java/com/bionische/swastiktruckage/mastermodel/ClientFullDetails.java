@@ -23,6 +23,9 @@ public class ClientFullDetails {
 	@Column(name="state_id")
 	private int stateId;
 	
+	@Column(name="state_code")
+	private int stateCode;
+	
 	@Column(name="city_id")
 	private int cityId;
 	
@@ -40,6 +43,15 @@ public class ClientFullDetails {
 	
 	@Column(name="state_name")
 	private String stateName;
+	
+
+	public int getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
 
 	public int getClientId() {
 		return clientId;
@@ -124,11 +136,11 @@ public class ClientFullDetails {
 	@Override
 	public String toString() {
 		return "ClientFullDetails [clientId=" + clientId + ", clientName=" + clientName + ", clientAddress="
-				+ clientAddress + ", stateId=" + stateId + ", cityId=" + cityId + ", pincode=" + pincode
-				+ ", clientContactNo=" + clientContactNo + ", gstin=" + gstin + ", cityName=" + cityName
-				+ ", stateName=" + stateName + "]";
+				+ clientAddress + ", stateId=" + stateId + ", stateCode=" + stateCode + ", cityId=" + cityId
+				+ ", pincode=" + pincode + ", clientContactNo=" + clientContactNo + ", gstin=" + gstin + ", cityName="
+				+ cityName + ", stateName=" + stateName + "]";
 	}
-	
+
 	
 
 

@@ -43,12 +43,15 @@
 <body>
 
 	<div class="limiter">
+	
+	
 		<div class="container-login100">
 			<div class="wrap-login100">
-
+ 	<span style="color: red;" id="messageAnimation">${message}</span>
 				<form class="login100-form validate-form"
 					action="${pageContext.request.contextPath}/staffLoginProcess"
 					method="post">
+                      
 
 					<span class="login100-form-title p-b-26"> Sign In </span> <br>
 
@@ -80,9 +83,7 @@
 
 
 
-	<!--===============================================================================================-->
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	
 	<!--===============================================================================================-->
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/vendor/animsition/js/animsition.min.js"></script>
@@ -105,6 +106,15 @@
 	<!--===============================================================================================-->
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/newlogin.js"></script>
+		<!--===============================================================================================-->
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+		
+		<script>
+                        setTimeout(function() {
+    $('#messageAnimation').fadeOut('slow');
+}, 5000);
+                        </script>
 
 </body>
 </html>

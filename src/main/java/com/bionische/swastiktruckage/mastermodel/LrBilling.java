@@ -1,6 +1,7 @@
 package com.bionische.swastiktruckage.mastermodel;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -65,6 +67,26 @@ public class LrBilling {
 	
 	@Column(name="status",length=11)
 	private int status;
+	
+	@Transient
+	List<TransactionLrInvoiceDetail> invoiceDetailList;
+	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public List<TransactionLrInvoiceDetail> getInvoiceDetailList() {
+		return invoiceDetailList;
+	}
+
+	public void setInvoiceDetailList(List<TransactionLrInvoiceDetail> invoiceDetailList) {
+		this.invoiceDetailList = invoiceDetailList;
+	}
 
 	public int getLrHeaderId() {
 		return lrHeaderId;
@@ -192,9 +214,9 @@ public class LrBilling {
 				+ fromId + ", toId=" + toId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight
 				+ ", freight=" + freight + ", gst=" + gst + ", hamali=" + hamali + ", localTempo=" + localTempo
 				+ ", total=" + total + ", paymentBy=" + paymentBy + ", quantity=" + quantity + ", status=" + status
-				+ "]";
+				+ ", invoiceDetailList=" + invoiceDetailList + "]";
 	}
-	
-	
 
+	
+	
 }

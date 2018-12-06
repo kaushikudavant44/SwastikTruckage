@@ -11,12 +11,16 @@ import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 public interface ClientFullDetailsRepository extends JpaRepository<ClientFullDetails, Integer>{
 	
 
-	@Query(value="SELECT c.client_id,c.client_name,c.client_address,c.state_id,c.city_id,c.pincode,c.client_contact_no,c.gstin,y.city_name,s.state_name"
+	@Query(value="SELECT c.client_id,c.client_name,c.client_address,c.state_id,c.city_id,c.pincode,c.client_contact_no,c.gstin,y.city_name,s.state_name,s.state_code"
 			+ " FROM m_clients c,m_city Y,m_states s WHERE c.client_name=:name AND c.is_used=:status AND c.city_id=y.city_id AND c.state_id=s.state_id" ,nativeQuery=true)
 	List<ClientFullDetails> getClientDetailsByName(@Param("name")String name, @Param("status")int status);
 	
-	@Query(value="SELECT c.client_id,c.client_name,c.client_address,c.state_id,c.city_id,c.pincode,c.client_contact_no,c.gstin,t.city_name,s.state_name"
+	@Query(value="SELECT c.client_id,c.client_name,c.client_address,c.state_id,c.city_id,c.pincode,c.client_contact_no,c.gstin,t.city_name,s.state_name,s.state_code"
 			+ " FROM m_clients c,m_city t,m_states s WHERE c.is_used=:status AND c.city_id=t.city_id AND c.state_id=s.state_id" ,nativeQuery=true)
 	List<ClientFullDetails> getAllClientDetailsByStatus(@Param("status")int status);
+	
+	@Query(value="SELECT c.client_id,c.client_name,c.client_address,c.state_id,c.city_id,c.pincode,c.client_contact_no,c.gstin,t.city_name,s.state_name,s.state_code"
+			+ " FROM m_clients c,m_city t,m_states s WHERE c.client_id=:clientId AND c.city_id=t.city_id AND c.state_id=s.state_id" ,nativeQuery=true)
+	ClientFullDetails getClientDetailById(@Param("clientId")int clientId);
 
 }
