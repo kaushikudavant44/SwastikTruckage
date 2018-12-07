@@ -27,8 +27,8 @@ public class TransactionLrHeader {
 	@Column(name="lr_header_id",length=11)
 	private int lrHeaderId;
 	
-	@Column(name="lr_id",length=11)
-	private int lrId;
+	@Column(name="lr_no",length=11)
+	private int lrNo;
 	
 	@Column(name="inv_header_id",length=11)
 	private int invHeaderId;
@@ -36,14 +36,9 @@ public class TransactionLrHeader {
 	@Column(name="from_id",length=11)
 	private int fromId;
 	
-	@Column(name="to_id",length=11)
-	private int toId;
 	
 	@Column(name="consignor",length=200)
-	private String consignor;
-	
-	@Column(name="consignee",length=200)
-	private String consignee;
+	private int consignor;	
 	
 	@Column(name="consigneeId",length=200)
 	private int consigneeId;
@@ -51,7 +46,7 @@ public class TransactionLrHeader {
 	@Column(name="lr_date",length=50)
 	private String lrDate;
 	
-	@Column(name="truck_no",length=11)
+	@Column(name="truck_no",length=200)
 	private String truckNo;
 	
 	@Column(name="weight")
@@ -90,8 +85,18 @@ public class TransactionLrHeader {
 	@Column(name="payment_by",length=11)
 	private int paymentBy;
 	
-	@Column(name="status",length=11)
-	private int status;
+	/**
+	 *  0 - not bill yet
+		1- billed
+		2 - LR collection
+		3 - collected
+	 */
+	@Column(name="bill_status",length=11)
+	private int billStatus;
+	
+	@Column(name="delivery_status",length=11)
+	private int deliveryStatus;
+	
 	
 	@Column(name="create_date")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -145,28 +150,13 @@ public class TransactionLrHeader {
 		this.fromId = fromId;
 	}
 
-	public int getToId() {
-		return toId;
-	}
-
-	public void setToId(int toId) {
-		this.toId = toId;
-	}
-
-	public String getConsignor() {
+	
+	public int getConsignor() {
 		return consignor;
 	}
 
-	public void setConsignor(String consignor) {
+	public void setConsignor(int consignor) {
 		this.consignor = consignor;
-	}
-
-	public String getConsignee() {
-		return consignee;
-	}
-
-	public void setConsignee(String consignee) {
-		this.consignee = consignee;
 	}
 
 	public String getLrDate() {
@@ -289,32 +279,45 @@ public class TransactionLrHeader {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public int getLrId() {
-		return lrId;
+	public int getLrNo() {
+		return lrNo;
 	}
 
-	public void setLrId(int lrId) {
-		this.lrId = lrId;
+	public void setLrNo(int lrNo) {
+		this.lrNo = lrNo;
 	}
 
-	public int getStatus() {
-		return status;
+	public int getBillStatus() {
+		return billStatus;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setBillStatus(int billStatus) {
+		this.billStatus = billStatus;
+	}
+
+	public int getDeliveryStatus() {
+		return deliveryStatus;
+	}
+
+	public void setDeliveryStatus(int deliveryStatus) {
+		this.deliveryStatus = deliveryStatus;
 	}
 
 	@Override
 	public String toString() {
-		return "TransactionLrHeader [lrHeaderId=" + lrHeaderId + ", lrId=" + lrId + ", invHeaderId=" + invHeaderId
-				+ ", fromId=" + fromId + ", toId=" + toId + ", consignor=" + consignor + ", consignee=" + consignee
-				+ ", consigneeId=" + consigneeId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight
-				+ ", freight=" + freight + ", gst=" + gst + ", hamali=" + hamali + ", b_c_charge=" + b_c_charge
-				+ ", kata=" + kata + ", localTempo=" + localTempo + ", bharai=" + bharai + ", dd_charges=" + dd_charges
-				+ ", total=" + total + ", isUsed=" + isUsed + ", paymentBy=" + paymentBy + ", status=" + status
+		return "TransactionLrHeader [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", invHeaderId=" + invHeaderId
+				+ ", fromId=" + fromId + ", consignor=" + consignor + ", consigneeId=" + consigneeId + ", lrDate="
+				+ lrDate + ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight + ", gst=" + gst
+				+ ", hamali=" + hamali + ", b_c_charge=" + b_c_charge + ", kata=" + kata + ", localTempo=" + localTempo
+				+ ", bharai=" + bharai + ", dd_charges=" + dd_charges + ", total=" + total + ", isUsed=" + isUsed
+				+ ", paymentBy=" + paymentBy + ", billStatus=" + billStatus + ", deliveryStatus=" + deliveryStatus
 				+ ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
+
+	
+
+
+
 
 	
 
