@@ -40,7 +40,7 @@ public class TransactionLrHeader {
 	@Column(name="consignor",length=200)
 	private int consignor;	
 	
-	@Column(name="consigneeId",length=200)
+	@Column(name="consignee_id",length=200)
 	private int consigneeId;
 	
 	@Column(name="lr_date",length=50)

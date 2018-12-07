@@ -93,7 +93,7 @@
 <tr>
     <td>${myIndex.index+1}</td>
     <td>${clientBillDetails.lrDate}</td>
-    <td></td>
+    <td>${clientBillDetails.goods}</td>
     <td>${clientBillDetails.truckNo}</td>
     <td>${clientBillDetails.quantity}</td>
     <td>${clientBillDetails.freight}</td>
@@ -127,7 +127,7 @@
     	<table width="200" border="1" class="lfttxtTbl">
       <tr>
         <td colspan="2"><span class="text-uppercase"><strong>Bank Details</strong></span></td>
-        <c:choose>
+        <%-- <c:choose>
   		<c:when test="${trBillHeader.gstPayableBy==0}">
         <td rowspan="2" width="40%" valign="bottom"><h4><strong>GST Payable By CONSIGNOR</strong></h4></td>       
          </c:when>
@@ -135,7 +135,7 @@
         <td rowspan="2" width="40%" valign="bottom"><h4><strong>GST Payable By CONSIGNEE</strong></h4></td> 
         </c:when>
         </c:choose>
-      
+       --%>
         </tr>
       <tr>
         <td><p>BANK</p>

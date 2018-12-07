@@ -32,14 +32,8 @@ public class TransactionBillHeader {
 	@Column(name="bill_date",length=200)
 	private String billDate;
 	
-	@Column(name="bill_to",length=11)
-	private int billTo;
-	
 	@Column(name="bill_total")
 	private float billTotal;
-	
-	@Column(name="gst_payable_by",length=11)
-	private int gstPayableBy;
 	
 	@Column(name="bill_status",length=11)
 	private int billStatus;
@@ -84,13 +78,7 @@ public class TransactionBillHeader {
 		this.billDate = billDate;
 	}
 
-	public int getBillTo() {
-		return billTo;
-	}
-
-	public void setBillTo(int billTo) {
-		this.billTo = billTo;
-	}
+	
 
 	public float getBillTotal() {
 		return billTotal;
@@ -100,13 +88,7 @@ public class TransactionBillHeader {
 		this.billTotal = billTotal;
 	}
 
-	public int getGstPayableBy() {
-		return gstPayableBy;
-	}
-
-	public void setGstPayableBy(int gstPayableBy) {
-		this.gstPayableBy = gstPayableBy;
-	}
+	
 
 	public boolean isUsed() {
 		return isUsed;
@@ -151,10 +133,10 @@ public class TransactionBillHeader {
 	@Override
 	public String toString() {
 		return "TransactionBillHeader [billHeaderId=" + billHeaderId + ", billNo=" + billNo + ", billDate=" + billDate
-				+ ", billTo=" + billTo + ", billTotal=" + billTotal + ", gstPayableBy=" + gstPayableBy + ", billStatus="
-				+ billStatus + ", billPayableBy=" + billPayableBy + ", isUsed=" + isUsed + ", createDate=" + createDate
-				+ ", modifiedDate=" + modifiedDate + "]";
+				+ ", billTotal=" + billTotal + ", billStatus=" + billStatus + ", billPayableBy=" + billPayableBy
+				+ ", isUsed=" + isUsed + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
 
+	
 	
 }

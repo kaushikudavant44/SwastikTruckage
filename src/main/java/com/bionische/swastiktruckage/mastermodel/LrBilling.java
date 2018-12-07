@@ -23,17 +23,14 @@ public class LrBilling {
 	@Column(name="lr_header_id")
 	private int lrHeaderId;
 	
-	@Column(name="lr_id")
-	private int lrId;
+	@Column(name="lr_No")
+	private int lrNo;
 	
 	@Column(name="inv_header_id")
 	private int invHeaderId;
 	
 	@Column(name="from_id")
 	private int fromId;
-	
-	@Column(name="to_id")
-	private int toId;
 	
 	@Column(name="lr_date")
 	private String lrDate;
@@ -65,20 +62,35 @@ public class LrBilling {
 	@Column(name="quantity")
 	private int quantity;
 	
-	@Column(name="status",length=11)
-	private int status;
+	@Column(name="consignor")
+	private int consignor;	
+	
+	@Column(name="consignee_id")
+	private int consigneeId;
+	
+	@Column(name="goods")
+	private String goods;
 	
 	@Transient
 	List<TransactionLrInvoiceDetail> invoiceDetailList;
 	
-
-	public int getStatus() {
-		return status;
+	
+	public String getGoods() {
+		return goods;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setGoods(String goods) {
+		this.goods = goods;
 	}
+
+	public int getConsigneeId() {
+		return consigneeId;
+	}
+
+	public void setConsigneeId(int consigneeId) {
+		this.consigneeId = consigneeId;
+	}
+
 
 	public List<TransactionLrInvoiceDetail> getInvoiceDetailList() {
 		return invoiceDetailList;
@@ -96,12 +108,22 @@ public class LrBilling {
 		this.lrHeaderId = lrHeaderId;
 	}
 
-	public int getLrId() {
-		return lrId;
+	
+
+	public int getConsignor() {
+		return consignor;
 	}
 
-	public void setLrId(int lrId) {
-		this.lrId = lrId;
+	public void setConsignor(int consignor) {
+		this.consignor = consignor;
+	}
+
+	public int getLrNo() {
+		return lrNo;
+	}
+
+	public void setLrNo(int lrNo) {
+		this.lrNo = lrNo;
 	}
 
 	public int getInvHeaderId() {
@@ -120,14 +142,7 @@ public class LrBilling {
 		this.fromId = fromId;
 	}
 
-	public int getToId() {
-		return toId;
-	}
-
-	public void setToId(int toId) {
-		this.toId = toId;
-	}
-
+	
 	public String getLrDate() {
 		return lrDate;
 	}
@@ -210,13 +225,12 @@ public class LrBilling {
 
 	@Override
 	public String toString() {
-		return "LrBilling [lrHeaderId=" + lrHeaderId + ", lrId=" + lrId + ", invHeaderId=" + invHeaderId + ", fromId="
-				+ fromId + ", toId=" + toId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight
-				+ ", freight=" + freight + ", gst=" + gst + ", hamali=" + hamali + ", localTempo=" + localTempo
-				+ ", total=" + total + ", paymentBy=" + paymentBy + ", quantity=" + quantity + ", status=" + status
-				+ ", invoiceDetailList=" + invoiceDetailList + "]";
+		return "LrBilling [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", invHeaderId=" + invHeaderId + ", fromId="
+				+ fromId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight
+				+ ", gst=" + gst + ", hamali=" + hamali + ", localTempo=" + localTempo + ", total=" + total
+				+ ", paymentBy=" + paymentBy + ", quantity=" + quantity + ", consignor=" + consignor + ", consigneeId="
+				+ consigneeId + ", goods=" + goods + ", invoiceDetailList=" + invoiceDetailList + "]";
 	}
 
-	
-	
+		
 }

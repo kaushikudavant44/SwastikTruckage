@@ -78,74 +78,42 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Lr Details</strong>
+							<strong class="card-title">Client Details</strong>
 						</div>
-						  <form action="${pageContext.request.contextPath}/saveClientBillDetails" method="GET" id="generateBill">
 						<div class="card-body">
-            
+
 							<table id="bootstrap-data-table"
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									    <th>select</th>
-										<th>Lr No</th>
-										<th>Payment By</th>
-										<th >Total</th>
-										
+										<th>Name</th>
+										<th>Contact No</th>
+										<th >Address</th>
+										<th >Pincode</th>
+										<th >gst</th>
+										<th >action</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${transactionLrHeader}" var="transactionLrHeader" varStatus="count">
+								<c:forEach items="${allClientDetails}" var="allClientDetails" varStatus="count">
 									
-						<tr>
-						
-						<c:choose>
-                              <c:when test="${transactionLrHeader.paymentBy==0}">
-                              
-  							<td><input type="checkbox" value="${transactionLrHeader.lrHeaderId}" name="${transactionLrHeader.paymentBy}"></td>
-  							
-  							</c:when>
-  							<c:when test="${transactionLrHeader.paymentBy==1}">
-                              
-  							<td><input type="checkbox" value="${transactionLrHeader.lrHeaderId}" name="${transactionLrHeader.paymentBy}"></td>
-  							
-  							</c:when>
-  							</c:choose>
-						
-						
-						
-							
-							<td>${transactionLrHeader.lrNo}</td>
-										 <c:choose>
-                              <c:when test="${transactionLrHeader.paymentBy==0}">
-                              
-  							<td>Consignee</td>
-  							
-  							</c:when>
-  							<c:when test="${transactionLrHeader.paymentBy==1}">
-                              
-  							<td>Consignor</td>
-  							
-  							</c:when>
-  							</c:choose>
-										
-										<td>${transactionLrHeader.total}</td>
-										
-										
+									<tr>
+										<td>${allClientDetails.clientName}</td>
+										<td>${allClientDetails.clientContactNo}</td>
+										<td>${allClientDetails.clientAddress}</td>
+										<td>${allClientDetails.pincode}</td>
+										<td>${allClientDetails.gstin}</td>
+										<th> <button type="submit" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/showLrBilling/${allClientDetails.clientId}">
+										Submit</a>
+									</button>	 </th>
 									</tr>
-									
 									</c:forEach>
 								</tbody>
-							</table>                       
+							</table>
+
+
 						</div>
-						<div class="col-sm-12 text-center">
-							
-<button type="button" class="btn btn-primary" onclick="validateType()">
-										Generate
-									</button>							
-							</div>
-						</form>
 					</div>
 				</div>
 
@@ -228,36 +196,6 @@ function deleteClient(clientId){
 	});
 	}
 	
-}
-
-function validateType()
-{
-	
-	 if($('input[name=0]:checked').length > 0 && $('input[name=1]:checked').length > 0)
- 	{
- 	alert("failed");
- 	location.load();
- 	}
-     else
- 	{
-     if($('input[name=0]:checked').length > 0 || $('input[name=1]:checked').length > 0)	 
-    	 {
-    	 $('#generateBill').submit();
-    	 }
-     else
-    	 {
-    	 alert("please select ");
-    	 }
- 	} 
- 	
-    
-}
-function checkAdult(age) {
-    return age == 1;
-}
-
-function myFunction() {
-  alert(ages.every(checkAdult));
 }
 </script>
 </body>
