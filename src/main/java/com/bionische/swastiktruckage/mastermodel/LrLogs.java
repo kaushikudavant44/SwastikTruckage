@@ -18,7 +18,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name="m_lr_logs")
+@Table(name="t_lr_logs")
 @EntityListeners(AuditingEntityListener.class)
 public class LrLogs {
 
