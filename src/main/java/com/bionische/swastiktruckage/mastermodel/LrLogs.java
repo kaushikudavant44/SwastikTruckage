@@ -38,6 +38,7 @@ public class LrLogs {
 	
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="modified_date")
 	private Date modifiedDate;
 
 	public int getLogId() {
