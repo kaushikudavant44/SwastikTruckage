@@ -57,10 +57,10 @@
 	<div class="swastikForm1">
          <img src="${pageContext.request.contextPath}/resources/images/swastik.png" class="img-responsive" alt="logo">
         <!--<h2 class="text-center"> <img src="${pageContext.request.contextPath}/resources/images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
-        <p class="text-center"><strong>Address:</strong> Plot No. 44/1/2, M.I.D.C. Satpur, Nashik-422007. </p>
-        <p class="text-center"><strong>Ph No.:</strong> 2350144,2350287 &nbsp; &nbsp;<strong>Fax:</strong> 2350211</p>
-        <p class="text-center"><strong>PAN No.</strong> AARFS-4904-J &nbsp; &nbsp; <strong>Account Helpline:</strong> 9822218090, 9822847774</p>
-        <h4 class="text-center"><strong>GSTIN :</strong> 27AARFS4904J1ZP &nbsp; &nbsp;<strong>SAC Code :</strong> 996511</h4>
+        <p class="text-center"><strong>Address:</strong> ${companyDetails.address} </p>
+        <p class="text-center"><strong>Ph No.:</strong>${companyDetails.contactNo1},${companyDetails.contactNo2},${companyDetails.contactNo3} &nbsp; &nbsp;<strong>Fax:</strong> 2350211</p>
+        <p class="text-center"><strong>PAN No.</strong>  ${companyDetails.panNo} &nbsp; &nbsp; <strong>Account Helpline:</strong> ${companyDetails.helplineNo}</p>
+        <h4 class="text-center"><strong>GSTIN :</strong> ${companyDetails.gstin} &nbsp; &nbsp;<strong>SAC Code :</strong> ${companyDetails.sacCode}</h4>
         <div class="clearfix"></div>
         <hr>
         <div class="col-sm-6">
@@ -113,9 +113,9 @@
     <td>&nbsp;</td>
     <td><strong>Total</strong></td>
     <td><strong>${totalQty}</strong></td>
-    <td>&nbsp;</td> 
+    <td>${totalFreight}</td> 
     <td>&nbsp;</td>
-    <td><strong></strong></td>
+    <td><strong>${totalHamali}</strong></td>
     <td><strong></strong></td>
     <td><strong>${totalBill}</strong></td>
   </tr>
@@ -143,11 +143,11 @@
           <p>MICR</p>
           <p>RTGS CODE</p>
           <p>Email</p></td>
-        <td><p>HDFC BANK, THATTE NAGAR, NASHIK</p>
-          <p>00642790000250</p>
-          <p>422240002</p>
-          <p>HDFC0000064</p>
-          <p>swastiktransportco@reddiffmail.com</p></td>
+        <td><p>${companyDetails.bankName} </p>
+          <p>${companyDetails.accNo} </p>
+          <p>${companyDetails.micrNo} </p>
+          <p>${companyDetails.rtgsCode} </p>
+          <p>${companyDetails.email} </p></td>
           </tr>
       </table>
     </div>
@@ -155,7 +155,7 @@
     	<table width="200" border="1" class="lfttxtTbl">
       <tr>
         <td><span class="text-uppercase"><strong>Declaration</strong></span></td>
-        <td rowspan="2" width="40%" valign="bottom"><h4><strong>For Swastik transport Company</strong></h4></td>
+        <td rowspan="2" width="40%" valign="bottom"><h4><strong>For ${companyDetails.companyName}</strong></h4></td>
         </tr>
       <tr>
         <td>Tax paid on reverse charge basis will be available for input tax credit if such goods and / or services are used, or will be used, for business, the service recepient (i.e, who pays reverse tax) can avail input tax credit.</td>

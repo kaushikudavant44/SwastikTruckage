@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bionische.swastiktruckage.mastermodel.City;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
+import com.bionische.swastiktruckage.mastermodel.CompanyDetails;
 import com.bionische.swastiktruckage.mastermodel.Info;
 import com.bionische.swastiktruckage.mastermodel.LrBilling;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
@@ -34,6 +35,7 @@ import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.repository.CityRepository;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.ClientFullDetailsRepository;
+import com.bionische.swastiktruckage.repository.CompanyDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
@@ -78,6 +80,10 @@ public class ClientController {
 	
 	@Autowired
 	ClientFullDetailsRepository clientFullDetailsRepository;
+	
+	@Autowired
+	CompanyDetailsRepository companyDetailsRepository;
+
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
 	
@@ -268,10 +274,15 @@ public class ClientController {
      
 		float totalBill=0;
 		int totalQty=0;
+		float totalFreight=0;
+		float totalHamali=0;
 		for(LrBilling clientBill : clientBillDetails)
 		{
 			totalBill+=clientBill.getTotal();	
 			totalQty+=clientBill.getQuantity();
+			totalFreight+=clientBill.getFreight();
+			totalHamali+=clientBill.getHamali();
+					
 			clientBill.setInvoiceDetailList(transactionLrInvoiceDetailRepository.findByInvHeaderId(clientBill.getInvHeaderId()));
 		}
 		
@@ -299,7 +310,7 @@ public class ClientController {
 			transactionBillHeader.setBillPayableBy(clientBillDetails.get(0).getConsignor());
 		}
 		
-		transactionBillHeader.setBillDate(request.getParameter(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+		transactionBillHeader.setBillDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		transactionBillHeader.setBillTotal(totalBill);		
 		transactionBillHeader.setBillStatus(0);
 		transactionBillHeader.isUsed();
@@ -333,14 +344,18 @@ public class ClientController {
 		
 		transactionBillLogsRepository.save(transactionBillLogs);
 		
-		model.addObject("clientFullDetails",clientFullDetails);
+		//company details
+		CompanyDetails	companyDetails = companyDetailsRepository.findByCompanyId(1);
 		
+		model.addObject("clientFullDetails",clientFullDetails);	
 		model.addObject("trBillHeader",billHeader);
 		model.addObject("totalBill",totalBill);
 		model.addObject("totalQty",totalQty);
+		model.addObject("totalFreight",totalFreight);
+		model.addObject("totalHamali",totalHamali);
+		model.addObject("clientFullDetails",clientFullDetails);	
 		
-		
-		model.addObject("clientBillDetails",clientBillDetails);
+		model.addObject("companyDetails",companyDetails);
 		return model;
 		
 	}

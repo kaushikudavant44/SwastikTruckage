@@ -1,88 +1,101 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html > <!--<![endif]-->
+
+<html>
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Data Table</title>
 
-    <link rel="apple-touch-icon" href="apple-icon.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/flag-icon.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
+<link rel="apple-touch-icon"
+	href="${pageContext.request.contextPath}/resources/apple-icon.png">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/favicon.ico">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/themify-icons.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/flag-icon.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+.right {
+	text-align: right;
+}
+
+.left {
+	text-align: left;
+}
+</style>
+
+
 
 </head>
 <body>
-<c:url var="deleteClientById" value="/deleteClientById" />
-
-<div  ><jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 
 
-    <!-- Right Panel -->
+	<!-- Left Panel -->
+	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
+	<!-- Left Panel -->
 
-    <div id="right-panel" class="right-panel">
 
-        <!-- Header-->
-        <div  ><jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
-        
-        <!-- Header-->
+	<!-- Header-->
+	<jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
+	<!-- Header-->
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Dashboard</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Dashboard</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-  <div class="content mt-3">
-  
-  <div class="form-group ">
-                        <div class="col-lg-5"></div>
-                         <div class="col-lg-5">
-                        <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
-         </div> 
-         </div>
- 
- <div class="row">
+
+	<div class="breadcrumbs">
+		<div class="col-sm-4">
+			<div class="page-header float-left">
+				<div class="page-title">
+					<h1>Dashboard</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<div class="page-header float-right">
+				<div class="page-title">
+					<ol class="breadcrumb text-right">
+						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Office Details</a></li>
+						
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content mt-3">
+		<div class="animated fadeIn">
+			<div class="row">
 
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Lr Details</strong>
+							<strong class="card-title">Client detail</strong>
 						</div>
-						  <form action="${pageContext.request.contextPath}/saveClientBillDetails" method="GET" id="generateBill">
 						<div class="card-body">
-            
+<form action="${pageContext.request.contextPath}/saveClientBillDetails" method="GET" id="generateBill">
 							<table id="bootstrap-data-table"
 								class="table table-striped table-bordered">
 								<thead>
@@ -137,36 +150,35 @@
 									
 									</c:forEach>
 								</tbody>
-							</table>                       
-						</div>
-						<div class="col-sm-12 text-center">
+							</table>
+
+<div class="col-sm-12 text-center">
 							
 <button type="button" class="btn btn-primary" onclick="validateType()">
 										Generate
 									</button>							
 							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
 
 
 			</div>
+		</div>
+		<!-- .animated -->
+	</div>
+	<!-- .content -->
 
- </div>
-</div>
-        
-  
-    <div align="center" ><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-        </div> <!-- .content -->
-    </div><!-- /#right-panel -->
 
-    <!-- Right Panel -->
-    
-    
-    
 
-   
+
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<!-- Footer -->
+
+	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
@@ -207,29 +219,6 @@
 
 <script>
 
-function deleteClient(clientId){
-	
-	
-	if(confirm("Delete Slected Item?!!"))
-		{
-	$.getJSON('${deleteClientById}', {
-		
-		clientId : clientId,
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		if(data.message=="success"){
-			
-			location.reload();
-			alert("Client record delete successfully");
-		}
-
-	});
-	}
-	
-}
-
 function validateType()
 {
 	
@@ -252,13 +241,8 @@ function validateType()
  	
     
 }
-function checkAdult(age) {
-    return age == 1;
-}
-
-function myFunction() {
-  alert(ages.every(checkAdult));
-}
 </script>
+
+
 </body>
 </html>
