@@ -62,7 +62,7 @@
 
 
 </head>
-<body>
+<body onload="getTotal()">
 
 
 	<!-- Left Panel -->
@@ -107,16 +107,18 @@
 							<strong>Make LR</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertLR" method="post">
+							<form action="${pageContext.request.contextPath}/insertLR"
+								method="post">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 											<div class="col-md-2">From</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<select id="fromId" name="fromId" class="standardSelect" tabindex="1">
-														<option value=""> </option>
-													<c:forEach items="${officeList}" var="officeList">
+													<select id="fromId" name="fromId" class="standardSelect"
+														tabindex="1" required="required">
+														<option value=""></option>
+														<c:forEach items="${officeList}" var="officeList">
 
 															<c:choose>
 																<c:when
@@ -138,17 +140,13 @@
 											<div class="col-md-2">To:</div>
 											<div class="col-md-3">
 												<div class="input-group">
+													<input type="hidden" id="clientIdForAdd" name="clientIdF" />
 
-													<select id="toId" name="toId" class="standardSelect" tabindex="1">
-														<option value=""></option>
-													<c:forEach items="${officeList}" var="officeList">
 
-															
-																	<option value="${officeList.officeId}">${officeList.officeName}
-																	</option>
-													
-														</c:forEach>
-													</select>
+													<input class="form-control" name="consignorAddress"
+														id="consignorAddress" type="text" value="" disabled /> <span
+														class="error" aria-live="polite"></span>
+
 
 												</div>
 											</div>
@@ -162,30 +160,32 @@
 													<input class="form-control" name="staffName" id="staffName"
 														type="text" required value="1"
 														oninvalid="setCustomValidity('Please enter name ')"
-														onchange="try{setCustomValidity('')}catch(e){}" /> <span
+														onkeyup="try{setCustomValidity('')}catch(e){}" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div> -->
 										</div>
 									</div>
-									
+
 									&nbsp;
-									
+
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 											<div class="col-md-2">CONSIGNOR:</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<select id="consignor" name="consignor" class="standardSelect" tabindex="1">
+													<select id="consignor" name="consignor"
+														class="standardSelect" tabindex="1">
 														<option value=""></option>
-													<c:forEach items="${clientList}" var="clientList">
+														<c:forEach items="${clientList}" var="clientList">
 
-															
-																	<option value="${clientList.clientId}">${clientList.clientName}
-																	</option>
-																													</c:forEach>
-													</select>
+
+															<option value="${clientList.clientId}">${clientList.clientName},&nbsp;${clientList.clientAddress}
+																</option>
+														</c:forEach>
+													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
 
@@ -194,39 +194,38 @@
 												<div class="input-group">
 
 													<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<input type="text" id="datepicker" name="lrDate">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" id="datepicker" name="lrDate" autocomplete="off"
+														required="required">
 
 												</div>
 											</div>
 
 										</div>
 									</div>
-									
-									
+
+
 									&nbsp;
-									
+
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 											<div class="col-md-2">CONSIGNEE:</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<select id="consigneeId" name="consigneeId" class="standardSelect" tabindex="1">
+													<select id="consigneeId" name="consigneeId"
+														class="standardSelect" tabindex="1"
+														onchange="getClientAddress()">
 														<option value=""></option>
-													<c:forEach items="${clientList}" var="clientList">
+														<c:forEach items="${clientList}" var="clientList">
 
-															
-																	<option value="${clientList.clientId}">${clientList.clientName}
-																	</option>
-																													</c:forEach>
-																													
-															
-													</select>
-													<br>
-													<input class="form-control" name="consignee" id="consignee"
-														type="text" required placeholder="Other"/> <span
-														class="error" aria-live="polite"></span>
+															<option value="${clientList.clientId}">${clientList.clientName},&nbsp;${clientList.clientAddress}
+															</option>
+														</c:forEach>
+
+
+													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
 
@@ -235,64 +234,65 @@
 												<div class="input-group">
 
 													<input class="form-control" name="truckNo" id="truckNo"
-														type="text" required value="1"/> <span
-														class="error" aria-live="polite"></span>
+														type="text" required /> <span class="error"
+														aria-live="polite"></span>
 
 												</div>
 											</div>
 
-										<div class="col-md-2"></div>
+											<div class="col-md-2"></div>
 										</div>
 									</div>
-									
-									
+
+
 									&nbsp;
-									
+
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											
+
 
 											<div class="col-md-2">Payment By:</div>
-											<div class="col-md-2">CONSIGNOR</div>
-											<div class="col-md-3">
+											<div class="col-md-2">To Be Billed</div>
+											<div class="col-md-1">
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="0" required/> <span
-														class="error" aria-live="polite"></span>
-														
-												
+														type="radio" value="0" required /> <span class="error"
+														aria-live="polite"></span>
+
+
 
 												</div>
 											</div>
-											
+											<div class="col-md-2"></div>
 
-										<div class="col-md-2">CONSIGNEE</div>
-										
-										<div class="col-md-3">
+											<div class="col-md-1">To Pay</div>
+
+											<div class="col-md-1">
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="1" required/> <span
+														type="radio" value="1" required checked /> <span
 														class="error" aria-live="polite"></span>
-														
+
 												</div>
 											</div>
+											<div class="col-md-3"></div>
 										</div>
 									</div>
-									
+
 									&nbsp;
-									
+
 									<hr>
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-										
+
 											<div class="col-md-2">WEIGHT</div>
 											<div class="col-md-2">
 												<div class="input-group">
-													
+
 													<input class="form-control" name="weight" id="weight"
-														type="number" required value="" /> <span
+														type="number" required min="0" value="" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
@@ -302,55 +302,56 @@
 												<div class="input-group">
 
 													<input class="form-control" name="freight" id="freight"
-														type="text" onchange="getTotal()"/> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-										
+
 											<div class="col-md-2">GST</div>
 											<div class="col-md-2">
 
 												<div class="input-group">
-													
+
 													<input class="form-control" name="gst" id="gst"
-														type="text"  onchange="getTotal()"/> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-										
-											
+
+
 										</div>
 									</div>
 
-								&nbsp;
-									
+									&nbsp;
+
 									<hr>
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-										
-										
-											
+
+
+
 											<div class="col-md-2">HAMALI</div>
 											<div class="col-md-2">
 
 												<div class="input-group">
-													
+
 													<input class="form-control" name="hamali" id="hamali"
-														type="text"  onchange="getTotal()"/> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-										
+
 											<div class="col-md-2">B. C. CHARGE</div>
 											<div class="col-md-2">
 												<div class="input-group">
-													
+
 													<input class="form-control" name="bccharge" id="bccharge"
-														type="number" required value="10"  onchange="getTotal()"/> <span
-														class="error" aria-live="polite"></span>
+														type="number" required value="10" min="0"
+														onkeyup="getTotal()" /> <span class="error"
+														aria-live="polite"></span>
 												</div>
 											</div>
 
@@ -358,44 +359,46 @@
 											<div class="col-md-2">
 												<div class="input-group">
 
-													<input class="form-control" name="kata" id="kata"
-														type="text"  onchange="getTotal()"/> <span
+													<input class="form-control" name="kata" id="kata" value="0"
+														type="number" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-										
-											
-											
+
+
+
 										</div>
 									</div>
-									
+
 									&nbsp;
-									
+
 									<hr>
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-										
-										
+
+
 											<div class="col-md-2">LOCAL TEMPO</div>
 											<div class="col-md-2">
 
 												<div class="input-group">
-													
-													<input class="form-control" name="localtempo" id="localtempo"
-														type="text"  onchange="getTotal()"/> <span
-														class="error" aria-live="polite"></span>
+
+													<input class="form-control" name="localtempo"
+														id="localtempo" value="0" type="number" min="0"
+														onkeyup="getTotal()" /> <span class="error"
+														aria-live="polite"></span>
 
 												</div>
 											</div>
-										
+
 											<div class="col-md-2">BHARAI</div>
 											<div class="col-md-2">
 												<div class="input-group">
-													
+
 													<input class="form-control" name="bharai" id="bharai"
-														type="number" required value=""  onchange="getTotal()"/> <span
-														class="error" aria-live="polite"></span>
+														type="number" min="0" required value="0"
+														onkeyup="getTotal()" value="0" /> <span class="error"
+														aria-live="polite"></span>
 												</div>
 											</div>
 
@@ -404,153 +407,153 @@
 												<div class="input-group">
 
 													<input class="form-control" name="ddcharges" id="ddcharges"
-														type="text"  onchange="getTotal()"/> <span
+														type="number" min="0" onkeyup="getTotal()" value="0" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-										
-											
-											
+
+
+
 										</div>
 									</div>
-								&nbsp;
-								<div class="col-xs-12 col-sm-12">
+									&nbsp;
+									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-										
-										
-										<div  class="col-md-4"></div>
-										<div  class="col-md-4"></div>
-										
-								<div class="col-md-2"><strong>TOTAL</strong></div>
+
+
+											<div class="col-md-4"></div>
+											<div class="col-md-4"></div>
+
+											<div class="col-md-2">
+												<strong>TOTAL</strong>
+											</div>
 											<div class="col-md-2">
 
 												<div class="input-group">
-													
+
 													<input class="form-control" name="total" id="total"
-														type="text"/ readonly> <span
-														class="error" aria-live="polite"></span>
+														type="text" / readonly> <span class="error"
+														aria-live="polite"></span>
 
 												</div>
 											</div>
 
-								</div>
-								</div>
+										</div>
+									</div>
 
 								</div>
-								
-								
-								
+
+
+
 								&nbsp;
 								<hr>
 								<strong>Invoice Details</strong>
 								<hr>
 								<div class="col-xs-12 col-sm-12">
-										<div class="row">
-										
-											<div class="col-md-1">Invoice No.</div>
-											<div class="col-md-3">
-												<div class="input-group">
-													
-													<input class="form-control" name="invoiceNo" id="invoiceNo"
-														type="text" required value="" /> <span
-														class="error" aria-live="polite"></span>
-												</div>
-											</div>
+									<div class="row">
 
-										
-											<div class="col-md-2">
-												<div class="input-group">
-													
-													<input  type="button" onclick="addInvoice()" value="add" /> 
-								
-												</div>
+										<div class="col-md-1">Invoice No.</div>
+										<div class="col-md-3">
+											<div class="input-group">
+
+												<input class="form-control" name="invoiceNo" id="invoiceNo"
+													type="text" required value="" /> <span class="error"
+													aria-live="polite"></span>
 											</div>
-										
+										</div>
+
+
+										<div class="col-md-2">
+											<div class="input-group">
+
+												<input type="button" onclick="addInvoice()" value="add" />
+
+											</div>
+										</div>
+
 										<!-- 	<div class="col-md-2">Invoice Numbers</div> -->
-											<div class="col-md-6">
+										<div class="col-md-6">
 
-												<div class="input-group">
-													<table id="invoiceTable" class="table">
+											<div class="input-group">
+												<table id="invoiceTable" class="table">
 													<thead>
-													<th>Sr No</th>
-													<th>Invoice Numbers</th>
-													<th>Action</th>
+														<th>Sr No</th>
+														<th>Invoice Numbers</th>
+														<th>Action</th>
 													</thead>
 													<tbody>
-													<%-- <tr>
-													<td>1</td>
-													<td>12345</td>
-													<td><div class="fa-hover col-lg-3 col-md-6">
-													<a
-														href="${pageContext.request.contextPath}/editStaffDetails"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a>
-												</div>
-												<div class="fa-hover col-lg-3 col-md-6">
-													<a href="#" onclick="deleteStaff()"><i
-														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
 
-												</div></td>
-													</tr> --%>
 													</tbody>
-													</table>
+												</table>
 
-												</div>
 											</div>
-											
 										</div>
+
 									</div>
-										
-								
+								</div>
+
+
 
 								&nbsp;
 								<hr>
 								<strong>Containt Details</strong>
 								<hr>
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
-										
-											<div class="col-md-2">No. of Contains</div>
-											<div class="col-md-1">
-												<div class="input-group">
-													
-													<input class="form-control" name="noOfContaint" id="noOfContaint"
-														type="number" required value="" /> <span
-														class="error" aria-live="polite"></span>
-												</div>
+								<div class="col-xs-12 col-sm-12">
+									<div class="row">
+
+										<div class="col-md-2">No. of Contains</div>
+										<div class="col-md-1">
+											<div class="input-group">
+
+												<input class="form-control" name="noOfContaint"
+													id="noOfContaint" type="number" required value="" /> <span
+													class="error" aria-live="polite"></span>
 											</div>
+										</div>
 
-											<div class="col-md-1">Goods:</div>
-											<div class="col-md-3">
-												<div class="input-group">
+										<div class="col-md-1">Goods:</div>
+										<div class="col-md-3">
+											<div class="input-group">
 
-													<input class="form-control" name="goods" id="goods"
-														type="text" /> <span
-														class="error" aria-live="polite"></span>
+												<select id="goodsId" name="goodsId"
+														class="standardSelect" tabindex="1">
+														<option value=""></option>
+														<c:forEach items="${goodsList}" var="goodsList">
 
-												</div>
+															<option value="${goodsList.goodsId}">${goodsList.goodsName}
+															</option>
+														</c:forEach>
+
+
+												</select>
+												
+
 											</div>
-										
-											<div class="col-md-1">Description</div>
-											<div class="col-md-2">
+										</div>
 
-												<div class="input-group">
-													<textarea class="form-control" name="description" id="description"
-														type="text" required value="1" row="2"></textarea> <span
-														class="error" aria-live="polite"></span>
+										<div class="col-md-1">Description</div>
+										<div class="col-md-2">
 
-												</div>
+											<div class="input-group">
+												<textarea class="form-control" name="description"
+													id="description" type="text" required value="1" row="2"></textarea>
+												<span class="error" aria-live="polite"></span>
+
 											</div>
-											<div class="col-md-1"><input type="button" value="add" onclick="addContaints()"/></div>
+										</div>
+										<div class="col-md-1">
+											<input type="button" value="add" onclick="addContaints()" />
 										</div>
 									</div>
-										
-								
+								</div>
+
+
 
 								&nbsp;
 								<hr>
 								<table id="bootstrap-data-table"
-									class="table table-striped table-bordered" >
+									class="table table-striped table-bordered">
 									<thead>
 										<tr>
 											<th>Sr. No.</th>
@@ -560,48 +563,27 @@
 											<th>Action</th>
 										</tr>
 									</thead>
-									<%-- <tbody>
-										<c:forEach items="${staffList}" var="staffList" varStatus="count">
-										<tr>
-											<td>${count.index+1 }</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><div class="fa-hover col-lg-3 col-md-6">
-													<a
-														href="${pageContext.request.contextPath}/editStaffDetails"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a>
-												</div>
-												<div class="fa-hover col-lg-3 col-md-6">
-													<a href="#" onclick="deleteStaff()"><i
-														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
 
-												</div></td>
-										</tr>
-										</c:forEach>
-
-
-									</tbody> --%>
 								</table>
-								
+
 								<div class="col-lg-12" align="center">
 
 
-					<button type="submit" class="btn btn-primary"
-						style="align-content: center; width: 226px; margin-left: 80px;">
-						Submit</button>
-				</div>
-				</form>
+									<button type="submit" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										Submit</button>
+								</div>
+							</form>
 						</div>
-						
-						
+
+
 					</div>
 
-			
-			
-		
+
+
+
 				</div>
-				
+
 			</div>
 
 		</div>
@@ -718,26 +700,28 @@ function deleteStaff(staffId){
 	
 }
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 var dataTable = $('#bootstrap-data-table').DataTable();
 function addContaints(){
 	var noOfContaint=document.getElementById("noOfContaint").value;
-	var goods=document.getElementById("goods").value;
+	var goodsId=document.getElementById("goodsId").value;
 	var description=document.getElementById("description").value;
-	
+	var goodsName=$("#goodsId option:selected").html();
+	alert(goodsName);
 	
 $.getJSON('${addContaint}', {
 		
 	noOfContaint : noOfContaint,
-		goods: goods,
-		description: description,
-		ajax : 'true'
+	goodsId: goodsId,
+	description: description,
+	goodsName: goodsName,
+	ajax : 'true'
 		
 	}, function(data) {
 			dataTable.clear().draw();
 		 $.each(
 					data,
-					function(key, transactionLrContaintDetailsList) {
+					function(key, lrContaintDetailsList) {
 						
 						
 		
@@ -746,7 +730,7 @@ $.getJSON('${addContaint}', {
 			
 			
 			
-			  dataTable.row.add(  [key+1 ,transactionLrContaintDetailsList.noOfContaints,  transactionLrContaintDetailsList.goods, transactionLrContaintDetailsList.description,  
+			  dataTable.row.add(  [key+1 ,lrContaintDetailsList.noOfContaints,  lrContaintDetailsList.goodsName, lrContaintDetailsList.description,
 		                 '<a href="#" onclick="deleteContaint('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
 			
 					});
@@ -784,7 +768,7 @@ function deleteContaint(index){
 }
 </script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 function getTotal(){
 	
 	var freight=document.getElementById("freight").value;
@@ -795,7 +779,7 @@ function getTotal(){
 	var localtempo=document.getElementById("localtempo").value;
 	var bharai=document.getElementById("bharai").value;
 	var ddcharges=document.getElementById("ddcharges").value;
-	
+				
 	var total=Number(freight)+Number(gst)+Number(hamali)+Number(bccharge)+Number(kata)+Number(localtempo)+Number(bharai)+Number(ddcharges);
 	document.getElementById("total").value=total;
 	
@@ -804,10 +788,10 @@ function getTotal(){
 
 </script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 function addInvoice(){
 	
-	alert("dc");
+	
 	var invoiceNo=document.getElementById("invoiceNo").value;
 	$.getJSON('${addInvoiceNumber}', {
 		
@@ -822,7 +806,7 @@ function addInvoice(){
 						data,
 						function(key, transactionLrInvoiceDetailList) {
 			
-							alert(transactionLrInvoiceDetailList.invNo);
+							
 							
 							var tr = $('<tr></tr>');
 							
@@ -877,9 +861,28 @@ function deleteInvoice(index){
 		});
 }
 </script>
+
+
+	<script type="text/javascript">
+	function getClientAddress(){
+		
+		
+	var clientId=document.getElementById("consigneeId").value;
 	
+
 	
+	var jsList = new Array();
+	<c:forEach items="${clientList}" var="clientList" varStatus="status"> 
 	
+	 var client = "<c:out value="${clientList.clientId}"/>";
+	   if(client==clientId){
+		   var clientAddress="<c:out value="${clientList.clientAddress}"/>";
+		   
+			document.getElementById("consignorAddress").value=clientAddress;
+	   }
+	</c:forEach> 
+	}
+	</script>
 
 
 
