@@ -40,7 +40,7 @@ public class TransactionLrHeader {
 	@Column(name="consignor",length=200)
 	private int consignor;	
 	
-	@Column(name="consignee_id",length=200)
+	@Column(name="consigneeId",length=200)
 	private int consigneeId;
 	
 	@Column(name="lr_date",length=50)
@@ -93,6 +93,7 @@ public class TransactionLrHeader {
 	 */
 	@Column(name="bill_status",length=11)
 	private int billStatus;
+	
 	
 	@Column(name="delivery_status",length=11)
 	private int deliveryStatus;

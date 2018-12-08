@@ -2,36 +2,33 @@ package com.bionische.swastiktruckage.mastermodel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name="t_lr_containt_details")
-@EntityListeners(AuditingEntityListener.class)
-public class TransactionLrContaintDetails {
+public class LrContaintDetails {
+
 	
-		
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="detail_id",length=11)
+	@Column(name="detail_id")
 	private int detailId;
 	
-	@Column(name="lr_header_id",length=200)
+	@Column(name="lr_header_id")
 	private int lrHeaderId;
 	
-	@Column(name="no_of_containts",length=200)
+	@Column(name="no_of_containts")
 	private float noOfContaints;
 	
 	@Column(name="goods_id",length=11)
 	private int goodsId;
 	
-	@Column(name="description",length=11)
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="goods_name")
+	private String goodsName;
 
 	public int getDetailId() {
 		return detailId;
@@ -57,8 +54,6 @@ public class TransactionLrContaintDetails {
 		this.noOfContaints = noOfContaints;
 	}
 
-
-
 	public int getGoodsId() {
 		return goodsId;
 	}
@@ -75,14 +70,21 @@ public class TransactionLrContaintDetails {
 		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return "TransactionLrContaintDetails [detailId=" + detailId + ", lrHeaderId=" + lrHeaderId + ", noOfContaints="
-				+ noOfContaints + ", goodsId=" + goodsId + ", description=" + description + "]";
+	public String getGoodsName() {
+		return goodsName;
 	}
 
-	
-	
-	
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
 
+	@Override
+	public String toString() {
+		return "LrContaintDetails [detailId=" + detailId + ", lrHeaderId=" + lrHeaderId + ", noOfContaints="
+				+ noOfContaints + ", goodsId=" + goodsId + ", description=" + description + ", goodsName=" + goodsName
+				+ "]";
+	}
+	
+	
+	
 }

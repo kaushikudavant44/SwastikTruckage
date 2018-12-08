@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.mastermodel.City;
+import com.bionische.swastiktruckage.mastermodel.Goods;
 import com.bionische.swastiktruckage.mastermodel.Info;
 import com.bionische.swastiktruckage.mastermodel.OfficeDetails;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
@@ -26,6 +27,7 @@ import com.bionische.swastiktruckage.mastermodel.States;
 import com.bionische.swastiktruckage.model.GetStaffDetails;
 import com.bionische.swastiktruckage.repository.CityRepository;
 import com.bionische.swastiktruckage.repository.GetStaffDetailsRepository;
+import com.bionische.swastiktruckage.repository.GoodsRepository;
 import com.bionische.swastiktruckage.repository.OfficeDetailsRepository;
 import com.bionische.swastiktruckage.repository.OfficeStaffRepository;
 import com.bionische.swastiktruckage.repository.StaffRolesRepository;
@@ -48,6 +50,9 @@ public class MasterController {
 	
 	@Autowired
 	GetStaffDetailsRepository getStaffDetailsRepository;
+	
+	@Autowired
+	GoodsRepository goodsRepository;
 	
 	@Autowired
 	CityRepository cityRepository;
@@ -361,6 +366,7 @@ public class MasterController {
 		}
 
 		} catch (Exception e) {
+			model =new ModelAndView("common/errorMsg");
 		e.printStackTrace();
 		}
 		return staffDetails;
@@ -389,4 +395,91 @@ public class MasterController {
 		}
 		return i;
 	}	
+	
+	@RequestMapping(value = "/showGoodsReg", method = RequestMethod.GET)
+
+	public ModelAndView showGoodsReg(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("master/goods");
+		try {
+			List<Goods> goodsList=goodsRepository.findByIsUsedOrderByGoodsIdDescIsUsed(true);
+			model.addObject("goodsList", goodsList);
+				
+		} catch (Exception e) {
+			model =new ModelAndView("common/errorMsg");
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/insertGoods", method = RequestMethod.POST)
+
+	public String insertGoods(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("master/goods");
+		try {
+			Goods goods=new Goods();
+			try {
+				goods.setGoodsId(Integer.parseInt(request.getParameter("goodsId")));
+			}catch(Exception e) {
+				
+			}
+			
+			goods.setGoodsName(request.getParameter("goods"));
+			goods.setUsed(true);
+			Goods goodsRes=goodsRepository.save(goods);
+		} catch (Exception e) {
+			model =new ModelAndView("common/errorMsg");
+			System.out.println(e.getMessage());
+		}
+
+		return "redirect:/showGoodsReg";
+
+	}
+	
+	@RequestMapping(value = "/editGoodsDetails/{goodsId}", method = RequestMethod.GET)
+
+	public ModelAndView editGoodsDetails(HttpServletRequest request,@PathVariable int goodsId) {
+		ModelAndView model;
+		 model = new ModelAndView("master/goods");
+		try {
+			Goods goods=goodsRepository.findByGoodsId(goodsId);
+			model.addObject("goods", goods);
+			
+		} catch (Exception e) {
+			model =new ModelAndView("common/errorMsg");
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/deleteGoods/{goodsId}", method = RequestMethod.GET)
+
+	public String deleteGoods(HttpServletRequest request,@PathVariable int goodsId) {
+		ModelAndView model;
+		 model = new ModelAndView("master/goods");
+		try {
+			int goods=goodsRepository.removeGoodsByGoodsId(goodsId);
+			//model.addObject("goods", goods);
+			Info info=new Info();
+			if(goods==1) {
+				info.setMessage("deleted");
+			}else {
+				info.setMessage("Something went wrong");
+			}
+			
+			
+		} catch (Exception e) {
+			model =new ModelAndView("common/errorMsg");
+			System.out.println(e.getMessage());
+		}
+
+		return "redirect:/showGoodsReg";
+
+	}
+	
+	
+	
 }
