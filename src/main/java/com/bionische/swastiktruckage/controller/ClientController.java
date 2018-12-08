@@ -353,7 +353,7 @@ public class ClientController {
 		model.addObject("totalQty",totalQty);
 		model.addObject("totalFreight",totalFreight);
 		model.addObject("totalHamali",totalHamali);
-		model.addObject("clientFullDetails",clientFullDetails);	
+		model.addObject("clientBillDetails",clientBillDetails);	
 		
 		model.addObject("companyDetails",companyDetails);
 		return model;
