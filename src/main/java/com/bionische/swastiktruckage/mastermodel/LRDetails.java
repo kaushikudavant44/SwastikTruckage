@@ -14,8 +14,8 @@ public class LRDetails {
 	@Column(name="lr_header_id")
 	private int lrHeaderId;
 	
-	@Column(name="lr_id")
-	private int lrId;
+	@Column(name="lr_no")
+	private int lrNo;
 	
 	@Column(name="inv_header_id")
 	private int invHeaderId;
@@ -23,15 +23,21 @@ public class LRDetails {
 	@Column(name="from_id")
 	private int fromId;
 	
-	@Column(name="from_office_name")
-	private String fromOfficeName;
+	@Column(name="office_name")
+	private String officeName;
 		
 	@Column(name="consignor")
 	private int consignor;
 	
 	@Column(name="consignee_Id")
 	private int consigneeId;
-		
+	
+	@Column(name="consignor_name")
+	private String consignorName;
+
+	@Column(name="consignee_name")
+	private String consigneeName;
+	
 	@Column(name="lr_date")
 	private String lrDate;
 	
@@ -58,119 +64,24 @@ public class LRDetails {
 	
 	@Column(name="payment_by")
 	private int paymentBy;
+				
+	@Column(name="bharai")
+	private float bharai;
 	
-	@Column(name="quantity")
-	private int quantity;
+	@Column(name="dd_charges")
+	private float ddCharges;
 	
-	@Column(name="status")
-	private int status;
+	@Column(name="b_c_charge")
+	private float bcCharge;
 	
-	@Column(name="office_address")
-	private String officeAddress;
+	@Column(name="kata")
+	private float kata;
 	
-	@Column(name="office_contact_no")
-	private String officeContactNo;
-	
-	@Column(name="fax_no")
-	private String faxNo;
-	
-	@Column(name="client_pincode")
-	private int clientPincode;
-	
-	
-	@Column(name="client_id",length=11)
-	private int clientId;
-	
-	@Column(name="client_name",length=200)
-	private String clientName;
-	
-	@Column(name="client_address",length=200)
-	private String clientAddress;
-	
-	@Column(name="state_id",length=11)
-	private int stateId;
-	
-	@Column(name="city_id",length=11)
-	private int cityId;
-	
-	@Column(name="pincode",length=11)
-	private int pincode;
-	
-	@Column(name="client_contact_no",length=200)
-	private String clientContactNo;
-	
-	@Column(name="gstin",length=11)
-	private String gstin;
+	@Column(name="consignee_address")
+	private String consigneeAddress;
 	
 	@Column(name="is_used")
 	private boolean isUsed;
-	
-	
-	
-
-	public int getClientPincode() {
-		return clientPincode;
-	}
-
-	public void setClientPincode(int clientPincode) {
-		this.clientPincode = clientPincode;
-	}
-
-	public int getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
-	}
-
-	public String getClientAddress() {
-		return clientAddress;
-	}
-
-	public void setClientAddress(String clientAddress) {
-		this.clientAddress = clientAddress;
-	}
-
-	public int getStateId() {
-		return stateId;
-	}
-
-	public void setStateId(int stateId) {
-		this.stateId = stateId;
-	}
-
-	public int getCityId() {
-		return cityId;
-	}
-
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
-	}
-
-	public String getClientContactNo() {
-		return clientContactNo;
-	}
-
-	public void setClientContactNo(String clientContactNo) {
-		this.clientContactNo = clientContactNo;
-	}
-
-	public String getGstin() {
-		return gstin;
-	}
-
-	public void setGstin(String gstin) {
-		this.gstin = gstin;
-	}
-
-	public boolean isUsed() {
-		return isUsed;
-	}
-
-	public void setUsed(boolean isUsed) {
-		this.isUsed = isUsed;
-	}
 
 	public int getLrHeaderId() {
 		return lrHeaderId;
@@ -180,12 +91,12 @@ public class LRDetails {
 		this.lrHeaderId = lrHeaderId;
 	}
 
-	public int getLrId() {
-		return lrId;
+	public int getLrNo() {
+		return lrNo;
 	}
 
-	public void setLrId(int lrId) {
-		this.lrId = lrId;
+	public void setLrNo(int lrNo) {
+		this.lrNo = lrNo;
 	}
 
 	public int getInvHeaderId() {
@@ -204,12 +115,12 @@ public class LRDetails {
 		this.fromId = fromId;
 	}
 
-	public String getFromOfficeName() {
-		return fromOfficeName;
+	public String getOfficeName() {
+		return officeName;
 	}
 
-	public void setFromOfficeName(String fromOfficeName) {
-		this.fromOfficeName = fromOfficeName;
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
 	}
 
 	public int getConsignor() {
@@ -220,20 +131,28 @@ public class LRDetails {
 		this.consignor = consignor;
 	}
 
-	public String getClientName() {
-		return clientName;
-	}
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
-
 	public int getConsigneeId() {
 		return consigneeId;
 	}
 
 	public void setConsigneeId(int consigneeId) {
 		this.consigneeId = consigneeId;
+	}
+
+	public String getConsignorName() {
+		return consignorName;
+	}
+
+	public void setConsignorName(String consignorName) {
+		this.consignorName = consignorName;
+	}
+
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
 	}
 
 	public String getLrDate() {
@@ -308,67 +227,67 @@ public class LRDetails {
 		this.paymentBy = paymentBy;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public float getBharai() {
+		return bharai;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setBharai(float bharai) {
+		this.bharai = bharai;
 	}
 
-	public int getStatus() {
-		return status;
+	public float getDdCharges() {
+		return ddCharges;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setDdCharges(float ddCharges) {
+		this.ddCharges = ddCharges;
 	}
 
-	public String getOfficeAddress() {
-		return officeAddress;
+	public float getBcCharge() {
+		return bcCharge;
 	}
 
-	public void setOfficeAddress(String officeAddress) {
-		this.officeAddress = officeAddress;
+	public void setBcCharge(float bcCharge) {
+		this.bcCharge = bcCharge;
 	}
 
-	public String getOfficeContactNo() {
-		return officeContactNo;
+	public float getKata() {
+		return kata;
 	}
 
-	public void setOfficeContactNo(String officeContactNo) {
-		this.officeContactNo = officeContactNo;
+	public void setKata(float kata) {
+		this.kata = kata;
 	}
 
-	public String getFaxNo() {
-		return faxNo;
+	public String getConsigneeAddress() {
+		return consigneeAddress;
 	}
 
-	public void setFaxNo(String faxNo) {
-		this.faxNo = faxNo;
+	public void setConsigneeAddress(String consigneeAddress) {
+		this.consigneeAddress = consigneeAddress;
 	}
 
-	public int getPincode() {
-		return pincode;
+	public boolean isUsed() {
+		return isUsed;
 	}
 
-	public void setPincode(int pincode) {
-		this.pincode = pincode;
+	public void setUsed(boolean isUsed) {
+		this.isUsed = isUsed;
 	}
 
 	@Override
 	public String toString() {
-		return "LRDetails [lrHeaderId=" + lrHeaderId + ", lrId=" + lrId + ", invHeaderId=" + invHeaderId + ", fromId="
-				+ fromId + ", fromOfficeName=" + fromOfficeName + ", consignor=" + consignor + ", consigneeId="
-				+ consigneeId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight + ", freight="
-				+ freight + ", gst=" + gst + ", hamali=" + hamali + ", localTempo=" + localTempo + ", total=" + total
-				+ ", paymentBy=" + paymentBy + ", quantity=" + quantity + ", status=" + status + ", officeAddress="
-				+ officeAddress + ", officeContactNo=" + officeContactNo + ", faxNo=" + faxNo + ", clientPincode="
-				+ clientPincode + ", clientId=" + clientId + ", clientName=" + clientName + ", clientAddress="
-				+ clientAddress + ", stateId=" + stateId + ", cityId=" + cityId + ", pincode=" + pincode
-				+ ", clientContactNo=" + clientContactNo + ", gstin=" + gstin + ", isUsed=" + isUsed + "]";
+		return "LRDetails [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", invHeaderId=" + invHeaderId + ", fromId="
+				+ fromId + ", officeName=" + officeName + ", consignor=" + consignor + ", consigneeId=" + consigneeId
+				+ ", consignorName=" + consignorName + ", consigneeName=" + consigneeName + ", lrDate=" + lrDate
+				+ ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight + ", gst=" + gst + ", hamali="
+				+ hamali + ", localTempo=" + localTempo + ", total=" + total + ", paymentBy=" + paymentBy + ", bharai="
+				+ bharai + ", ddCharges=" + ddCharges + ", bcCharge=" + bcCharge + ", kata=" + kata
+				+ ", consigneeAddress=" + consigneeAddress + ", isUsed=" + isUsed + "]";
 	}
 
+	
+	
 	
 	
 	
