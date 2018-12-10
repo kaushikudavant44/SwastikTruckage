@@ -59,6 +59,9 @@
 <c:url var="deleteContaint" value="/deleteContaint" />
 <c:url var="addInvoiceNumber" value="/addInvoiceNumber" />
 <c:url var="deleteInvoice" value="/deleteInvoice" />
+<c:url var="deleteEditedInvoice" value="/deleteEditedInvoice" />
+<c:url var="deleteEditedContaint" value="/deleteEditedContaint" />
+
 
 
 </head>
@@ -107,7 +110,7 @@
 							<strong>Make LR</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertLR"
+							<form action="${pageContext.request.contextPath}/insertEditedLR"
 								method="post">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
@@ -117,34 +120,21 @@
 												<div class="input-group">
 													<select id="fromId" name="fromId" class="standardSelect"
 														tabindex="1" required="required">
-														<option value=""></option>
-														<c:forEach items="${officeList}" var="officeList">
-
-															<c:choose>
-																<c:when
-																	test="${officeList.officeId==staffDetails.staffOfficeId}">
-																	<option selected value="${officeList.officeId}">${officeList.officeName}
-																	</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${officeList.officeId}" disabled>${officeList.officeName}
-																	</option>
-																</c:otherwise>
-															</c:choose>
-
-														</c:forEach>
+														<option value="${lrDetails.fromId}">${lrDetails.officeName}</option>
+														
 													</select>
-												</div>
+												</div>			
 											</div>
 
 											<div class="col-md-2">To:</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<input type="hidden" id="clientIdForAdd" name="clientIdF" />
-
+													 <input type="hidden" id="clientIdForAdd" name="lrHeaderId" value="${lrDetails.lrHeaderId}" />
+													  <input type="hidden" id="invHeaderId" name="invHeaderId" value="${lrDetails.invHeaderId}" />
+													 <input type="hidden" id="lrNo" name="lrNo" value="${lrDetails.lrNo}" />
 
 													<input class="form-control" name="consignorAddress"
-														id="consignorAddress" type="text" value="" disabled /> <span
+														id="consignorAddress" type="text" value="${lrDetails.consigneeAddress}" disabled /> <span
 														class="error" aria-live="polite"></span>
 
 
@@ -177,15 +167,10 @@
 												<div class="input-group">
 													<select id="consignor" name="consignor"
 														class="standardSelect" tabindex="1">
-														<option value=""></option>
-														<c:forEach items="${clientList}" var="clientList">
-
-
-															<option value="${clientList.clientId}">${clientList.clientName},&nbsp;${clientList.clientAddress}
-																</option>
-														</c:forEach>
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
-														style="color: blue">If client not found?</span></a>
+														<option value="${lrDetails.consignor}">${lrDetails.consignorName}</option>
+														
+													</select> <%-- <a href="${pageContext.request.contextPath}/showClientReg"><span
+														style="color: blue">If client not found?</span></a> --%>
 												</div>
 											</div>
 
@@ -197,7 +182,7 @@
 														<i class="fa fa-calendar"></i>
 													</div>
 													<input type="text" id="datepicker" name="lrDate" autocomplete="off"
-														required="required">
+														required="required" value="${lrDetails.lrDate}">
 
 												</div>
 											</div>
@@ -214,18 +199,9 @@
 											<div class="col-md-3">
 												<div class="input-group">
 													<select id="consigneeId" name="consigneeId"
-														class="standardSelect" tabindex="1"
-														onchange="getClientAddress()">
-														<option value=""></option>
-														<c:forEach items="${clientList}" var="clientList">
-
-															<option value="${clientList.clientId}">${clientList.clientName},&nbsp;${clientList.clientAddress}
-															</option>
-														</c:forEach>
-
-
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
-														style="color: blue">If client not found?</span></a>
+														class="standardSelect" tabindex="1">
+														<option value="${lrDetails.consigneeId}">${lrDetails.consigneeName}</option>
+													</select> 
 												</div>
 											</div>
 
@@ -233,8 +209,8 @@
 											<div class="col-md-3">
 												<div class="input-group">
 
-													<input class="form-control" name="truckNo" id="truckNo"
-														type="text" required /> <span class="error"
+													<input class="form-control" name="truckNo" id="truckNo" value="${lrDetails.truckNo}"
+														type="text"/> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -255,13 +231,19 @@
 											<div class="col-md-2">To Be Billed</div>
 											<div class="col-md-1">
 												<div class="input-group">
-
+												<c:choose>
+													<c:when test="${lrDetails.paymentBy ==0}">
 													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="0" required /> <span class="error"
+														type="radio" value="0" checked/> <span class="error"
+														aria-live="polite" ></span>
+													</c:when>
+													<c:otherwise>
+												    <input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="0"/> <span class="error"
 														aria-live="polite"></span>
+													</c:otherwise>
 
-
-
+												</c:choose>
 												</div>
 											</div>
 											<div class="col-md-2"></div>
@@ -270,10 +252,22 @@
 
 											<div class="col-md-1">
 												<div class="input-group">
-
+													
+													<c:choose>
+													<c:when test="${lrDetails.paymentBy==1}">
 													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="1" required checked /> <span
-														class="error" aria-live="polite"></span>
+														type="radio" value="1" checked/> <span class="error"
+														aria-live="polite" ></span>
+													</c:when>
+													<c:otherwise>
+													<input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="1"/> <span class="error"
+														aria-live="polite"></span>
+													</c:otherwise>
+
+												</c:choose>
+													
+													
 
 												</div>
 											</div>
@@ -292,7 +286,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="weight" id="weight"
-														type="number" required min="0" value="" /> <span
+														type="number" required min="0" value="${lrDetails.weight}" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
@@ -302,7 +296,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="freight" id="freight"
-														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
+														type="number" value="${lrDetails.freight}" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -314,7 +308,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="gst" id="gst"
-														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
+														type="number" value="${lrDetails.gst}" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -338,7 +332,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="hamali" id="hamali"
-														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
+														type="number" value="${lrDetails.hamali}" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -349,7 +343,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="bccharge" id="bccharge"
-														type="number" required value="10" min="0"
+														type="number" required value="${lrDetails.bcCharge}" min="0"
 														onkeyup="getTotal()" /> <span class="error"
 														aria-live="polite"></span>
 												</div>
@@ -359,7 +353,7 @@
 											<div class="col-md-2">
 												<div class="input-group">
 
-													<input class="form-control" name="kata" id="kata" value="0"
+													<input class="form-control" name="kata" id="kata" value="${lrDetails.kata}"
 														type="number" min="0" onkeyup="getTotal()" /> <span
 														class="error" aria-live="polite"></span>
 
@@ -384,7 +378,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="localtempo"
-														id="localtempo" value="0" type="number" min="0"
+														id="localtempo" value="${lrDetails.localTempo}" type="number" min="0"
 														onkeyup="getTotal()" /> <span class="error"
 														aria-live="polite"></span>
 
@@ -397,7 +391,7 @@
 
 													<input class="form-control" name="bharai" id="bharai"
 														type="number" min="0" required value="0"
-														onkeyup="getTotal()" value="0" /> <span class="error"
+														onkeyup="getTotal()" value="${lrDetails.bharai}" /> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -407,7 +401,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="ddcharges" id="ddcharges"
-														type="number" min="0" onkeyup="getTotal()" value="0" /> <span
+														type="number" min="0" onkeyup="getTotal()" value="${lrDetails.ddCharges}" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -433,7 +427,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="total" id="total"
-														type="text" / readonly> <span class="error"
+														type="text" value="${lrDetails.total}" readonly /> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -483,7 +477,20 @@
 														<th>Action</th>
 													</thead>
 													<tbody>
-
+													<c:forEach items="${transactionLrInvoiceDetailList}" var="transactionLrInvoiceDetailList" varStatus="count">
+														<tr>
+														<td>${count.index+1}</td>
+														<td>${transactionLrInvoiceDetailList.invNo}</td>
+														<td>
+														<div class="fa-hover col-lg-3 col-md-6">
+														<a style='cursor:pointer; color:blue;' onclick="deleteInvoice(${transactionLrInvoiceDetailList.detailId},${count.index})"><i
+														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+														
+														</div>
+										
+										</td>
+														</tr>
+													</c:forEach>
 													</tbody>
 												</table>
 
@@ -501,7 +508,7 @@
 								<hr>
 								<div class="col-xs-12 col-sm-12">
 									<div class="row">
-
+										
 										<div class="col-md-2">No. of Contains</div>
 										<div class="col-md-1">
 											<div class="input-group">
@@ -515,7 +522,7 @@
 										<div class="col-md-1">Goods:</div>
 										<div class="col-md-3">
 											<div class="input-group">
-
+												
 												<select id="goodsId" name="goodsId"
 														class="standardSelect" tabindex="1">
 														<option value=""></option>
@@ -563,6 +570,25 @@
 											<th>Action</th>
 										</tr>
 									</thead>
+									<tbody>
+						 	<c:forEach items="${lrContaintDetailsList}" var="lrContaintDetailsList" varStatus="count">
+										<tr>
+										<td>${count.index+1}</td>
+										<td>${lrContaintDetailsList.noOfContaints}</td>
+										<td>${lrContaintDetailsList.goodsName}</td>
+										<td>${lrContaintDetailsList.description}</td>
+										 <td><div class="fa-hover col-lg-3 col-md-6">
+										<a style="cursor:pointer; color:blue;" onclick="deleteContaint(${lrContaintDetailsList.detailId},${count.index})"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+														
+														</div>
+										
+										</td> 
+										
+										</tr>
+									
+									</c:forEach>
+									
+									</tbody>
 
 								</table>
 
@@ -670,6 +696,27 @@
 		});
   } );
   </script>
+  
+  <script type="text/javascript">
+function getTotal(){
+	
+	var freight=document.getElementById("freight").value;
+	var gst=document.getElementById("gst").value;
+	
+	var hamali=document.getElementById("hamali").value;
+	var bccharge=document.getElementById("bccharge").value;
+	var kata=document.getElementById("kata").value;
+	var localtempo=document.getElementById("localtempo").value;
+	var bharai=document.getElementById("bharai").value;
+	var ddcharges=document.getElementById("ddcharges").value;
+				
+	var total=Number(freight)+Number(gst)+Number(hamali)+Number(bccharge)+Number(kata)+Number(localtempo)+Number(bharai)+Number(ddcharges);
+	document.getElementById("total").value=total;
+	
+	
+}
+
+</script>
 	
 	<script type="text/javascript">
 var dataTable = $('#bootstrap-data-table').DataTable();
@@ -694,15 +741,9 @@ $.getJSON('${addContaint}', {
 					data,
 					function(key, lrContaintDetailsList) {
 						
-						
-		
-			//var listContainers = [];
-		//	listContainers=[transactionLrContaintDetailsList1.noContaints,transactionLrContaintDetailsList1.goods,transactionLrContaintDetailsList1.description];
-			
-			
-			
+				
 			  dataTable.row.add(  [key+1 ,lrContaintDetailsList.noOfContaints,  lrContaintDetailsList.goodsName, lrContaintDetailsList.description,
-		                 '<a href="#" onclick="deleteContaint('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
+		                 '<a style="cursor:pointer; color:blue;" onclick="deleteContaint('+lrContaintDetailsList.detailId+','+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
 			
 					});
 		
@@ -711,15 +752,15 @@ $.getJSON('${addContaint}', {
 
 }
 
-function deleteContaint(index){
+function deleteContaint(index,key){
 	
 	//window.open("${pageContext.request.contextPath}/deleteContaint?index="+index,"_self");
-	
-	$.getJSON('${deleteContaint}', {
+		alert("cd");
+	$.getJSON('${deleteEditedContaint}', {
 		
-		
+		key:key,
 		index: index,
-			ajax : 'true'
+		ajax : 'true'
 			
 		}, function(data) {
 				
@@ -727,10 +768,10 @@ function deleteContaint(index){
 			
 				$.each(
 						data,
-						function(key, transactionLrContaintDetailsList) {
+						function(key, lrContaintDetailsList) {
 			
-							 dataTable.row.add(  [key+1 ,transactionLrContaintDetailsList.noOfContaints,  transactionLrContaintDetailsList.goods, transactionLrContaintDetailsList.description,  
-			                 '<a href="#" onclick="deleteContaint('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
+							 dataTable.row.add(  [key+1 ,lrContaintDetailsList.noOfContaints,  lrContaintDetailsList.goodsName, lrContaintDetailsList.description,
+				                 '<a style="cursor:pointer; color:blue;" onclick="deleteContaint('+lrContaintDetailsList.detailId+','+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
 				
 						});
 			
@@ -765,7 +806,7 @@ function addInvoice(){
 							
 							tr.append($('<td></td>').html(key+1));
 							tr.append($('<td></td>').html(transactionLrInvoiceDetailList.invNo));
-							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteInvoice("+key+")'><i class='fa fa-trash-o'></i> </a>"));
+							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteInvoice("+transactionLrInvoiceDetailList.detailId+","+key+")'><i class='fa fa-trash-o'></i> </a>"));
 						
 				
 							$('#invoiceTable tbody').append(tr);
@@ -779,13 +820,13 @@ function addInvoice(){
 	}
 	
 	
-function deleteInvoice(index){
+function deleteInvoice(index,key){
 	
 	//window.open("${pageContext.request.contextPath}/deleteContaint?index="+index,"_self");
-	
-	$.getJSON('${deleteInvoice}', {
+
+	$.getJSON('${deleteEditedInvoice}', {
 		
-		
+		key:key,
 		index: index,
 			ajax : 'true'
 			
@@ -802,7 +843,7 @@ function deleteInvoice(index){
 							
 							tr.append($('<td></td>').html(key+1));
 							tr.append($('<td></td>').html(transactionLrInvoiceDetailList.invNo));
-							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteInvoice("+key+")'><i class='fa fa-trash-o'></i> </a>"));
+							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteInvoice("+transactionLrInvoiceDetailList.detailId+","+key+")'><i class='fa fa-trash-o'></i> </a>"));
 						
 							//var str="<tr><td>"+key+1+"</td><td>"+transactionLrInvoiceDetailList.invNo+"</td><td><a href='#' onclick='deleteInvoice("+key+")'><i class='fa fa-trash-o'></i> <span class='text-muted'></span></a></td></tr>";
 							//dataTable.row.add(  [key+1 ,transactionLrInvoiceDetailList.invoiceNo,'<a href="#" onclick="deleteInvoice('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();

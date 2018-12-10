@@ -234,7 +234,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="truckNo" id="truckNo"
-														type="text" required /> <span class="error"
+														type="text" /> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
