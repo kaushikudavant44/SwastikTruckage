@@ -525,18 +525,24 @@
 	</script>
 	
 	
-	<script type="text/javascript">
-	
+<script type="text/javascript">
+
 	$(document).ready(function() {
 	    var table = $('#bootstrap-data-table1').DataTable();
 	 
 	    $('#bootstrap-data-table1 tbody').on( 'click', 'tr', function () {
-	    	
+	   	
+	    	 if ( $(this).hasClass('selected') ) {
+	    		 
+	             $(this).removeClass('selected');
+
+	    	 }else{
+	    	 
 	            $(this).addClass('selected');
-	       
+	    }
+	      
 	    } );
-	 
-	  
+	 	  
 	} );
 	
 	</script>
