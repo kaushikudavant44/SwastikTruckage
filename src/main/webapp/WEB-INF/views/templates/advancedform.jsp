@@ -45,18 +45,15 @@
 	rel='stylesheet' type='text/css'>
 
 
-
+<style>
+    table.dataTable tbody tr.selected {
+        color: white !important;
+        background-color: #5172a0 !important;  /* Not working */
+    }
+</style>
 </head>
 <body>
 
-	<!-- Left Panel -->
-	<jsp:include page="/WEB-INF/views/common/left.jsp"></jsp:include>
-	<!-- Left Panel -->
-
-
-	<!-- Header-->
-	<jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
-	<!-- Header-->
 
 
 	<div class="breadcrumbs">
@@ -154,7 +151,7 @@
 									<input class="form-control">
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -288,19 +285,19 @@
 										<a class="nav-item nav-link active" id="custom-nav-home-tab"
 											data-toggle="tab" href="#custom-nav-home" role="tab"
 											aria-controls="custom-nav-home" aria-selected="true">Home</a>
-							
+
 										<a class="nav-item nav-link" id="custom-nav-profile-tab"
 											data-toggle="tab" href="#custom-nav-profile" role="tab"
 											aria-controls="custom-nav-profile" aria-selected="false">Profile</a>
-									
+
 										<a class="nav-item nav-link" id="custom-nav-contact-tab"
 											data-toggle="tab" href="#custom-nav-contact" role="tab"
 											aria-controls="custom-nav-contact" aria-selected="false">Contact</a>
-									
+
 										<a class="nav-item nav-link" id="custom-nav-day4-tab"
 											data-toggle="tab" href="#custom-nav-day4" role="tab"
 											aria-controls="custom-nav-day4" aria-selected="false">Day4</a>
-								
+
 										<a class="nav-item nav-link" id="custom-nav-day5-tab"
 											data-toggle="tab" href="#custom-nav-day5" role="tab"
 											aria-controls="custom-nav-day5" aria-selected="false">Day5</a>
@@ -357,13 +354,10 @@
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
-							<table id="bootstrap-data-table"
+							<table id="bootstrap-data-table1"
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									<th class="no-sort sorting_desc">
-            <input type="checkbox" id="flowcheckall" value="" />&nbsp;All
-        </th>
 										<th>Name</th>
 										<th>Position</th>
 										<th>Office</th>
@@ -371,78 +365,78 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr >
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
+									<tr>
 										<td>Tiger Nixon</td>
 										<td>System Architect</td>
 										<td>Edinburgh</td>
 										<td>$320,800</td>
 									</tr>
-									<tr >
-									<td><input type='checkbox' id='checkall' name='mydata' value="2 "></td>
+									<tr>
 										<td>Garrett Winters</td>
 										<td>Accountant</td>
 										<td>Tokyo</td>
 										<td>$170,750</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="3 "></td>
 										<td>Ashton Cox</td>
 										<td>Junior Technical Author</td>
 										<td>San Francisco</td>
 										<td>$86,000</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Cedric Kelly</td>
 										<td>Senior Javascript Developer</td>
 										<td>Edinburgh</td>
 										<td>$433,060</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Airi Satou</td>
 										<td>Accountant</td>
 										<td>Tokyo</td>
 										<td>$162,700</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Brielle Williamson</td>
 										<td>Integration Specialist</td>
 										<td>New York</td>
 										<td>$372,000</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Herrod Chandler</td>
 										<td>Sales Assistant</td>
 										<td>San Francisco</td>
 										<td>$137,500</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Rhona Davidson</td>
 										<td>Integration Specialist</td>
 										<td>Tokyo</td>
 										<td>$327,900</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Colleen Hurst</td>
 										<td>Javascript Developer</td>
 										<td>San Francisco</td>
 										<td>$205,500</td>
 									</tr>
 									<tr>
-									<td><input type='checkbox' id='checkall' name='mydata' value="1 "></td>
 										<td>Sonya Frost</td>
 										<td>Software Engineer</td>
 										<td>Edinburgh</td>
 										<td>$103,600</td>
 									</tr>
-	
-
+									<tr>
+										<td>Colleen Hurst</td>
+										<td>Javascript Developer</td>
+										<td>San Francisco</td>
+										<td>$205,500</td>
+									</tr>
+									<tr>
+										<td>Colleen Hurst</td>
+										<td>Javascript Developer</td>
+										<td>San Francisco</td>
+										<td>$205,500</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -498,36 +492,54 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
-        jQuery(document).ready(function() {
-            jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
-                no_results_text: "Oops, nothing found!",
-                width: "100%"
-            });
-        });
-    </script>
+		jQuery(document).ready(function() {
+			jQuery(".standardSelect").chosen({
+				disable_search_threshold : 10,
+				no_results_text : "Oops, nothing found!",
+				width : "100%"
+			});
+		});
+	</script>
 
 	<script type="text/javascript">
-        $(document).ready(function() {
-           $('#bootstrap-data-table-export').DataTable(); 
+		$(document).ready(function() {
+			$('#bootstrap-data-table1').DataTable({
+				select : true
+			});
 
+			/*      $("#flowcheckall").click(function () {
+			         $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
+			     }); */
 
-          $("#flowcheckall").click(function () {
-              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
-          });
-          
-        } );
-    </script>
+		});
+	</script>
 
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-  $( function() {
-	  $('input[id$=datepicker]').datepicker({
-		    dateFormat: 'dd-mm-yy'
+		$(function() {
+			$('input[id$=datepicker]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
 		});
-  } );
-  </script>
+	</script>
+	
+	
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+	    var table = $('#bootstrap-data-table1').DataTable();
+	 
+	    $('#bootstrap-data-table1 tbody').on( 'click', 'tr', function () {
+	    	
+	            $(this).addClass('selected');
+	       
+	    } );
+	 
+	  
+	} );
+	
+	</script>
 
 
 </body>
