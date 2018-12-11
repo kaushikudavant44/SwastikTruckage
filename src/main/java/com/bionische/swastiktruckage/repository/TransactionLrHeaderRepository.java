@@ -3,8 +3,10 @@ package com.bionische.swastiktruckage.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 
@@ -19,7 +21,10 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	@Query(value="SELECT  h.* FROM t_lr_header h  WHERE  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id =:clientId ELSE h.consignor =:clientId END ) AND  h.bill_status=0 AND h.delivery_status =3 " ,nativeQuery=true)
 	List<TransactionLrHeader> getLrByClientId(@Param("clientId")int clientId);
 	
-	
+	@Transactional
+	@Modifying
+	@Query("UPDATE TransactionLrHeader set billStatus=1 where lrHeaderId=:headerId")
+	int updatePaymentStatus(@Param("headerId")int headerId);
 	
 
 }

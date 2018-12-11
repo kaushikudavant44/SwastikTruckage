@@ -31,6 +31,7 @@ import com.bionische.swastiktruckage.mastermodel.States;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillDetails;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillLogs;
+import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.repository.CityRepository;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
@@ -40,6 +41,7 @@ import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillLogsRepository;
+import com.bionische.swastiktruckage.repository.TransactionLrCollectionRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrInvoiceDetailRepository;
 import com.bionische.swastiktruckage.service.ClientDetailsService;
@@ -83,6 +85,9 @@ public class ClientController {
 	
 	@Autowired
 	CompanyDetailsRepository companyDetailsRepository;
+	
+	@Autowired
+	TransactionLrCollectionRepository transactionLrCollectionRepository;
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
@@ -344,6 +349,12 @@ public class ClientController {
 		
 		transactionBillLogsRepository.save(transactionBillLogs);
 		
+		for(LrBilling clientBill : clientBillDetails)
+		{
+			transactionLrHeaderRepository.updatePaymentStatus(clientBill.getLrHeaderId());
+		}
+		
+		
 		//company details
 		CompanyDetails	companyDetails = companyDetailsRepository.findByCompanyId(1);
 		
@@ -387,4 +398,94 @@ public class ClientController {
 		
 	}	
 	
+	@RequestMapping(value="/showAllUnPaidLr", method=RequestMethod.GET)
+
+	public ModelAndView showAllUnPaidLr(HttpServletRequest request)   
+	{
+		ModelAndView model=new ModelAndView("client/unpaidLrHeader");
+		List<LrBilling> lrHeaderList = new ArrayList<LrBilling>();
+		try
+		{
+			lrHeaderList = lrBillingRepository.getAllUnPaidLr();
+			System.out.println("lrHeaderList:"+lrHeaderList.toString());
+			model.addObject("message",message);
+			message="";
+			model.addObject("lrHeaderList",lrHeaderList);
+		}		
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			model = new ModelAndView("common/errorMsg");
+
+		}
+		return model;
+		
+	}
+	
+	@RequestMapping(value="/showCollectionInfo/{total}/{lrNo}/{headerId}", method=RequestMethod.GET)
+
+	public ModelAndView showCollectionInfo(@PathVariable("total") float total,@PathVariable("lrNo") int lrNo,@PathVariable("headerId") int headerId,HttpServletRequest request)   
+	{
+		ModelAndView model=new ModelAndView("client/collectionInfo");
+		model.addObject("total",total);
+		model.addObject("lrNo",lrNo);
+		model.addObject("headerId",headerId);
+		
+		return model;
+		
+	}
+	
+	@RequestMapping(value="/insertLrCollection", method=RequestMethod.POST)
+
+	public String insertLrCollection(HttpServletRequest request)   
+	{
+		String url ="redirect:/showAllUnPaidLr";
+		
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaffDetails = (OfficeStaff)session.getAttribute("staffDetails");
+		
+		TransactionLrCollection transactionLrCollection = new TransactionLrCollection();
+		try
+		{
+			transactionLrCollection.setLrHeaderId(Integer.parseInt(request.getParameter("headerId")));
+			transactionLrCollection.setLrNo(Integer.parseInt(request.getParameter("lrNo")));
+			transactionLrCollection.setOfficeId(officeStaffDetails.getStaffOfficeId());
+			transactionLrCollection.setPaymentMode(Integer.parseInt(request.getParameter("paymentType")));
+			transactionLrCollection.setStaffId(officeStaffDetails.getStaffId());
+			transactionLrCollection.setTotal(Float.parseFloat(request.getParameter("total")));
+			
+			transactionLrCollection.setUsed(true);
+			int type=Integer.parseInt(request.getParameter("paymentType"));
+			if(type==0)
+			{
+				transactionLrCollection.setTrId(0);	
+			}
+			else
+			{
+				transactionLrCollection.setTrId(Integer.parseInt(request.getParameter("trId")));
+
+			}
+						
+			TransactionLrCollection	res = transactionLrCollectionRepository.save(transactionLrCollection);
+			
+			
+			if(res!=null)
+			{
+				transactionLrHeaderRepository.updatePaymentStatus(Integer.parseInt(request.getParameter("headerId")));
+				message="Saved Successfully";
+			}
+			else
+			{
+				message="Failed";
+			}
+		}		
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			message="Failed";
+
+		}
+		return url;
+		
+	}
 }

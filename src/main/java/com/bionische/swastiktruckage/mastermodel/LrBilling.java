@@ -71,6 +71,12 @@ public class LrBilling {
 	@Column(name="goods")
 	private String goods;
 	
+	@Column(name="consignee_name")
+	private String consigneeName;
+	
+	@Column(name="consignor_name")
+	private String consignorName;
+	
 	@Transient
 	List<TransactionLrInvoiceDetail> invoiceDetailList;
 	
@@ -223,14 +229,33 @@ public class LrBilling {
 		this.quantity = quantity;
 	}
 
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+
+	public String getConsignorName() {
+		return consignorName;
+	}
+
+	public void setConsignorName(String consignorName) {
+		this.consignorName = consignorName;
+	}
+
 	@Override
 	public String toString() {
 		return "LrBilling [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", invHeaderId=" + invHeaderId + ", fromId="
 				+ fromId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight
 				+ ", gst=" + gst + ", hamali=" + hamali + ", localTempo=" + localTempo + ", total=" + total
 				+ ", paymentBy=" + paymentBy + ", quantity=" + quantity + ", consignor=" + consignor + ", consigneeId="
-				+ consigneeId + ", goods=" + goods + ", invoiceDetailList=" + invoiceDetailList + "]";
+				+ consigneeId + ", goods=" + goods + ", consigneeName=" + consigneeName + ", consignorName="
+				+ consignorName + ", invoiceDetailList=" + invoiceDetailList + "]";
 	}
 
+	
+	
 		
 }
