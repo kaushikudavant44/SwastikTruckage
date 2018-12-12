@@ -44,10 +44,13 @@
 							href="${pageContext.request.contextPath}/showGoodsReg">Goods Details</a></li>			
 					
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showLRRegistration">Generate LR</a></li>
+							href="${pageContext.request.contextPath}/showLRRegistration">Create LR</a></li>
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showLrDetails">Show LR</a></li>	
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/generateMemo">Create Memo</a></li>
 							
 						</ul></li>
 
