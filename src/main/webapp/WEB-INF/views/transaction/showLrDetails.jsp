@@ -77,7 +77,7 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Office Details</a></li>
+						<li><a href="#">Lr Details</a></li>
 						
 					</ol>
 				</div>
@@ -92,7 +92,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Data Table</strong>
+							<strong class="card-title">Lr Details</strong>
 						</div>
 						<div class="card-body">
 
@@ -131,7 +131,7 @@
 														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
 														<div class="fa-hover col-lg-3 col-md-6">
 														<a
-														href="#" onclick="deleteLr(${lrDetailsList.lrHeaderId})"><i
+														href="${pageContext.request.contextPath}/deleteLr/${lrDetailsList.lrHeaderId}"><i
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
 														
 														</div>

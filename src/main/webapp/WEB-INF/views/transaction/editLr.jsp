@@ -725,7 +725,7 @@ function addContaints(){
 	var goodsId=document.getElementById("goodsId").value;
 	var description=document.getElementById("description").value;
 	var goodsName=$("#goodsId option:selected").html();
-	alert(goodsName);
+	
 	
 $.getJSON('${addContaint}', {
 		
