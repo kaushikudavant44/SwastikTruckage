@@ -125,7 +125,7 @@ public class TransactionController {
 			List<ClientFullDetails> clientList = clientFullDetailsRepository.getAllClientDetailsByStatus(1);
 			List<City> cityList = stateDetailsService.getAllCity();
 			List<Goods> goodsList=goodsRepository.findByIsUsedOrderByGoodsIdDescIsUsed(true);
-			
+
 			companyDetails = companyDetailsRepository.findByCompanyId(1);
 			staffDetails = officeStaffRepository.findByStaffId(staffId);
 
@@ -584,6 +584,25 @@ public class TransactionController {
 		}
 
 		return lrContaintDetailsList;
+
+	}
+	@RequestMapping(value = "/deleteLr/{lrHeaderId}", method = RequestMethod.GET)
+
+	public String deleteLr(HttpServletRequest request,@PathVariable int lrHeaderId) {
+		ModelAndView model = new ModelAndView("transaction/showLrDetails");
+
+			TransactionLrHeader transactionLrHeader=new TransactionLrHeader();
+		
+			
+		try {
+			int isUsed=transactionLrHeaderRepository.updateLrByHeaderId(lrHeaderId);
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return "redirect:/showLrDetails";
 
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 
 public interface VehicleOwnersRepository extends JpaRepository<VehicleOwners, Integer>{

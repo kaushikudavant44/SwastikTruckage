@@ -40,6 +40,32 @@ public class GetAllLrDetails {
 	
 	@Column(name="consignee")
 	private String consignee;
+	
+	@Column(name="client_address")
+	private String clientAddress;
+
+	
+	@Column(name="payment_by")
+	private String paymentBy;
+	
+	
+	
+	
+	public String getPaymentBy() {
+		return paymentBy;
+	}
+
+	public void setPaymentBy(String paymentBy) {
+		this.paymentBy = paymentBy;
+	}
+
+	public String getClientAddress() {
+		return clientAddress;
+	}
+
+	public void setClientAddress(String clientAddress) {
+		this.clientAddress = clientAddress;
+	}
 
 	public int getLrHeaderId() {
 		return lrHeaderId;
@@ -126,8 +152,11 @@ public class GetAllLrDetails {
 	public String toString() {
 		return "GetAllLrDetails [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", lrDate=" + lrDate + ", particular="
 				+ particular + ", quantity=" + quantity + ", amount=" + amount + ", goodsId=" + goodsId
-				+ ", officeName=" + officeName + ", consignor=" + consignor + ", consignee=" + consignee + "]";
+				+ ", officeName=" + officeName + ", consignor=" + consignor + ", consignee=" + consignee
+				+ ", clientAddress=" + clientAddress + ", paymentBy=" + paymentBy + "]";
 	}
+
+	
 
 	
 	

@@ -18,6 +18,8 @@ public interface VehiclesDriversRepository extends JpaRepository<VehiclesDrivers
 
 	VehiclesDrivers findByDriverId(int driverId);
 	
+	List<VehiclesDrivers> findByIsUsed(boolean isUsed);
+	
 	@Transactional
 	@Modifying
 	@Query("DELETE FROM VehiclesDrivers where driverId=:driverId")

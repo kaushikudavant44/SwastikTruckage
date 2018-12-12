@@ -26,5 +26,16 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	@Query("UPDATE TransactionLrHeader set billStatus=1 where lrHeaderId=:headerId")
 	int updatePaymentStatus(@Param("headerId")int headerId);
 	
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE TransactionLrHeader t SET t.isUsed=false  WHERE t.lrHeaderId=:lrHeaderId")
+	int updateLrByHeaderId(@Param("lrHeaderId")int lrHeaderId);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE TransactionLrHeader t SET t.deliveryStatus=1  WHERE t.lrHeaderId=:lrHeaderId")
+	int updateLrDeliveryStatusByHeaderId(@Param("lrHeaderId")int lrHeaderId);
+	
 
 }

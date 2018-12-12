@@ -23,8 +23,21 @@ public class MemoDetails {
 	@Column(name="lr_header_id",length=11)
 	private int lrHeaderId;
 	
+	@Column(name="memo_header_id",length=11)
+	private int memoHeaderId;
+	
 	@Column(name="lr_status",length=11)
 	private int lrStatus;
+
+	
+	
+	public int getMemoHeaderId() {
+		return memoHeaderId;
+	}
+
+	public void setMemoHeaderId(int memoHeaderId) {
+		this.memoHeaderId = memoHeaderId;
+	}
 
 	public int getMemoDetailId() {
 		return memoDetailId;
@@ -52,9 +65,11 @@ public class MemoDetails {
 
 	@Override
 	public String toString() {
-		return "MemoDetails [memoDetailId=" + memoDetailId + ", lrHeaderId=" + lrHeaderId + ", lrStatus=" + lrStatus
-				+ "]";
+		return "MemoDetails [memoDetailId=" + memoDetailId + ", lrHeaderId=" + lrHeaderId + ", memoHeaderId="
+				+ memoHeaderId + ", lrStatus=" + lrStatus + "]";
 	}
+
+	
 	
 	
 
