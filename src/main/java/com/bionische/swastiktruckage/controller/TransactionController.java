@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.common.DateConverter;
 import com.bionische.swastiktruckage.mastermodel.City;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 import com.bionische.swastiktruckage.mastermodel.CompanyDetails;
@@ -279,12 +280,13 @@ public class TransactionController {
 			
 			TransactionLrHeader transactionLrHeader=new TransactionLrHeader();
 			
+			String lrDate=DateConverter.convertToYMD(request.getParameter("lrDate"));
 			
 			transactionLrHeader.setLrNo(lrId);
 			transactionLrHeader.setInvHeaderId(transactionLrInvoiceHeaderRes.getInvHeaderId());
 			transactionLrHeader.setFromId(Integer.parseInt(request.getParameter("fromId")));
 			transactionLrHeader.setConsignor(Integer.parseInt(request.getParameter("consignor")));
-			transactionLrHeader.setLrDate(request.getParameter("lrDate"));
+			transactionLrHeader.setLrDate(lrDate);
 			transactionLrHeader.setConsigneeId(Integer.parseInt(request.getParameter("consigneeId")));
 			transactionLrHeader.setTruckNo(request.getParameter("truckNo"));
 			transactionLrHeader.setWeight(Float.parseFloat(request.getParameter("weight")));
