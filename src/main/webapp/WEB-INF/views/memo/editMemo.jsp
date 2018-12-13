@@ -58,12 +58,18 @@
         color: white !important;
         background-color: #5172a0 !important;  /* Not working */
     }
+    
+    
+    
 </style>
 
+
+
+
 <c:url var="getVehicalOwnerDetails" value="/getVehicalOwnerDetails" />
-<c:url var="saveMemoDetails" value="/saveMemoDetails" />
+<c:url var="editMemoDetails" value="/editMemoDetails" />
 </head>
-<body>
+<body onload="loadSelectedLrDetails()">
 
 
 	<!-- Left Panel -->
@@ -116,7 +122,12 @@
 											<div class="col-md-2">From</div>
 											<div class="col-md-3">
 											<input type="hidden" id="staffId" name="staffId" value="${staffDetails.staffId}" />
+											<input type="hidden" id="vehId" name="vehId" value="${getMemoDeatails.vehId}" />
+											<input type="hidden" id="memoNo" name="memoNo" value="${getMemoDeatails.memoNo}"/>
+											<input type="hidden" id="memoHeaderId" name="memoHeaderId" value="${getMemoDeatails.memoHeaderId}"/>
 												<div class="input-group">
+												
+												
 													<select id="fromId" name="fromId" class="standardSelect"
 														tabindex="1" required="required">
 														<option value=""></option>
@@ -148,7 +159,15 @@
 													
 														<option value=""></option>
 													<c:forEach items="${vehicalDetailsList}" var="vehicalDetailsList">
+													
+														<c:choose>
+														<c:when test="${vehicalDetailsList.vehId==getMemoDeatails.vehId}">
+														<option selected value="${vehicalDetailsList.ownerId}">${vehicalDetailsList.vehNo}</option>
+														</c:when>
+														<c:otherwise>
 														<option value="${vehicalDetailsList.ownerId}">${vehicalDetailsList.vehNo}</option>
+														</c:otherwise>
+														</c:choose>
 													</c:forEach>	
 
 
@@ -174,8 +193,9 @@
 											<div class="col-md-2">Vehical Owner:</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<input type="text" id="vehicalOwner" value=""  disabled/>
-													
+												
+													<input type="text" id="vehicalOwner" value="${vehicleOwners.ownerName}"  disabled/>
+												
 												</div>
 											</div>
 											
@@ -188,7 +208,16 @@
 													
 														<option value=""></option>
 													<c:forEach items="${vehicleDriverList}" var="vehicleDriverList">
+														
+														<c:choose>
+														<c:when test="${vehicleDriverList.driverId==getMemoDeatails.driverId}">
+														<option selected value="${vehicleDriverList.driverId}">${vehicleDriverList.driverName}</option>
+														</c:when>
+														<c:otherwise>
 														<option value="${vehicleDriverList.driverId}">${vehicleDriverList.driverName}</option>
+														</c:otherwise>
+														</c:choose>
+													
 													</c:forEach>	
 
 
@@ -294,7 +323,9 @@
 									<button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;" onclick="saveMemoDetails()">
 										Submit</button>
-								</div></div></div>
+								</div>
+								</div>
+								</div>
 		</div>
 		</div>
 		<!-- .animated -->
@@ -364,38 +395,74 @@
           $('#bootstrap-data-table1').DataTable();
         } );
     </script>
-<script type="text/javascript">
+    
+    <script type="text/javascript">
+    var unSelectedRowList=[];
+    var selectedRowList =[];
+    
+    $(document).ready(function() {
+    	
+    	
+    	
+    	<c:forEach items="${lrDetailsList}" var="lrDetailsList">
 
-	var selectedRowList =[];
-	$(document).ready(function() {
+    	var lrHeaderId = "<c:out value="${lrDetailsList.lrHeaderId}"/>";
+
+    	selectedRowList.push(parseInt(lrHeaderId,10));
+
+    	</c:forEach>
+    		 	
+    	if(selectedRowList!=null && selectedRowList!=""){
+			$('#bootstrap-data-table1 tbody tr').addClass('selected');
+			
+		}
+
 	    var table = $('#bootstrap-data-table1').DataTable();
 	 
 	    $('#bootstrap-data-table1 tbody').on( 'click', 'tr', function () {
 	   	
 	    	 if ( $(this).hasClass('selected') ) {
 	    		 
-	    		 var index=selectedRowList.indexOf( $(this).data('value'));
+	    		 
+	    		 
+	    		 var index=selectedRowList.indexOf($(this).data('value'));
+	    		 
+	    	
+	    		 
+	    		 if($.inArray($(this).data('value'), unSelectedRowList) === -1) unSelectedRowList.push($(this).data('value'));
+	    	/* 	 unSelectedRowList.push($(this).data('value')); */
 	    		 
 	    		 if(index >-1){
 	    			 
 	    			 selectedRowList.splice(index,1);
+	    			 unSelectedRowList.splice(index,1);
 	    			 
 	    		 }
 	    		 
-	    		
+	    		 alert("Unselected"+JSON.stringify(unSelectedRowList));
 	             $(this).removeClass('selected');
+	            
 					
 	    	 }else{
-	    		 selectedRowList.push($(this).data('value'));
-	    		 alert(JSON.stringify(selectedRowList));
-
-	            $(this).addClass('selected');
+	    		 /* selectedRowList.push($(this).data('value')); */
+	    		 if($.inArray($(this).data('value'), selectedRowList) === -1) selectedRowList.push($(this).data('value'));
+	            
+	    		 $(this).addClass('selected');
+	    		 
+	    		 
+	            alert("Selected list"+JSON.stringify(selectedRowList));
+	            
+	            
 	    }
 	      
 	    } );
 	 	  
 	} );
 	
+    
+    </script>
+<script type="text/javascript">
+
 	
 	function saveMemoDetails(){
 		
@@ -406,22 +473,27 @@
 		var driverId=document.getElementById("driverId").value;
 		
 		var staffId=document.getElementById("staffId").value;
+				
+		var memoNo=document.getElementById("memoNo").value;
+		
+		var memoHeaderId=document.getElementById("memoHeaderId").value;
 			
-		$.getJSON('${saveMemoDetails}', {
+		$.getJSON('${editMemoDetails}', {
 			
-			
+			memoHeaderId:memoHeaderId,
+			memoNo:memoNo,
 			officeId:officeId,
 			ownerId: ownerId,
 			driverId:driverId,
 			staffId:staffId,
-			selectedRowList:JSON.stringify(selectedRowList),
+			unSelectedRowList:JSON.stringify(unSelectedRowList),
 			
 			ajax : 'true'
 			
 		}, function(data) {
 			location.reload();
 			alert(data.message);
-				
+			window.open("${pageContext.request.contextPath}/showMemo",'_self');
 		
 		});
 		

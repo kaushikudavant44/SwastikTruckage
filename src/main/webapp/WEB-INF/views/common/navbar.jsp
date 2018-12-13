@@ -52,6 +52,9 @@
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/generateMemo">Create Memo</a></li>
 							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showMemo">Show Memo</a></li>
+							
 						</ul></li>
 
 				<li class="menu-item-has-children dropdown"><a href="#"
