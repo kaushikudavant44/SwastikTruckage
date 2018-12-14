@@ -11,12 +11,12 @@
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 <title>Swastik Truckage</title>
 <!-- Bootstrap core CSS -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/assets/lr/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-<script src="${pageContext.request.contextPath}/resources/assets/js/billing/ie-emulation-modes-warning.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/resources/assets/lr/js/ie-emulation-modes-warning.js" type="text/javascript"></script> 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link
-	href="${pageContext.request.contextPath}/resources/assets/css/lib/billing.css"
+	href="${pageContext.request.contextPath}/resources/assets/lr/css/style.css"
 	rel="stylesheet" type="text/css"></head> 
 	
 <body class="swastikBg">
@@ -199,10 +199,10 @@
     
    	<!-- Bootstrap core JavaScript================================================== -->
 	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/billing/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/assets/lr/js/jquery.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/billing/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/assets/lr/js/bootstrap.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/billing/ie10-viewport-bug-workaround.js"></script>
+		src="${pageContext.request.contextPath}/resources/assets/lr/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
