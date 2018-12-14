@@ -29,7 +29,6 @@ import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
 import com.bionische.swastiktruckage.model.GetAllMemo;
-import com.bionische.swastiktruckage.model.ShowAllMemo;
 import com.bionische.swastiktruckage.repository.GetAllLrDetailsRepository;
 import com.bionische.swastiktruckage.repository.GetAllMemoRepository;
 import com.bionische.swastiktruckage.repository.MemoDetailsRepository;
