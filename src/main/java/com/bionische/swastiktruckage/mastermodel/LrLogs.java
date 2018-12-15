@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -39,6 +40,7 @@ public class LrLogs {
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modified_date")
+	@UpdateTimestamp
 	private Date modifiedDate;
 
 	public int getLogId() {

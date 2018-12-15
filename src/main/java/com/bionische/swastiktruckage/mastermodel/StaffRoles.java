@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -36,7 +37,7 @@ public class StaffRoles {
 	@Column(name="is_used")
 	private boolean isUsed;
 	
-	@Column(name="create_date")
+	@Column(name="create_date",updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
 	private Date createDate;
@@ -60,6 +61,7 @@ public class StaffRoles {
 	@Column(name="modified_date")
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
+	@UpdateTimestamp
 	private Date modifiedDate;
 
 	public int getRoleId() {

@@ -10,12 +10,12 @@ import com.bionische.swastiktruckage.mastermodel.LRDetails;
 
 public interface LRDetailsRepository extends JpaRepository<LRDetails, Integer>{
 	
-	@Query(value="SELECT h.lr_header_id,h.consignor,h.lr_id,h.inv_header_id,h.from_id,h.to_id,h.lr_date,h.truck_no,h.weight,h.freight,h.gst,h.hamali,h.local_tempo,h.total,h.payment_by," + 
+	@Query(value="SELECT h.lr_header_id,o.office_address, h.consignor,h.lr_id,h.inv_header_id,h.from_id,h.to_id,h.lr_date,h.truck_no,h.weight,h.freight,h.gst,h.hamali,h.local_tempo,h.total,h.payment_by," + 
 			"h.status,SUM(c.no_of_containts) AS quantity FROM t_lr_header h,t_lr_containt_details c WHERE h.lr_header_id=c.lr_header_id AND" + 
 			"h.status=0 GROUP BY h.lr_header_id " ,nativeQuery=true)
 	List<LRDetails> findAllLr();
 	
-	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date, h.total,h.consignor,h.consignee_id,h.from_id," + 
+	@Query(value="SELECT h.lr_header_id, o.office_address, h.lr_no,h.lr_date, h.total,h.consignor,h.consignee_id,h.from_id," + 
 			"o.office_name, cl1.client_name AS consignor_name, cl2.client_name AS consignee_name,cl2.client_address AS consignee_address, " + 
 			"h.payment_by,h.inv_header_id,h.weight,h.freight,h.bharai,h.dd_charges,h.hamali,h.b_c_charge,h.kata,h.local_tempo,h.gst,h.truck_no,h.is_used " + 
 			"FROM m_office o,t_lr_header h " + 

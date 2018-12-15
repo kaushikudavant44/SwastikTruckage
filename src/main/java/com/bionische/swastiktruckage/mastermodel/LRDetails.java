@@ -82,6 +82,20 @@ public class LRDetails {
 	
 	@Column(name="is_used")
 	private boolean isUsed;
+	
+	@Column(name="office_address")
+	private String officeAddress;
+
+	
+	
+	
+	public String getOfficeAddress() {
+		return officeAddress;
+	}
+
+	public void setOfficeAddress(String officeAddress) {
+		this.officeAddress = officeAddress;
+	}
 
 	public int getLrHeaderId() {
 		return lrHeaderId;
@@ -283,9 +297,11 @@ public class LRDetails {
 				+ ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight + ", gst=" + gst + ", hamali="
 				+ hamali + ", localTempo=" + localTempo + ", total=" + total + ", paymentBy=" + paymentBy + ", bharai="
 				+ bharai + ", ddCharges=" + ddCharges + ", bcCharge=" + bcCharge + ", kata=" + kata
-				+ ", consigneeAddress=" + consigneeAddress + ", isUsed=" + isUsed + "]";
+				+ ", consigneeAddress=" + consigneeAddress + ", isUsed=" + isUsed + ", officeAddress=" + officeAddress
+				+ "]";
 	}
 
+	
 	
 	
 	

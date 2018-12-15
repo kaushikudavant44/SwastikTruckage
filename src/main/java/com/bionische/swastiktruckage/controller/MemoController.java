@@ -237,7 +237,7 @@ public class MemoController {
 
 	}
 	
-	@RequestMapping(value = "/editMemoDetails/{memoHeaderId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/showEditMemoDetails/{memoHeaderId}", method = RequestMethod.GET)
 
 	public ModelAndView showLrPreview(HttpServletRequest request, @PathVariable int memoHeaderId) {
 		ModelAndView model = new ModelAndView("memo/editMemo");
@@ -275,11 +275,6 @@ public class MemoController {
 				}
 				
 			}
-			
-			
-			
-			
-			
 			
 			model.addObject("vehicleOwners", vehicleOwners);
 			model.addObject("vehicalDetailsList", vehicalDetailsList);
@@ -360,19 +355,21 @@ public class MemoController {
 			int deleteMemoDetails=0;
 			
 			for(int i=0;i<memoLrId.length;i++) {
-			
+				if(memoLrId[i]!=null && memoLrId[i]!="") {
 				int lrHeaderId=Integer.parseInt(memoLrId[i]);
 				deleteMemoDetails=memoDetailsRepository.deleteMemoDetailsByLrHeaderId(lrHeaderId);
 					
-			}
+			
+			
 			if(deleteMemoDetails==1) {
 				
 				info.setMessage("Record Update Successfully");
 			}else {
 				info.setMessage("something went wrong");
 			}
-			
-			
+			}
+			}
+		//	info.setMessage("Record Update Successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

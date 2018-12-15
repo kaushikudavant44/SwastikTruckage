@@ -113,7 +113,9 @@ public class TransactionController {
 		ModelAndView model = new ModelAndView("transaction/lrGenerate");
 
 		try {
-
+			lrContaintDetailsList.clear();
+			transactionLrInvoiceDetailList.clear();
+			transactionLrContaintDetailsList.clear();
 			CompanyDetails companyDetails = new CompanyDetails();
 
 			OfficeStaff staffDetails = new OfficeStaff();
@@ -240,7 +242,7 @@ public class TransactionController {
 		HttpSession session = request.getSession();
 		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
 		int staffId=officeStaff.getStaffId();
-		
+		TransactionLrHeader transactionLrHeaderRes1 = null;
 		int lrId=0;
 		try {
 			TransactionLrInvoiceHeader transactionLrInvoiceHeader = new TransactionLrInvoiceHeader();
@@ -305,7 +307,7 @@ public class TransactionController {
 			transactionLrHeader.setUsed(true);
 			
 			
-			TransactionLrHeader transactionLrHeaderRes1=transactionLrHeaderRepository.save(transactionLrHeader);
+			 transactionLrHeaderRes1=transactionLrHeaderRepository.save(transactionLrHeader);
 			
 			System.out.println("dds0"+transactionLrHeaderRes1.toString());
 			if (transactionLrHeaderRes1 != null) {
@@ -351,7 +353,7 @@ public class TransactionController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/showLRRegistration";
+		return "redirect:/showLrPreview/"+transactionLrHeaderRes1.getLrHeaderId();
 
 	}
 	
@@ -376,7 +378,7 @@ public class TransactionController {
 	
 	@RequestMapping(value = "/editLRDetails/{lrheaderId}", method = RequestMethod.GET)
 
-	public ModelAndView showLrPreview(HttpServletRequest request, @PathVariable int lrheaderId) {
+	public ModelAndView editLRDetails(HttpServletRequest request, @PathVariable int lrheaderId) {
 		ModelAndView model = new ModelAndView("transaction/editLr");
 
 		LRDetails lrDetails=new LRDetails();
@@ -607,4 +609,63 @@ public class TransactionController {
 		return "redirect:/showLrDetails";
 
 	}
+	@RequestMapping(value = "/showLrPreview/{lrheaderId}", method = RequestMethod.GET)
+
+	public ModelAndView showLrPreview(HttpServletRequest request, @PathVariable int lrheaderId) {
+		ModelAndView model = new ModelAndView("transaction/lrPreview");
+
+		LRDetails lrDetails=new LRDetails();
+		
+		try {
+			
+			
+			lrContaintDetailsList.clear();
+			
+			transactionLrContaintDetailsList.clear();
+			
+			transactionLrInvoiceDetailList.clear();
+			
+			List<Goods> goodsList=goodsRepository.findByIsUsedOrderByGoodsIdDescIsUsed(true);
+			
+			lrDetails=lRDetailsRepository.findByLrHeaderId(lrheaderId);
+			
+			List<LrContaintDetails> lrContaintDetailsListResult=new ArrayList<>();
+			
+			lrContaintDetailsListResult=lrContaintDetailsRepository.findByLrHeaderId(lrDetails.getLrHeaderId());
+			
+			
+			List<TransactionLrInvoiceDetail> transactionLrInvoiceDetailRes=new ArrayList<>();
+			System.out.println("lr details"+lrContaintDetailsListResult.toString());
+			try {
+				lrContaintDetailsList.addAll(lrContaintDetailsListResult);
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+			 transactionLrInvoiceDetailRes=transactionLrInvoiceDetailRepository.findByInvHeaderId(lrDetails.getInvHeaderId());
+			
+			 transactionLrInvoiceDetailList.addAll(transactionLrInvoiceDetailRes);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("containt"+lrContaintDetailsList.toString());
+			
+			System.out.println("invoice"+transactionLrInvoiceDetailList.toString());
+			
+			model.addObject("lrDetails", lrDetails);
+			
+			model.addObject("lrContaintDetailsList", lrContaintDetailsList);
+			
+			model.addObject("transactionLrInvoiceDetailList", transactionLrInvoiceDetailList);
+			 
+			model.addObject("goodsList", goodsList);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
 }
