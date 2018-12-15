@@ -77,7 +77,7 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Lr Details</a></li>
+						<li><a href="#">Memo Details</a></li>
 						
 					</ol>
 				</div>
@@ -92,7 +92,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Lr Details</strong>
+							<strong class="card-title">Memo Details</strong>
 						</div>
 						<div class="card-body">
 
@@ -119,7 +119,7 @@
 										<td>${getAllMemoList.driverName}</td>
 										<td><div class="fa-hover col-lg-3 col-md-6">
 										<a
-														href="${pageContext.request.contextPath}/editMemoDetails/${getAllMemoList.memoHeaderId}"><i
+														href="${pageContext.request.contextPath}/showEditMemoDetails/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
 														<div class="fa-hover col-lg-3 col-md-6">
 														<a

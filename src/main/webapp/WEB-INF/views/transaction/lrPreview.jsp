@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +38,7 @@
     	<h5 class="text-center" style=" padding: 1px; margin:1px;" >Subject to Mumbai Jurisdiction</h5>
         <img src="${pageContext.request.contextPath}/resources/images/swastik.png" class="img-responsive" alt="logo">
         <!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
-        <p class="text-center"><strong>Address:</strong> 162/168, Kazi Sayed Street, Khand Bazar, Mathadi Kamgar Chowk, Near Carnac Bridge, Mumbai-400003</p>
+        <p class="text-center"><strong>Address:</strong> ${lrDetails.officeAddress}</p>
        
        
        </div>
@@ -53,9 +54,9 @@
 
 <table  width="100%"  style="border: 1px solid black;">
   <tr height="50px;">
-    <th style="padding-left:10px;" width="38%">FROM : </th>
-    <th width="37%">TO : </th>
-<th width="25%">LR No.: </th>
+    <th style="padding-left:10px;" width="38%">FROM :  ${lrDetails.officeName}</th>
+    <th width="37%">TO :  ${lrDetails.consigneeAddress}</th>
+<th width="25%">LR No.: ${lrDetails.lrNo}</th>
 
   </tr>
   
@@ -63,8 +64,8 @@
 
 <table  width="100%">
   <tr  height="50px;" style="border-top:0px; border-left: 1px solid #000000; border-right: 1px solid #000000;">
-    <th width="75%" width="61%" style="padding-left:10px;">CONSIGNOR : </th>
-    <th width="25%">DATE : </th>
+    <th width="75%" width="61%" style="padding-left:10px;">CONSIGNOR : ${lrDetails.consignorName}</th>
+    <th width="25%">DATE : ${lrDetails.lrDate}</th>
 
   </tr>
   
@@ -72,8 +73,8 @@
 
 <table  width="100%">
   <tr height="50px;" style="border-top:1px solid #000000; border-bottom:1px solid #000000;  border-left: 1px solid #000000; border-right: 1px solid #000000;" >
-    <th width="75%" style="padding-left:10px;" >CONSIGNEE : </th>
-    <th width="25%"> TRUCK No. : </th>
+    <th width="75%" style="padding-left:10px;" >CONSIGNEE : ${lrDetails.consigneeName}</th>
+    <th width="25%"> TRUCK No. :  ${lrDetails.truckNo}</th>
 
   </tr>
   
@@ -86,41 +87,21 @@
        	  <table width="100%" border="1" >
         	  <tr>
         	    <th width="33%"><strong>No. of Containts</strong></th>
-        	    <th width="33%"><strong>Good</strong></th>
-        	    <th width="33%"><strong>Description</strong></th>
+        	    <th width="33%" align="center"><strong>Good</strong></th>
+        	    <th width="33%" align="center"><strong>Description</strong></th>
       	    </tr>
-            
+           <c:forEach items="${lrContaintDetailsList}" var="lrContaintDetailsList" varStatus="count"> 
              <tr>
-              <td class="containtTd" >1</td>
-              <td class="containtTd">2</td>
-              <td class="containtTd">3</td>
+              <td class="containtTd" align="center">${lrContaintDetailsList.noOfContaints}</td>
+              <td class="containtTd" align="center">${lrContaintDetailsList.goodsName}</td>
+              <td class="containtTd" align="center">${lrContaintDetailsList.description}</td>
             </tr>
-  
-            
-             <tr>
-              <td class="containtTd"></td>
-              <td class="containtTd"></td>
-              <td class="containtTd"></td>
-            </tr>
-
-             <tr>
-              <td class="containtTd"></td>
-              <td class="containtTd"></td>
-              <td class="containtTd"></td>
-            </tr>
-       
-            <tr>
-              <td class="containtTd"></td>
-              <td class="containtTd"></td>
-              <td class="containtTd"></td>
-            </tr>
-
-
+			</c:forEach>
           </table>
 
           <div class="col-sm-8">
 
-          	<h5><strong>Invoice No.: </strong></h5>
+          	<h5><strong>Invoice No.: </strong><c:forEach items="${transactionLrInvoiceDetailList}" var="transactionLrInvoiceDetailList" varStatus="count">${transactionLrInvoiceDetailList.invNo},</c:forEach> </h5>
             <h5><strong>GSTIN :27AARFS4904J1ZP </strong></h5>
 
      <p class="red">Tax Paid on reverse charge basis will be available for input tax credit if such goods and/or service are used, or will be used, for business. The service recepient(i.e who plays reverse tax) can avail input tax credit.</p>
@@ -139,8 +120,8 @@
         <div class="col-sm-4" style="padding-right:0px;">
        	  <table width="100%" border="1">
         	  <tr>
-        	    <td class="leftwd"><strong>WEIGHT</strong></td>
-        	    <td>&nbsp;</td>
+        	    <td class="leftwd" ><strong>WEIGHT</strong></td>
+        	    <td align="right">${lrDetails.weight}</td>
       	    </tr>
         	
           </table>
@@ -149,39 +130,39 @@
           
             <tr>
         	    <td class="leftwd">FREIGHT</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.freight}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">GST</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.gst}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">HAMALI</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.hamali}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">B.C. CHARGE</td>
-        	    <td>10</td>
+        	    <td align="right">${lrDetails.bcCharge}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">KATA</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.kata}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">LOCAL TEMPO</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.localTempo}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">BHARAI</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.bharai}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">DD CHARGES</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.ddCharges}</td>
       	    </tr>
         	  <tr>
         	    <td class="leftwd">TOTAL</td>
-        	    <td>&nbsp;</td>
+        	    <td align="right">${lrDetails.total}</td>
       	    </tr>
       	  </table>
 

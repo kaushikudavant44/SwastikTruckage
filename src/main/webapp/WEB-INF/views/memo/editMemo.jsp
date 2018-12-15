@@ -60,16 +60,51 @@
     }
     
     
-    
+.loader {
+    position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+ }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hide-loader{
+display:none;
+}
+
+.bg-body{
+
+    background: #e9e9e9;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+}
+
+
+
 </style>
-
-
-
 
 <c:url var="getVehicalOwnerDetails" value="/getVehicalOwnerDetails" />
 <c:url var="editMemoDetails" value="/editMemoDetails" />
 </head>
-<body onload="loadSelectedLrDetails()">
+<body id="bgbdy">
 
 
 	<!-- Left Panel -->
@@ -111,7 +146,7 @@
 				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong>Make LR</strong>
+							<strong>Edit Memo</strong>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertLR"
@@ -333,8 +368,8 @@
 	<!-- .content -->
 
 
-
-
+<div id="loader">
+		</div>
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
@@ -450,7 +485,7 @@
 	    		 $(this).addClass('selected');
 	    		 
 	    		 
-	            alert("Selected list"+JSON.stringify(selectedRowList));
+	            
 	            
 	            
 	    }
@@ -466,6 +501,8 @@
 	
 	function saveMemoDetails(){
 		
+		 $('#loader').addClass("loader");
+		$('#bgbdy').addClass("bg-body");
 		var officeId=document.getElementById("fromId").value;
 		
 		var ownerId=$("#ownerId option:selected").html();
@@ -492,7 +529,11 @@
 			
 		}, function(data) {
 			location.reload();
+			
 			alert(data.message);
+			
+			 $('#loader').addClass("hide-loader");
+			 $('#bgbdy').removeClass("bg-body");
 			window.open("${pageContext.request.contextPath}/showMemo",'_self');
 		
 		});
@@ -522,4 +563,5 @@ function getVehicalOwner(){
 </script>
 
 </body>
+
 </html>

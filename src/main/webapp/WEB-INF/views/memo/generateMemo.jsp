@@ -105,7 +105,7 @@
 				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong>Make LR</strong>
+							<strong>Create Memo</strong>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertLR"
