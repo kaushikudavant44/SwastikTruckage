@@ -44,6 +44,10 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+	
+	<%-- <link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel='stylesheet' type='text/css'> --%>
 
 <style type="text/css">
 .right {
@@ -63,7 +67,7 @@
 <c:url var="getVehicalOwnerDetails" value="/getVehicalOwnerDetails" />
 <c:url var="saveMemoDetails" value="/saveMemoDetails" />
 </head>
-<body>
+<body id="bgbdy">
 
 
 	<!-- Left Panel -->
@@ -152,7 +156,7 @@
 													</c:forEach>	
 
 
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select> <a href="${pageContext.request.contextPath}/showVehicleReg"><span
 														style="color: blue">If Vehical not found?</span></a>
 												</div>
 											</div>
@@ -192,7 +196,7 @@
 													</c:forEach>	
 
 
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select> <a href="${pageContext.request.contextPath}/showVehicleDriverReg"><span
 														style="color: blue">If driver not found?</span></a>
 												</div>
 											</div>
@@ -406,7 +410,9 @@
 		var driverId=document.getElementById("driverId").value;
 		
 		var staffId=document.getElementById("staffId").value;
-			
+		
+		$('#loader').addClass("loader");
+		$('#bgbdy').addClass("bg-body");
 		$.getJSON('${saveMemoDetails}', {
 			
 			
@@ -419,8 +425,11 @@
 			ajax : 'true'
 			
 		}, function(data) {
-			location.reload();
 			alert(data.message);
+			location.reload();
+			 $('#loader').addClass("hide-loader");
+			 $('#bgbdy').removeClass("bg-body");
+			
 				
 		
 		});
@@ -450,4 +459,6 @@ function getVehicalOwner(){
 </script>
 
 </body>
+<div id="loader">
+		</div>
 </html>

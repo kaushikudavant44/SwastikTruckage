@@ -43,6 +43,9 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel='stylesheet' type='text/css'>
 
 <!-- <style type="text/css">
 .right {
@@ -65,7 +68,7 @@
 
 
 </head>
-<body onload="getTotal()">
+<body onload="getTotal()" id="bgbdy">
 
 
 	<!-- Left Panel -->
@@ -111,7 +114,7 @@
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertEditedLR"
-								method="post">
+								method="post" id="login_form">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
@@ -296,7 +299,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="freight" id="freight"
-														type="number" value="${lrDetails.freight}" min="0" onkeyup="getTotal()" /> <span
+														type="text" value="${lrDetails.freight}" min="0" onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -308,7 +311,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="gst" id="gst"
-														type="number" value="${lrDetails.gst}" min="0" onkeyup="getTotal()" /> <span
+														type="text" value="${lrDetails.gst}" min="0" onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -332,7 +335,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="hamali" id="hamali"
-														type="number" value="${lrDetails.hamali}" min="0" onkeyup="getTotal()" /> <span
+														type="text" value="${lrDetails.hamali}" min="0" onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -343,8 +346,8 @@
 												<div class="input-group">
 
 													<input class="form-control" name="bccharge" id="bccharge"
-														type="number" required value="${lrDetails.bcCharge}" min="0"
-														onkeyup="getTotal()" /> <span class="error"
+														type="text" required value="${lrDetails.bcCharge}" min="0"
+														onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -354,7 +357,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="kata" id="kata" value="${lrDetails.kata}"
-														type="number" min="0" onkeyup="getTotal()" /> <span
+														type="text" min="0" onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -378,8 +381,8 @@
 												<div class="input-group">
 
 													<input class="form-control" name="localtempo"
-														id="localtempo" value="${lrDetails.localTempo}" type="number" min="0"
-														onkeyup="getTotal()" /> <span class="error"
+														id="localtempo" value="${lrDetails.localTempo}" type="text" min="0"
+														onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -390,8 +393,8 @@
 												<div class="input-group">
 
 													<input class="form-control" name="bharai" id="bharai"
-														type="number" min="0" required value="0"
-														onkeyup="getTotal()" value="${lrDetails.bharai}" /> <span class="error"
+														type="text" min="0" required value="0"
+														onkeyup="getTotal()" value="${lrDetails.bharai}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -401,7 +404,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="ddcharges" id="ddcharges"
-														type="number" min="0" onkeyup="getTotal()" value="${lrDetails.ddCharges}" /> <span
+														type="text" min="0" onkeyup="getTotal()" value="${lrDetails.ddCharges}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -427,7 +430,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="total" id="total"
-														type="text" value="${lrDetails.total}" readonly /> <span class="error"
+														type="text" value="${lrDetails.total}" readonly oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -452,7 +455,7 @@
 											<div class="input-group">
 
 												<input class="form-control" name="invoiceNo" id="invoiceNo"
-													type="text" required value="" /> <span class="error"
+													type="text" value="" /> <span class="error"
 													aria-live="polite"></span>
 											</div>
 										</div>
@@ -514,7 +517,7 @@
 											<div class="input-group">
 
 												<input class="form-control" name="noOfContaint"
-													id="noOfContaint" type="number" required value="" /> <span
+													id="noOfContaint" type="text" value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span
 													class="error" aria-live="polite"></span>
 											</div>
 										</div>
@@ -544,7 +547,7 @@
 
 											<div class="input-group">
 												<textarea class="form-control" name="description"
-													id="description" type="text" required value="1" row="2"></textarea>
+													id="description" type="text" value="1" row="2"></textarea>
 												<span class="error" aria-live="polite"></span>
 
 											</div>

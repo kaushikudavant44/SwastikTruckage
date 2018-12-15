@@ -44,6 +44,9 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+	<%-- <link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel='stylesheet' type='text/css'> --%>
 
 <style type="text/css">
 .right {
@@ -60,42 +63,7 @@
     }
     
     
-.loader {
-    position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
- }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.hide-loader{
-display:none;
-}
-
-.bg-body{
-
-    background: #e9e9e9;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0.5;
-}
 
 
 
@@ -104,7 +72,7 @@ display:none;
 <c:url var="getVehicalOwnerDetails" value="/getVehicalOwnerDetails" />
 <c:url var="editMemoDetails" value="/editMemoDetails" />
 </head>
-<body id="bgbdy">
+<body>
 
 
 	<!-- Left Panel -->
@@ -206,7 +174,7 @@ display:none;
 													</c:forEach>	
 
 
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select> <a href="${pageContext.request.contextPath}/showVehicleReg"><span
 														style="color: blue">If Vehical not found?</span></a>
 												</div>
 											</div>
@@ -256,7 +224,7 @@ display:none;
 													</c:forEach>	
 
 
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select> <a href="${pageContext.request.contextPath}/showVehicleDriverReg"><span
 														style="color: blue">If driver not found?</span></a>
 												</div>
 											</div>
@@ -366,10 +334,9 @@ display:none;
 		<!-- .animated -->
 	</div>
 	<!-- .content -->
+<div class=" clearfix"></div>
 
 
-<div id="loader">
-		</div>
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
@@ -530,7 +497,7 @@ display:none;
 		}, function(data) {
 			location.reload();
 			
-			alert(data.message);
+			/* alert(data.message); */
 			
 			 $('#loader').addClass("hide-loader");
 			 $('#bgbdy').removeClass("bg-body");
@@ -563,5 +530,9 @@ function getVehicalOwner(){
 </script>
 
 </body>
+<div id="bgbdy"></div>
+<div id="loader">
+</div>
+
 
 </html>

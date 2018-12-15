@@ -28,6 +28,7 @@ import com.bionische.swastiktruckage.mastermodel.TransactionLrInvoiceDetail;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
+import com.bionische.swastiktruckage.mastermodel.VoucherDetails;
 import com.bionische.swastiktruckage.model.GetAllMemo;
 import com.bionische.swastiktruckage.repository.GetAllLrDetailsRepository;
 import com.bionische.swastiktruckage.repository.GetAllMemoRepository;
@@ -39,10 +40,15 @@ import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.VehicleDetailsRepository;
 import com.bionische.swastiktruckage.repository.VehicleOwnersRepository;
 import com.bionische.swastiktruckage.repository.VehiclesDriversRepository;
+import com.bionische.swastiktruckage.repository.VoucherDetailsRepository;
 
 @Controller
 public class MemoController {
-
+	
+	
+	@Autowired
+	VoucherDetailsRepository voucherDetailsRepository;
+	
 	@Autowired
 	GetAllLrDetailsRepository getAllLrDetailsRepository;
 	
@@ -375,6 +381,28 @@ public class MemoController {
 		}
 
 		return info;
+
+	}
+	
+	
+	@RequestMapping(value = "/showVoucherReg/{memoHeaderId}", method = RequestMethod.GET)
+
+	public ModelAndView generateVoucher(HttpServletRequest request,@PathVariable int memoHeaderId) {
+		ModelAndView model = new ModelAndView("memo/createVoucher");
+
+		
+		try {
+			
+			GetAllMemo getMemoDeatails=new GetAllMemo();
+			getMemoDeatails=getAllMemoRepository.findByMemoHeaderId(memoHeaderId);
+			
+			//VoucherDetails voucherDetails=voucherDetailsRepository.save(voucherDetails);
+			model.addObject("getMemoDeatails", getMemoDeatails);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
 
 	}
 	
