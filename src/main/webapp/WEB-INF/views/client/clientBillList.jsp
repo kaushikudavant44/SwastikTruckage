@@ -106,17 +106,26 @@
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
-<form action="${pageContext.request.contextPath}/showGeneratedClientBills" method="GET" >
+<form action="${pageContext.request.contextPath}/showGeneratedClientBills" method="GET">
         <div class="row">
-             <div class="col-sm-6 col-md-3">
-             <div class="billing">
-             <label>From Date<input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" readonly></label>
+             <div class="col-sm-6 col-md-1">          
+                  <label>From Date </label>
              </div>
+             
+             <div class="col-sm-6 col-md-2">
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" readonly>             
              </div>
-              <div class="col-sm-6 col-md-3">
-             <div class="billing">
-             <label>To Date<input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly></label>
+              <div class="col-sm-6 col-md-1">
              </div>
+              <div class="col-sm-6 col-md-1">  
+             <label>To Date </label>
+             </div>
+             
+              <div class="col-sm-6 col-md-2">
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly>
+            
+             </div>
+             <div class="col-sm-6 col-md-1">
              </div>
              
              <div class="col-sm-6 col-md-3">
@@ -127,6 +136,7 @@
 							</div>
 							</div>
             </form>
+            <br>
 							<table id=""
 								class="table table-striped table-bordered">
 								<thead>

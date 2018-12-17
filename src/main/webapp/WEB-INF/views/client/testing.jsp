@@ -32,42 +32,20 @@
 
 </head>
 <body>
-<c:url var="deleteVehicleById" value="/deleteVehicleById" />
+<c:url var="getCityByStateId" value="/getCityByStateId" />
 
 <div  ><jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 
 
-    <!-- Right Panel -->
 
     <div id="right-panel" class="right-panel">
 
-        <!-- Header-->
+      
         <div  ><jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
-        
-        <!-- Header-->
-
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Dashboard</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Dashboard</li>
-                            <li><a href="#">Vehicle Details</a></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
   <div class="content mt-3">
-  
-  <div class="form-group ">
+ 
+ <div class="form-group ">
                         <div class="col-lg-5"></div>
                          <div class="col-lg-5">
                         <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
@@ -75,11 +53,15 @@
          </div>
  <br>
  <div class="row">
-
-				<div class="col-md-12">
+ <form action="${pageContext.request.contextPath}/insertClientInfo" method="POST">
+ 
+  <div class="col-lg-1">
+ </div> 
+ 
+ 		<div class="col-md-10">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Vehicle Details</strong>
+							<strong class="card-title">Client Details</strong>
 						</div>
 						<div class="card-body">
 
@@ -87,22 +69,30 @@
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th>Vehicle No</th>
-										<th>Owner Name</th>
-										
+										<th>Name</th>
+										<th>Contact No</th>
+										<th>City</th>
+										<th >State</th>
+										<th >Address</th>
+										<th >Pincode</th>
+										<th >gst</th>
 										<th >edit / delete</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${vehiclsList}" var="vehiclsList" varStatus="count">
+								<c:forEach items="${allClientDetails}" var="allClientDetails" varStatus="count">
 									
 									<tr>
-										<td>${vehiclsList.vehNo}</td>
-										<td>${vehiclsList.ownerName}</td>
-										
-										<th ><a href="${pageContext.request.contextPath}/showEditVehicleDetails/${vehiclsList.vehId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteVehicle(${vehiclsList.vehId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
+										<td>${allClientDetails.clientName}</td>
+										<td>${allClientDetails.clientContactNo}</td>
+										<td>${allClientDetails.cityName}</td>
+										<td>${allClientDetails.stateName}</td>
+										<td>${allClientDetails.clientAddress}</td>
+										<td>${allClientDetails.pincode}</td>
+										<td>${allClientDetails.gstin}</td>
+										<th ><a href="${pageContext.request.contextPath}/showEditClientDetails/${allClientDetails.clientId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
+										<a href="#" onclick="deleteClient(${allClientDetails.clientId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -112,18 +102,21 @@
 						</div>
 					</div>
 				</div>
+ 		
+ 		
+ 		
+ 		
+ 		
+	<div class="col-lg-1">
+	</div>			
+ 
+ 
 
-
-			</div>
-
+</form> 
+</div>
  </div>
 </div>
-<!-- delete vehicle form -->
-<form action="${pageContext.request.contextPath}/deleteVehicleById" method="POST" id="deleteVehicle">
-   
-      <input type="hidden" id="vehId" name="vehId" value="">  
-     
-     </form>
+        
   
     <div align="center" ><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
@@ -135,7 +128,6 @@
     
     
 
-     <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
@@ -148,8 +140,8 @@
     <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-    
+       <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+   
     <script>
         ( function ( $ ) {
             "use strict";
@@ -168,58 +160,43 @@
             } );
         } )( jQuery );
     </script>
-    <script>
+<script>
                         setTimeout(function() {
     $('#messageAnimation').fadeOut('slow');
 }, 5000);
                         </script>
-    
 
 <script>
-    function deleteVehicle(vehId){
-    	
-    	if(confirm("Delete Slected Item?!!"))
-    		 $
- 			.getJSON(
- 					'${deleteVehicleById}',
+function getCityList(){
+		
+	var stateId=document.getElementById("stateId").value;
+	
+	$.getJSON('${getCityByStateId}', {
+		
+		stateId : stateId,
+		ajax : 'true'
+		
+	}, function(data) {
+		
+		
+		var html = '<option value="" disabled="disabled" selected >Choose City...</option>';
+		
+		var len = data.length;
+		for ( var i = 0; i < len; i++) {
+			
+			html += '<option value="' + data[i].cityId + '">'
+					+ data[i].cityName + '</option>';
+		} 
+		html += '</option>';
+		$('#cityId').html(html);
+		
+		$("#cityId").trigger("chosen:updated");
 
- 					{
- 						vehId : vehId,
- 						 
- 						 
- 						ajax : 'true'
+	});
+	
+}
 
- 					},
- 					function(data) {
- 					 
- 						location.reload();
- 					
- 		});
-    }
-    
-    function deleteVehicle(vehId){
-    	
-    	if(confirm("Delete Slected Item?!!")){
-    		
-    	$.getJSON('${deleteVehicleById}', {
-    		
-    		vehId : vehId,
-    		ajax : 'true'
-    		
-    	}, function(data) {
-    		
-            if(data.message=="success"){
-    			
-            	alert("deleted successfully");
-    			location.reload();
-    		
-    		}
 
-    	});
-    	}
-    	
-    }
-    </script>
-
+</script>
 </body>
 </html>

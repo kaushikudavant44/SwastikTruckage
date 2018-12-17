@@ -2,10 +2,7 @@
     pageEncoding="ISO-8859-1"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html > <!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,8 +19,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/themify-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/flag-icon.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
-
+    <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
+    <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
     <link href="${pageContext.request.contextPath}/resources/assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-<div  ><jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 
 
 
@@ -55,6 +55,7 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li class="active">Dashboard</li>
+                            <li><a href="#">Driver Registration</a></li>
                         </ol>
                     </div>
                 </div>
@@ -75,7 +76,7 @@
   <div class="col-lg-3">
  </div> 
  
- 		<div class="col-lg-6">
+ 		<div class="col-lg-12">
 					<div class="card">
 						<div class="card-header">
 							<h4>Driver Registration</h4>
@@ -163,46 +164,62 @@
 
     <!-- Right Panel -->
     
-    
-    
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chart-js/Chart.bundle.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/widgets.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-     <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
- 
-    <script>
-        ( function ( $ ) {
-            "use strict";
-
-            jQuery( '#vmap' ).vectorMap( {
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: [ '#1de9b6', '#03a9f5' ],
-                normalizeFunction: 'polynomial'
-            } );
-        } )( jQuery );
+	<script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table1').DataTable({
+        	  columnDefs: [
+      	        { targets: [1], className:"right" },
+      	    ]
+          });
+        } );
     </script>
 <script>
                         setTimeout(function() {
     $('#messageAnimation').fadeOut('slow');
 }, 5000);
                         </script>
-
+<script>
+					jQuery(document).ready(function() {
+						jQuery(".standardSelect").chosen({
+							disable_search_threshold : 2,
+							no_results_text : "Oops, nothing found!",
+							width : "100%"
+						});
+					});
+				</script>
 </body>
 </html>

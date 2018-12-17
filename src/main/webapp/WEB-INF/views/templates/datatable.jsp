@@ -51,16 +51,7 @@
 <body onload="dummyDataCall()">
 
 
-	<!-- Left Panel -->
-	<jsp:include page="/WEB-INF/views/common/left.jsp"></jsp:include>
-	<!-- Left Panel -->
-
-
-	<!-- Header-->
-	<jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
-	<!-- Header-->
-
-
+	
 	<div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">

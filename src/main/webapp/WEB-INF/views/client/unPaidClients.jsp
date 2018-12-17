@@ -117,9 +117,9 @@
 										<td>${allClientDetails.clientAddress}</td>
 										<td>${allClientDetails.pincode}</td>
 										<td>${allClientDetails.gstin}</td>
-										<th> <button type="submit" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/showLrBilling/${allClientDetails.clientId}">
-										Submit</a>
-									</button>	 </th>
+										<td> <a href="${pageContext.request.contextPath}/showLrBilling/${allClientDetails.clientId}">
+										<i class="fa  fa-arrow-circle-o-right" aria-hidden="true" style="font-size:30px;"></i></a>
+								        </td>
 									</tr>
 									</c:forEach>
 								

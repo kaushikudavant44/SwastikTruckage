@@ -59,6 +59,7 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li class="active">Dashboard</li>
+                            <li><a href="#">Owner Details</a></li>
                         </ol>
                     </div>
                 </div>

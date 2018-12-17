@@ -110,6 +110,8 @@
               
               </div>
               <div class="col-sm-6 col-md-1">
+             </div>
+              <div class="col-sm-6 col-md-1">
              
              <label>To Date</label>
              
@@ -117,6 +119,8 @@
              <div class="col-sm-6 col-md-2">
              
              <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly>
+             </div>
+             <div class="col-sm-6 col-md-1">
              </div>
              
              <div class="col-sm-6 col-md-3">
@@ -234,6 +238,7 @@
   <script>
   $( function() {
     $( "#datepicker" ).datepicker();
+    $( "#datepicker" ).datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
   } );
   
   $( function() {
