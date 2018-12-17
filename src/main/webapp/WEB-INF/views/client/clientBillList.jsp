@@ -113,7 +113,7 @@
              </div>
              
              <div class="col-sm-6 col-md-2">
-              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" readonly>             
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" >             
              </div>
               <div class="col-sm-6 col-md-1">
              </div>
@@ -122,7 +122,7 @@
              </div>
              
               <div class="col-sm-6 col-md-2">
-          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly>
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" >
             
              </div>
              <div class="col-sm-6 col-md-1">
@@ -236,16 +236,24 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		
+		
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  
-  $( function() {
-	    $( "#datepicker1" ).datepicker();
-	  } );
-  </script>
+	<script>
+		$(function() {
+			$('input[id$=datepicker]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
+		});
+		
+		$(function() {
+			$('input[id$=datepicker1]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
+		});
+		
+	</script>
+	
 
 
 	<script type="text/javascript">
