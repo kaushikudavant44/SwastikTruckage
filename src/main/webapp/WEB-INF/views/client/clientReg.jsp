@@ -59,6 +59,25 @@
 
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
+
+<style type="text/css">
+
+.gstinnumber {
+	display: block;
+	width: 100%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+</style>
+
 </head>
 <body>
 	<c:url var="getCityByStateId" value="/getCityByStateId" />
@@ -191,10 +210,12 @@
 															required class="form-control" name="pincode">
 													</div>
 												</div>
+												
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
-														<label class=" form-control-label">GST</label> <input
-															required class="form-control" name="gst">
+														<label class=" form-control-label">GST</label>
+													 <input	required  name="gst"
+															class="gstinnumber" >
 													</div>
 												</div>
 
@@ -334,8 +355,7 @@
 					function nameValidation() {
 
 						var clientName = document.getElementById("name").value;
-						alert(clientName);
-
+				
 						$
 								.getJSON(
 										'${clientNameValidation}',
@@ -347,7 +367,7 @@
 										},
 										function(data) {
 
-											alert(data);
+										
 											if (data == 1) {
 
 											} else {
@@ -361,5 +381,27 @@
 
 					}
 				</script>
+
+
+<!-- GSTIN Validation -->
+
+	<script>
+	  $(document).on('change',".gstinnumber", function(){    
+	    var inputvalues = $(this).val();
+	    var gstinformat = new RegExp('^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');
+	    
+	    if (gstinformat.test(inputvalues)) {
+	     return true;
+	    } else {
+	       // alert('Please Enter Valid GSTIN Number');
+	        $(".gstinnumber").val('');
+	        $(".gstinnumber").focus();
+
+	    }
+	    
+	  });
+	</script>
+
 </body>
+
 </html>
