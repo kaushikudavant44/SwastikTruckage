@@ -19,6 +19,11 @@
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/favicon.ico">
 
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
 <link rel="stylesheet"
@@ -33,13 +38,18 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-<link
-	href="${pageContext.request.contextPath}/resources/assets/css/lib/vector-map/jqvmap.min.css"
-	rel="stylesheet">
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
+
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
+	rel='stylesheet' type='text/css'>
 
 
 
@@ -85,7 +95,7 @@
 				</div>
 
 
-				<div class="content mt-3">
+				<%-- <div class="content mt-3">
 
 					<div class="form-group ">
 						<div class="col-lg-5"></div>
@@ -96,251 +106,260 @@
 						</div>
 					</div>
 					<br>
-					<div class="row">
+					<div class="row"> --%>
 
 
-						<div class="col-lg-3"></div>
+				<div class="content mt-3">
+					<div class="animated fadeIn">
 
-						<div class="col-lg-6">
-							<form
-								action="${pageContext.request.contextPath}/insertClientInfo"
-								method="POST">
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-12">
 								<div class="card">
 									<div class="card-header">
-										<h4>Client Registration</h4>
+										<strong>Add New Client</strong>
 									</div>
-									<div class="card-body">
-										<div class="row">
-											<div class="col-sm-6 col-md-6">
-												<div class="form-group">
-													<label class=" form-control-label">Full Name</label> <input
-														required name="name" id="name" class="form-control"
-														onblur="nameValidation()">
-												</div>
-												<p id="validationMsg"
-													style="position: absolute; color: red;"></p>
-											</div>
+									<div class="card-body card-block">
 
-											<div class="col-sm-6 col-md-6">
-												<div class="form-group">
-													<label class=" form-control-label">Contact No</label>
-													<div class="input-group">
-														<div class="input-group-addon">
-															<i class="fa fa-phone"></i>
+										<form
+											action="${pageContext.request.contextPath}/insertClientInfo"
+											method="POST">
+
+											<div class="row">
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Full Name</label> <input
+															required name="name" id="name" class="form-control"
+															onblur="nameValidation()">
+													</div>
+													<p id="validationMsg"
+														style="position: absolute; color: red;"></p>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Contact No</label>
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-phone"></i>
+															</div>
+															<input required class="form-control" name="contactNo">
 														</div>
-														<input required class="form-control" name="contactNo">
 													</div>
 												</div>
-											</div>
 
-											<div class="col-sm-6 col-md-6">
-												<div class="form-group">
+												<div class="col-sm-6 col-md-6">
+
 													<label class=" form-control-label">Select State</label> <select
-														required class="standardSelect" tabindex="1" id="stateId"
-														name="stateId" onchange="getCityList()">
-														<option>--select--</option>
+														data-placeholder="Choose a state" class="standardSelect"
+														id="stateId" name="stateId" onchange=getCityList()>
 
-														<c:forEach items="${stateList}" var="stateList"
-															varStatus="count">
-															<option value="${stateList.stateId}"><c:out
-																	value="${stateList.stateName}" /></option>
+														<option value=""></option>
+
+														<c:forEach items="${stateList}" var="state">
+
+															<option value="${state.stateId}">${state.stateName}
+															</option>
+
 														</c:forEach>
 													</select>
 
+
+
 												</div>
 
-											</div>
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Select City</label> <select
+															required class="standardSelect form-control" tabindex="1"
+															id="cityId" name="cityId">
+															<option value=""></option>
+														</select>
+													</div>
+												</div>
 
-											<div class="col-sm-6 col-md-6">
-												<div class="form-group">
-													<label class=" form-control-label">Select City</label> <select
-														required class="standardSelect form-control" tabindex="1"
-														id="cityId" name="cityId">
+												<div class="col-sm-12 col-md-12">
+													<div class="form-group">
+														<label class=" form-control-label">Address</label>
+														<textarea required class="form-control" name="address"></textarea>
+													</div>
+												</div>
 
-													</select>
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Pincode</label> <input
+															required class="form-control" name="pincode">
+													</div>
+												</div>
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">GST</label> <input
+															required class="form-control" name="gst">
+													</div>
+												</div>
+
+
+
+												<br> <br>
+												<div class="clearfix"></div>
+												<br>
+												<hr>
+												<div class="col-sm-12 text-center">
+
+													<button type="submit" class="btn btn-primary">
+														Submit</button>
 												</div>
 											</div>
 
-											<div class="col-sm-12 col-md-12">
-												<div class="form-group">
-													<label class=" form-control-label">Address</label>
-													<textarea required class="form-control" name="address"></textarea>
-												</div>
-											</div>
 
-											<div class="col-sm-6 col-md-6">
-												<div class="form-group">
-													<label class=" form-control-label">Pincode</label> <input
-														required class="form-control" name="pincode">
-												</div>
-											</div>
-											<div class="col-sm-6 col-md-6">
-												<div class="form-group">
-													<label class=" form-control-label">GST</label> <input
-														required class="form-control" name="gst">
-												</div>
-											</div>
-
-
-
-											<br> <br>
-											<div class="clearfix"></div>
-											<br>
-											<hr>
-											<div class="col-sm-12 text-center">
-
-												<button type="submit" class="btn btn-primary">
-													Submit</button>
-											</div>
-										</div>
-
+										</form>
 									</div>
 								</div>
-							</form>
+								<div class="col-lg-3"></div>
+
+
+
+
+							</div>
 						</div>
 					</div>
-					<div class="col-lg-3"></div>
 
 
+					<div align="center"><jsp:include
+							page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-
+					</div>
+					<!-- .content -->
 				</div>
-			</div>
-		</div>
+				<!-- /#right-panel -->
+
+				<!-- Right Panel -->
 
 
-		<div align="center"><jsp:include
-				page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
-		</div>
-		<!-- .content -->
-	</div>
-	<!-- /#right-panel -->
-
-	<!-- Right Panel -->
-
-	
 
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+				<script
+					src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
-	<script>
-        jQuery(document).ready(function() {
-            jQuery(".standardSelect").chosen({
-                disable_search_threshold: 3,
-                no_results_text: "Oops, nothing found!",
-                width: "100%"
-            });
-        });
-    </script>
+				<script>
+					jQuery(document).ready(function() {
+						jQuery(".standardSelect").chosen({
+							disable_search_threshold : 2,
+							no_results_text : "Oops, nothing found!",
+							width : "100%"
+						});
+					});
+				</script>
 
 
-	<script>
-		setTimeout(function() {
-			$('#messageAnimation').fadeOut('slow');
-		}, 5000);
-	</script>
-	<script>
-		setTimeout(function() {
-			$('#validationMsg').fadeOut('slow');
-		}, 10000);
-	</script>
-	<script>
-		function getCityList() {
+				<script>
+					setTimeout(function() {
+						$('#messageAnimation').fadeOut('slow');
+					}, 5000);
+				</script>
+				<script>
+					setTimeout(function() {
+						$('#validationMsg').fadeOut('slow');
+					}, 10000);
+				</script>
+				<script>
+					function getCityList() {
 
-			var stateId = document.getElementById("stateId").value;
+						var stateId = document.getElementById("stateId").value;
 
-			$
-					.getJSON(
-							'${getCityByStateId}',
-							{
+						$
+								.getJSON(
+										'${getCityByStateId}',
+										{
 
-								stateId : stateId,
-								ajax : 'true'
+											stateId : stateId,
+											ajax : 'true'
 
-							},
-							function(data) {
+										},
+										function(data) {
 
-								var html = '<option value="" disabled="disabled" selected >Choose City...</option>';
+											var html = '<option value="" disabled="disabled" selected >Choose City...</option>';
 
-								var len = data.length;
-								for (var i = 0; i < len; i++) {
+											var len = data.length;
+											for (var i = 0; i < len; i++) {
 
-									html += '<option value="' + data[i].cityId + '">'
-											+ data[i].cityName + '</option>';
-								}
-								html += '</option>';
-								$('#cityId').html(html);
+												html += '<option value="' + data[i].cityId + '">'
+														+ data[i].cityName
+														+ '</option>';
+											}
+											html += '</option>';
+											$('#cityId').html(html);
 
-								$("#cityId").trigger("chosen:updated");
+											$("#cityId").trigger(
+													"chosen:updated");
 
-							});
+										});
 
-		}
-	</script>
+					}
+				</script>
 
-	<script>
-		function nameValidation() {
+				<script>
+					function nameValidation() {
 
-			var clientName = document.getElementById("name").value;
-			alert(clientName);
+						var clientName = document.getElementById("name").value;
+						alert(clientName);
 
-			$
-					.getJSON(
-							'${clientNameValidation}',
-							{
+						$
+								.getJSON(
+										'${clientNameValidation}',
+										{
 
-								clientName : clientName,
-								ajax : 'true'
+											clientName : clientName,
+											ajax : 'true'
 
-							},
-							function(data) {
+										},
+										function(data) {
 
-								alert(data);
-								if (data == 1) {
+											alert(data);
+											if (data == 1) {
 
-								} else {
+											} else {
 
-									document.getElementById("name").value = "";
-									document.getElementById("validationMsg").innerHTML = "already exist";
-								}
+												document.getElementById("name").value = "";
+												document
+														.getElementById("validationMsg").innerHTML = "already exist";
+											}
 
-							});
+										});
 
-		}
-	</script>
+					}
+				</script>
 </body>
 </html>
