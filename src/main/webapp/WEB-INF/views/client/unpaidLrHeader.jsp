@@ -77,7 +77,7 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Office Details</a></li>
+						<li><a href="#"></a></li>
 						
 					</ol>
 				</div>
@@ -101,7 +101,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Client detail</strong>
+							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
 <form action="${pageContext.request.contextPath}" method="GET">
@@ -157,14 +157,12 @@
   							</c:when>
   							</c:choose>
 						
-						
-						
-										
-										<td>${lrHeaderList.total}</td>
+									
+							<td>${lrHeaderList.total}</td>
 										
 			<td> <button type="submit" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/showCollectionInfo/${lrHeaderList.total}/${lrHeaderList.lrNo}/${lrHeaderList.lrHeaderId}">
 										Generate</a>
-									</button>	 </tr>
+									</button></td>	 </tr>
 										
 									
 									
@@ -194,37 +192,51 @@
 	<!-- Footer -->
 
 	
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chart-js/Chart.bundle.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/widgets.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-     <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script>
-        ( function ( $ ) {
-            "use strict";
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-            jQuery( '#vmap' ).vectorMap( {
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: [ '#1de9b6', '#03a9f5' ],
-                normalizeFunction: 'polynomial'
-            } );
-        } )( jQuery );
+
+	<script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table1').DataTable({
+        	  columnDefs: [
+      	        { targets: [1], className:"right" },
+      	    ]
+          });
+        } );
     </script>
+ 
     <script>
                         setTimeout(function() {
     $('#messageAnimation').fadeOut('slow');

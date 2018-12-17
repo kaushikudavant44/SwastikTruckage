@@ -74,7 +74,7 @@
  		<div class="col-lg-6">
 					<div class="card">
 						<div class="card-header">
-							<h4>Client Registration</h4>
+							<h4>Edit Client Details</h4>
 						</div>
 						<div class="card-body">
 							<div class="row">

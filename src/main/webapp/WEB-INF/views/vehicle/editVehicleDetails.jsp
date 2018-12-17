@@ -71,7 +71,7 @@
  		<div class="col-lg-6">
 					<div class="card">
 						<div class="card-header">
-							<h4>Vehicle Registration</h4>
+							<h4>Edit Vehicle details</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/insertVehicleInfo" method="POST">
 						<input type="hidden" name="vehicleId" value="${vehicleDetails.vehId}">

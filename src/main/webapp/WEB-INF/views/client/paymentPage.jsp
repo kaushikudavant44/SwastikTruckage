@@ -50,7 +50,6 @@
 
 </head>
 <body>
-<c:url var="deleteDriverById" value="/deleteDriverById" />
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -75,7 +74,7 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Driver Details</a></li>
+						<li><a href="#">Payment</a></li>
 						
 					</ol>
 				</div>
@@ -83,15 +82,8 @@
 		</div>
 	</div>
 	
-	  <div class="form-group ">
-                        <div class="col-lg-5"></div>
-                         <div class="col-lg-5">
-                        <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
-         </div> 
-         </div>
-
-	<div class="content mt-3">
-		<div class="animated fadeIn">
+  <div class="content mt-3">
+ 	<div class="animated fadeIn">
 			<div class="row">
 
 				<div class="col-md-12">
@@ -101,37 +93,88 @@
 						</div>
 						<div class="card-body">
 
-							<table id="bootstrap-data-table"
+       <table width="100%" border="0">
+			<tr>
+				<td border="0" align="left">
+					<div class="col-sm-6">
+						<h4>
+							<strong>To, ${clientFullDetails.clientName}</strong>
+						</h4>
+						<p>
+							<strong>Address :</strong> ${clientFullDetails.clientAddress}
+						</p>
+						<p>
+							<strong>State Name :</strong> ${clientFullDetails.stateName}
+						</p>
+						<p>
+							<strong>State Code :</strong> ${clientFullDetails.stateCode}
+						</p>
+					</div>
+				</td>
+				<td border="0" align="left">
+
+					<div class="col-sm-6">
+					
+						<p>
+							<strong>Bill No:</strong> ${trBillHeader.billNo}
+						</p>
+						<p>
+							<strong>Bill Date :</strong>${trBillHeader.billDate}
+						</p>
+						<p>
+							<strong>Page No.:</strong>
+						</p>
+
+					</div>
+				</td>
+
+			</tr>
+		</table>
+
+							<table id=""
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									<th>Sr.No</th>
-										<th>Driver Name</th>
-										<th>Contact No</th>
-										<th>Vehicle No</th>
-										<th>License No</th>
+									    <th>LR No</th>
+										<th>LR Date</th>
+										<th>Particulare</th>
+										<th>Vehicle No.</th>
+										<th >Quantity</th>
+										<th >Freight</th>
+										<th >Local Tempo</th>
+										<th >Hamali</th>
+										<th >Invoice No</th>
+										<th >Amount</th>
 										
-										<th >edit / delete</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${vehicleDricerList}" var="vehicleDricerList" varStatus="myIndex">
+<c:forEach items="${clientBillDetails}" var="clientBillDetails" varStatus="myIndex">
 									
-									<tr>
-									    <td>${myIndex.index+1}</td>
-										<td>${vehicleDricerList.driverName}</td>
-										<td>${vehicleDricerList.driverContactNo}</td>
-										<td>${vehicleDricerList.vehNo}</td>
-										<td>${vehicleDricerList.driverLicenseNo}</td>
-										
-										<th ><a href="${pageContext.request.contextPath}/showEditDriverDetails/${vehicleDricerList.driverId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteDriver(${vehicleDricerList.driverId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
-									</tr>
-									</c:forEach>
+<tr>
+    <td> ${clientBillDetails.lrNo} </td>
+    <td> ${clientBillDetails.lrDate} </td>
+    <td>${clientBillDetails.goods}</td>
+    <td>${clientBillDetails.truckNo}</td>
+    <td>${clientBillDetails.quantity}</td>
+    <td>${clientBillDetails.freight}</td>
+    <td>${clientBillDetails.localTempo}</td>
+    <td>${clientBillDetails.hamali}</td>
+    <td>
+     <c:forEach items="${clientBillDetails.invoiceDetailList}" var="invoiceDetailList" varStatus="loop">
+    ${invoiceDetailList.invNo}<c:if test="${!loop.last}">,</c:if>
+    </c:forEach>
+    </td>
+    <td>${clientBillDetails.total}</td>
+  </tr>
+ </c:forEach> 
+			
 								</tbody>
 							</table>
 
+
+							
 						</div>
 					</div>
 				</div>
@@ -139,21 +182,96 @@
 
 			</div>
 		</div>
-		<!-- .animated -->
-	</div>
-	<!-- .content -->
 
 
 
+ <div class="row">
 
+  <div class="col-lg-3">
+ </div> 
+ 
+ 
+ 		<div class="col-lg-6">
+					<div class="card">
+						<div class="card-header">
+							<h4>Pyment</h4>
+						</div>
+						<form action="${pageContext.request.contextPath}/submitPayment" method="POST">
+										
+						<input type="hidden" name="billHeaderId" value="${billHeaderId}" class="form-control">					
+						<div class="card-body">
+							<div class="row">
+							<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class=" form-control-label">Total</label>
+										<input required name="total" class="form-control" value="${total}" readonly>							
+							</div>							
+							</div>
+							
+							<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class=" form-control-label">Payment Type</label>
+								
+							<select required 
+								class="standardSelect form-control" tabindex="1" id="paymentType" name="paymentType" onchange='checkPaymentType(this.value)' >
+								<option>--select--</option>
+                                <option value="0">cash</option>
+                                <option value="1">check</option>
+                                <option value="2">neft</option>
+								
+							</select>
+						
+							</div>
+							
+							</div>
+							
+							
+							
+							
+							<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								
+						<input placeholder="transaction id" class="form-control" name="trId" id="trId" style='display:none'/>							
+							</div>							
+							</div>
+							
+							
+							
+							<br>
+							<br>
+							<div class="clearfix"></div>
+							<hr>
+                		<br>
+							<hr>
+                		<div class="col-sm-12 text-center">
+							
+                               <button type="submit" class="btn btn-primary" >
+										Submit
+									</button>							
+							</div>
+							
+							</div>
+							</div>
+							</form>
+						</div>
+					</div>
+	<div class="col-lg-3">
+	</div>			
+ 
 
-	<!-- Footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-	<!-- Footer -->
+</div>
+ </div>
 
+        
+  
+    <div align="center" ><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
+        
+    </div><!-- /#right-panel -->
 
-
+    <!-- Right Panel -->
+    
+    
 
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
@@ -199,42 +317,21 @@
         } );
     </script>
  
-    <script>
-                        setTimeout(function() {
-    $('#messageAnimation').fadeOut('slow');
-}, 5000);
-                        </script>
-    
-
 <script>
-
-<script>
-
-function deleteDriver(driverId){
-	
-	if(confirm("Delete Slected Item?!!"))
-		{
-	$.getJSON('${deleteDriverById}', {
-		
-		driverId : driverId,
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		if(data.message=="success"){
-			
-			alert("deleted successfully");
-			location.reload();
-			
-		}
-
-	});
-	}
-	
+function checkPaymentType(val)
+{
+    if(val==="1"||val=="2")
+    	{
+       document.getElementById('trId').style.display='block';
+       document.getElementById('trId').required = true; 
+    	}
+    else
+    	{
+       document.getElementById('trId').style.display='none'; 
+       document.getElementById('trId').required = false;
+    	}
+      
 }
 </script>
-</script>
-
-
 </body>
 </html>

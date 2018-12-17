@@ -38,6 +38,9 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
+	
+
 <style type="text/css">
 .right {
 	text-align: right;
@@ -48,9 +51,11 @@
 }
 </style>
 
+
+
 </head>
 <body>
-<c:url var="deleteDriverById" value="/deleteDriverById" />
+
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -75,20 +80,13 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Driver Details</a></li>
+						<li><a href="#">Bill Detaila</a></li>
 						
 					</ol>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	  <div class="form-group ">
-                        <div class="col-lg-5"></div>
-                         <div class="col-lg-5">
-                        <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
-         </div> 
-         </div>
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -100,38 +98,85 @@
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
-
-							<table id="bootstrap-data-table"
+<form action="${pageContext.request.contextPath}/showGeneratedCollectionBills" method="GET" >
+        <div class="row">
+             <div class="col-sm-6 col-md-1">
+             
+             <label>From Date</label>
+             
+             </div>
+              <div class="col-sm-6 col-md-2">
+<input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" readonly>
+              
+              </div>
+              <div class="col-sm-6 col-md-1">
+             
+             <label>To Date</label>
+             
+             </div>
+             <div class="col-sm-6 col-md-2">
+             
+             <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly>
+             </div>
+             
+             <div class="col-sm-6 col-md-3">
+							
+             <button type="submit" class="btn btn-primary" >
+				Generate
+			 </button>							
+							</div>
+							</div>
+            </form>
+            
+            <br>
+							<table id=""
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									<th>Sr.No</th>
-										<th>Driver Name</th>
-										<th>Contact No</th>
-										<th>Vehicle No</th>
-										<th>License No</th>
-										
-										<th >edit / delete</th>
+									    <th>Sr No</th>
+										<th>Bill Date</th>
+										<th>Payment Mode</th>
+										<th>transaction Id</th>
+										<th >Total</th>
+										<th >Details</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${vehicleDricerList}" var="vehicleDricerList" varStatus="myIndex">
+								<c:forEach items="${collectionBills}" var="collectionBills" varStatus="myIndex">
 									
-									<tr>
-									    <td>${myIndex.index+1}</td>
-										<td>${vehicleDricerList.driverName}</td>
-										<td>${vehicleDricerList.driverContactNo}</td>
-										<td>${vehicleDricerList.vehNo}</td>
-										<td>${vehicleDricerList.driverLicenseNo}</td>
+                                 <tr>
+                                <td>${myIndex.index+1}</td>
+						        <td>${collectionBills.createDate}</td>
+						   
+						<c:choose>
+                            <c:when test="${collectionBills.paymentMode==0}">                              
+  							<td>Cash</td>  							
+  							</c:when>
+  							
+  							<c:when test="${collectionBills.paymentMode==1}">                            
+  							<td>Check</td>  							
+  							</c:when>
+  							
+  							<c:when test="${collectionBills.paymentMode==2}">                            
+  							<td>NEFT</td>  							
+  							</c:when>
+  						</c:choose>
+  							
+							<td>${collectionBills.trId}</td>
+							<td>${collectionBills.total}</td>
 										
-										<th ><a href="${pageContext.request.contextPath}/showEditDriverDetails/${vehicleDricerList.driverId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteDriver(${vehicleDricerList.driverId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
-									</tr>
+							<td> <button type="button" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/getBillDetailsOfCollection/${collectionBills.lrHeaderId}/${collectionBills.collectionId}">
+										Details</a>
+									</button></td>			
+					            </tr>
+									
 									</c:forEach>
 								</tbody>
 							</table>
 
+
+							
 						</div>
 					</div>
 				</div>
@@ -150,9 +195,6 @@
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Footer -->
-
-
-
 
 
 	<script
@@ -187,6 +229,17 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  
+  $( function() {
+	    $( "#datepicker1" ).datepicker();
+	  } );
+  </script>
 
 
 	<script type="text/javascript">
@@ -199,41 +252,7 @@
         } );
     </script>
  
-    <script>
-                        setTimeout(function() {
-    $('#messageAnimation').fadeOut('slow');
-}, 5000);
-                        </script>
-    
-
-<script>
-
-<script>
-
-function deleteDriver(driverId){
-	
-	if(confirm("Delete Slected Item?!!"))
-		{
-	$.getJSON('${deleteDriverById}', {
-		
-		driverId : driverId,
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		if(data.message=="success"){
-			
-			alert("deleted successfully");
-			location.reload();
-			
-		}
-
-	});
-	}
-	
-}
-</script>
-</script>
+   
 
 
 </body>

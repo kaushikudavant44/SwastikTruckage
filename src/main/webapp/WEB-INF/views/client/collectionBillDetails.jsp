@@ -38,6 +38,9 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
+	
+
 <style type="text/css">
 .right {
 	text-align: right;
@@ -48,9 +51,11 @@
 }
 </style>
 
+
+
 </head>
 <body>
-<c:url var="deleteDriverById" value="/deleteDriverById" />
+
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -75,20 +80,13 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Driver Details</a></li>
+						<li><a href="#">Bill Detaila</a></li>
 						
 					</ol>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	  <div class="form-group ">
-                        <div class="col-lg-5"></div>
-                         <div class="col-lg-5">
-                        <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
-         </div> 
-         </div>
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -101,37 +99,78 @@
 						</div>
 						<div class="card-body">
 
-							<table id="bootstrap-data-table"
+       <table width="100%" border="0">
+			<tr>
+				<td border="0" align="left">
+					<div class="col-sm-6">
+						<h4>
+							<strong>To, ${clientFullDetails.clientName}</strong>
+						</h4>
+						<p>
+							<strong>Address :</strong> ${clientFullDetails.clientAddress}
+						</p>
+						<p>
+							<strong>State Name :</strong> ${clientFullDetails.stateName}
+						</p>
+						<p>
+							<strong>State Code :</strong> ${clientFullDetails.stateCode}
+						</p>
+					</div>
+				</td>
+				<td border="0" align="left">
+
+					<div class="col-sm-6">
+					
+						<p>
+							<strong>Transaction ID.:</strong> ${transactionLrCollection.trId}
+						</p>
+						<p>
+							<strong>Bill Date :</strong>${transactionLrCollection.createDate}
+						</p>
+						<p>
+							<strong>Page No.:</strong>
+						</p>
+
+					</div>
+				</td>
+
+			</tr>
+		</table>
+
+							<table id=""
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									<th>Sr.No</th>
-										<th>Driver Name</th>
-										<th>Contact No</th>
-										<th>Vehicle No</th>
-										<th>License No</th>
+									    <th>LR No</th>
+										<th>LR Date</th>
+										<th>Particulare</th>
+										<th>Vehicle No.</th>
+										<th >Quantity</th>
+										<th >Freight</th>
+										<th >Local Tempo</th>
+										<th >Hamali</th>
+										<th >Amount</th>
 										
-										<th >edit / delete</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${vehicleDricerList}" var="vehicleDricerList" varStatus="myIndex">
-									
-									<tr>
-									    <td>${myIndex.index+1}</td>
-										<td>${vehicleDricerList.driverName}</td>
-										<td>${vehicleDricerList.driverContactNo}</td>
-										<td>${vehicleDricerList.vehNo}</td>
-										<td>${vehicleDricerList.driverLicenseNo}</td>
-										
-										<th ><a href="${pageContext.request.contextPath}/showEditDriverDetails/${vehicleDricerList.driverId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteDriver(${vehicleDricerList.driverId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
-									</tr>
-									</c:forEach>
+								<tr>
+	<td> ${collectionBillDetails.lrNo} </td>
+    <td> ${collectionBillDetails.lrDate} </td>
+    <td>${collectionBillDetails.goods}</td>
+    <td>${collectionBillDetails.truckNo}</td>
+    <td>${collectionBillDetails.quantity}</td>
+    <td>${collectionBillDetails.freight}</td>
+    <td>${collectionBillDetails.localTempo}</td>
+    <td>${collectionBillDetails.hamali}</td>
+    <td>${collectionBillDetails.total}</td>
+  </tr>
 								</tbody>
 							</table>
 
+
+							
 						</div>
 					</div>
 				</div>
@@ -150,9 +189,6 @@
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Footer -->
-
-
-
 
 
 	<script
@@ -187,6 +223,17 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  
+  $( function() {
+	    $( "#datepicker1" ).datepicker();
+	  } );
+  </script>
 
 
 	<script type="text/javascript">
@@ -199,41 +246,7 @@
         } );
     </script>
  
-    <script>
-                        setTimeout(function() {
-    $('#messageAnimation').fadeOut('slow');
-}, 5000);
-                        </script>
-    
-
-<script>
-
-<script>
-
-function deleteDriver(driverId){
-	
-	if(confirm("Delete Slected Item?!!"))
-		{
-	$.getJSON('${deleteDriverById}', {
-		
-		driverId : driverId,
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		if(data.message=="success"){
-			
-			alert("deleted successfully");
-			location.reload();
-			
-		}
-
-	});
-	}
-	
-}
-</script>
-</script>
+   
 
 
 </body>

@@ -1,5 +1,7 @@
 package com.bionische.swastiktruckage.mastermodel;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -7,7 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -44,6 +49,19 @@ public class TransactionLrCollection {
 	
 	@Column(name="is_used",length=11)
 	private boolean isUsed;
+	
+	@Column(name="create_date")
+	@Temporal(TemporalType.DATE)
+	@CreatedDate
+	private Date createDate;
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 	public int getCollectionId() {
 		return collectionId;
@@ -121,9 +139,8 @@ public class TransactionLrCollection {
 	public String toString() {
 		return "TransactionLrCollection [collectionId=" + collectionId + ", lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo
 				+ ", total=" + total + ", paymentMode=" + paymentMode + ", trId=" + trId + ", staffId=" + staffId
-				+ ", officeId=" + officeId + ", isUsed=" + isUsed + "]";
+				+ ", officeId=" + officeId + ", isUsed=" + isUsed + ", createDate=" + createDate + "]";
 	}
-	
-	
 
+	
 }

@@ -43,6 +43,28 @@
 
       
         <div  ><jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
+        
+        <div class="breadcrumbs">
+		<div class="col-sm-4">
+			<div class="page-header float-left">
+				<div class="page-title">
+					<h1>Dashboard</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<div class="page-header float-right">
+				<div class="page-title">
+					<ol class="breadcrumb text-right">
+						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Add New Client</a></li>
+						
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+        
        
   <div class="content mt-3">
  
@@ -54,12 +76,13 @@
          </div>
  <br>
  <div class="row">
- <form action="${pageContext.request.contextPath}/insertClientInfo" method="POST">
+ 
  
   <div class="col-lg-3">
  </div> 
  
  		<div class="col-lg-6">
+ 		<form action="${pageContext.request.contextPath}/insertClientInfo" method="POST">
 					<div class="card">
 						<div class="card-header">
 							<h4>Client Registration</h4>
@@ -153,6 +176,7 @@
 							
 							</div>
 							</div>
+							</form> 
 						</div>
 					</div>
 	<div class="col-lg-3">
@@ -160,7 +184,7 @@
  
  
 
-</form> 
+
 </div>
  </div>
 </div>
@@ -172,6 +196,9 @@
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
+    
+     <script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
    <script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
 	<script
@@ -201,28 +228,22 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
-
-<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+   
+		<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 		
 		
 		
 		<script>
-		jQuery(document).ready(function() {
-	        jQuery(".standardSelect").chosen({
-	            disable_search_threshold: 2,
-	            no_results_text: "Oops, nothing found!",
-	            width: "100%"
-	        });
-	    });
-		
-		
-		
-		</script>
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 3,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
    
     <script>
         ( function ( $ ) {

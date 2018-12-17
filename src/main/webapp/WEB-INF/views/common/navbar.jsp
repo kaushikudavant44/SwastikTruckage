@@ -55,7 +55,58 @@
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showMemo">Show Memo</a></li>
 							
+					      <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showClientReg">Add New Client</a></li>
+									
+							
+					     <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAllClientDetails">Clients</a></li>		
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showVehicleOwnerReg">Add Vehicle Owner</a></li>	
+							
+					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAllVehicleOwnerDetails">Vehicle Owners</a></li>
+							
+					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showVehicleReg">Add New Vehicle</a></li>
+							
+					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAllVehicleDetails">Vehicles</a></li>	
+							
+					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showVehicleDriverReg">Add Driver</a></li>	
+							
+					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAllVehicleDriverDetails">Drivers</a></li>
+									
+							
 						</ul></li>
+						
+						<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Billing
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+
+
+                        <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showUnPaidClients"> Pending Bill</a></li>
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAllUnPaidLr">LR Collection</a></li>
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showGeneratedClientBills">Bill List</a></li>
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showGeneratedCollectionBills">LR Collection List </a></li>
+
+					
+					</ul></li>		
+						
+						
+						
 
 				<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

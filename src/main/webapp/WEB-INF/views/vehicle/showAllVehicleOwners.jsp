@@ -176,7 +176,7 @@
         
     function deleteOwner(ownerId){
     	
-    	if(confirm("Delete Slected Item?!!"))
+    	if(confirm("Delete Selected Item?!!"))
     		{
     	$.getJSON('${deleteVehicleOwnerById}', {
     		

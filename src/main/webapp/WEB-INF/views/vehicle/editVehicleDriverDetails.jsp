@@ -74,6 +74,8 @@
 							<h4>Edit Driver Details</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/insertVehicleDriverInfo" method="POST">
+						
+						<input type="hidden" name="driverId" value="${vehiclesDrivers.driverId}">
 						<div class="card-body">
 							<div class="row">
 							<div class="col-sm-6 col-md-6">

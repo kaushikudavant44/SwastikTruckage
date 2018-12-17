@@ -1,5 +1,8 @@
 package com.bionische.swastiktruckage.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,5 +85,25 @@ public class HomeController {
 		return cityList;
 		
 	}	
+	
+    public static String convertToYMD(String date) {
+		
+		String convertedDate=null;
+		try {
+			SimpleDateFormat ymdSDF = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dmySDF = new SimpleDateFormat("MM/dd/yyyy");
+			Date dmyDate = dmySDF.parse(date);
+			
+			convertedDate=ymdSDF.format(dmyDate);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return convertedDate;
+
+	}
+	
 	
 }
