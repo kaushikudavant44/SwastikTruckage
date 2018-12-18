@@ -72,6 +72,16 @@ public class TemplateController {
 
 	}
 	
+	@RequestMapping(value = "/memo", method = RequestMethod.GET)
+	public ModelAndView memo(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("templates/memo");
+
+		return model;
+
+	}
+	
+	
 	@RequestMapping(value = "/advancedForm", method = RequestMethod.GET)
 	public ModelAndView advanceForm(HttpServletRequest request, HttpServletResponse response) {
 
