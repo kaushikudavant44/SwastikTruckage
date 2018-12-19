@@ -19,6 +19,9 @@ public interface ClientDetailsRepository extends JpaRepository<ClientDetails, In
 	
 	ClientDetails findByClientName(String clientName);
 	
+	
+	List<ClientDetails> findByIsUsed(boolean isUsed);
+	
 	@Transactional
 	@Modifying
 	@Query("DELETE FROM ClientDetails where clientId=:clientId")

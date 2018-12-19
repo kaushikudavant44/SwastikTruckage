@@ -39,6 +39,9 @@ public class MemoHeader {
 	@Column(name="office_id",length=11)
 	private int officeId;
 	
+	@Column(name="to_id",length=11)
+	private int toId;
+	
 	@Column(name="staff_id",length=11)
 	private int staffId;
 	
@@ -56,6 +59,17 @@ public class MemoHeader {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date modifiedDate;
+
+	
+	
+	
+	public int getToId() {
+		return toId;
+	}
+
+	public void setToId(int toId) {
+		this.toId = toId;
+	}
 
 	public int getMemoHeaderId() {
 		return memoHeaderId;

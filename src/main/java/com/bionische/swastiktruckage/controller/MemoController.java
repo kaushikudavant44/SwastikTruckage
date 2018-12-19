@@ -3,6 +3,7 @@ package com.bionische.swastiktruckage.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
 import com.bionische.swastiktruckage.mastermodel.Goods;
 import com.bionische.swastiktruckage.mastermodel.Info;
@@ -30,6 +32,7 @@ import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
 import com.bionische.swastiktruckage.mastermodel.VoucherDetails;
 import com.bionische.swastiktruckage.model.GetAllMemo;
+import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.GetAllLrDetailsRepository;
 import com.bionische.swastiktruckage.repository.GetAllMemoRepository;
 import com.bionische.swastiktruckage.repository.MemoDetailsRepository;
@@ -79,6 +82,9 @@ public class MemoController {
 	@Autowired
 	GetAllMemoRepository getAllMemoRepository;
 	
+	@Autowired
+	ClientDetailsRepository clientDetailsRepository;
+	
 	List<VehicleDetails> vehicalDetailsList=new ArrayList<>();
 	
 	@RequestMapping(value = "/generateMemo", method = RequestMethod.GET)
@@ -99,10 +105,11 @@ public class MemoController {
 			
 			vehicalDetailsList=vehicleDetailsRepository.findByIsUsed(true);
 			List<OfficeDetails> officeList = officeDetailsRepository.findByIsUsed(true);
-			
+			//List<ClientDetails> clientDetails=clientDetailsRepository.findByIsUsed(true);
 			staffDetails = officeStaffRepository.findByStaffId(staffId);
 			lrDetailsList=getAllLrDetailsRepository.findLrForMakeMemo();
 			vehicleDriverList=vehiclesDriversRepository.findByIsUsed(true);
+			
 			
 			model.addObject("vehicleDriverList", vehicleDriverList);
 			model.addObject("vehicalDetailsList", vehicalDetailsList);
@@ -170,7 +177,7 @@ public class MemoController {
 			memoHeader.setDriverId(Integer.parseInt(request.getParameter("driverId")));
 			memoHeader.setOfficeId(Integer.parseInt(request.getParameter("officeId")));
 			memoHeader.setStaffId(Integer.parseInt(request.getParameter("staffId")));
-			
+			memoHeader.setToId(Integer.parseInt(request.getParameter("toId")));
 			memoHeader.setUsed(true);
 			MemoHeader memoHeaderResult=memoHeaderRepository.save(memoHeader);
 			
@@ -271,7 +278,7 @@ public class MemoController {
 		//	staffDetails = officeStaffRepository.findByStaffId(staffId);
 			lrDetailsList=getAllLrDetailsRepository.getMemoLrDetailsByMemoHeaderId(memoHeaderId);
 			
-			
+			System.out.println("getMemoDeatails"+getMemoDeatails.toString());
 			
 			for(int i=0;i<vehicalDetailsList.size();i++) {
 				if(vehicalDetailsList.get(i).getVehId()==getMemoDeatails.getVehId()) {
@@ -347,7 +354,7 @@ public class MemoController {
 			memoHeader.setDriverId(Integer.parseInt(request.getParameter("driverId")));
 			memoHeader.setOfficeId(Integer.parseInt(request.getParameter("officeId")));
 			memoHeader.setStaffId(Integer.parseInt(request.getParameter("staffId")));
-			
+			memoHeader.setToId(Integer.parseInt(request.getParameter("toId")));
 			memoHeader.setUsed(true);
 			MemoHeader memoHeaderResult=memoHeaderRepository.save(memoHeader);
 			System.out.println("memoHeaderResult"+memoHeaderResult.toString());
@@ -395,7 +402,7 @@ public class MemoController {
 			
 			GetAllMemo getMemoDeatails=new GetAllMemo();
 			getMemoDeatails=getAllMemoRepository.findByMemoHeaderId(memoHeaderId);
-			
+			System.out.println("getMemoDeatails"+getMemoDeatails.toString());
 			//VoucherDetails voucherDetails=voucherDetailsRepository.save(voucherDetails);
 			model.addObject("getMemoDeatails", getMemoDeatails);
 		} catch (Exception e) {
@@ -405,5 +412,83 @@ public class MemoController {
 		return model;
 
 	}
+	
+	@RequestMapping(value = "/insertVoucher", method = RequestMethod.POST)
+
+	public String insertVoucher(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/createVoucher");
+
+		String url;
+		int voucherNo=0;
+		VoucherDetails voucherDetails=new VoucherDetails();
+		
+		try {
+			
+			VoucherDetails voucherDetailsResult=voucherDetailsRepository.findLastRecord();
+		
+		if(voucherDetailsResult!=null) {
+			voucherNo=voucherDetailsResult.getVoucherId();
+			voucherNo++;
+		}else {
+			voucherNo=180001;
+		}
+		
+		
+		voucherDetails.setDriverId(Integer.parseInt(request.getParameter("driverId")));
+		voucherDetails.setMemoHeaderId(Integer.parseInt(request.getParameter("memoHeaderId")));
+		voucherDetails.setUsed(true);
+		voucherDetails.setVehId(Integer.parseInt(request.getParameter("vehId")));
+		voucherDetails.setVoucherAmount(Float.parseFloat(request.getParameter("voucherAmount")));
+		voucherDetails.setVoucherNo(voucherNo);
+
+		voucherDetails=voucherDetailsRepository.save(voucherDetails);
+		
+		if(voucherDetails!=null) {
+			
+			model.addObject("message", "Voucher Create Successfully");
+		}
+		
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			url = "redirect:/errorMessage";
+		}
+
+		return url = "redirect:/showMemo";
+
+	}
+	
+	
+	@RequestMapping(value = "/memoPreview/{memoHeaderId}", method = RequestMethod.GET)
+
+	public ModelAndView memoPreview(HttpServletRequest request, @PathVariable int memoHeaderId) {
+		ModelAndView model = new ModelAndView("memo/memo");
+
+		
+		try {
+			List<GetAllLrDetails> lrDetailsList=new ArrayList<>();
+			/*HttpSession session = request.getSession();
+			OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+			int staffId = officeStaff.getStaffId();*/
+		
+			lrDetailsList=getAllLrDetailsRepository.getMemoLrDetailsByMemoHeaderId(memoHeaderId);
+			
+			GetAllMemo getMemoDeatails=new GetAllMemo();
+			getMemoDeatails=getAllMemoRepository.findByMemoHeaderId(memoHeaderId);
+			
+			System.out.println("Memo Details"+getMemoDeatails.toString());
+			System.out.println("Lr Details"+lrDetailsList.toString());
+			model.addObject("getMemoDeatails", getMemoDeatails);
+			model.addObject("lrDetailsList", lrDetailsList);
+			
+		
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
 	
 }

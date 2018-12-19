@@ -1,6 +1,6 @@
 package com.bionische.swastiktruckage.model;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +16,14 @@ public class GetAllMemo {
 	@Column(name="memo_header_id")
 	private int memoHeaderId;
 	
-	@Column(name="office_name")
-	private String officeName;
+	@Column(name="from_office")
+	private String fromOffice;
+	
+	@Column(name="to_office")
+	private String toOffice;
+	
+	@Column(name="to_id")
+	private int toId;
 	
 	@Column(name="memo_no")
 	private int memoNo;
@@ -40,7 +46,72 @@ public class GetAllMemo {
 	@Column(name="driver_id")
 	private int driverId;
 	
+	@Column(name="created_date")
+	private Date createdDate;
 	
+	@Column(name="office_address")
+	private String officeAddress;
+	
+	@Column(name="owner_name")
+	private String ownerName;
+	
+	@Column(name="driver_license_no")
+	private String licenseNo;
+	
+	
+	
+	
+	public String getLicenseNo() {
+		return licenseNo;
+	}
+
+	public void setLicenseNo(String licenseNo) {
+		this.licenseNo = licenseNo;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getOfficeAddress() {
+		return officeAddress;
+	}
+
+	public void setOfficeAddress(String officeAddress) {
+		this.officeAddress = officeAddress;
+	}
+
+	public String getToOffice() {
+		return toOffice;
+	}
+
+	public void setToOffice(String toOffice) {
+		this.toOffice = toOffice;
+	}
+
+	
+	
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public int getToId() {
+		return toId;
+	}
+
+	public void setToId(int toId) {
+		this.toId = toId;
+	}
+
 	public int getDriverId() {
 		return driverId;
 	}
@@ -58,12 +129,13 @@ public class GetAllMemo {
 		this.memoHeaderId = memoHeaderId;
 	}
 
-	public String getOfficeName() {
-		return officeName;
+	
+	public String getFromOffice() {
+		return fromOffice;
 	}
 
-	public void setOfficeName(String officeName) {
-		this.officeName = officeName;
+	public void setFromOffice(String fromOffice) {
+		this.fromOffice = fromOffice;
 	}
 
 	public int getMemoNo() {
@@ -116,18 +188,13 @@ public class GetAllMemo {
 
 	@Override
 	public String toString() {
-		return "GetAllMemo [memoHeaderId=" + memoHeaderId + ", officeName=" + officeName + ", memoNo=" + memoNo
-				+ ", driverName=" + driverName + ", officeId=" + officeId + ", staffId=" + staffId + ", vehId=" + vehId
-				+ ", vehNo=" + vehNo + ", driverId=" + driverId + "]";
+		return "GetAllMemo [memoHeaderId=" + memoHeaderId + ", fromOffice=" + fromOffice + ", toOffice=" + toOffice
+				+ ", toId=" + toId + ", memoNo=" + memoNo + ", driverName=" + driverName + ", officeId=" + officeId
+				+ ", staffId=" + staffId + ", vehId=" + vehId + ", vehNo=" + vehNo + ", driverId=" + driverId
+				+ ", createdDate=" + createdDate + ", officeAddress=" + officeAddress + ", ownerName=" + ownerName
+				+ ", licenseNo=" + licenseNo + "]";
 	}
 
-	
-
-	
-
-	
-
-	
 	
 	
 }
