@@ -112,7 +112,7 @@
 							<strong>Create Memo</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertLR"
+							<form action=""
 								method="post">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
@@ -143,6 +143,47 @@
 												</div>
 											</div>
 											
+											<div class="col-md-2">To</div>
+											<div class="col-md-3">
+											<input type="hidden" id="staffId" name="staffId" value="${staffDetails.staffId}" />
+												<div class="input-group">
+													<select id="toId" name="toId" class="standardSelect"
+														tabindex="1" required="required">
+														<option value=""></option>
+														<c:forEach items="${officeList}" var="officeList">
+
+															<c:choose>
+																<c:when
+																	test="${officeList.officeId==staffDetails.staffOfficeId}">
+																	<option disabled value="${officeList.officeId}">${officeList.officeName}
+																	</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${officeList.officeId}">${officeList.officeName}
+																	</option>
+																</c:otherwise>
+															</c:choose>
+
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+											
+											
+											
+											
+
+											<div class="col-md-2"></div>
+
+											
+										</div>
+									</div>
+
+									&nbsp;
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+											
+
 											<div class="col-md-2">Vehical No.:</div>
 											<div class="col-md-3">
 												<div class="input-group">
@@ -160,28 +201,7 @@
 														style="color: blue">If Vehical not found?</span></a>
 												</div>
 											</div>
-											
 
-											<div class="col-md-2"></div>
-
-											
-										</div>
-									</div>
-
-									
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
-											
-
-											
-
-											<div class="col-md-2">Vehical Owner:</div>
-											<div class="col-md-3">
-												<div class="input-group">
-													<input type="text" id="vehicalOwner" value=""  disabled/>
-													
-												</div>
-											</div>
 											
 											<div class="col-md-2">Driver:</div>
 											<div class="col-md-3">
@@ -200,10 +220,24 @@
 														style="color: blue">If driver not found?</span></a>
 												</div>
 											</div>
+											
 											<div class="col-md-2"></div>
 										</div>
 									</div>
-
+									
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+										
+											<div class="col-md-2">Vehical Owner:</div>
+											<div class="col-md-3">
+												<div class="input-group">
+													<input type="text" id="vehicalOwner" value=""  disabled/>
+													
+												</div>
+											</div>
+											<div  class="col-md-7"></div>
+										</div>
+										</div>
 
 									
 								</div>							
@@ -405,6 +439,8 @@
 		
 		var officeId=document.getElementById("fromId").value;
 		
+		var toId=document.getElementById("toId").value;
+		
 		var ownerId=$("#ownerId option:selected").html();
 		
 		var driverId=document.getElementById("driverId").value;
@@ -420,6 +456,7 @@
 			ownerId: ownerId,
 			driverId:driverId,
 			staffId:staffId,
+			toId:toId,
 			selectedRowList:JSON.stringify(selectedRowList),
 			
 			ajax : 'true'

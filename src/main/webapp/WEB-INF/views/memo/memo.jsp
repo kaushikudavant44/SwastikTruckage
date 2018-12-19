@@ -25,20 +25,41 @@
 	href="${pageContext.request.contextPath}/resources/assets/lr/css/style.css"
 	rel="stylesheet" type="text/css">
 </head>
+<style>
+.t-table {
+ border: 1px solid black;
+ height: 500px;
+ width: 100%;
+ border-collapse: collapse;
+}
+.t-table td {
+ border: 1px solid black;
+ 
+}
+.t-table td:empty {
+ border-left: 0;
+ border-right: 0;
+}
+.t-table th {
 
+border: 1px solid black;
+
+}
+
+</style>
 <body class="swastikBg">
 
 	<div class="swastikForm">
 
 		<div class="col-sm-3" style="padding-top: 80px;">
 		
-		<p style="text-align: left">
+		<p style="text-align: left; width: auto" >
 				<strong> <font size="4">Memo No.: ${getMemoDeatails.memoNo}</font>
 				</strong>
 			</p>
 			
 			<p style="text-align: left">
-				<strong> <font size="4">Date : 14/01/2018</font>
+				<strong> <font size="4">Date : ${getMemoDeatails.createdDate}</font>
 				</strong>
 			</p>
 			
@@ -53,7 +74,7 @@
 				class="img-responsive" alt="logo">
 			<!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
 			<p class="text-center">
-				<strong>Address:</strong> ${lrDetails.officeAddress}
+				<strong>Address:</strong> ${getMemoDeatails.officeAddress}
 			</p>
 
 
@@ -74,9 +95,9 @@
 
 		<table width="100%" style="border: 1px solid black;">
 			<tr height="30px;">
-				<th style="padding-left: 10px;" width="38%">Vehicle Owner :
+				<th style="padding-left: 10px;" width="38%">Vehicle Owner : ${getMemoDeatails.ownerName}
 					</th>
-				<th width="37%">Drivers Name : </th>
+				<th width="37%">Drivers Name :  ${getMemoDeatails.driverName}</th>
 			</tr>
 
 		</table>
@@ -86,8 +107,8 @@
 			<tr height="30px;"
 				style="border-top: 0px; border-left: 1px solid #000000; border-right: 1px solid #000000;">
 				<th width="38%" style="padding-left: 10px;">License No
-					: </th>
-				<th width="37%">Vehicle No : </th>
+					: ${getMemoDeatails.licenseNo}</th>
+				<th width="37%">Vehicle No : ${getMemoDeatails.vehNo}</th>
 
 			</tr>
 
@@ -97,18 +118,18 @@
 		
 		<table width="100%" style="border: 1px solid black;">
 			<tr height="30px;">
-				<th style="padding-left: 10px;" width="38%">From :
+				<th style="padding-left: 10px;" width="38%">From : ${getMemoDeatails.fromOffice}
 					</th>
-				<th width="37%">To : </th>
+				<th width="37%">To : ${getMemoDeatails.toOffice}</th>
 			</tr>
 
 		</table>
 		
 		
 		&nbsp;
-		<table width="100%" border="1">
-			<tr>
-				<th>Sr No.</th>
+		<table class="t-table">
+			<tr style="line-height: 20px; height: 20px;">
+				<th align="center">Sr No.</th>
 				<th>Lr No.</th>
 				<th>Consignor</th>
 				<th>Consignee</th>
@@ -117,17 +138,37 @@
 				<th>No. of Quant.</th>
 				<th>Payment By</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>180001</td>
-				<td>xxs</td>
-				<td>sxx</td>
-				<td>xsxs</td>
-				<td>xsxs</td>
-				<td>xs</td>
-				<td>ff</td>
+			<c:forEach items="${lrDetailsList }" var="lrDetailsList" varStatus="count">
+			<tr style="line-height: 20px; height: 20px;">
 				
+				<td align="center">${count.index+1}</td>
+				<td align="center">${lrDetailsList.lrNo}</td>
+				<td align="center">${lrDetailsList.consignor}</td>
+				<td align="center">${lrDetailsList.consignee}</td>
+				<td align="center">${lrDetailsList.clientAddress}</td>
+				<td align="center">${lrDetailsList.particular}</td>
+				<td align="center">${lrDetailsList.quantity}</td>
+				
+				<c:choose>
+				<c:when test="${lrDetailsList.paymentBy==0}">
+				<td align="center">to be billed</td>
+				</c:when>
+				<c:otherwise>
+				<td align="center">to pay</td>
+				</c:otherwise>
+				</c:choose>
 			</tr>
+			</c:forEach>
+			<tr>
+   <td></td>
+   <td></td>
+   <td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+ </tr>
 
 		</table>
 		<%-- <div class="col-sm-8" style="padding-left: 0px;">

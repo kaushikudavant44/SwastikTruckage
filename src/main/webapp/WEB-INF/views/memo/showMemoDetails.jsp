@@ -101,7 +101,8 @@
 								<thead>
 									<tr>
 										<th>Sr. No.</th>
-										<th>Office Name</th>
+										<th>From</th>
+										<th>To</th>
 										<th>Memo Number</th>
 										<th>Vehicle No.</th>
 										<th>Driver</th>
@@ -113,7 +114,8 @@
 								<c:forEach items="${getAllMemoList}" var="getAllMemoList" varStatus="count">
 									<tr>
 										<td>${count.index+1 }</td>
-										<td>${getAllMemoList.officeName}</td>
+										<td>${getAllMemoList.fromOffice}</td>
+										<td>${getAllMemoList.toOffice}</td>
 										<td>${getAllMemoList.memoNo}</td>
 										<td>${getAllMemoList.vehNo}</td>
 										<td>${getAllMemoList.driverName}</td>
@@ -129,6 +131,11 @@
 														<a
 														href="${pageContext.request.contextPath}/showVoucherReg/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-file-text-o" title="Create Voucher"></i> <span class="text-muted"></span></a>
+														</div>
+														
+														<a
+														href="${pageContext.request.contextPath}/memoPreview/${getAllMemoList.memoHeaderId}"><i
+														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
 														</div>
 										
 										</td>

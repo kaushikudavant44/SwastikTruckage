@@ -89,9 +89,8 @@
 
 										<div class="input-group">
 											<input class="form-control" name="driverName" id="driverName"
-												type="text" required
-												oninvalid="setCustomValidity('Please enter name ')"
-												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												type="text" required value="${getMemoDeatails.driverName}"
+												oninvalid="setCustomValidity('Please enter name ')" readonly/> <span
 												class="error" aria-live="polite"></span>
 
 										</div>
@@ -108,9 +107,8 @@
 										<div class="input-group">
 
 											<input class="form-control" name="vehicalNumber" id="vehicalNumber"
-												type="text" required
-												oninvalid="setCustomValidity('Please enter name ')"
-												onchange="try{setCustomValidity('')}catch(e){}" pattern="[0-9]{10}"/> <span
+												type="text" required value="${getMemoDeatails.vehNo}"
+												oninvalid="setCustomValidity('Please enter name ')" readonly/> <span
 												class="error" aria-live="polite"></span>
 										</div>
 									</div>
@@ -125,16 +123,19 @@
 
 										<div class="input-group">
 
-											<input class="form-control" name="voucherAmount" id="voucherAmount"
-												required /> <span class="error"
+											<input type="text" class="form-control" name="voucherAmount" id="voucherAmount" placeholder="Enter Voucher Amount"
+												required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 												aria-live="polite"></span>
 										</div>
 									</div>
-
-									
+								<input class="form-control" type="hidden" name="memoHeaderId" value="${getMemoDeatails.memoHeaderId}" id="memoHeaderId"/>
+								<input class="form-control" type="hidden" name="driverId" value="${getMemoDeatails.driverId}" id="driverId" />	
+								<input class="form-control" type="hidden" name="vehId" value="${getMemoDeatails.vehId}" id="vehId"/>
+								
+								
 								
 								</div>
-								
+										&nbsp;
 								<div class="col-lg-12" align="center">
 
 

@@ -117,7 +117,7 @@
 							<strong>Edit Memo</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertLR"
+							<form action=""
 								method="post">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
@@ -128,6 +128,7 @@
 											<input type="hidden" id="vehId" name="vehId" value="${getMemoDeatails.vehId}" />
 											<input type="hidden" id="memoNo" name="memoNo" value="${getMemoDeatails.memoNo}"/>
 											<input type="hidden" id="memoHeaderId" name="memoHeaderId" value="${getMemoDeatails.memoHeaderId}"/>
+											<input type="hidden" id="toId" name="toId" value="${getMemoDeatails.toId}"/> 
 												<div class="input-group">
 												
 												
@@ -472,6 +473,8 @@
 		$('#bgbdy').addClass("bg-body");
 		var officeId=document.getElementById("fromId").value;
 		
+		var toId=document.getElementById("toId").value;
+		
 		var ownerId=$("#ownerId option:selected").html();
 		
 		var driverId=document.getElementById("driverId").value;
@@ -487,6 +490,7 @@
 			memoHeaderId:memoHeaderId,
 			memoNo:memoNo,
 			officeId:officeId,
+			toId:toId,
 			ownerId: ownerId,
 			driverId:driverId,
 			staffId:staffId,
