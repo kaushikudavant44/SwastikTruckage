@@ -23,44 +23,8 @@ public class LrBilling {
 	@Column(name="lr_header_id")
 	private int lrHeaderId;
 	
-	@Column(name="lr_No")
-	private int lrNo;
-	
 	@Column(name="inv_header_id")
 	private int invHeaderId;
-	
-	@Column(name="from_id")
-	private int fromId;
-	
-	@Column(name="lr_date")
-	private String lrDate;
-	
-	@Column(name="truck_no")
-	private String truckNo;
-	
-	@Column(name="weight")
-	private float weight;
-	
-	@Column(name="freight")
-	private float freight;
-	
-	@Column(name="gst")
-	private float gst;
-	
-	@Column(name="hamali")
-	private float hamali;
-	
-	@Column(name="local_tempo")
-	private float localTempo;
-	
-	@Column(name="total")
-	private float total;
-	
-	@Column(name="payment_by")
-	private int paymentBy;
-	
-	@Column(name="quantity")
-	private int quantity;
 	
 	@Column(name="consignor")
 	private int consignor;	
@@ -68,14 +32,57 @@ public class LrBilling {
 	@Column(name="consignee_id")
 	private int consigneeId;
 	
-	@Column(name="goods")
-	private String goods;
+	@Column(name="from_id")
+	private int fromId;
+	
+	@Column(name="lr_No")
+	private int lrNo;
 	
 	@Column(name="consignee_name")
 	private String consigneeName;
 	
 	@Column(name="consignor_name")
 	private String consignorName;
+	
+	@Column(name="lr_date")
+	private String lrDate;
+	
+	@Column(name="goods")
+	private String goods;
+	
+	@Column(name="truck_no")
+	private String truckNo;
+	
+	@Column(name="quantity")
+	private int quantity;
+	
+	@Column(name="freight")
+	private float freight;
+	
+	@Column(name="weight")
+	private float weight;	
+	
+	@Column(name="gst")
+	private float gst;
+	
+
+	@Column(name="local_tempo")
+	private float localTempo;
+	
+	@Column(name="hamali")
+	private float hamali;
+	
+	@Column(name="payment_by")
+	private int paymentBy;
+	
+	@Column(name="total")
+	private float total;
+	
+	
+	
+	
+	
+
 	
 	@Transient
 	List<TransactionLrInvoiceDetail> invoiceDetailList;

@@ -172,7 +172,7 @@
 					</div>
 				</div>
 
-
+<a href="${pageContext.request.contextPath}/showExcel">excel</a>
 			</div>
 		</div>
 		<!-- .animated -->

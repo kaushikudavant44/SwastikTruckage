@@ -42,12 +42,18 @@ public class ReportController {
 	@Autowired
 	TransactionBillHeaderRepository transactionBillHeaderRepository;
 	
+	
+	public List<LrBilling> lrHeaderList;
+	public List<TransactionLrHeader> lrList;
+	List<TransactionBillHeader> billList;
+	List<TransactionLrCollection> collectionList;
+	
 	@RequestMapping(value="/showpendingPaymentLrList", method=RequestMethod.GET)
-
+	  
 	public ModelAndView showpendingPaymentLrList(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("report/paymentPendingLrList");
-		List<LrBilling> lrHeaderList = new ArrayList<LrBilling>();
+		 lrHeaderList = new ArrayList<LrBilling>();
 		try
 		{
 			lrHeaderList = lrBillingRepository.paymentPendingLrList();
@@ -73,7 +79,7 @@ public class ReportController {
 		
 		try
 		{
-			List<TransactionLrHeader> lrList;
+			
 			String fromDate = request.getParameter("from");
 			String toDate = request.getParameter("to");
 			
@@ -116,7 +122,7 @@ public class ReportController {
 		
 		try
 		{
-			List<TransactionLrCollection> collectionList;
+			
 			String fromDate = request.getParameter("from");
 			String toDate = request.getParameter("to");
 			
@@ -159,7 +165,7 @@ public class ReportController {
 		
 		try
 		{
-			List<TransactionBillHeader> billList;
+			
 			String fromDate = request.getParameter("from");
 			String toDate = request.getParameter("to");
 			
@@ -191,23 +197,34 @@ public class ReportController {
 				
 			}
 		
-		Field[] declaredFields = TransactionBillHeader.class.getDeclaredFields();
-        for(Field f:declaredFields){
-            System.out.println(f.getName());
-        }
+		
 		return model;
 		
 	}
 	
-	@RequestMapping(value="/showExcel", method=RequestMethod.POST)
+	@RequestMapping(value="/showExcel/{type}", method=RequestMethod.GET)
 
-	public ModelAndView showExcel(@ModelAttribute("billList") List<TransactionBillHeader> list,HttpServletRequest request)   
+	public ModelAndView showExcel(@PathVariable("type") int type,HttpServletRequest request)   
 	{
-		ModelAndView model=new ModelAndView("client/showAllClients");
-		
-		System.out.println("billList:"+list.toString());
+		ModelAndView model=new ModelAndView("report/paymentPendingLrList");
 		try {
-			ExcelWriter.main();
+			if(type==1)
+			{
+			   ExcelWriter.paymentPendingExcel(lrHeaderList);
+			}
+			else if(type==2)
+			{
+				ExcelWriter.lrExcel(lrList);
+			}
+			else if(type==3)
+			{
+				ExcelWriter.totalBillExcel(billList);
+			}
+			else if(type==4)
+			{
+				ExcelWriter.collectionExcel(collectionList);
+			}
+				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -216,4 +233,6 @@ public class ReportController {
 		return model;
 		
 	}	
+	
+	
 }
