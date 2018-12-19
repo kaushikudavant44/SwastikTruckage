@@ -38,6 +38,9 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
+	
+
 <style type="text/css">
 .right {
 	text-align: right;
@@ -48,8 +51,11 @@
 }
 </style>
 
+
+
 </head>
 <body>
+
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -73,93 +79,133 @@
 			<div class="page-header float-right">
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
-			
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Owner Registration</a></li>
+						<li><a href="#">Bill Detaila</a></li>
 						
 					</ol>
 				</div>
 			</div>
 		</div>
 	</div>
-  <div class="content mt-3">
- 
- <div class="form-group ">
-                        <div class="col-lg-5"></div>
-                         <div class="col-lg-5">
-                        <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
-         </div> 
-         </div>
- <br>
- <div class="row">
- 
- 
-  <div class="col-lg-3">
- </div> 
- 
- 		<div class="col-lg-12">
+	
+	
+	<div class="content mt-3">
+		<div class="animated fadeIn">
+			<div class="row">
+
+				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4>Vehicle Owner Registration</h4>
+							<strong class="card-title">Data Table</strong>
 						</div>
-						<form action="${pageContext.request.contextPath}/insertVehicleOwnerInfo" method="POST">
 						<div class="card-body">
-							<div class="row">
-							<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">Full Name</label>
-										<input required name="ownerName" class="form-control">							
-							</div>							
-							</div>
+<form action="${pageContext.request.contextPath}/showCollectionList" method="GET">
+        <div class="row">
+             <div class="col-sm-6 col-md-1">          
+                  <label>From Date </label>
+             </div>
+             
+             <div class="col-sm-6 col-md-2">
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" >             
+             </div>
+              <div class="col-sm-6 col-md-1">
+             </div>
+              <div class="col-sm-6 col-md-1">  
+             <label>To Date </label>
+             </div>
+             
+              <div class="col-sm-6 col-md-2">
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" >
+            
+             </div>
+             <div class="col-sm-6 col-md-1">
+             </div>
+             
+             <div class="col-sm-6 col-md-3">
 							
-							<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">Contact No</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-phone"></i>
-									</div>
-									<input required class="form-control" name="contactNo">
-								</div>
-							</div>
-							</div>
-							
-							
-							
-							<br>
-							<br>
-							<div class="clearfix"></div>
-							<hr>
-                		<br>
-							<hr>
-                		<div class="col-sm-12 text-center">
-							
-<button type="submit" class="btn btn-primary" >
-										Submit
-									</button>							
-							</div>
-							
+             <button type="submit" class="btn btn-primary" >
+				Generate
+			 </button>							
 							</div>
 							</div>
-							</form>
+            </form>
+            <br>
+              <div class="row">
+             <div class="col-sm-6 col-md-6">          
+                  <label>Total Collection : </label>${totalCollection}
+             </div>
+              <div class="col-sm-6 col-md-6">          
+                  <label>Total Bill : </label>${totalBill}
+             </div>
+             </div>
+           
+							<table id=""
+								class="table table-striped table-bordered">
+								<thead>
+									<tr>
+									    <th>LR No</th>
+										<th>Date</th>
+										<th>Payment Mode</th>
+										<th >Total</th>
+									
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach items="${collectionList}" var="collectionList" varStatus="count">
+									
+						<tr>
+						
+						    <td>${collectionList.lrNo}</td>
+							<td>${collectionList.createDate}</td>
+							
+										 <c:choose>
+                              <c:when test="${collectionList.paymentMode==1}">
+                              
+  							<td>Cash</td>
+  							
+  							</c:when>
+  							<c:when test="${collectionList.paymentMode==2}">
+                              
+  							<td>Check</td>
+  							
+  							</c:when>
+  							<c:when test="${collectionList.paymentMode==3}">
+                              
+  							<td>NEFT</td>
+  							
+  							</c:when>
+  							</c:choose>
+										
+							<td>${collectionList.total}</td>
+										
+					   </tr>
+									
+									</c:forEach>
+								</tbody>
+							</table>
+
+
+							
 						</div>
 					</div>
-	<div class="col-lg-3">
-	</div>			
- 
+				</div>
 
-</div>
- </div>
 
-        
-  
-    <div align="center" ><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+			</div>
+		</div>
+		<!-- .animated -->
+	</div>
+	<!-- .content -->
 
-        </div> <!-- .content -->
-   
-    <!-- Right Panel -->
-    
-   
+
+
+
+
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<!-- Footer -->
+
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
@@ -168,6 +214,8 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
 	<script
@@ -190,14 +238,43 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
-    
-    
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		
+		
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		$(function() {
+			$('input[id$=datepicker]').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+		
+		$(function() {
+			$('input[id$=datepicker1]').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+		
+	</script>
+	
+
+
+	<script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table1').DataTable({
+        	  columnDefs: [
+      	        { targets: [1], className:"right" },
+      	    ]
+          });
+        } );
+    </script>
+ 
    
-<script>
-                        setTimeout(function() {
-    $('#messageAnimation').fadeOut('slow');
-}, 5000);
-                        </script>
+
 
 </body>
 </html>
+
+
+
+

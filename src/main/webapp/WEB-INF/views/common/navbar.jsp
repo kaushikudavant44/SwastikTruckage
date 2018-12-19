@@ -105,7 +105,30 @@
 					
 					</ul></li>		
 						
-						
+					<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Report
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showpendingPaymentLrList">Payment Pending</a></li>
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showLrListByDate">LR List</a></li>
+
+                        <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showPaidBills">Total Bill</a></li>
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showCollectionList">Collection List</a></li>
+
+
+
+
+
+					</ul></li>	
 						
 
 				<li class="menu-item-has-children dropdown"><a href="#"
@@ -131,28 +154,7 @@
 
 
 
-				<li class="menu-item-has-children dropdown"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Report
-				</a>
-					<ul class="sub-menu children dropdown-menu ">
-
-
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showDistReport"></a></li>
-
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showItemwiseReport"></a></li>
-
-
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showCatwiseReport"></a></li>
-
-
-
-
-
-					</ul></li>
+				
 
 				<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

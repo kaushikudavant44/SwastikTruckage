@@ -21,6 +21,10 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	@Query(value="SELECT  h.* FROM t_lr_header h  WHERE  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id =:clientId ELSE h.consignor =:clientId END ) AND  h.bill_status=0 AND h.delivery_status =3 " ,nativeQuery=true)
 	List<TransactionLrHeader> getLrByClientId(@Param("clientId")int clientId);
 	
+
+	@Query(value="SELECT * from t_lr_header where lr_date between :fromDate AND :toDate ORDER BY lr_no ASC",nativeQuery=true)
+	List<TransactionLrHeader> lrListByDate(@Param("fromDate")String fromDate,@Param("toDate")String toDate);
+	
 	@Transactional
 	@Modifying
 	@Query("UPDATE TransactionLrHeader set billStatus=1 where lrHeaderId=:headerId")

@@ -242,13 +242,13 @@
 	<script>
 		$(function() {
 			$('input[id$=datepicker]').datepicker({
-				dateFormat : 'dd-mm-yy'
+				dateFormat : 'yy-mm-dd'
 			});
 		});
 		
 		$(function() {
 			$('input[id$=datepicker1]').datepicker({
-				dateFormat : 'dd-mm-yy'
+				dateFormat : 'yy-mm-dd'
 			});
 		});
 		

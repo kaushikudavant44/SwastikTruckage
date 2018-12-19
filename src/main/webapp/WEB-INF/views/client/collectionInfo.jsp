@@ -117,9 +117,9 @@
 							<select required 
 								class="standardSelect form-control" tabindex="1" id="paymentType" name="paymentType" onchange='checkPaymentType(this.value)' >
 								<option>--select--</option>
-                                <option value="0">cash</option>
-                                <option value="1">check</option>
-                                <option value="2">neft</option>
+                                <option value="1">cash</option>
+                                <option value="2">check</option>
+                                <option value="3">neft</option>
 								
 							</select>
 						

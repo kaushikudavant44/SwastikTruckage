@@ -48,8 +48,11 @@
 }
 </style>
 
+
+
 </head>
 <body>
+
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -73,93 +76,119 @@
 			<div class="page-header float-right">
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
-			
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Owner Registration</a></li>
+						<li><a href="#"></a></li>
 						
 					</ol>
 				</div>
 			</div>
 		</div>
 	</div>
-  <div class="content mt-3">
- 
- <div class="form-group ">
+
+	<div class="content mt-3">
+	<div class="form-group ">
                         <div class="col-lg-5"></div>
                          <div class="col-lg-5">
                         <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
          </div> 
          </div>
- <br>
- <div class="row">
- 
- 
-  <div class="col-lg-3">
- </div> 
- 
- 		<div class="col-lg-12">
+         
+         <br>
+	
+		<div class="animated fadeIn">
+			<div class="row">
+
+				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4>Vehicle Owner Registration</h4>
+							<strong class="card-title">Data Table</strong>
 						</div>
-						<form action="${pageContext.request.contextPath}/insertVehicleOwnerInfo" method="POST">
 						<div class="card-body">
-							<div class="row">
-							<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">Full Name</label>
-										<input required name="ownerName" class="form-control">							
-							</div>							
-							</div>
-							
-							<div class="col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class=" form-control-label">Contact No</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-phone"></i>
-									</div>
-									<input required class="form-control" name="contactNo">
-								</div>
-							</div>
-							</div>
-							
-							
-							
-							<br>
-							<br>
-							<div class="clearfix"></div>
-							<hr>
-                		<br>
-							<hr>
-                		<div class="col-sm-12 text-center">
-							
-<button type="submit" class="btn btn-primary" >
-										Submit
-									</button>							
-							</div>
-							
-							</div>
-							</div>
+<form action="${pageContext.request.contextPath}" method="GET">
+							<table id="bootstrap-data-table"
+								class="table table-striped table-bordered">
+								<thead>
+									<tr>
+									    <th>Sr.No</th>
+									      <th>LR No</th>
+									      <th>Consignee</th>
+									      <th>Consignor</th>
+									      
+									        <th>LR Date</th>
+									          <th>Particular</th>
+									    <th>Vehicle No.</th>
+									      <th>Quantity</th>
+                                       <th>Freight</th>
+                                       <th>Local Tempo</th>
+                                       <th>Hamali</th>
+										<th>Payment By</th>
+										<th >Total</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach items="${lrHeaderList}" var="lrHeaderList" varStatus="myIndex">
+									
+                                 <tr>
+                                <td>${myIndex.index+1}</td>
+                                <td>${lrHeaderList.lrNo}</td>
+                                <td>${lrHeaderList.consigneeName}</td>
+                                <td>${lrHeaderList.consignorName}</td>
+                                 <td>${lrHeaderList.lrDate}</td>
+                                  <td>${lrHeaderList.goods}</td>
+                                   <td>${lrHeaderList.truckNo}</td>
+                                    <td>${lrHeaderList.quantity}</td>
+                                     <td>${lrHeaderList.freight}</td>
+                                      <td>${lrHeaderList.localTempo}</td>
+                                       <td>${lrHeaderList.hamali}</td>
+						
+						        <c:choose>
+                              <c:when test="${lrHeaderList.paymentBy==0}">
+                              
+  							<td>Consignee</td>
+  							
+  							</c:when>
+  							<c:when test="${lrHeaderList.paymentBy==1}">
+                              
+  								<td>Consignor</td>
+  							
+  							</c:when>
+  							</c:choose>
+						
+									
+							<td>${lrHeaderList.total}</td>
+										
+				 </tr>
+										
+									
+									
+									</c:forEach>
+								</tbody>
+							</table>
+
+
 							</form>
 						</div>
 					</div>
-	<div class="col-lg-3">
-	</div>			
- 
+				</div>
 
-</div>
- </div>
 
-        
-  
-    <div align="center" ><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+			</div>
+		</div>
+		<!-- .animated -->
+	</div>
+	<!-- .content -->
 
-        </div> <!-- .content -->
-   
-    <!-- Right Panel -->
-    
-   
+
+
+
+
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<!-- Footer -->
+
+	
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
@@ -168,6 +197,8 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
 	<script
@@ -190,14 +221,18 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
-    
-    
-   
-<script>
-                        setTimeout(function() {
-    $('#messageAnimation').fadeOut('slow');
-}, 5000);
-                        </script>
+
+
+	<script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table1').DataTable({
+        	  columnDefs: [
+      	        { targets: [1], className:"right" },
+      	    ]
+          });
+        } );
+    </script>
+ 
 
 </body>
 </html>

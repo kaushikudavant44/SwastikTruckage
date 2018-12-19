@@ -236,14 +236,17 @@
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-    $( "#datepicker" ).datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-  } );
-  
-  $( function() {
-	    $( "#datepicker1" ).datepicker();
-	  } );
+  $(function() {
+		$('input[id$=datepicker]').datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
+	
+	$(function() {
+		$('input[id$=datepicker1]').datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
   </script>
 
 

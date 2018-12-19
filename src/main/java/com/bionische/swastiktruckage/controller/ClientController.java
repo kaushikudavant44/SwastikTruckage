@@ -499,7 +499,7 @@ public class ClientController {
 			
 			if(fromDate!=null && toDate!=null)
 			{
-			 clientBills = transactionBillHeaderRepository.billByDate(0,HomeController.convertToYMD(fromDate),HomeController.convertToYMD(toDate));
+			 clientBills = transactionBillHeaderRepository.billByDate(0,fromDate,toDate);
 			 model.addObject("from",fromDate);
 			 model.addObject("to",toDate);
 			}
@@ -597,7 +597,7 @@ public class ClientController {
 			
 			if(fromDate!=null && toDate!=null)
 			{
-				collectionBills = transactionLrCollectionRepository.collectionBillByDate(HomeController.convertToYMD(fromDate),HomeController.convertToYMD(toDate));
+				collectionBills = transactionLrCollectionRepository.collectionBillByDate(fromDate,toDate);
 			 model.addObject("from",fromDate);
 			 model.addObject("to",toDate);
 			}
@@ -757,21 +757,6 @@ public class ClientController {
 		
 	}
 	
-	@RequestMapping(value="/showExcel", method=RequestMethod.GET)
-
-	public ModelAndView showExcel(HttpServletRequest request)   
-	{
-		ModelAndView model=new ModelAndView("client/showAllClients");
-		
-		try {
-			ExcelWriter.main();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return model;
-		
-	}	
+	
 	
 }
