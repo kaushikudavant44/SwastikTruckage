@@ -169,10 +169,18 @@
 
 							</form>
 						</div>
+						
+						<div class="col-sm-12 text-center">
+
+													<button type="button" class="btn btn-primary" style="color:white;">
+														 <a href="${pageContext.request.contextPath}/showExcel/1">excel</a></button>
+												</div>
+						
+						
 					</div>
 				</div>
 
-<a href="${pageContext.request.contextPath}/showExcel">excel</a>
+
 			</div>
 		</div>
 		<!-- .animated -->

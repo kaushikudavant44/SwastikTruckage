@@ -206,22 +206,26 @@ public class ReportController {
 
 	public ModelAndView showExcel(@PathVariable("type") int type,HttpServletRequest request)   
 	{
-		ModelAndView model=new ModelAndView("report/paymentPendingLrList");
+		ModelAndView model = new ModelAndView("report/paymentPendingLrList");;
 		try {
 			if(type==1)
 			{
+				model=new ModelAndView("report/paymentPendingLrList");
 			   ExcelWriter.paymentPendingExcel(lrHeaderList);
 			}
 			else if(type==2)
 			{
+				model=new ModelAndView("report/lrList");
 				ExcelWriter.lrExcel(lrList);
 			}
 			else if(type==3)
 			{
+				 model=new ModelAndView("report/generatedBill");
 				ExcelWriter.totalBillExcel(billList);
 			}
 			else if(type==4)
 			{
+				model=new ModelAndView("report/collectionList");
 				ExcelWriter.collectionExcel(collectionList);
 			}
 				
