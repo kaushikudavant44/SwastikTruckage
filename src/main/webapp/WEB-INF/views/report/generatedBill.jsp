@@ -184,13 +184,14 @@
 								</tbody>
 							</table>
 
-							
-						</div>
-						<div class="col-sm-12 text-center">
+<div class="col-sm-12 text-center">
 
 													<button type="button" class="btn btn-primary" style="color:white;">
-														 <a href="${pageContext.request.contextPath}/showExcel/3">excel</a></button>
+														 <a href="${pageContext.request.contextPath}/showExcel/3" style="color:white;">excel</a></button>
 												</div>
+							
+						</div>
+						
 					</div>
 				</div>
 

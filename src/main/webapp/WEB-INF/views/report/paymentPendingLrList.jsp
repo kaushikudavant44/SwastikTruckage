@@ -168,13 +168,14 @@
 
 
 							</form>
+							<div class="col-sm-12 text-center">
+
+													<button type="button" class="btn btn-primary" >
+														 <a href="${pageContext.request.contextPath}/showExcel/1" style="color:white;">excel</a></button>
+												</div>
+						
 						</div>
 						
-						<div class="col-sm-12 text-center">
-
-													<button type="button" class="btn btn-primary" style="color:white;">
-														 <a href="${pageContext.request.contextPath}/showExcel/1">excel</a></button>
-												</div>
 						
 						
 					</div>
