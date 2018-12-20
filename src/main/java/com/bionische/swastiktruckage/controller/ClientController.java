@@ -265,7 +265,6 @@ public class ClientController {
     	 LrBilling lrBilling = new LrBilling();
     	 System.out.println("lrHeaderId[i]:"+lrHeaderId[i]);
     	 lrBilling = lrBillingRepository.getBillDetailByLrId(lrHeaderId[i]);
-    	 System.out.println("lrBilling:"+lrBilling.toString());
     	 clientBillDetails.add(lrBilling);
       }
      
@@ -297,16 +296,17 @@ public class ClientController {
 		//save bill header
 		
 		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
-		List<TransactionBillHeader> billHeaderList = transactionBillHeaderRepository.findAll();
+		TransactionBillHeader billHeaderList = transactionBillHeaderRepository.getLastEntry();
 		
-		if(billHeaderList==null)
+		if(billHeaderList!=null)
 		{
-			transactionBillHeader.setBillNo(00000001);
+			int billNo = billHeaderList.getBillNo()+1;
+			transactionBillHeader.setBillNo(billNo);
+		
 		}
 		else
 		{
-			int billNo = transactionBillHeader.getBillNo()+1;
-			transactionBillHeader.setBillNo(billNo);
+			transactionBillHeader.setBillNo(00000001);
 		}
 		
 		transactionBillHeader.setBillPayableBy(clientBillDetails.get(0).getPaymentBy());

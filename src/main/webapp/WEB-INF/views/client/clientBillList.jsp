@@ -98,22 +98,22 @@
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
-			<div class="row">
-
-				<div class="col-md-12">
+		
+		<div class="row">
+				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Data Table</strong>
+							<strong>Search Bill DateWise</strong>
 						</div>
-						<div class="card-body">
-<form action="${pageContext.request.contextPath}/showGeneratedClientBills" method="GET">
+						<div class="card-body card-block">
+		<form action="${pageContext.request.contextPath}/showGeneratedClientBills" method="GET">
         <div class="row">
              <div class="col-sm-6 col-md-1">          
                   <label>From Date </label>
              </div>
              
              <div class="col-sm-6 col-md-2">
-              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" >             
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" readonly>             
              </div>
               <div class="col-sm-6 col-md-1">
              </div>
@@ -122,7 +122,7 @@
              </div>
              
               <div class="col-sm-6 col-md-2">
-          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" >
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly>
             
              </div>
              <div class="col-sm-6 col-md-1">
@@ -136,7 +136,34 @@
 							</div>
 							</div>
             </form>
-            <br>
+						</div>
+
+
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		
+		
+		
+		
+		
+		
+		<!-- Devide -->
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Data Table</strong>
+						</div>
+						<div class="card-body">
+
+           
 							<table id=""
 								class="table table-striped table-bordered">
 								<thead>
@@ -172,9 +199,9 @@
 										
 							<td>${clientBills.billTotal}</td>
 										
-							<td> <button type="button" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/getBillDetailsOfClient/${clientBills.billHeaderId}">
+							<td> <button type="button" class="btn btn-primary" style="font-size:13px"><a href="${pageContext.request.contextPath}/getBillDetailsOfClient/${clientBills.billHeaderId}" style="color:white;">
 										Details</a>
-									</button> &nbsp; | &nbsp;   <a href="${pageContext.request.contextPath}/showPaymentPage/${clientBills.billTotal}/${clientBills.billHeaderId}"><i class="fa fa-edit" aria-hidden="true"></i></a></td>			
+									</button> &nbsp; | &nbsp;   <a href="${pageContext.request.contextPath}/showPaymentPage/${clientBills.billTotal}/${clientBills.billHeaderId} "><i class="fa fa-edit" aria-hidden="true"></i></a></td>			
 					   </tr>
 									
 									</c:forEach>
@@ -253,7 +280,11 @@
 		});
 		
 	</script>
-	
+	<script>
+					setTimeout(function() {
+						$('#messageAnimation').fadeOut('slow');
+					}, 5000);
+	</script>
 
 
 	<script type="text/javascript">

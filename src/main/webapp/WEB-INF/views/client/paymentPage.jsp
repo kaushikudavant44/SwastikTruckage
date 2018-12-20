@@ -320,7 +320,7 @@
 <script>
 function checkPaymentType(val)
 {
-    if(val==="1"||val=="2")
+    if(val==="2"||val=="3")
     	{
        document.getElementById('trId').style.display='block';
        document.getElementById('trId').required = true; 

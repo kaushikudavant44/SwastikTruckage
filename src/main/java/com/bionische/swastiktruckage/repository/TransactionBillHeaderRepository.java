@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 
 public interface TransactionBillHeaderRepository extends JpaRepository<TransactionBillHeader, Integer>{
@@ -15,6 +14,9 @@ public interface TransactionBillHeaderRepository extends JpaRepository<Transacti
 	TransactionBillHeader save(TransactionBillHeader transactionBillHeader);
 	
 	List<TransactionBillHeader> findAll();
+	
+	@Query(value="SELECT * from t_bill_header ORDER BY bill_header_id DESC LIMIT 1",nativeQuery=true)
+	TransactionBillHeader getLastEntry();
 	
 	TransactionBillHeader findByBillHeaderId(int billHeaderId);
 	

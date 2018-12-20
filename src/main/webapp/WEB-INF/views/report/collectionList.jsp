@@ -91,6 +91,61 @@
 	
 	<div class="content mt-3">
 		<div class="animated fadeIn">
+		
+						<div class="row">
+
+				<div class="col-xs-12 col-sm-12">
+					<div class="card">
+						<div class="card-header">
+							<strong>Search Collection DateWise</strong>
+						</div>
+						<div class="card-body card-block">
+		<form action="${pageContext.request.contextPath}/showCollectionList" method="GET">
+        <div class="row">
+             <div class="col-sm-6 col-md-1">          
+                  <label>From Date </label>
+             </div>
+             
+             <div class="col-sm-6 col-md-2">
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" >             
+             </div>
+              <div class="col-sm-6 col-md-1">
+             </div>
+              <div class="col-sm-6 col-md-1">  
+             <label>To Date </label>
+             </div>
+             
+              <div class="col-sm-6 col-md-2">
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" >
+            
+             </div>
+             <div class="col-sm-6 col-md-1">
+             </div>
+             
+             <div class="col-sm-6 col-md-3">
+							
+             <button type="submit" class="btn btn-primary" >
+				Generate
+			 </button>							
+							</div>
+							</div>
+            </form>
+					
+						</div>
+
+
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		
+		
+	<!-- 	Devide -->
+		
 			<div class="row">
 
 				<div class="col-md-12">

@@ -91,15 +91,19 @@
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
-			<div class="row">
+		
+		
+		
+				<div class="row">
 
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Data Table</strong>
+							<strong>Search LR DateWise</strong>
 						</div>
-						<div class="card-body">
-<form action="${pageContext.request.contextPath}/showLrListByDate" method="GET">
+						<div class="card-body card-block">
+					
+					<form action="${pageContext.request.contextPath}/showLrListByDate" method="GET">
         <div class="row">
              <div class="col-sm-6 col-md-1">          
                   <label>From Date </label>
@@ -129,7 +133,41 @@
 							</div>
 							</div>
             </form>
-            <br>
+					
+					
+						</div>
+
+
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- Devide -->
+		
+		
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Data Table</strong>
+						</div>
+						<div class="card-body">
+
             <div class="row">
              <div class="col-sm-6 col-md-6">          
                   <label>Total Collection : </label>${totalLr}

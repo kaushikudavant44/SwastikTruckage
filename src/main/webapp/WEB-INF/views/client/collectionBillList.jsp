@@ -90,14 +90,15 @@
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
-			<div class="row">
-
-				<div class="col-md-12">
+		
+		
+		<div class="row">
+				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Data Table</strong>
+							<strong>Search Collection DateWise</strong>
 						</div>
-						<div class="card-body">
+						<div class="card-body card-block">
 <form action="${pageContext.request.contextPath}/showGeneratedCollectionBills" method="GET" >
         <div class="row">
              <div class="col-sm-6 col-md-1">
@@ -132,7 +133,31 @@
 							</div>
             </form>
             
-            <br>
+						</div>
+
+
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		
+		
+		
+		
+<!-- 	Devide -->
+	
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Data Table</strong>
+						</div>
+						<div class="card-body">
+
 							<table id=""
 								class="table table-striped table-bordered">
 								<thead>
@@ -170,7 +195,7 @@
 							<td>${collectionBills.trId}</td>
 							<td>${collectionBills.total}</td>
 										
-							<td> <button type="button" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/getBillDetailsOfCollection/${collectionBills.lrHeaderId}/${collectionBills.collectionId}">
+							<td> <button type="button" class="btn btn-primary" style="font-size:13px"><a href="${pageContext.request.contextPath}/getBillDetailsOfCollection/${collectionBills.lrHeaderId}/${collectionBills.collectionId}" style="color:white;">
 										Details</a>
 									</button></td>			
 					            </tr>
