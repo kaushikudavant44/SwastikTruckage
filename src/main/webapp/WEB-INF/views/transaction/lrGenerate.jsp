@@ -264,7 +264,7 @@
 
 												</div>
 											</div>
-											<div class="col-md-2"></div>
+											
 
 											<div class="col-md-1">To Pay</div>
 
@@ -277,7 +277,18 @@
 
 												</div>
 											</div>
-											<div class="col-md-3"></div>
+											<div class="col-md-2">Paid</div>
+											<div class="col-md-1">
+												<div class="input-group">
+
+													<input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="2" required /> <span class="error"
+														aria-live="polite"></span>
+
+
+
+												</div>
+											</div>
 										</div>
 									</div>
 
@@ -737,6 +748,9 @@ $.getJSON('${addContaint}', {
 		
 
 	});
+	
+	
+			
 
 }
 

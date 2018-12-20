@@ -109,10 +109,10 @@
 
 										<div class="input-group">
 
-											<input class="form-control" name="staffContactNo" id="staffContactNo" onblur="contactNoValidation()"
+											<input class="form-control" name="staffContactNo" id="staffContactNo" onblur=""
 												type="text" required
-												oninvalid="setCustomValidity('Please enter name ')"
-												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												
+												 /> <span
 												class="error" aria-live="polite"></span>
 										</div>
 										<p id="messageAnimation" style="position:absolute; color:red;"></p>

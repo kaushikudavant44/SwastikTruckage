@@ -46,6 +46,7 @@
 .left {
 	text-align: left;
 }
+
 </style>
 
 <c:url var="removeOffice" value="/removeOffice" />
@@ -68,7 +69,7 @@
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
-					<h1>Dashboard</h1>
+					<h1>Office Details</h1>
 				</div>
 			</div>
 		</div>
@@ -76,7 +77,7 @@
 			<div class="page-header float-right">
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Add new Office</a></li>
 						<li><a href="#">Office Details</a></li>
 						
 					</ol>
@@ -87,12 +88,13 @@
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
+			
 			<div class="row">
 
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Data Table</strong>
+							<strong class="card-title"><a href="${pageContext.request.contextPath}/showOfficeReg" class="an-button">Add Office</a></strong>
 						</div>
 						<div class="card-body">
 
