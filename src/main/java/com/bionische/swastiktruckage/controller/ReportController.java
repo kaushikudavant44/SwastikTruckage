@@ -204,37 +204,42 @@ public class ReportController {
 	
 	@RequestMapping(value="/showExcel/{type}", method=RequestMethod.GET)
 
-	public ModelAndView showExcel(@PathVariable("type") int type,HttpServletRequest request)   
+	public String showExcel(@PathVariable("type") int type,HttpServletRequest request)   
 	{
-		ModelAndView model = new ModelAndView("report/paymentPendingLrList");;
+		String url = "redirect:/";
 		try {
 			if(type==1)
 			{
-				model=new ModelAndView("report/paymentPendingLrList");
+				
 			   ExcelWriter.paymentPendingExcel(lrHeaderList);
+			   url="redirect:/showpendingPaymentLrList";
 			}
 			else if(type==2)
 			{
-				model=new ModelAndView("report/lrList");
+				
 				ExcelWriter.lrExcel(lrList);
+				url="redirect:/showLrListByDate";
 			}
 			else if(type==3)
 			{
-				 model=new ModelAndView("report/generatedBill");
+				
 				ExcelWriter.totalBillExcel(billList);
+				url="redirect:/showPaidBills";
 			}
 			else if(type==4)
 			{
-				model=new ModelAndView("report/collectionList");
+				
 				ExcelWriter.collectionExcel(collectionList);
+				url="redirect:/showLrListByDate";
 			}
 				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			url = "redirect:/errorMessage";
 		}
 		
-		return model;
+		return url;
 		
 	}	
 	
