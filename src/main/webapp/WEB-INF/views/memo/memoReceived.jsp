@@ -69,8 +69,8 @@
 
 </style>
 
-<c:url var="getVehicalOwnerDetails" value="/getVehicalOwnerDetails" />
-<c:url var="editMemoDetails" value="/editMemoDetails" />
+
+<c:url var="memoReceived" value="/memoReceived" />
 </head>
 <body>
 
@@ -105,6 +105,8 @@
 			</div>
 		</div>
 	</div>
+					
+
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -117,126 +119,30 @@
 							<strong>Edit Memo</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action=""
-								method="post">
+							
 								<div class="row">
-									<div class="col-xs-12 col-sm-12">
+								
+									<form action="getMemoReceived" method="post">
+										<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											<div class="col-md-2">From</div>
-											<div class="col-md-3">
-											<input type="hidden" id="staffId" name="staffId" value="${staffDetails.staffId}" />
-											<input type="hidden" id="vehId" name="vehId" value="${getMemoDeatails.vehId}" />
-											<input type="hidden" id="memoNo" name="memoNo" value="${getMemoDeatails.memoNo}"/>
-											<input type="hidden" id="memoHeaderId" name="memoHeaderId" value="${getMemoDeatails.memoHeaderId}"/>
-											<input type="hidden" id="toId" name="toId" value="${getMemoDeatails.toId}"/> 
-												<div class="input-group">
-												
-												
-													<select id="fromId" name="fromId" class="standardSelect"
-														tabindex="1" required="required">
-														<option value=""></option>
-														<c:forEach items="${officeList}" var="officeList">
-
-															<c:choose>
-																<c:when
-																	test="${officeList.officeId==staffDetails.staffOfficeId}">
-																	<option selected value="${officeList.officeId}">${officeList.officeName}
-																	</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${officeList.officeId}" disabled>${officeList.officeName}
-																	</option>
-																</c:otherwise>
-															</c:choose>
-
-														</c:forEach>
-													</select>
-												</div>
-											</div>
-											
-											<div class="col-md-2">Vehical No.:</div>
-											<div class="col-md-3">
-												<div class="input-group">
-													<select id="ownerId" name="ownerId"
-														class="standardSelect" tabindex="1"
-														onchange="getVehicalOwner()">
-													
-														<option value=""></option>
-													<c:forEach items="${vehicalDetailsList}" var="vehicalDetailsList">
-													
-														<c:choose>
-														<c:when test="${vehicalDetailsList.vehId==getMemoDeatails.vehId}">
-														<option selected value="${vehicalDetailsList.ownerId}">${vehicalDetailsList.vehNo}</option>
-														</c:when>
-														<c:otherwise>
-														<option value="${vehicalDetailsList.ownerId}">${vehicalDetailsList.vehNo}</option>
-														</c:otherwise>
-														</c:choose>
-													</c:forEach>	
-
-
-													</select> <a href="${pageContext.request.contextPath}/showVehicleReg"><span
-														style="color: blue">If Vehical not found?</span></a>
-												</div>
-											</div>
-											
-
-											<div class="col-md-2"></div>
-
-											
+										
+										<div class="col-md-4">Memo Number</div>
+										<div class="col-md-4">
+										<div class="input-group">
+											<input type="text" id="memoNo" name="memoNo" value="${memoNo}"/>
 										</div>
-									</div>
-
-									
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
-											
-
-											
-
-											<div class="col-md-2">Vehical Owner:</div>
-											<div class="col-md-3">
-												<div class="input-group">
-												
-													<input type="text" id="vehicalOwner" value="${vehicleOwners.ownerName}"  disabled/>
-												
-												</div>
-											</div>
-											
-											<div class="col-md-2">Driver:</div>
-											<div class="col-md-3">
-												<div class="input-group">
-													<select id="driverId" name="driverId"
-														class="standardSelect" tabindex="1"
-														onchange="getVehicalOwner()">
-													
-														<option value=""></option>
-													<c:forEach items="${vehicleDriverList}" var="vehicleDriverList">
-														
-														<c:choose>
-														<c:when test="${vehicleDriverList.driverId==getMemoDeatails.driverId}">
-														<option selected value="${vehicleDriverList.driverId}">${vehicleDriverList.driverName}</option>
-														</c:when>
-														<c:otherwise>
-														<option value="${vehicleDriverList.driverId}">${vehicleDriverList.driverName}</option>
-														</c:otherwise>
-														</c:choose>
-													
-													</c:forEach>	
-
-
-													</select> <a href="${pageContext.request.contextPath}/showVehicleDriverReg"><span
-														style="color: blue">If driver not found?</span></a>
-												</div>
-											</div>
-											<div class="col-md-2"></div>
 										</div>
+										<div class="col-md-4">
+										<div class="input-group">
+										<input type="submit" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;" />
+										</div>
+										</div>
+										
 									</div>
-
-
-									
-								</div>							
-							</form>
+								</div>
+	</form>			</div>
+	 							
 						</div>
 
 
@@ -259,6 +165,86 @@
 							<strong class="card-title">Memo Details</strong>
 						</div>
 						<div class="card-body">
+
+
+<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+									<br>
+									<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+											
+										
+										
+											<div class="col-md-2"> <strong>From</strong></div>
+											<div class="col-md-2">
+											
+											<input type="hidden" id="memoHeaderId" name="memoHeaderId" value="${getMemoDeatails.memoHeaderId}"/>
+											
+												<div class="input-group">
+												
+												${getMemoDeatails.fromOffice}
+													
+												</div>
+											</div>
+											<div class="col-md-2"><strong>To</strong></div>
+											<div class="col-md-2">
+											<div class="input-group">
+												
+												${getMemoDeatails.toOffice}
+													
+												</div>
+											
+											</div>
+											
+											
+											<div class="col-md-2"><strong>Vehical No.:</strong></div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													${getMemoDeatails.vehNo}
+													
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<hr>
+									<div class="col-xs-12 col-sm-12">
+										<div class="row">
+												<div class="col-md-2"><strong>Driver Name :</strong></div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													${getMemoDeatails.driverName}
+													
+												</div>
+											</div>
+											
+											<div class="col-md-2"><strong>License No:</strong></div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													${getMemoDeatails.licenseNo}
+													
+												</div>
+											</div>
+											
+											<div class="col-md-2"><strong>Owner Name :</strong></div>
+											<div class="col-md-2">
+												<div class="input-group">
+													
+													${getMemoDeatails.ownerName}
+													
+												</div>
+											</div>
+											
+										</div>
+									</div>
+
+
+									
+								</div>	
+
 
 							<table id="bootstrap-data-table1"
 								class="table table-striped table-bordered">
@@ -305,7 +291,7 @@
 										
 										</td>
 										
-										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>
+										
 									</tr>
 								</c:forEach>
 
@@ -325,15 +311,16 @@
 						<div class="card-header">
 
 									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;" onclick="saveMemoDetails()">
-										Submit</button>
+										style="align-content: center; width: 226px; margin-left: 80px;" onclick="receivedMemo()">
+										Received</button>
 								</div>
 								</div>
 								</div>
 		</div>
 		</div>
 		<!-- .animated -->
-	</div>
+	</div> 
+	
 	<!-- .content -->
 <div class=" clearfix"></div>
 
@@ -399,7 +386,7 @@
         } );
     </script>
     
-    <script type="text/javascript">
+   <script type="text/javascript">
     var unSelectedRowList=[];
     var selectedRowList =[];
     
@@ -430,7 +417,7 @@
 	    		 
 	    		 var index=selectedRowList.indexOf($(this).data('value'));
 	    		 
-	    	
+	    		
 	    		 
 	    		 if($.inArray($(this).data('value'), unSelectedRowList) === -1) unSelectedRowList.push($(this).data('value'));
 	    	/* 	 unSelectedRowList.push($(this).data('value')); */
@@ -467,71 +454,35 @@
 <script type="text/javascript">
 
 	
-	function saveMemoDetails(){
+	function receivedMemo(){
 		
 		 $('#loader').addClass("loader");
 		$('#bgbdy').addClass("bg-body");
-		var officeId=document.getElementById("fromId").value;
-		
-		var toId=document.getElementById("toId").value;
-		
-		var ownerId=$("#ownerId option:selected").html();
-		
-		var driverId=document.getElementById("driverId").value;
-		
-		var staffId=document.getElementById("staffId").value;
-				
-		var memoNo=document.getElementById("memoNo").value;
 		
 		var memoHeaderId=document.getElementById("memoHeaderId").value;
+		
+		
+		$.getJSON('${memoReceived}', {
 			
-		$.getJSON('${editMemoDetails}', {
-			
-			memoHeaderId:memoHeaderId,
-			memoNo:memoNo,
-			officeId:officeId,
-			toId:toId,
-			ownerId: ownerId,
-			driverId:driverId,
-			staffId:staffId,
-			unSelectedRowList:JSON.stringify(unSelectedRowList),
+			memoHeaderId:memoHeaderId,	
+			selectedRowList:JSON.stringify(selectedRowList),
 			
 			ajax : 'true'
 			
 		}, function(data) {
-			
-			
-			/* alert(data.message); */
-			
-			 $('#loader').addClass("hide-loader");
+			alert(data.message);
+			$('#loader').addClass("hide-loader");
 			 $('#bgbdy').removeClass("bg-body");
-			window.open("${pageContext.request.contextPath}/showMemo",'_self');
+			
+			
+			window.open("${pageContext.request.contextPath}/showMemoReceived",'_self');
 		
 		});
 		
-	}
+	} 
 	
 	</script>
-<script type="text/javascript">
 
-function getVehicalOwner(){
-	
-	var ownerId=document.getElementById("ownerId").value;
-	
-	
-	$.getJSON('${getVehicalOwnerDetails}', {
-		
-		ownerId: ownerId,
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		
-		document.getElementById("vehicalOwner").value=data.ownerName;
-	});
-}
-
-</script>
 
 </body>
 <div id="bgbdy"></div>

@@ -46,12 +46,17 @@
 .left {
 	text-align: left;
 }
+
+table.dataTable tbody tr.selected {
+        color: white !important;
+        background-color: #5172a0 !important;  /* Not working */
+    }
 </style>
 
-<c:url var="removeOffice" value="/removeOffice" />
+<c:url var="receivedLr" value="/receivedLr" />
 
 </head>
-<body>
+<body id="bgbdy">
 
 
 	<!-- Left Panel -->
@@ -96,7 +101,7 @@
 						</div>
 						<div class="card-body">
 
-							<table id="bootstrap-data-table"
+							<table id="bootstrap-data-table1"
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
@@ -109,13 +114,13 @@
 										<th>Particular</th>
 										<th>Quantity</th>
 										<th>Total Amount</th>
-										<th>Action</th>
+										
 
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
-									<tr>
+									<tr data-value="${lrDetailsList.lrHeaderId}">
 										<td>${count.index+1 }</td>
 										<td>${lrDetailsList.officeName}</td>
 										<td>${lrDetailsList.lrNo}</td>
@@ -125,7 +130,7 @@
 										<td>${lrDetailsList.particular}</td>
 										<td>${lrDetailsList.quantity}</td>
 										<td>${lrDetailsList.amount}</td>
-										<td><div class="fa-hover col-lg-3 col-md-6">
+										<%-- <td><div class="fa-hover col-lg-3 col-md-6">
 										<a
 														href="${pageContext.request.contextPath}/editLRDetails/${lrDetailsList.lrHeaderId}"><i
 														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
@@ -133,15 +138,10 @@
 														<a
 														href="${pageContext.request.contextPath}/deleteLr/${lrDetailsList.lrHeaderId}"><i
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
-														</div>
-														<div class="fa-hover col-lg-3 col-md-6">
-														<a
-														href="${pageContext.request.contextPath}/showLrPreview/${lrDetailsList.lrHeaderId}"><i
-														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
 														
 														</div>
 										
-										</td>
+										</td> --%>
 										
 										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>
 									</tr>
@@ -154,9 +154,19 @@
 						</div>
 					</div>
 				</div>
+				</div>
+				<div class="row">
+			<div class="col-lg-12" align="center">
+			<div class="card">
+						<div class="card-header">
 
+									<button type="submit" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;" onclick="updateReceivedLr()">
+										Submit</button>
+								</div></div></div>
+		</div>
 
-			</div>
+			
 		</div>
 		<!-- .animated -->
 	</div>
@@ -217,8 +227,68 @@
           });
         } );
     </script>
+    <script type="text/javascript">
+    
+    var selectedRowList =[];
+	$(document).ready(function() {
+	    var table = $('#bootstrap-data-table1').DataTable();
+	 
+	    $('#bootstrap-data-table1 tbody').on( 'click', 'tr', function () {
+	   	
+	    	 if ( $(this).hasClass('selected') ) {
+	    		 
+	    		 var index=selectedRowList.indexOf( $(this).data('value'));
+	    		 
+	    		 if(index >-1){
+	    			 
+	    			 selectedRowList.splice(index,1);
+	    			 
+	    		 }
+	    		 
+	    		
+	             $(this).removeClass('selected');
+					
+	    	 }else{
+	    		 selectedRowList.push($(this).data('value'));
+	    		 alert(JSON.stringify(selectedRowList));
+
+	            $(this).addClass('selected');
+	    }
+	      
+	    } );
+	 	  
+	} );
+	
+	
+	
+	
+function updateReceivedLr(){
+		
+			
+		$('#loader').addClass("loader");
+		$('#bgbdy').addClass("bg-body");
+		$.getJSON('${receivedLr}', {
+			
+			selectedRowList:JSON.stringify(selectedRowList),
+			
+			ajax : 'true'
+			
+		}, function(data) {
+			alert(data.message);
+			location.reload();
+			 $('#loader').addClass("hide-loader");
+			 $('#bgbdy').removeClass("bg-body");
+			
+				
+		
+		});
+		
+	}
+    </script>
 
 
 
 </body>
+<div id="loader">
+		</div>
 </html>

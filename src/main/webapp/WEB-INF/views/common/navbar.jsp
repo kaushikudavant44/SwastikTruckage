@@ -25,14 +25,14 @@
 					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> Masters
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOfficeReg">Add New Office</a></li>
+						<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOfficeReg">Add New Office</a></li> --%>
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showStaffRoleReg">Add New Role</a></li>
 								
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOfficeStaffReg">Add New Staff</a></li>
+						<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOfficeStaffReg">Add New Staff</a></li> --%>
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showOfficesDetails">Offices</a></li>
@@ -43,19 +43,7 @@
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showGoodsReg">Goods Details</a></li>			
 					
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showLRRegistration">Create LR</a></li>
-							
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showLrDetails">Show LR</a></li>	
-							
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/generateMemo">Create Memo</a></li>
-							
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showMemo">Show Memo</a></li>
-							
-					      <li class="active"><i class="fa fa-puzzle-piece"></i><a
+					     <li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showClientReg">Add New Client</a></li>
 									
 							
@@ -82,6 +70,46 @@
 									
 							
 						</ul></li>
+						
+						
+						<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Lr Details
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+					
+					<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showLRRegistration">Create LR</a></li>
+							
+					<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showLrDetails">View LR List</a></li>
+							
+					<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showRecievedLrDetails">Mark as Delivered</a></li>			
+
+					</ul></li>
+					
+					
+					
+					<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Memo Details
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+					
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/generateMemo">Create Memo</a></li>
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showMemo">View Memo List</a></li>
+							
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showMemoReceived">Memo Received Entry</a></li>
+
+
+					
+					</ul></li>
+					
 						
 						<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -131,7 +159,7 @@
 					</ul></li>	
 						
 
-				<li class="menu-item-has-children dropdown"><a href="#"
+			<%-- 	<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Orders
 				</a>
@@ -149,14 +177,14 @@
 
 
 
-					</ul></li>
+					</ul></li> --%>
 
 
 
 
 				
 
-				<li class="menu-item-has-children dropdown"><a href="#"
+			<%-- 	<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>MyProfile
 				</a>
@@ -166,7 +194,7 @@
 
 
 					</ul>
-			</ul>
+			</li> --%>
 
 		</div>
 

@@ -77,7 +77,7 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Lr Details</a></li>
+						<li><a href="#">Memo Details</a></li>
 						
 					</ol>
 				</div>
@@ -92,7 +92,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Lr Details</strong>
+							<strong class="card-title">Memo Received</strong>
 						</div>
 						<div class="card-body">
 
@@ -101,44 +101,34 @@
 								<thead>
 									<tr>
 										<th>Sr. No.</th>
-										<th>Office Name</th>
-										<th>LR Number</th>
-										<th>Lr Date</th>
-										<th>Consignor</th>
-										<th>Consignee</th>
-										<th>Particular</th>
-										<th>Quantity</th>
-										<th>Total Amount</th>
+										<th>From</th>
+										<th>To</th>
+										<th>Memo Number</th>
+										<th>Vehicle No.</th>
+										<th>Driver</th>
 										<th>Action</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
+								<c:forEach items="${getAllMemoList}" var="getAllMemoList" varStatus="count">
 									<tr>
 										<td>${count.index+1 }</td>
-										<td>${lrDetailsList.officeName}</td>
-										<td>${lrDetailsList.lrNo}</td>
-										<td>${lrDetailsList.lrDate}</td>
-										<td>${lrDetailsList.consignor}</td>
-										<td>${lrDetailsList.consignee}</td>
-										<td>${lrDetailsList.particular}</td>
-										<td>${lrDetailsList.quantity}</td>
-										<td>${lrDetailsList.amount}</td>
-										<td><div class="fa-hover col-lg-3 col-md-6">
-										<a
-														href="${pageContext.request.contextPath}/editLRDetails/${lrDetailsList.lrHeaderId}"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
-														<div class="fa-hover col-lg-3 col-md-6">
+										<td>${getAllMemoList.fromOffice}</td>
+										<td>${getAllMemoList.toOffice}</td>
+										<td>${getAllMemoList.memoNo}</td>
+										<td>${getAllMemoList.vehNo}</td>
+										<td>${getAllMemoList.driverName}</td>
+										<td><%-- <div class="fa-hover col-lg-3 col-md-6">
+										
 														<a
-														href="${pageContext.request.contextPath}/deleteLr/${lrDetailsList.lrHeaderId}"><i
-														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
-														</div>
-														<div class="fa-hover col-lg-3 col-md-6">
-														<a
-														href="${pageContext.request.contextPath}/showLrPreview/${lrDetailsList.lrHeaderId}"><i
-														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
+														href="${pageContext.request.contextPath}/showVoucherReg/${getAllMemoList.memoHeaderId}"><i
+														class="fa fa-file-text-o" title="Create Voucher"></i> <span class="text-muted"></span></a>
+														</div> --%>
 														
+														<a
+														href="${pageContext.request.contextPath}/memoPreview/${getAllMemoList.memoHeaderId}"><i
+														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
 														</div>
 										
 										</td>
