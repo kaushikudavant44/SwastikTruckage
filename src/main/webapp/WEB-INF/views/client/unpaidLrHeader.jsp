@@ -160,7 +160,7 @@
 									
 							<td>${lrHeaderList.total}</td>
 										
-			<td> <button type="submit" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/showCollectionInfo/${lrHeaderList.total}/${lrHeaderList.lrNo}/${lrHeaderList.lrHeaderId}">
+			<td> <button type="submit" class="btn btn-primary" style="font-size:13px"><a href="${pageContext.request.contextPath}/showCollectionInfo/${lrHeaderList.total}/${lrHeaderList.lrNo}/${lrHeaderList.lrHeaderId}" style="color:white;">
 										Generate</a>
 									</button></td>	 </tr>
 										
