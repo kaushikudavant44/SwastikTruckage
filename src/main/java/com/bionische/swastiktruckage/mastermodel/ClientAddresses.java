@@ -17,7 +17,7 @@ public class ClientAddresses {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="address_id",length=11)
 	private int addressId;
 	

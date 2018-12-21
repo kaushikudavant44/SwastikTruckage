@@ -23,7 +23,7 @@ public class States {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="state_id",length=11)
 	private int stateId;
 	

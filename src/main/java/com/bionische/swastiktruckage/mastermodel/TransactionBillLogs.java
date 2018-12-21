@@ -21,7 +21,7 @@ public class TransactionBillLogs {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="log_id",length=11)
 	private int logId;
 	

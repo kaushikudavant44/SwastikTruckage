@@ -11,7 +11,7 @@ public class GoodsDetails {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="goods_rate_id")
 	private int goodsRateId;
 	

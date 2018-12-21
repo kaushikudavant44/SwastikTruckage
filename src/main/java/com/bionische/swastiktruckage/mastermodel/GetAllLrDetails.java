@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class GetAllLrDetails {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="lr_header_id")
 	private int lrHeaderId;
 	

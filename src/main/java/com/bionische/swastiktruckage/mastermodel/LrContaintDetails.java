@@ -11,7 +11,7 @@ public class LrContaintDetails {
 
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="detail_id")
 	private int detailId;
 	

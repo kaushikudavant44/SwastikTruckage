@@ -27,8 +27,9 @@ public class StateDetailsServiceImpl implements StateDetailsService{
 	public List<States> getAllStates() {
 		try {
 			
-			if(Util.stateList==null) {
+			if(Util.stateList==null || Util.stateList.isEmpty()) {
 				Util.stateList=statesRepository.findAll();
+				System.out.println();
 			}
 			
 		} catch (Exception e) {
@@ -41,7 +42,7 @@ public class StateDetailsServiceImpl implements StateDetailsService{
 	public List<City> getAllCity() {
 		// TODO Auto-generated method stub
 		try {
-			if(Util.cityList==null) {
+			if(Util.cityList==null || Util.cityList.isEmpty()) {
 				Util.cityList=cityRepository.findAll();
 			}
 		} catch (Exception e) {

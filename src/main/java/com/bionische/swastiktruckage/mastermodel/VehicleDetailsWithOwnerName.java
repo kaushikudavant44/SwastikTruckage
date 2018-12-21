@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class VehicleDetailsWithOwnerName {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="veh_id")
 	private int vehId;
 	
