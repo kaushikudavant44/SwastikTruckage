@@ -353,7 +353,7 @@ public class TransactionController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/showLrPreview/"+transactionLrHeaderRes1.getLrHeaderId();
+		return "redirect:/showLRRegistration";
 
 	}
 	

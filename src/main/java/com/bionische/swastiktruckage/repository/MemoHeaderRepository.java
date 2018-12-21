@@ -21,4 +21,10 @@ public interface MemoHeaderRepository extends JpaRepository<MemoHeader, Integer>
 	@Modifying
 	@Query("UPDATE MemoHeader m SET m.isUsed=false  WHERE m.memoHeaderId=:memoHeaderId")
 	int updateMemoByMemoHeaderId(@Param("memoHeaderId")int memoHeaderId);
+	
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE MemoHeader m SET m.status=1  WHERE m.memoHeaderId=:memoHeaderId")
+	int updateMemoDeliveryByMemoHeaderId(@Param("memoHeaderId")int memoHeaderId);
 }

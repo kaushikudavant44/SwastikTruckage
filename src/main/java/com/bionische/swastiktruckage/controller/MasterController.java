@@ -480,6 +480,21 @@ public class MasterController {
 
 	}
 	
+	/*@RequestMapping(value = "/showGoodsRate", method = RequestMethod.GET)
+
+	public ModelAndView showGoodsRate(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("master/goodsRate");
+		try {
+
+				
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}*/
 	
 	
 }

@@ -59,10 +59,21 @@ public class MemoHeader {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date modifiedDate;
+	
+	@Column(name="status")
+	private int status;
 
 	
 	
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public int getToId() {
 		return toId;
 	}
@@ -142,9 +153,10 @@ public class MemoHeader {
 	@Override
 	public String toString() {
 		return "MemoHeader [memoHeaderId=" + memoHeaderId + ", memoNo=" + memoNo + ", vehId=" + vehId + ", driverId="
-				+ driverId + ", officeId=" + officeId + ", staffId=" + staffId + ", isUsed=" + isUsed + ", createdDate="
-				+ createdDate + ", modifiedDate=" + modifiedDate + "]";
+				+ driverId + ", officeId=" + officeId + ", toId=" + toId + ", staffId=" + staffId + ", isUsed=" + isUsed
+				+ ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", status=" + status + "]";
 	}
+
 	
 	
 	

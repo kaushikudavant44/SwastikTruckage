@@ -3,7 +3,6 @@ package com.bionische.swastiktruckage.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,18 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
-import com.bionische.swastiktruckage.mastermodel.Goods;
 import com.bionische.swastiktruckage.mastermodel.Info;
-import com.bionische.swastiktruckage.mastermodel.LRDetails;
-import com.bionische.swastiktruckage.mastermodel.LrContaintDetails;
 import com.bionische.swastiktruckage.mastermodel.MemoDetails;
 import com.bionische.swastiktruckage.mastermodel.MemoHeader;
 import com.bionische.swastiktruckage.mastermodel.OfficeDetails;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
-import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
-import com.bionische.swastiktruckage.mastermodel.TransactionLrInvoiceDetail;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
@@ -179,6 +172,7 @@ public class MemoController {
 			memoHeader.setStaffId(Integer.parseInt(request.getParameter("staffId")));
 			memoHeader.setToId(Integer.parseInt(request.getParameter("toId")));
 			memoHeader.setUsed(true);
+			memoHeader.setStatus(0);
 			MemoHeader memoHeaderResult=memoHeaderRepository.save(memoHeader);
 			
 			
@@ -356,6 +350,7 @@ public class MemoController {
 			memoHeader.setStaffId(Integer.parseInt(request.getParameter("staffId")));
 			memoHeader.setToId(Integer.parseInt(request.getParameter("toId")));
 			memoHeader.setUsed(true);
+			memoHeader.setStatus(0);
 			MemoHeader memoHeaderResult=memoHeaderRepository.save(memoHeader);
 			System.out.println("memoHeaderResult"+memoHeaderResult.toString());
 			
@@ -490,5 +485,178 @@ public class MemoController {
 
 	}
 	
+	@RequestMapping(value = "/showMemoReceived", method = RequestMethod.GET)
+
+	public ModelAndView showMemoReceived(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/memoReceived");
+
+		try {
+			
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/getMemoReceived", method = RequestMethod.POST)
+
+	public ModelAndView getMemoReceived(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/memoReceived");
+
+		
+		try {
+			int memoNo=Integer.parseInt(request.getParameter("memoNo"));
+			GetAllMemo getMemoDeatails=new GetAllMemo();
+			List<GetAllLrDetails> lrDetailsList=new ArrayList<>();
+			getMemoDeatails=getAllMemoRepository.findByMemoNo(memoNo);
+			lrDetailsList=getAllLrDetailsRepository.getMemoLrDetailsByMemoHeaderId(getMemoDeatails.getMemoHeaderId());
+			System.out.println("getMemoDeatails"+getMemoDeatails);
+			System.out.println("lrDetailsList"+lrDetailsList);
+			model.addObject("getMemoDeatails", getMemoDeatails);
+			model.addObject("lrDetailsList", lrDetailsList);
+			model.addObject("memoNo", memoNo);
+		
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/memoReceived", method = RequestMethod.GET)
+
+	public @ResponseBody Info memoReceived(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/memoReceived");
+
+		Info info=new Info();
+		try {
+			String getLrHeaderId=request.getParameter("selectedRowList");
+			String getAllLrHeader=getLrHeaderId.substring(1, getLrHeaderId.length()-1);
+			
+			System.out.println(getAllLrHeader.toString());
+			int memoHeaderId=Integer.parseInt(request.getParameter("memoHeaderId"));
+			int memoDelStatus=memoHeaderRepository.updateMemoDeliveryByMemoHeaderId(memoHeaderId);
+			String[] memoLrId = getAllLrHeader.split(",");
+		
+			int updateLr=0;
+			for(int i=0;i<memoLrId.length;i++) {
+				System.out.println(memoLrId[i]);
+				if(memoLrId[i]!=null && memoLrId[i]!="") {
+				int lrHeaderId=Integer.parseInt(memoLrId[i]);
+				updateLr=transactionLrHeaderRepository.updateLrRecDeliveryStatusByHeaderId(lrHeaderId);
+					
+			
+			
+			if(updateLr==1) {
+				
+				info.setMessage("Memo Received");
+			}else {
+				info.setMessage("something went wrong");
+			}
+			}
+			}
+		
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return info;
+
+	}
+	@RequestMapping(value = "/showAllReceivedMemo", method = RequestMethod.GET)
+
+	public ModelAndView showAllReceivedMemo(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/showAllReceivedMemo");
+
+		try {
+			
+			HttpSession session = request.getSession();
+			OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+			int officeId = officeStaff.getStaffOfficeId();
+			List<GetAllMemo> getReceivedMemoDeatailsList=new ArrayList<>();
+			
+			getReceivedMemoDeatailsList=getAllMemoRepository.findAllReceivedMemo(officeId);
+			
+			model.addObject("getAllMemoList", getReceivedMemoDeatailsList);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	@RequestMapping(value = "/showRecievedLrDetails", method = RequestMethod.GET)
+
+	public ModelAndView showRecievedLrDetails(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/showAllReceiveLr");
+
+		
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		// get staff id through session
+		// TODO
+		int toId = officeStaff.getStaffOfficeId();
+		try {
+			List<GetAllLrDetails> lrDetailsList=new ArrayList<>();
+			lrDetailsList=getAllLrDetailsRepository.findAllReceivedLr(toId);
+			
+			System.out.println("Received Lr"+lrDetailsList.toString());
+			model.addObject("lrDetailsList", lrDetailsList);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/receivedLr", method = RequestMethod.GET)
+
+	public @ResponseBody Info receivedLr(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("memo/memoReceived");
+
+		Info info=new Info();
+		try {
+			String getLrHeaderId=request.getParameter("selectedRowList");
+			String getAllLrHeader=getLrHeaderId.substring(1, getLrHeaderId.length()-1);
+			
+			String[] memoLrId = getAllLrHeader.split(",");
+		
+			int updateLr=0;
+			for(int i=0;i<memoLrId.length;i++) {
+				System.out.println(memoLrId[i]);
+				if(memoLrId[i]!=null && memoLrId[i]!="") {
+				int lrHeaderId=Integer.parseInt(memoLrId[i]);
+				updateLr=transactionLrHeaderRepository.lrReceive(lrHeaderId);
+					
+			
+			
+			if(updateLr==1) {
+				
+				info.setMessage("Lr Received");
+			}else {
+				info.setMessage("something went wrong");
+			}
+			}
+			}
+		
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return info;
+
+	}
 	
 }
