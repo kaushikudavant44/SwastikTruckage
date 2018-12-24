@@ -292,8 +292,7 @@ public class ClientController {
 			totalHamali+=clientBill.getHamali();
 					
 			clientBill.setInvoiceDetailList(transactionLrInvoiceDetailRepository.findByInvHeaderId(clientBill.getInvHeaderId()));
-		}
-		
+		}		
 		//save bill header
 		
 		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
