@@ -31,6 +31,9 @@ public interface TransactionBillHeaderRepository extends JpaRepository<Transacti
 	@Transactional
 	@Modifying
 	@Query("UPDATE TransactionBillHeader set billStatus=:billStatus  where billHeaderId=:billHeaderId")
-	int updateBillStatus(@Param("billStatus")int billStatus,@Param("billHeaderId")int billHeaderId);	
+	int updateBillStatus(@Param("billStatus")int billStatus,@Param("billHeaderId")int billHeaderId);
+	
+	@Query(value="SELECT COUNT(bill_header_id) FROM t_bill_header b WHERE b.bill_status=0" ,nativeQuery=true)
+	int getPendingBillCount();
 
 }

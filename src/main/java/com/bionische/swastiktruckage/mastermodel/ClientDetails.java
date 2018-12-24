@@ -42,7 +42,7 @@ public class ClientDetails {
 	@Column(name="client_contact_no",length=200)
 	private String clientContactNo;
 	
-	@Column(name="gstin",length=11)
+	@Column(name="gstin",length=15)
 	private String gstin;
 	
 	@Column(name="is_used")

@@ -229,11 +229,15 @@ public class MemoController {
 		ModelAndView model = new ModelAndView("memo/showMemoDetails");
 
 		List<GetAllMemo> getAllMemoList=new ArrayList<>();
-		
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		// get staff id through session
+		// TODO
+		int officeId = officeStaff.getStaffOfficeId();
 		try {
-			getAllMemoList=getAllMemoRepository.getListOfMemo();
+			getAllMemoList=getAllMemoRepository.getListOfMemo(officeId);
 			
-			
+			System.out.println("MemoList"+getAllMemoList);
 			
 			model.addObject("getAllMemoList", getAllMemoList);
 		} catch (Exception e) {

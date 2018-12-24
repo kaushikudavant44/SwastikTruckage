@@ -57,7 +57,7 @@ public class MasterController {
 	@Autowired
 	CityRepository cityRepository;
 
-	@RequestMapping(value = "/showHome", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/showHome", method = RequestMethod.GET)
 
 	public ModelAndView showPatientLoginPage(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("master/offices");
@@ -69,7 +69,7 @@ public class MasterController {
 
 		return model;
 
-	}
+	}*/
 
 	@RequestMapping(value = "/showOfficeReg", method = RequestMethod.GET)
 

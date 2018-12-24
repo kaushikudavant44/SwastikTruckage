@@ -15,8 +15,8 @@ public interface GetAllMemoRepository extends JpaRepository<GetAllMemo, Integer>
 			"INNER JOIN m_office cl1 ON cl1.office_id = m.office_id " + 
 			"INNER JOIN m_office cl2 ON cl2.office_id = m.to_id " + 
 			"WHERE m.driver_id=d.driver_id AND m.veh_id=v.veh_id AND v.owner_id=o.owner_id " + 
-			"AND YEAR(m.created_date)=YEAR(CURRENT_DATE()) AND MONTH(m.created_date)=MONTH(CURRENT_DATE()) AND m.is_used=true",nativeQuery=true)
-			List<GetAllMemo> getListOfMemo();
+			"AND YEAR(m.created_date)=YEAR(CURRENT_DATE()) AND MONTH(m.created_date)=MONTH(CURRENT_DATE()) AND m.is_used=true AND m.office_id=:officeId",nativeQuery=true)
+			List<GetAllMemo> getListOfMemo(@Param("officeId")int officeId);
 	
 	@Query(value="SELECT m.memo_header_id,m.memo_no,d.driver_license_no, o.owner_name, d.driver_name,m.created_date, m.office_id,m.to_id, m.staff_id, m.veh_id, v.veh_no ,m.driver_id, cl1.office_name AS from_office, cl2.office_name AS to_office, cl1.office_address " + 
 			"FROM m_vehicle_owners o, m_vehicles_drivers d, m_vehicles v, t_memo_header m " + 
