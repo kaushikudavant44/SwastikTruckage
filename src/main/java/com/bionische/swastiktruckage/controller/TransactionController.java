@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.common.DateConverter;
+import com.bionische.swastiktruckage.master.controller.SMSSender;
 import com.bionische.swastiktruckage.mastermodel.City;
+import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 import com.bionische.swastiktruckage.mastermodel.CompanyDetails;
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
@@ -252,6 +254,11 @@ public class TransactionController {
 			transactionLrInvoiceHeader.setUsed(true);
 			TransactionLrInvoiceHeader transactionLrInvoiceHeaderRes = transactionLrInvoiceHeaderRepository.save(transactionLrInvoiceHeader);
 
+			if (transactionLrHeaderRes1 != null) {
+				ClientDetails	clientDetails = clientDetailsRepository.findByClientId(transactionLrHeaderRes1.getConsignor());
+			
+				SMSSender.send(clientDetails.getClientContactNo(),"LR has been generated");
+			}
 			
 			if(transactionLrInvoiceHeaderRes !=null) {
 				
