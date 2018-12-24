@@ -12,6 +12,7 @@ import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 
 public interface TransactionLrHeaderRepository extends JpaRepository<TransactionLrHeader, Integer>{
 	
+	TransactionLrHeader findByLrHeaderId(int lrHeaderId);
 	
 	@Query(value="SELECT * from t_lr_header ORDER BY lr_header_id DESC LIMIT 1",nativeQuery=true)
 	TransactionLrHeader findLastRecord();

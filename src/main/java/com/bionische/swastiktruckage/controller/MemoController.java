@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.master.controller.SMSSender;
+import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
 import com.bionische.swastiktruckage.mastermodel.Info;
 import com.bionische.swastiktruckage.mastermodel.MemoDetails;
 import com.bionische.swastiktruckage.mastermodel.MemoHeader;
 import com.bionische.swastiktruckage.mastermodel.OfficeDetails;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
+import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
@@ -197,6 +200,14 @@ public class MemoController {
 			}
 			System.out.println("memo detail list"+memoDetailsList.toString());
 			memoDetailsList=memoDetailsRepository.saveAll(memoDetailsList);
+			
+			for(MemoDetails memo : memoDetailsList)
+			{
+				TransactionLrHeader res = transactionLrHeaderRepository.findByLrHeaderId(memo.getLrHeaderId());
+				ClientDetails	clientDetails = clientDetailsRepository.findByClientId(res.getConsignor());
+				
+				SMSSender.send(clientDetails.getClientContactNo(),"Memo has been generated");
+			}
 			
 			if(memoDetailsList.isEmpty()) {
 				
@@ -646,7 +657,10 @@ public class MemoController {
 			
 			
 			if(updateLr==1) {
+				TransactionLrHeader res = transactionLrHeaderRepository.findByLrHeaderId(lrHeaderId);
+				ClientDetails	clientDetails = clientDetailsRepository.findByClientId(res.getConsignor());
 				
+				SMSSender.send(clientDetails.getClientContactNo(),"Delivered Successfully");
 				info.setMessage("Lr Received");
 			}else {
 				info.setMessage("something went wrong");
