@@ -214,8 +214,7 @@
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">GST</label>
-													 <input	required  name="gst"
-															class="gstinnumber" >
+													 <input name="gst" class="gstinnumber" required>
 													</div>
 												</div>
 

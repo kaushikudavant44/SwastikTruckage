@@ -35,7 +35,7 @@
 </div>
         <div class="col-sm-6" style="margin-left:0px">
 
-    	<h5 class="text-center" style=" padding: 1px; margin:1px;" >Subject to Mumbai Jurisdiction</h5>
+    	<h5 class="text-center" style=" padding: 1px; margin:1px;" >Subject to Nashik Jurisdiction</h5>
         <img src="${pageContext.request.contextPath}/resources/images/swastik.png" class="img-responsive" alt="logo">
         <!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
         <p class="text-center"><strong>Address:</strong> ${lrDetails.officeAddress}</p>
@@ -46,7 +46,7 @@
         <div class="col-sm-3" style="margin-top:30px;">
 
 
-        <p class="text-center"><strong>Phone No.:</strong> 23427812 / 23427962 / 23440860 <strong> <br> Tele Fax:</strong> 23440857</p>
+        <p class="text-center"><strong>Phone No.:</strong> 2362111 / 2350287 / 2350144 <strong> <br> Tele Fax:</strong> 2350211</p>
 
 
 </div>            
@@ -102,16 +102,16 @@
           <div class="col-sm-8">
 
           	<h5><strong>Invoice No.: </strong><c:forEach items="${transactionLrInvoiceDetailList}" var="transactionLrInvoiceDetailList" varStatus="count">${transactionLrInvoiceDetailList.invNo},</c:forEach> </h5>
-            <h5><strong>GSTIN :27AARFS4904J1ZP </strong></h5>
+            <h5><strong>GSTIN :27BERP38138B1Z2 </strong></h5>
 
      <p class="red">Tax Paid on reverse charge basis will be available for input tax credit if such goods and/or service are used, or will be used, for business. The service recepient(i.e who plays reverse tax) can avail input tax credit.</p>
 
           </div>
           <div class="col-sm-4 padding0">
-          	<h5><strong> SAC Code: 996511</strong> </h5>
-            <h5><strong>PAN No.: AARFS4904J</strong> </h5>
+          	<!-- <h5><strong> SAC Code: 996511</strong> </h5> -->
+            <h5><strong>PAN No.: BERPS8138B</strong> </h5>
             <h5>www.swastiktransport.com</h5>
-          <h5>Email: swastiktransportco@rediffmail.com</h5>
+          <h5>Email: swastiktruckage@gmail.com</h5>
           <h5>Helpline No.: 9890362111</h5>
 
 

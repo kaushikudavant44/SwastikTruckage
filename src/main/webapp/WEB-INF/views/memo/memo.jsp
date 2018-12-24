@@ -84,9 +84,9 @@ border: 1px solid black;
 
 
 			<p class="text-center">
-				<strong>Phone No.:</strong> 23427812 / 23427962 / 23440860 <strong>
+				<strong>Phone No.:</strong> 2362111 / 2350287 / 2350144 <strong>
 					<br> Tele Fax:
-				</strong> 23440857
+				</strong> 2350211
 			</p>
 
 

@@ -186,7 +186,7 @@
 							<td>${billList.billDate}</td>
 							
 						 <c:choose>
-                             <c:when test="${billList.paymentMode==1}">
+                             <c:when test="${billList.paymentMode==0}">
                               
   							<td>Cash</td>
   							
