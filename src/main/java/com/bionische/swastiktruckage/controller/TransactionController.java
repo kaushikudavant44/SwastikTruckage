@@ -254,11 +254,7 @@ public class TransactionController {
 			transactionLrInvoiceHeader.setUsed(true);
 			TransactionLrInvoiceHeader transactionLrInvoiceHeaderRes = transactionLrInvoiceHeaderRepository.save(transactionLrInvoiceHeader);
 
-			if (transactionLrHeaderRes1 != null) {
-				ClientDetails	clientDetails = clientDetailsRepository.findByClientId(transactionLrHeaderRes1.getConsignor());
 			
-				SMSSender.send(clientDetails.getClientContactNo(),"LR has been generated");
-			}
 			
 			if(transactionLrInvoiceHeaderRes !=null) {
 				
@@ -317,6 +313,13 @@ public class TransactionController {
 			 transactionLrHeaderRes1=transactionLrHeaderRepository.save(transactionLrHeader);
 			
 			System.out.println("dds0"+transactionLrHeaderRes1.toString());
+			
+			if (transactionLrHeaderRes1 != null) {
+				ClientDetails	clientDetails = clientDetailsRepository.findByClientId(transactionLrHeaderRes1.getConsignor());
+			
+				SMSSender.send(clientDetails.getClientContactNo(),"LR has been generated");
+			}
+			
 			if (transactionLrHeaderRes1 != null) {
 			
 				
