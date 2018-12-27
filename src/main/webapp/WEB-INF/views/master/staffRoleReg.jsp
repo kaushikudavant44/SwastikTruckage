@@ -28,6 +28,10 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
+
+
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
@@ -74,8 +78,8 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong> Add New Role</strong>
 						</div>
 						<div class="card-body card-block">
