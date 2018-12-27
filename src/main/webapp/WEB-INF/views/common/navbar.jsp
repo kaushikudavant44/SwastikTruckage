@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <aside id="left-panel" class="left-panel">
 <nav class="navbar navbar-expand-sm navbar-default">
 <div class="navbar-header">
@@ -20,59 +21,60 @@
 
 				<!--                     <h3 class="menu-title">UI elements</h3>/.menu-title
  -->
-				<li class="menu-item-has-children dropdown"><a href="#"
+ 
+ <c:set var="flag2" value="2"/>
+ <c:forEach items="${sessionScope.navBarMainMenuList}" var="navBarMainMenu">
+ 
+ <c:set var="flag" value="1"/>
+ 
+ <c:if test="${flag2==1}">
+ 
+ <c:set var="flag2" value="2"/>
+ </ul>
+ </li>
+ 
+ </c:if>
+
+ 
+<%--  <c:if test="${flag==1}"> --%>
+   
+			<%-- 	<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> Masters
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> ${navBarMainMenu.menuName}
+				</a> --%>
+					<%-- </c:if> --%>
+					
+					  <c:forEach items="${sessionScope.navBarSubMainMenuList}" var="navBarSubMainMenu" varStatus="count">
+					<c:if test="${navBarSubMainMenu.menuId==navBarMainMenu.menuId}">
+					
+					
+					<c:if test="${flag==1}">
+					 <c:set var="flag2" value="1"/>
+					<c:set var="flag" value="0"/>
+					<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> ${navBarMainMenu.menuName}
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
-						<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOfficeReg">Add New Office</a></li> --%>
+					</c:if>
+					
+						 
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showStaffRoleReg">Add New Role</a></li>
+							href="${pageContext.request.contextPath}/${navBarSubMainMenu.subMenuUrl}">${navBarSubMainMenu.subMenuName}</a></li>
 								
-						<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOfficeStaffReg">Add New Staff</a></li> --%>
-							
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOfficesDetails">Offices</a></li>
-							
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showStaffDetails">Staffs</a></li>	
-					
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showGoodsReg">Goods Details</a></li>			
-					
-					     <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showClientReg">Add New Client</a></li>
-									
-							
-					     <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showAllClientDetails">Clients</a></li>		
-							
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showVehicleOwnerReg">Add Vehicle Owner</a></li>	
-							
-					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showAllVehicleOwnerDetails">Vehicle Owners</a></li>
-							
-					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showVehicleReg">Add New Vehicle</a></li>
-							
-					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showAllVehicleDetails">Vehicles</a></li>	
-							
-					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showVehicleDriverReg">Add Driver</a></li>	
-							
-					   <li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showAllVehicleDriverDetails">Drivers</a></li>
-									
-							
-						</ul></li>
+					 
 						
 						
-						<li class="menu-item-has-children dropdown"><a href="#"
+						  
+					
+					 </c:if>
+						</c:forEach>
+						
+							 
+						</c:forEach>
+						
+					<%-- 	<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Lr Details
 				</a>
@@ -179,7 +181,7 @@
 
 					</ul></li> 
 
-
+ --%>
 
 
 				

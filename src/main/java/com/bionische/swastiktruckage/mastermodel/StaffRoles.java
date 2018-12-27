@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -28,10 +29,14 @@ public class StaffRoles {
 	@Column(name="role_id",length=11)
 	private int roleId;
 	
+	@Column(name="staff_id",length=11)
+	private int staffId;
+	
 	@Column(name="roleName",length=11)
 	private String roleName;
 	
-	@Column(name="role",length=11)
+	@Column(name="role")
+	@Type(type="text")
 	private String role;
 	
 	@Column(name="is_used")
@@ -98,11 +103,21 @@ public class StaffRoles {
 		this.roleName = roleName;
 	}
 
+	public int getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(int staffId) {
+		this.staffId = staffId;
+	}
+
 	@Override
 	public String toString() {
-		return "StaffRoles [roleId=" + roleId + ", roleName=" + roleName + ", role=" + role + ", isUsed=" + isUsed
-				+ ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
+		return "StaffRoles [roleId=" + roleId + ", staffId=" + staffId + ", roleName=" + roleName + ", role=" + role
+				+ ", isUsed=" + isUsed + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
+
+	 
 
 	
 	

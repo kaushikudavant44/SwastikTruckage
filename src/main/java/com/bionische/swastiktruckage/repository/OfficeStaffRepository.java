@@ -26,4 +26,6 @@ public interface OfficeStaffRepository extends JpaRepository<OfficeStaff, Intege
 	
 	OfficeStaff findByStaffContactNo(String contactNo);
 	
+	List<OfficeStaff> findByIsUsed(boolean isUsed);
+	
 }

@@ -12,5 +12,8 @@ public interface StaffRolesRepository extends JpaRepository<StaffRoles, Integer>
 	
 	StaffRoles findByRoleId(int roleId);
 	
+	StaffRoles findByStaffId(int staffId);
+	
+	
 	List<StaffRoles> findAll();
 }

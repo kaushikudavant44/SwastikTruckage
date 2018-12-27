@@ -1,5 +1,7 @@
 package com.bionische.swastiktruckage.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
-import com.bionische.swastiktruckage.repository.OfficeDetailsRepository;
+import com.bionische.swastiktruckage.mastermodel.StaffRoles;
+import com.bionische.swastiktruckage.model.NavBarMainMenu;
+import com.bionische.swastiktruckage.model.NavBarSubMainMenu;
+import com.bionische.swastiktruckage.repository.NavBarMainMenuRepository;
 import com.bionische.swastiktruckage.repository.OfficeStaffRepository;
+import com.bionische.swastiktruckage.repository.StaffRolesRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class LoginController {
@@ -28,7 +35,10 @@ public class LoginController {
 	
 	@Autowired
 	TransactionBillHeaderRepository transactionBillHeaderRepository;
-	
+	@Autowired
+	StaffRolesRepository staffRolesRepository;
+	@Autowired
+	NavBarMainMenuRepository navBarMainMenuRepository;
 	
 	
 private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
@@ -52,7 +62,7 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 
 	public String staffLoginProcess(HttpServletRequest request)   
 	{
-		String url ="redirect:/showStaffLogin";
+		String url ="redirect:/";
 		 HttpSession session = request.getSession();
 		 
 		String contactNo = request.getParameter("contactNo"); 
@@ -64,6 +74,18 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 		
 		if(officeStaffDetails!=null)
 		{
+			System.out.println("Success");
+			StaffRoles staffRolesRes=staffRolesRepository.findByStaffId(officeStaffDetails.getStaffId());
+			 ObjectMapper mapper = new ObjectMapper();
+			 List<NavBarSubMainMenu> navBarSubMainMenuList = mapper.readValue(staffRolesRes.getRole(), List.class);
+			 System.out.println("navBarSubMainMenuList "+navBarSubMainMenuList.toString());
+			List<NavBarMainMenu> navBarMainMenuList=navBarMainMenuRepository.findAll();
+			
+			session.setAttribute("navBarMainMenuList", navBarMainMenuList);
+			session.setAttribute("navBarSubMainMenuList", navBarSubMainMenuList);
+			
+			
+			 
 			message="";
 			session.setAttribute("staffDetails", officeStaffDetails);
 			url="redirect:/showHome";
@@ -71,7 +93,7 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 		else
 		{
 			message="Invalid Credential";
-			url="redirect:/showStaffLogin";
+			url="redirect:/";
 		}
 		
 		
