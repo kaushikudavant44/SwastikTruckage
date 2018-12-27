@@ -42,6 +42,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">	
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
 
 
@@ -104,8 +106,8 @@
  </div> 
  
  		<div class="col-lg-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<h4>Driver Registration</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/insertVehicleDriverInfo" method="POST">

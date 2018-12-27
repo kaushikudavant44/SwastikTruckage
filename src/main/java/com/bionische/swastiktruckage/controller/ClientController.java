@@ -37,10 +37,12 @@ import com.bionische.swastiktruckage.mastermodel.TransactionBillLogs;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillPayments;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
+import com.bionische.swastiktruckage.model.GetPaymentDetails;
 import com.bionische.swastiktruckage.repository.CityRepository;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.ClientFullDetailsRepository;
 import com.bionische.swastiktruckage.repository.CompanyDetailsRepository;
+import com.bionische.swastiktruckage.repository.GetPaymentDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
@@ -97,6 +99,8 @@ public class ClientController {
 	@Autowired
 	TransactionBillPaymentsRepository transactionBillPaymentsRepository;
 
+	@Autowired
+	GetPaymentDetailsRepository getPaymentDetailsRepository;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
 	
@@ -335,6 +339,14 @@ public class ClientController {
 			transactionBillHeader.setBillNo(00000001);
 		}
 		
+		if(clientBillDetails.get(0).getPaymentBy()==0)
+		{
+			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsigneeId());
+		}
+		else
+		{
+			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsignor());
+		}	
 		transactionBillHeader.setBillPayableBy(clientBillDetails.get(0).getPaymentBy());
 		transactionBillHeader.setBillDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		transactionBillHeader.setBillTotal(totalBill);		
@@ -518,19 +530,19 @@ public class ClientController {
 		ModelAndView model=new ModelAndView("client/clientBillList");
 		
 		try {
-			List<TransactionBillHeader> clientBills;
+			List<GetPaymentDetails> clientBills;
 			String fromDate = request.getParameter("from");
 			String toDate = request.getParameter("to");
 			
 			if(fromDate!=null && toDate!=null)
 			{
-			 clientBills = transactionBillHeaderRepository.billByDate(0,fromDate,toDate);
+			 clientBills = getPaymentDetailsRepository.paymentDetailsByDate(0,fromDate,toDate);
 			 model.addObject("from",fromDate);
 			 model.addObject("to",toDate);
 			}
 			else
 			{
-			 clientBills = transactionBillHeaderRepository.billByDate(0,new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+			 clientBills = getPaymentDetailsRepository.paymentDetailsByDate(0,new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("from",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("to",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			}
@@ -761,10 +773,11 @@ public class ClientController {
 		int paymentMode = Integer.parseInt(request.getParameter("paymentType"));
 		float amount = Float.parseFloat(request.getParameter("amount"));
 		
-		if(paymentMode!=0)
+		if(paymentMode!=1)
 		{
 			trId = Integer.parseInt(request.getParameter("trId"));
 		}
+		
 		HttpSession session = request.getSession();
 		OfficeStaff officeStaffDetails = (OfficeStaff)session.getAttribute("staffDetails");
 		TransactionBillPayments transactionBillPayments = new TransactionBillPayments();

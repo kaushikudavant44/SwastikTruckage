@@ -33,7 +33,8 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -96,8 +97,8 @@
 						<div class="row">
 
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong>Search Bill DateWise</strong>
 						</div>
 						<div class="card-body card-block">
@@ -109,7 +110,7 @@
              </div>
              
              <div class="col-sm-6 col-md-2">
-              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" >             
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" readonly>             
              </div>
               <div class="col-sm-6 col-md-1">
              </div>
@@ -118,7 +119,7 @@
              </div>
              
               <div class="col-sm-6 col-md-2">
-          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" >
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" readonly>
             
              </div>
              <div class="col-sm-6 col-md-1">
@@ -145,14 +146,14 @@
 
 			</div>
 		
-		
+		<br>
 		<!-- Devide -->
 		
 			<div class="row">
 
 				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
@@ -171,9 +172,11 @@
 									<tr>
 									    <th>Bill No</th>
 										<th>Bill Date</th>
-										<th>Payment Mode</th>
+										<th>Payment By</th>
+										<th>Bill To</th>
 										<th >Total</th>
-									
+										<th>Paid</th>
+																		
 									</tr>
 								</thead>
 								<tbody>
@@ -185,25 +188,21 @@
 						    <td>${billList.billNo}</td>
 							<td>${billList.billDate}</td>
 							
-						<%--  <c:choose>
-                             <c:when test="${billList.paymentMode==0}">
+						 <c:choose>
+                              <c:when test="${billList.billPayableBy==0}">
                               
-  							<td>Cash</td>
+  							<td>Consignee</td>
   							
   							</c:when>
-  							<c:when test="${billList.paymentMode==2}">
+  							<c:when test="${billList.billPayableBy==1}">
                               
-  							<td>Check</td>
+  							<td>Consignor</td>
   							
   							</c:when>
-  							<c:when test="${billList.paymentMode==3}">
-                              
-  							<td>NEFT</td>
-  							
-  							</c:when>
-  						</c:choose> --%>
-										
+  							</c:choose>
+						    <td>${billList.clientName}</td>
 							<td>${billList.billTotal}</td>
+							<td>${billList.amountReceived}</td>	
 										
 					   </tr>
 									

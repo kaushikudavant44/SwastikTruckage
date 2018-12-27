@@ -30,7 +30,8 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 
@@ -87,8 +88,8 @@
 			<div class="row">
 
 				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
@@ -137,6 +138,8 @@
 									<tr>
 									    <th>SR No</th>
 										<th>Date</th>
+										<th>Payment Mode</th>
+										<th>transaction Id</th>
 										<th>Amount</th>
 										
 									</tr>
@@ -147,6 +150,21 @@
 <tr>
     <td>${myIndex.index+1}</td>
     <td> ${installement.paymentDate} </td>
+    <c:choose>
+                            <c:when test="${installement.paymentMode==1}">                              
+  							<td>Cash</td>  							
+  							</c:when>
+  							
+  							<c:when test="${installement.paymentMode==2}">                            
+  							<td>Check</td>  							
+  							</c:when>
+  							
+  							<c:when test="${installement.paymentMode==3}">                            
+  							<td>NEFT</td>  							
+  							</c:when>
+  						</c:choose>
+  							
+							<td>${installement.trId}</td>
     <td>${installement.amountReceived}</td>
    
   </tr>
@@ -174,8 +192,8 @@
  
  
  		<div class="col-lg-6">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<h4>Pyment</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/submitPayment" method="POST">
@@ -197,7 +215,7 @@
 							<select required 
 								class="standardSelect form-control" tabindex="1" id="paymentType" name="paymentType" onchange='checkPaymentType(this.value)' >
 								<option>--select--</option>
-                                <option value="0">cash</option>
+                                <option value="1">cash</option>
                                 <option value="2">check</option>
                                 <option value="3">neft</option>
 								

@@ -1,25 +1,20 @@
-package com.bionische.swastiktruckage.mastermodel;
+package com.bionische.swastiktruckage.model;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name="t_bill_header")
-@EntityListeners(AuditingEntityListener.class)
-public class TransactionBillHeader {
+public class GetPaymentDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,14 +51,12 @@ public class TransactionBillHeader {
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
-
-	public int getBillTo() {
-		return billTo;
-	}
-
-	public void setBillTo(int billTo) {
-		this.billTo = billTo;
-	}
+	
+	@Column(name="amount_received",length=11)
+	private float amountReceived;
+	
+	@Column(name="client_name",length=200)
+	private String clientName;
 
 	public int getBillHeaderId() {
 		return billHeaderId;
@@ -81,6 +74,14 @@ public class TransactionBillHeader {
 		this.billNo = billNo;
 	}
 
+	public int getBillTo() {
+		return billTo;
+	}
+
+	public void setBillTo(int billTo) {
+		this.billTo = billTo;
+	}
+
 	public String getBillDate() {
 		return billDate;
 	}
@@ -88,8 +89,6 @@ public class TransactionBillHeader {
 	public void setBillDate(String billDate) {
 		this.billDate = billDate;
 	}
-
-	
 
 	public float getBillTotal() {
 		return billTotal;
@@ -99,7 +98,21 @@ public class TransactionBillHeader {
 		this.billTotal = billTotal;
 	}
 
-	
+	public int getBillStatus() {
+		return billStatus;
+	}
+
+	public void setBillStatus(int billStatus) {
+		this.billStatus = billStatus;
+	}
+
+	public int getBillPayableBy() {
+		return billPayableBy;
+	}
+
+	public void setBillPayableBy(int billPayableBy) {
+		this.billPayableBy = billPayableBy;
+	}
 
 	public boolean isUsed() {
 		return isUsed;
@@ -125,30 +138,31 @@ public class TransactionBillHeader {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public int getBillStatus() {
-		return billStatus;
+	public float getAmountReceived() {
+		return amountReceived;
 	}
 
-	public void setBillStatus(int billStatus) {
-		this.billStatus = billStatus;
+	public void setAmountReceived(float amountReceived) {
+		this.amountReceived = amountReceived;
 	}
 
-	public int getBillPayableBy() {
-		return billPayableBy;
+	public String getClientName() {
+		return clientName;
 	}
 
-	public void setBillPayableBy(int billPayableBy) {
-		this.billPayableBy = billPayableBy;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 	@Override
 	public String toString() {
-		return "TransactionBillHeader [billHeaderId=" + billHeaderId + ", billNo=" + billNo + ", billTo=" + billTo
+		return "GetPaymentDetails [billHeaderId=" + billHeaderId + ", billNo=" + billNo + ", billTo=" + billTo
 				+ ", billDate=" + billDate + ", billTotal=" + billTotal + ", billStatus=" + billStatus
 				+ ", billPayableBy=" + billPayableBy + ", isUsed=" + isUsed + ", createDate=" + createDate
-				+ ", modifiedDate=" + modifiedDate + "]";
+				+ ", modifiedDate=" + modifiedDate + ", amountReceived=" + amountReceived + ", clientName=" + clientName
+				+ "]";
 	}
-
+	
 	
 	
 }

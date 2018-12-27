@@ -30,7 +30,8 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 
@@ -94,8 +95,8 @@
 		
 		<div class="row">
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong>Search Collection DateWise</strong>
 						</div>
 						<div class="card-body card-block">
@@ -152,8 +153,8 @@
 	
 			<div class="row">
 				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">

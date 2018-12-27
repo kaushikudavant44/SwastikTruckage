@@ -33,7 +33,8 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -98,8 +99,8 @@
  </div> 
  
  		<div class="col-lg-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<h4>Vehicle Owner Registration</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/insertVehicleOwnerInfo" method="POST">

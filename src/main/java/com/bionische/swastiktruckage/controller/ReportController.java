@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
+import com.bionische.swastiktruckage.model.GetPaymentDetails;
+import com.bionische.swastiktruckage.repository.GetPaymentDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrCollectionRepository;
@@ -42,10 +44,13 @@ public class ReportController {
 	@Autowired
 	TransactionBillHeaderRepository transactionBillHeaderRepository;
 	
+	@Autowired
+	GetPaymentDetailsRepository getPaymentDetailsRepository;
+	
 	
 	public List<LrBilling> lrHeaderList;
 	public List<TransactionLrHeader> lrList;
-	List<TransactionBillHeader> billList;
+	List<GetPaymentDetails> billList;
 	List<TransactionLrCollection> collectionList;
 	
 	@RequestMapping(value="/showpendingPaymentLrList", method=RequestMethod.GET)
@@ -171,19 +176,19 @@ public class ReportController {
 			
 			if(fromDate!=null && toDate!=null)
 			{
-				billList = transactionBillHeaderRepository.billByDate(1,fromDate,toDate);
+				billList = getPaymentDetailsRepository.paymentDetailsByDate(1,fromDate,toDate);
 			 model.addObject("from",fromDate);
 			 model.addObject("to",toDate);
 			}
 			else
 			{
-				billList = transactionBillHeaderRepository.billByDate(1,new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+				billList = getPaymentDetailsRepository.paymentDetailsByDate(1,new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("from",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("to",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			}
 			
 			float totalBill = 0; 
-			for(TransactionBillHeader bill : billList)
+			for(GetPaymentDetails bill : billList)
 			{
 				totalBill+=bill.getBillTotal();
 			}

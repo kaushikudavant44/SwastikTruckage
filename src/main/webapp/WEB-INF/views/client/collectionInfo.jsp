@@ -30,7 +30,8 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 
@@ -93,8 +94,8 @@
  </div> 
  
  		<div class="col-lg-6">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<h4>Pyment</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/insertLrCollection" method="POST">

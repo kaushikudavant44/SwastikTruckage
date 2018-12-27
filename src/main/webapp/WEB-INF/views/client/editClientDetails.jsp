@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
+    <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
     <link href="${pageContext.request.contextPath}/resources/assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -71,9 +73,9 @@
   <div class="col-lg-3">
  </div> 
   <input type="hidden" name="clientId" value="${clientDetails.clientId}">
- 		<div class="col-lg-6">
-					<div class="card">
-						<div class="card-header">
+ 		<div class="col-xs-12 col-sm-12">
+					<div class="cardview">
+						<div class="cardview-header">
 							<h4>Edit Client Details</h4>
 						</div>
 						<div class="card-body">

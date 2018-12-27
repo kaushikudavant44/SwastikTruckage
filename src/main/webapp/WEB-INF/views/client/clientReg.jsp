@@ -43,6 +43,8 @@
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 
 
 <link rel="stylesheet"
@@ -134,8 +136,8 @@
 						<div class="row">
 
 							<div class="col-xs-12 col-sm-12">
-								<div class="card">
-									<div class="card-header">
+								<div class="cardview">
+									<div class="cardview-header">
 										<strong>Add New Client</strong>
 									</div>
 									<div class="card-body card-block">
@@ -258,6 +260,12 @@
 					</div>
 					<!-- .content -->
 				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+			
 				
 				<script
 					src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
