@@ -2316,4 +2316,20 @@ display:none;
   opacity: 1;
 }
 
+.an-button:link, .an-button:visited {
+  background-color: #334166;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  float: right;
+  margin-right: 16px;
+}
+
+
+.an-button:hover, .an-button:active {
+  background-color: #e74c3c ;
+}
+
 /*# sourceMappingURL=style.css.map */
