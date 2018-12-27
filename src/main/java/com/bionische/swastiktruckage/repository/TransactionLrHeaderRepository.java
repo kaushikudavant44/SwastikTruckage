@@ -19,8 +19,6 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	
 	TransactionLrHeader save(TransactionLrHeader transactionLrHeader);
 	
-	TransactionLrHeader findByLrNoAndBillStatus(int lrNo,int billStatus);
-	
 	@Query(value="SELECT  h.* FROM t_lr_header h  WHERE  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id =:clientId ELSE h.consignor =:clientId END ) AND  h.bill_status=0 AND h.delivery_status =3 " ,nativeQuery=true)
 	List<TransactionLrHeader> getLrByClientId(@Param("clientId")int clientId);
 	
@@ -46,20 +44,26 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE TransactionLrHeader t SET t.deliveryStatus=2  WHERE t.lrHeaderId=:lrHeaderId")
+	@Query("UPDATE TransactionLrHeader t SET t.deliveryStatus=3  WHERE t.lrHeaderId=:lrHeaderId")
 	int updateLrRecDeliveryStatusByHeaderId(@Param("lrHeaderId")int lrHeaderId);
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE TransactionLrHeader t SET t.deliveryStatus=3  WHERE t.lrHeaderId=:lrHeaderId")
+	@Query("UPDATE TransactionLrHeader t SET t.deliveryStatus=5  WHERE t.lrHeaderId=:lrHeaderId")
 	int lrReceive(@Param("lrHeaderId")int lrHeaderId);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE TransactionLrHeader t SET t.deliveryStatus=4  WHERE t.lrHeaderId=:lrHeaderId")
+	int updateLrLocalDeliveryStatusByHeaderId(@Param("lrHeaderId")int lrHeaderId);
+	
 	
 	@Query(value="SELECT COUNT(l.lr_header_id) FROM t_lr_header l WHERE l.from_id=:officeId AND lr_date=CURDATE() AND l.is_used=true",nativeQuery=true)
 	int getLrCountByOfficeId(@Param("officeId")int officeId);
 	
 	@Query(value="SELECT COUNT(h.lr_header_id) FROM t_memo_header mh, t_lr_header h " + 
 			"WHERE h.lr_header_id IN (SELECT lr_header_id FROM t_memo_details WHERE t_memo_details.memo_header_id=mh.memo_header_id) " + 
-			"AND h.delivery_status=2 AND h.is_used=TRUE ",nativeQuery=true)
+			"AND h.delivery_status=4 AND h.is_used=TRUE ",nativeQuery=true)
 	int getPendingLrDeliveryCount();
 	
 
