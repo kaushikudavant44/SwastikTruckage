@@ -17,6 +17,8 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	@Query(value="SELECT * from t_lr_header ORDER BY lr_header_id DESC LIMIT 1",nativeQuery=true)
 	TransactionLrHeader findLastRecord();
 	
+	TransactionLrHeader findByLrNoAndBillStatus(int lrNo,int billStatus);
+	
 	TransactionLrHeader save(TransactionLrHeader transactionLrHeader);
 	
 	@Query(value="SELECT  h.* FROM t_lr_header h  WHERE  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id =:clientId ELSE h.consignor =:clientId END ) AND  h.bill_status=0 AND h.delivery_status =3 " ,nativeQuery=true)
