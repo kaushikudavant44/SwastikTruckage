@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
+    <script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+		
 <aside id="left-panel" class="left-panel">
 <nav class="navbar navbar-expand-sm navbar-default">
 <div class="navbar-header">
@@ -51,17 +55,29 @@
 					<c:if test="${flag==1}">
 					 <c:set var="flag2" value="1"/>
 					<c:set var="flag" value="0"/>
+					<c:choose>
+				<c:when test="${sessionScope.menuId==navBarMainMenu.menuId}">
+					<li class="menu-item-has-children dropdown show"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> ${navBarMainMenu.menuName}
+				</a>
+					<ul class="sub-menu children dropdown-menu show">
+					</c:when>
+					
+					<c:otherwise>
 					<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> ${navBarMainMenu.menuName}
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
+					</c:otherwise>
+						</c:choose>
 					</c:if>
 					
 						 
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/${navBarSubMainMenu.subMenuUrl}">${navBarSubMainMenu.subMenuName}</a></li>
+							href="${pageContext.request.contextPath}/${navBarSubMainMenu.subMenuUrl}" onclick="setAccessRight(${navBarSubMainMenu.menuId},${navBarSubMainMenu.subMenuId})">${navBarSubMainMenu.subMenuName}</a></li>
 								
 					 
 						
@@ -200,6 +216,22 @@
 
 		</div>
 
+<script type="text/javascript">
+function setAccessRight(menuId,subMenuId){
 
+$('input:checkbox').removeAttr('checked');
+$
+.getJSON(
+		'setAccessRight',
+		{
+		
+			menuId : menuId,
+			subMenuId : subMenuId,
+		ajax : 'true'
+		
+	});
+}
+
+	</script>
 </nav>
 </aside>

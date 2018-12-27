@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.query.criteria.internal.expression.function.SubstringFunction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,6 +174,27 @@ return "redirect:/showAccessRightPage";
 	 
 		return staffRoles.getRole();
 	}
-	
+	@RequestMapping(value="/setAccessRight", method=RequestMethod.GET)
+	public void setAccessRight(HttpServletRequest request)
+	{
+		System.out.println("setAccessRight");
+		int subMenuId=Integer.parseInt(request.getParameter("subMenuId"));
+		int menuId=Integer.parseInt(request.getParameter("menuId"));
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("menuId", menuId);
+		session.setAttribute("subMenuId", subMenuId);
+		List<NavBarSubMainMenu> navBarSubMainMenuList=(List)session.getAttribute("navBarSubMainMenuList");
+		for(int i=0;i<navBarSubMainMenuList.size();i++)
+		{
+			if(menuId==navBarSubMainMenuList.get(i).getMenuId() && navBarSubMainMenuList.get(i).getSubMenuId()==subMenuId)
+			{
+				session.setAttribute("navBarSubMainMenu", navBarSubMainMenuList.get(i));
+				break;
+			}
+		}
+		
+		
+	}
 	
 }
