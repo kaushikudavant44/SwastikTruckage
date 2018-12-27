@@ -185,7 +185,7 @@
 						    <td>${billList.billNo}</td>
 							<td>${billList.billDate}</td>
 							
-						 <c:choose>
+						<%--  <c:choose>
                              <c:when test="${billList.paymentMode==0}">
                               
   							<td>Cash</td>
@@ -201,7 +201,7 @@
   							<td>NEFT</td>
   							
   							</c:when>
-  						</c:choose>
+  						</c:choose> --%>
 										
 							<td>${billList.billTotal}</td>
 										

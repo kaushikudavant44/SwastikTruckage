@@ -154,7 +154,7 @@
 							<strong class="card-title">Data Table</strong>
 						</div>
 						<div class="card-body">
-<form action="${pageContext.request.contextPath}/showCollectionList" method="GET">
+<%-- <form action="${pageContext.request.contextPath}/showCollectionList" method="GET">
         <div class="row">
              <div class="col-sm-6 col-md-1">          
                   <label>From Date </label>
@@ -183,8 +183,8 @@
 			 </button>							
 							</div>
 							</div>
-            </form>
-            <br>
+            </form> --%>
+            
               <div class="row">
              <div class="col-sm-6 col-md-6">          
                   <label>Total Collection : </label>${totalCollection}
@@ -213,7 +213,7 @@
 						    <td>${collectionList.lrNo}</td>
 							<td>${collectionList.createDate}</td>
 							
-										 <c:choose>
+										 <%-- <c:choose>
                               <c:when test="${collectionList.paymentMode==1}">
                               
   							<td>Cash</td>
@@ -229,7 +229,7 @@
   							<td>NEFT</td>
   							
   							</c:when>
-  							</c:choose>
+  							</c:choose> --%>
 										
 							<td>${collectionList.total}</td>
 										
