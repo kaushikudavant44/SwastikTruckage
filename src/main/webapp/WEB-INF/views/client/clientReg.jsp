@@ -114,7 +114,7 @@
 				</div>
 
 
-				<%-- <div class="content mt-3">
+				 <div class="content mt-3">
 
 					<div class="form-group ">
 						<div class="col-lg-5"></div>
@@ -125,7 +125,7 @@
 						</div>
 					</div>
 					<br>
-					<div class="row"> --%>
+					<div class="row"> 
 
 
 				<div class="content mt-3">
@@ -197,10 +197,17 @@
 													</div>
 												</div>
 
-												<div class="col-sm-12 col-md-12">
+												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">Address</label>
 														<textarea required class="form-control" name="address"></textarea>
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Bill Name</label> <input
+															required class="form-control" name="billName">
 													</div>
 												</div>
 

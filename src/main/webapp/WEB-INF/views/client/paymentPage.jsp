@@ -83,7 +83,7 @@
 	</div>
 	
   <div class="content mt-3">
- 	<div class="animated fadeIn">
+ 	 <div class="animated fadeIn">
 			<div class="row">
 
 				<div class="col-md-12">
@@ -93,7 +93,7 @@
 						</div>
 						<div class="card-body">
 
-       <table width="100%" border="0">
+    <%--    <table width="100%" border="0">
 			<tr>
 				<td border="0" align="left">
 					<div class="col-sm-6">
@@ -129,44 +129,26 @@
 				</td>
 
 			</tr>
-		</table>
+		</table> --%>
 
 							<table id=""
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									    <th>LR No</th>
-										<th>LR Date</th>
-										<th>Particulare</th>
-										<th>Vehicle No.</th>
-										<th >Quantity</th>
-										<th >Freight</th>
-										<th >Local Tempo</th>
-										<th >Hamali</th>
-										<th >Invoice No</th>
-										<th >Amount</th>
+									    <th>SR No</th>
+										<th>Date</th>
+										<th>Amount</th>
 										
-
 									</tr>
 								</thead>
 								<tbody>
-<c:forEach items="${clientBillDetails}" var="clientBillDetails" varStatus="myIndex">
+<c:forEach items="${installement}" var="installement" varStatus="myIndex">
 									
 <tr>
-    <td> ${clientBillDetails.lrNo} </td>
-    <td> ${clientBillDetails.lrDate} </td>
-    <td>${clientBillDetails.goods}</td>
-    <td>${clientBillDetails.truckNo}</td>
-    <td>${clientBillDetails.quantity}</td>
-    <td>${clientBillDetails.freight}</td>
-    <td>${clientBillDetails.localTempo}</td>
-    <td>${clientBillDetails.hamali}</td>
-    <td>
-     <c:forEach items="${clientBillDetails.invoiceDetailList}" var="invoiceDetailList" varStatus="loop">
-    ${invoiceDetailList.invNo}<c:if test="${!loop.last}">,</c:if>
-    </c:forEach>
-    </td>
-    <td>${clientBillDetails.total}</td>
+    <td>${myIndex.index+1}</td>
+    <td> ${installement.paymentDate} </td>
+    <td>${installement.amountReceived}</td>
+   
   </tr>
  </c:forEach> 
 			
@@ -226,8 +208,12 @@
 							</div>
 							
 							
-							
-							
+							<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class=" form-control-label">Amount</label>
+										<input required name="amount" class="form-control" value="" >							
+							</div>							
+							</div>
 							<div class="col-sm-6 col-md-6">
 							<div class="form-group">
 								

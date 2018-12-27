@@ -41,12 +41,6 @@ public class TransactionBillHeader {
 	@Column(name="bill_payable_by",length=11)
 	private int billPayableBy;
 	
-	@Column(name="payment_mode",length=11)
-	private int paymentMode;
-	
-	@Column(name="tr_id",length=11)
-	private int trId;
-	
 	@Column(name="is_used")
 	private boolean isUsed;
 	
@@ -136,30 +130,14 @@ public class TransactionBillHeader {
 		this.billPayableBy = billPayableBy;
 	}
 
-	public int getPaymentMode() {
-		return paymentMode;
-	}
-
-	public void setPaymentMode(int paymentMode) {
-		this.paymentMode = paymentMode;
-	}
-
-	public int getTrId() {
-		return trId;
-	}
-
-	public void setTrId(int trId) {
-		this.trId = trId;
-	}
-
 	@Override
 	public String toString() {
 		return "TransactionBillHeader [billHeaderId=" + billHeaderId + ", billNo=" + billNo + ", billDate=" + billDate
 				+ ", billTotal=" + billTotal + ", billStatus=" + billStatus + ", billPayableBy=" + billPayableBy
-				+ ", paymentMode=" + paymentMode + ", trId=" + trId + ", isUsed=" + isUsed + ", createDate="
-				+ createDate + ", modifiedDate=" + modifiedDate + "]";
+				+ ", isUsed=" + isUsed + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
 
+//	
 	
 	
 }

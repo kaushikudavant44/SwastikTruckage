@@ -31,6 +31,8 @@ public interface ClientDetailsRepository extends JpaRepository<ClientDetails, In
 			"ELSE h.consignor \r\n" + 
 			"END ) AS client_id   FROM t_lr_header h  WHERE  h.bill_status=0 AND h.delivery_status =3 ) " ,nativeQuery=true)
 	List<ClientDetails> getUnPaidClients();
+
+	List<ClientDetails> findAll();
 	
 
 }

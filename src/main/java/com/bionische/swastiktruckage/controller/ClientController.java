@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bionische.swastiktruckage.master.controller.ExcelWriter;
-import com.bionische.swastiktruckage.master.controller.SMSSender;
+/*import com.bionische.swastiktruckage.master.controller.ExcelWriter;
+*/import com.bionische.swastiktruckage.master.controller.SMSSender;
 import com.bionische.swastiktruckage.mastermodel.City;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
@@ -34,6 +34,7 @@ import com.bionische.swastiktruckage.mastermodel.States;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillDetails;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillLogs;
+import com.bionische.swastiktruckage.mastermodel.TransactionBillPayments;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.repository.CityRepository;
@@ -44,6 +45,7 @@ import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillLogsRepository;
+import com.bionische.swastiktruckage.repository.TransactionBillPaymentsRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrCollectionRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrInvoiceDetailRepository;
@@ -91,11 +93,16 @@ public class ClientController {
 	
 	@Autowired
 	TransactionLrCollectionRepository transactionLrCollectionRepository;
+	
+	@Autowired
+	TransactionBillPaymentsRepository transactionBillPaymentsRepository;
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
 	
 	public String message;
+	
+	List<TransactionLrHeader> addedLrList = new ArrayList<TransactionLrHeader>();
 
 
 	@RequestMapping(value="/showClientReg", method=RequestMethod.GET)
@@ -126,6 +133,7 @@ public class ClientController {
 		
 		clientDetails.setCityId(Integer.parseInt(request.getParameter("cityId")));
 		clientDetails.setClientAddress(request.getParameter("address"));
+		clientDetails.setBillingName(request.getParameter("billName"));
 		clientDetails.setClientContactNo(request.getParameter("contactNo"));
 		clientDetails.setClientName(request.getParameter("name"));
 		clientDetails.setGstin(request.getParameter("gst"));
@@ -212,7 +220,7 @@ public class ClientController {
 	public ModelAndView showUnPaidClients(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("client/unPaidClients");
-		List<ClientDetails> allClientDetails = clientDetailsRepository.getUnPaidClients();
+		List<ClientDetails> allClientDetails = clientDetailsRepository.findAll();
 		
 		model.addObject("allClientDetails",allClientDetails);
 	
@@ -228,9 +236,14 @@ public class ClientController {
 		ModelAndView model=new ModelAndView("client/lrBilling");
 		
 		try {
-			List<TransactionLrHeader> transactionLrHeader = transactionLrHeaderRepository.getLrByClientId(clientId);
+			ClientDetails clientDetails = clientDetailsRepository.findByClientId(clientId);
+			/*
+			 * List<TransactionLrHeader> transactionLrHeader =
+			 * transactionLrHeaderRepository.getLrByClientId(clientId);
+			 */
 		
-		model.addObject("transactionLrHeader",transactionLrHeader);
+			model.addObject("clientDetails",clientDetails);
+			/* model.addObject("transactionLrHeader",transactionLrHeader); */
 		} catch (Exception e) {
 			e.printStackTrace();
 			model = new ModelAndView("common/errorMsg");
@@ -239,33 +252,46 @@ public class ClientController {
 		return model;
 		
 	}	
+	@RequestMapping(value="/lrDetailsByLrNo", method=RequestMethod.GET)
+
+	public @ResponseBody TransactionLrHeader lrDetailsByLrNo(HttpServletRequest request)   
+	{
+		int lrNO = Integer.parseInt(request.getParameter("lrNo"));
+		System.out.println("lrNO:"+lrNO);
+		
+		TransactionLrHeader transactionLrHeader = transactionLrHeaderRepository.findByLrNoAndBillStatus(lrNO,0);
+		if(transactionLrHeader!=null)
+		{
+			addedLrList.add(transactionLrHeader); 
+		}
+		return transactionLrHeader;
+		
+	}	
 	
 	@RequestMapping(value="/saveClientBillDetails", method=RequestMethod.GET)
 
 	public ModelAndView saveClientBillDetails(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("client/billingPage");
-		int[] lrHeaderId;
-		
-        String senderHeaderID[] = request.getParameterValues("0");
-        String recHeaderID[] = request.getParameterValues("1");
-        
-       
-        if(senderHeaderID!=null)
-        {
-        lrHeaderId = Arrays.stream(senderHeaderID).mapToInt(Integer::parseInt).toArray();
-        }
-        else
-        {
-         lrHeaderId = Arrays.stream(recHeaderID).mapToInt(Integer::parseInt).toArray();
-        }
+		/*
+		 * int[] lrHeaderId;
+		 * 
+		 * String senderHeaderID[] = request.getParameterValues("0"); String
+		 * recHeaderID[] = request.getParameterValues("1");
+		 * 
+		 * 
+		 * if(senderHeaderID!=null) { lrHeaderId =
+		 * Arrays.stream(senderHeaderID).mapToInt(Integer::parseInt).toArray(); } else {
+		 * lrHeaderId =
+		 * Arrays.stream(recHeaderID).mapToInt(Integer::parseInt).toArray(); }
+		 */
         List<LrBilling> clientBillDetails = new ArrayList<LrBilling>();
             
-     for(int i=0;i<lrHeaderId.length;i++)
+     for(TransactionLrHeader lrList : addedLrList)
       {
     	 LrBilling lrBilling = new LrBilling();
-    	 System.out.println("lrHeaderId[i]:"+lrHeaderId[i]);
-    	 lrBilling = lrBillingRepository.getBillDetailByLrId(lrHeaderId[i]);
+    	
+    	 lrBilling = lrBillingRepository.getBillDetailByLrId(lrList.getLrHeaderId());
     	 clientBillDetails.add(lrBilling);
       }
      
@@ -313,8 +339,7 @@ public class ClientController {
 		transactionBillHeader.setBillDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		transactionBillHeader.setBillTotal(totalBill);		
 		transactionBillHeader.setBillStatus(0);
-		transactionBillHeader.setPaymentMode(0);
-		transactionBillHeader.setTrId(0);
+		
 		transactionBillHeader.isUsed();
 		
 		TransactionBillHeader billHeader = transactionBillHeaderRepository.save(transactionBillHeader);
@@ -351,7 +376,7 @@ public class ClientController {
 			transactionLrHeaderRepository.updatePaymentStatus(clientBill.getLrHeaderId());
 		}
 		
-		
+		addedLrList=null;
 		//company details
 		CompanyDetails	companyDetails = companyDetailsRepository.findByCompanyId(1);
 		
@@ -509,6 +534,12 @@ public class ClientController {
 			 model.addObject("from",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("to",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			}
+			
+			/*
+			 * float paid=0; for(TransactionBillPayments installementList : installement) {
+			 * paid = installementList.getAmountReceived(); }
+			 */
+			
 			model.addObject("clientBills",clientBills);
 		}
 			catch (Exception e) {
@@ -694,8 +725,9 @@ public class ClientController {
 				clientBill.setInvoiceDetailList(transactionLrInvoiceDetailRepository.findByInvHeaderId(clientBill.getInvHeaderId()));
 				
 			}
+			List<TransactionBillPayments> installement = transactionBillPaymentsRepository.findByBillHeaderId(billHeaderId);
 			
-			
+			model.addObject("installement",installement);
 			model.addObject("clientFullDetails",clientFullDetails);	
 			model.addObject("trBillHeader",transactionBillHeader);
 			model.addObject("totalBill",totalBill);
@@ -727,25 +759,50 @@ public class ClientController {
 		int trId=0;
 		int billHeaderId = Integer.parseInt(request.getParameter("billHeaderId"));
 		int paymentMode = Integer.parseInt(request.getParameter("paymentType"));
+		float amount = Float.parseFloat(request.getParameter("amount"));
 		
 		if(paymentMode!=0)
 		{
 			trId = Integer.parseInt(request.getParameter("trId"));
 		}
-		 
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaffDetails = (OfficeStaff)session.getAttribute("staffDetails");
+		TransactionBillPayments transactionBillPayments = new TransactionBillPayments();
 		
+		transactionBillPayments.setAmountReceived(amount);
+		transactionBillPayments.setBillHeaderId(billHeaderId);
+		transactionBillPayments.setPaymentDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		transactionBillPayments.setPaymentMode(paymentMode);
+		transactionBillPayments.setStaffId(officeStaffDetails.getStaffId());
+		transactionBillPayments.setTrId(trId);
+		
+		 	
 		try {
 			
-		    int res = transactionBillHeaderRepository.updatePaymentMode(trId, paymentMode, billHeaderId);
+			TransactionBillPayments res = transactionBillPaymentsRepository.save(transactionBillPayments);
+			
+			if(res!=null)
+			{
+				message="Payment Successfull";
+			}
+			else
+			{
+				message="Failed";
+			}
 	
-		if(res>0) {
-			transactionBillHeaderRepository.updateBillStatus(1, billHeaderId);
-			message="Payment Successfull";
+			TransactionBillHeader transactionBillHeader = transactionBillHeaderRepository.findByBillHeaderId(billHeaderId);
+			List<TransactionBillPayments> installement = transactionBillPaymentsRepository.findByBillHeaderId(billHeaderId);
+			float paid=0;
+			for(TransactionBillPayments installementList : installement)
+			{
+				paid = installementList.getAmountReceived();
+			}
+		if(transactionBillHeader.getBillTotal()==paid) {
+			
+			transactionBillHeaderRepository.updateBillStatus(1, billHeaderId);		
+			
 		}
-		else
-		{
-			message="Failed";
-		}
+		
 		}
 		catch (Exception e) {
 			e.printStackTrace();
