@@ -46,17 +46,12 @@
 .left {
 	text-align: left;
 }
-
-table.dataTable tbody tr.selected {
-        color: white !important;
-        background-color: #5172a0 !important;  /* Not working */
-    }
 </style>
 
-<c:url var="receivedLr" value="/receivedLr" />
+<c:url var="removeOffice" value="/removeOffice" />
 
 </head>
-<body id="bgbdy">
+<body>
 
 
 	<!-- Left Panel -->
@@ -82,7 +77,7 @@ table.dataTable tbody tr.selected {
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Lr Details</a></li>
+						<li><a href="#">Memo Details</a></li>
 						
 					</ol>
 				</div>
@@ -97,51 +92,54 @@ table.dataTable tbody tr.selected {
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Lr Details</strong>
+							<strong class="card-title">Memo Details</strong>
 						</div>
 						<div class="card-body">
 
-							<table id="bootstrap-data-table1"
+							<table id="bootstrap-data-table"
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
 										<th>Sr. No.</th>
 										<th>Office Name</th>
-										<th>LR Number</th>
-										<th>Lr Date</th>
-										<th>Consignor</th>
-										<th>Consignee</th>
-										<th>Particular</th>
-										<th>Quantity</th>
-										<th>Total Amount</th>
+										<th>Staff Name</th>
+										<th>Local Memo Number</th>
+										<th>Vehicle Number</th>
+										<th>Driver Name</th>
 										<th>Action</th>
 
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
-									<tr data-value="${lrDetailsList.lrHeaderId}">
+								<c:forEach items="${getDeliverMemoHeaderList}" var="getDeliverMemoHeaderList" varStatus="count">
+									<tr>
 										<td>${count.index+1 }</td>
-										<td>${lrDetailsList.officeName}</td>
-										<td>${lrDetailsList.lrNo}</td>
-										<td>${lrDetailsList.lrDate}</td>
-										<td>${lrDetailsList.consignor}</td>
-										<td>${lrDetailsList.consignee}</td>
-										<td>${lrDetailsList.particular}</td>
-										<td>${lrDetailsList.quantity}</td>
-										<td>${lrDetailsList.amount}</td>
-									<td><div class="fa-hover col-lg-3 col-md-6">
+										<td>${getDeliverMemoHeaderList.officeName}</td>
+										<td>${getDeliverMemoHeaderList.staffName}</td>	
+										<td>${getDeliverMemoHeaderList.localMemoNo}</td>
+										<td>${getDeliverMemoHeaderList.vehNo}</td>
+										<td>${getDeliverMemoHeaderList.driverName}</td>
+									
+										<td><div class="fa-hover col-lg-3 col-md-6">
 										<a
-														href="${pageContext.request.contextPath}/editLRDetails/${lrDetailsList.lrHeaderId}"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
-														<%-- <div class="fa-hover col-lg-3 col-md-6">
+														href="${pageContext.request.contextPath}/showEditLocalMemoDetails/${getDeliverMemoHeaderList.deliMemoHeaderId}"><i
+														class="fa fa-edit" title="Edit Memo"></i> <span class="text-muted"></span></a></div>
+														<div class="fa-hover col-lg-3 col-md-6">
 														<a
-														href="${pageContext.request.contextPath}/deleteLr/${lrDetailsList.lrHeaderId}"><i
-														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+														href="${pageContext.request.contextPath}/deleteLocalMemo/${getDeliverMemoHeaderList.deliMemoHeaderId}"><i
+														class="fa fa-trash-o" title="Delete Memo"></i> <span class="text-muted"></span></a></div>
+														<div class="fa-hover col-lg-3 col-md-6">
+														<a
+														href="${pageContext.request.contextPath}/showVoucherReg/${getDeliverMemoHeaderList.deliMemoHeaderId}"><i
+														class="fa fa-file-text-o" title="Create Voucher"></i> <span class="text-muted"></span></a>
+														</div>
 														
-														</div> --%>
+														<a
+														href="${pageContext.request.contextPath}/memoPreview/${getAllMemoList.memoHeaderId}"><i
+														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
+														</div>
 										
-										</td> 
+										</td>
 										
 										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>
 									</tr>
@@ -154,19 +152,9 @@ table.dataTable tbody tr.selected {
 						</div>
 					</div>
 				</div>
-				</div>
-				<div class="row">
-			<div class="col-lg-12" align="center">
-			<div class="card">
-						<div class="card-header">
 
-									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;" onclick="updateReceivedLr()">
-										Submit</button>
-								</div></div></div>
-		</div>
 
-			
+			</div>
 		</div>
 		<!-- .animated -->
 	</div>
@@ -227,68 +215,8 @@ table.dataTable tbody tr.selected {
           });
         } );
     </script>
-    <script type="text/javascript">
-    
-    var selectedRowList =[];
-	$(document).ready(function() {
-	    var table = $('#bootstrap-data-table1').DataTable();
-	 
-	    $('#bootstrap-data-table1 tbody').on( 'click', 'tr', function () {
-	   	
-	    	 if ( $(this).hasClass('selected') ) {
-	    		 
-	    		 var index=selectedRowList.indexOf( $(this).data('value'));
-	    		 
-	    		 if(index >-1){
-	    			 
-	    			 selectedRowList.splice(index,1);
-	    			 
-	    		 }
-	    		 
-	    		
-	             $(this).removeClass('selected');
-					
-	    	 }else{
-	    		 selectedRowList.push($(this).data('value'));
-	    		 alert(JSON.stringify(selectedRowList));
-
-	            $(this).addClass('selected');
-	    }
-	      
-	    } );
-	 	  
-	} );
-	
-	
-	
-	
-function updateReceivedLr(){
-		
-			
-		$('#loader').addClass("loader");
-		$('#bgbdy').addClass("bg-body");
-		$.getJSON('${receivedLr}', {
-			
-			selectedRowList:JSON.stringify(selectedRowList),
-			
-			ajax : 'true'
-			
-		}, function(data) {
-			alert(data.message);
-			location.reload();
-			 $('#loader').addClass("hide-loader");
-			 $('#bgbdy').removeClass("bg-body");
-			
-				
-		
-		});
-		
-	}
-    </script>
 
 
 
 </body>
-<div id="loader">
-		</div>
 </html>

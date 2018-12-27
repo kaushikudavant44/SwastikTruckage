@@ -31,7 +31,8 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
-<body>
+<div id="loader"></div>
+<body id="bgbdy">
 <%-- 
 <div  ><jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 
@@ -80,7 +81,7 @@
 						<div class="card-header">
 							<h4>Staff Login</h4>
 						</div>
-						<form action="${pageContext.request.contextPath}/staffLoginProcess" method="POST">
+						<form action="${pageContext.request.contextPath}/staffLoginProcess" method="POST" id="submitLogin">
 						<div class="card-body">
 							<div class="row">
 							<div class="col-sm-6 col-md-6">
@@ -167,6 +168,13 @@
                 normalizeFunction: 'polynomial'
             } );
         } )( jQuery );
+        
+        
+        $('#submitLogin').submit(function() {
+			$('#loader').addClass("loader");
+			$('#bgbdy').addClass("bg-body");
+		});
+        
     </script>
 <script>
                         setTimeout(function() {

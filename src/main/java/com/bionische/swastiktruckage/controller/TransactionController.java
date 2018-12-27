@@ -32,6 +32,7 @@ import com.bionische.swastiktruckage.mastermodel.TransactionLrContaintDetails;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrInvoiceDetail;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrInvoiceHeader;
+import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.ClientFullDetailsRepository;
 import com.bionische.swastiktruckage.repository.CompanyDetailsRepository;
@@ -47,6 +48,7 @@ import com.bionische.swastiktruckage.repository.TransactionLrContaintDetailsRepo
 import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrInvoiceDetailRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrInvoiceHeaderRepository;
+import com.bionische.swastiktruckage.repository.VehicleDetailsRepository;
 import com.bionische.swastiktruckage.service.StateDetailsService;
 
 @Controller
@@ -55,7 +57,8 @@ public class TransactionController {
 	@Autowired
 	LRDetailsRepository lRDetailsRepository;
 	
-	
+	@Autowired
+	VehicleDetailsRepository vehicleDetailsRepository;
 	
 	@Autowired
 	LrContaintDetailsRepository lrContaintDetailsRepository;
@@ -253,14 +256,18 @@ public class TransactionController {
 
 			transactionLrInvoiceHeader.setUsed(true);
 			TransactionLrInvoiceHeader transactionLrInvoiceHeaderRes = transactionLrInvoiceHeaderRepository.save(transactionLrInvoiceHeader);
-
+			String invoiceNumbers=request.getParameter("invoiceNo");
 			
-			
+			String[] invNo=invoiceNumbers.split(",");
+			System.out.println("cd"+invNo.toString());
 			if(transactionLrInvoiceHeaderRes !=null) {
 				
-				for(int i=0;i<transactionLrInvoiceDetailList.size();i++) {
+				for(int i=0;i<invNo.length;i++) {
 					
-					transactionLrInvoiceDetailList.get(i).setInvHeaderId(transactionLrInvoiceHeaderRes.getInvHeaderId());
+					TransactionLrInvoiceDetail transactionLrInvoiceDetail=new TransactionLrInvoiceDetail();
+					transactionLrInvoiceDetail.setInvHeaderId(transactionLrInvoiceHeaderRes.getInvHeaderId());
+					transactionLrInvoiceDetail.setInvNo((Integer.parseInt(invNo[i])));
+					transactionLrInvoiceDetailList.add(transactionLrInvoiceDetail);
 					
 				}
 				
@@ -363,7 +370,7 @@ public class TransactionController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/showLRRegistration";
+		return "redirect:/showLrPreview/"+transactionLrHeaderRes1.getLrHeaderId();
 
 	}
 	
@@ -371,11 +378,14 @@ public class TransactionController {
 
 	public ModelAndView showLrDetails(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("transaction/showLrDetails");
-
+		
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		int officeId=officeStaff.getStaffOfficeId();
 		List<GetAllLrDetails> lrDetailsList=new ArrayList<>();
 		
 		try {
-			lrDetailsList=getAllLrDetailsRepository.findAllLr();
+			lrDetailsList=getAllLrDetailsRepository.findAllLr(officeId);
 			System.out.println("cdydcb"+lrDetailsList.toString());
 			model.addObject("lrDetailsList", lrDetailsList);
 		} catch (Exception e) {
@@ -393,9 +403,11 @@ public class TransactionController {
 
 		LRDetails lrDetails=new LRDetails();
 		
+		List<VehicleDetails> vehicleDetailsList=new ArrayList<>();
+		
 		try {
 			
-			
+			vehicleDetailsList=vehicleDetailsRepository.findByIsUsed(true);
 			lrContaintDetailsList.clear();
 			
 			transactionLrContaintDetailsList.clear();
@@ -404,6 +416,8 @@ public class TransactionController {
 			List<Goods> goodsList=goodsRepository.findByIsUsedOrderByGoodsIdDescIsUsed(true);
 			
 			lrDetails=lRDetailsRepository.findByLrHeaderId(lrheaderId);
+			
+			lrDetails.setLrDate(DateConverter.convertToDMY(lrDetails.getLrDate()));
 			
 			List<LrContaintDetails> lrContaintDetailsListResult=new ArrayList<>();
 			
@@ -435,6 +449,8 @@ public class TransactionController {
 			
 			model.addObject("transactionLrInvoiceDetailList", transactionLrInvoiceDetailList);
 			 
+			model.addObject("vehicleDetailsList", vehicleDetailsList);
+			
 			model.addObject("goodsList", goodsList);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -469,14 +485,18 @@ public class TransactionController {
 			System.out.println("Invoice details"+transactionLrInvoiceDetailListRes.toString());
 			
 			TransactionLrHeader transactionLrHeader=new TransactionLrHeader();
+			
+			
+			
+			
 			transactionLrHeader.setLrHeaderId(Integer.parseInt(request.getParameter("lrHeaderId")));
 			transactionLrHeader.setLrNo(Integer.parseInt(request.getParameter("lrNo")));
 			transactionLrHeader.setInvHeaderId(invHeaderId);
 			transactionLrHeader.setFromId(Integer.parseInt(request.getParameter("fromId")));
 			transactionLrHeader.setConsignor(Integer.parseInt(request.getParameter("consignor")));
-			transactionLrHeader.setLrDate(request.getParameter("lrDate"));
+			transactionLrHeader.setLrDate(DateConverter.convertToYMD(request.getParameter("lrDate")));
 			transactionLrHeader.setConsigneeId(Integer.parseInt(request.getParameter("consigneeId")));
-			transactionLrHeader.setTruckNo(request.getParameter("truckNo"));
+			transactionLrHeader.setTruckNo(request.getParameter("vehId"));
 			transactionLrHeader.setWeight(Float.parseFloat(request.getParameter("weight")));
 			transactionLrHeader.setFreight(Float.parseFloat(request.getParameter("freight")));
 			transactionLrHeader.setGst(Float.parseFloat(request.getParameter("gst")));

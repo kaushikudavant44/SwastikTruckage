@@ -43,10 +43,6 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
-<link
-	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
-	rel='stylesheet' type='text/css'>
-
 <!-- <style type="text/css">
 .right {
 	text-align: right;
@@ -68,6 +64,8 @@
 
 
 </head>
+<div id="loader">
+		</div>
 <body onload="getTotal()" id="bgbdy">
 
 
@@ -114,7 +112,7 @@
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertEditedLR"
-								method="post" id="login_form">
+								method="post" id="submitLr">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
@@ -212,9 +210,16 @@
 											<div class="col-md-3">
 												<div class="input-group">
 
-													<input class="form-control" name="truckNo" id="truckNo" value="${lrDetails.truckNo}"
+													<%-- <input class="form-control" name="truckNo" id="truckNo" value="${lrDetails.truckNo}"
 														type="text"/> <span class="error"
-														aria-live="polite"></span>
+														aria-live="polite"></span> --%>
+														
+													<select id="vehId" name="vehId"
+														class="standardSelect" tabindex="1">
+														<c:forEach items="${vehicleDetailsList}" var="vehicleDetailsList">
+														<option value="${vehicleDetailsList.vehNo}">${vehicleDetailsList.vehNo}</option>
+														</c:forEach>
+													</select> 	
 
 												</div>
 											</div>
@@ -274,7 +279,32 @@
 
 												</div>
 											</div>
-											<div class="col-md-3"></div>
+											
+											<div class="col-md-1">Paid</div>
+
+											<div class="col-md-1">
+												<div class="input-group">
+													
+													<c:choose>
+													<c:when test="${lrDetails.paymentBy==2}">
+													<input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="2" checked/> <span class="error"
+														aria-live="polite" ></span>
+													</c:when>
+													<c:otherwise>
+													<input class="form-control" name="paymentBy" id="paymentBy"
+														type="radio" value="2"/> <span class="error"
+														aria-live="polite"></span>
+													</c:otherwise>
+
+												</c:choose>
+													
+													
+
+												</div>
+											</div>
+											
+											
 										</div>
 									</div>
 
@@ -879,6 +909,14 @@ function deleteInvoice(index,key){
 	   }
 	</c:forEach> 
 	}
+	
+	
+	
+	
+	$('#submitLr').submit(function() {
+		$('#loader').addClass("loader");
+		$('#bgbdy').addClass("bg-body");
+	});
 	</script>
 
 

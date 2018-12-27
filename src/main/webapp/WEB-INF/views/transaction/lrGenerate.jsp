@@ -176,7 +176,7 @@
 											<div class="col-md-3">
 												<div class="input-group">
 													<select id="consignor" name="consignor"
-														class="standardSelect" tabindex="1">
+														class="standardSelect" tabindex="2" required="required">
 														<option value=""></option>
 														<c:forEach items="${clientList}" var="clientList">
 
@@ -197,7 +197,7 @@
 														<i class="fa fa-calendar"></i>
 													</div>
 													<input type="text" id="datepicker" name="lrDate" autocomplete="off"
-														required="required">
+														required="required" tabindex="3">
 
 												</div>
 											</div>
@@ -214,7 +214,7 @@
 											<div class="col-md-3">
 												<div class="input-group">
 													<select id="consigneeId" name="consigneeId"
-														class="standardSelect" tabindex="1"
+														class="standardSelect" tabindex="3" required="required"
 														onchange="getClientAddress()">
 														<option value=""></option>
 														<c:forEach items="${clientList}" var="clientList">
@@ -228,17 +228,17 @@
 														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
-
-											<div class="col-md-2">TRUCK No.:</div>
+											<div class="col-md-5"></div>
+											<!-- <div class="col-md-2">TRUCK No.:</div>
 											<div class="col-md-3">
 												<div class="input-group">
 
 													<input class="form-control" name="truckNo" id="truckNo"
-														type="text" /> <span class="error"
+														type="text" tabindex="1" /> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
-											</div>
+											</div> -->
 
 											<div class="col-md-2"></div>
 										</div>
@@ -256,8 +256,8 @@
 											<div class="col-md-1">
 												<div class="input-group">
 
-													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="0" required /> <span class="error"
+													<input class="form-control" name="paymentBy" id="paymentByTobe"
+														type="radio" value="0" tabindex="4" /> <span class="error"
 														aria-live="polite"></span>
 
 
@@ -271,8 +271,8 @@
 											<div class="col-md-1">
 												<div class="input-group">
 
-													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="1" required checked /> <span
+													<input class="form-control" name="paymentBy" id="paymentByToPay"
+														type="radio" value="1" tabindex="5" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -281,8 +281,8 @@
 											<div class="col-md-1">
 												<div class="input-group">
 
-													<input class="form-control" name="paymentBy" id="paymentBy"
-														type="radio" value="2" required /> <span class="error"
+													<input class="form-control" name="paymentBy" id="paymentByPaid"
+														type="radio" value="2" tabindex="6" checked /> <span class="error"
 														aria-live="polite"></span>
 
 
@@ -303,7 +303,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="weight" id="weight"
-														type="number" required min="0" value="" /> <span
+														type="number" required min="0" value="" tabindex="7" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
@@ -313,7 +313,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="freight" id="freight"
-														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="8"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -325,7 +325,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="gst" id="gst"
-														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="9"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -349,7 +349,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="hamali" id="hamali"
-														type="number" value="0" min="0" onkeyup="getTotal()" /> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="10"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -360,8 +360,8 @@
 												<div class="input-group">
 
 													<input class="form-control" name="bccharge" id="bccharge"
-														type="number" required value="10" min="0"
-														onkeyup="getTotal()" /> <span class="error"
+														type="number" required value="0" min="0"
+														onkeyup="getTotal()" tabindex="11"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -371,7 +371,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="kata" id="kata" value="0"
-														type="number" min="0" onkeyup="getTotal()" /> <span
+														type="number" min="0" onkeyup="getTotal()" tabindex="12"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -396,7 +396,7 @@
 
 													<input class="form-control" name="localtempo"
 														id="localtempo" value="0" type="number" min="0"
-														onkeyup="getTotal()" /> <span class="error"
+														onkeyup="getTotal()" tabindex="13"/> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -408,7 +408,7 @@
 
 													<input class="form-control" name="bharai" id="bharai"
 														type="number" min="0" required value="0"
-														onkeyup="getTotal()" value="0" /> <span class="error"
+														onkeyup="getTotal()" value="0" tabindex="14"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -418,7 +418,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="ddcharges" id="ddcharges"
-														type="number" min="0" onkeyup="getTotal()" value="0" /> <span
+														type="number" min="0" onkeyup="getTotal()" value="0" tabindex="15"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -432,8 +432,16 @@
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 
+											<div class="col-md-2">Invoice No.</div>
+										<div class="col-md-2">
+											<div class="input-group">
 
-											<div class="col-md-4"></div>
+												<input class="form-control" name="invoiceNo" id="invoiceNo"
+													type="text" required value="" tabindex="16"/> <span class="error"
+													aria-live="polite"></span>
+											</div>
+										</div>
+											
 											<div class="col-md-4"></div>
 
 											<div class="col-md-2">
@@ -444,7 +452,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="total" id="total"
-														type="text" / readonly> <span class="error"
+														type="text" tabindex="17" readonly> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -454,39 +462,25 @@
 									</div>
 
 								</div>
-
-
-
-								&nbsp;
-								<hr>
-								<strong>Invoice Details</strong>
-								<hr>
+						
 								<div class="col-xs-12 col-sm-12">
 									<div class="row">
 
-										<div class="col-md-1">Invoice No.</div>
-										<div class="col-md-3">
-											<div class="input-group">
-
-												<input class="form-control" name="invoiceNo" id="invoiceNo"
-													type="text" required value="" /> <span class="error"
-													aria-live="polite"></span>
-											</div>
-										</div>
+										
 
 
 										<div class="col-md-2">
-											<div class="input-group">
+											<!-- <div class="input-group">
 
 												<input type="button" onclick="addInvoice()" value="add" />
 
-											</div>
+											</div> -->
 										</div>
 
 										<!-- 	<div class="col-md-2">Invoice Numbers</div> -->
 										<div class="col-md-6">
-
-											<div class="input-group">
+										</div>
+										<!-- 	<div class="input-group">
 												<table id="invoiceTable" class="table">
 													<thead>
 														<th>Sr No</th>
@@ -499,17 +493,12 @@
 												</table>
 
 											</div>
-										</div>
+										</div> -->
 
 									</div>
 								</div>
-
-
-
-								&nbsp;
-								<hr>
-								<strong>Containt Details</strong>
-								<hr>
+							&nbsp;
+								
 								<div class="col-xs-12 col-sm-12">
 									<div class="row">
 
@@ -518,7 +507,7 @@
 											<div class="input-group">
 
 												<input class="form-control" name="noOfContaint"
-													id="noOfContaint" type="number" required value="" /> <span
+													id="noOfContaint" type="number" required value="" tabindex="18"/> <span
 													class="error" aria-live="polite"></span>
 											</div>
 										</div>
@@ -528,7 +517,7 @@
 											<div class="input-group">
 
 												<select id="goodsId" name="goodsId"
-														class="standardSelect" tabindex="1">
+														class="standardSelect" tabindex="19">
 														<option value=""></option>
 														<c:forEach items="${goodsList}" var="goodsList">
 
@@ -548,21 +537,21 @@
 
 											<div class="input-group">
 												<textarea class="form-control" name="description"
-													id="description" type="text" required value="1" row="2"></textarea>
+													id="description" type="text" required value="1" row="2" tabindex="20"></textarea>
 												<span class="error" aria-live="polite"></span>
 
 											</div>
 										</div>
 										<div class="col-md-1">
-											<input type="button" value="add" onclick="addContaints()" />
+											<input type="button" value="add" onclick="addContaints()" tabindex="21"/>
 										</div>
 									</div>
 								</div>
 
+	<div class="col-xs-12 col-sm-12">
+									<div class="row">
 
 
-								&nbsp;
-								<hr>
 								<table id="bootstrap-data-table"
 									class="table table-striped table-bordered">
 									<thead>
@@ -576,12 +565,14 @@
 									</thead>
 
 								</table>
+								</div>
+								</div>
 
 								<div class="col-lg-12" align="center">
 
 
 									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;">
+										style="align-content: center; width: 226px; margin-left: 80px;" tabindex="22">
 										Submit</button>
 								</div>
 							</form>
@@ -898,6 +889,69 @@ function deleteInvoice(index){
 	}
 	</script>
 
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#paymentByTobe').click(function(){
+        if($(this).prop("checked") == true){
+           
+            document.getElementById("freight").disabled=true;
+        	document.getElementById("gst").disabled=true;
+        	document.getElementById("hamali").disabled=true;
+        	document.getElementById("bccharge").disabled=true;
+        	document.getElementById("kata").disabled=true;
+        	document.getElementById("localtempo").disabled=true;
+        	document.getElementById("bharai").disabled=true;
+        	document.getElementById("ddcharges").disabled=true;
+       
+        }
+       
+    });
+});
+
+
+$(document).ready(function(){
+    $('#paymentByToPay').click(function(){
+        if($(this).prop("checked") == true){
+            
+            
+            document.getElementById("freight").disabled=true;
+        	document.getElementById("gst").disabled=true;
+        	document.getElementById("hamali").disabled=true;
+        	document.getElementById("bccharge").disabled=true;
+        	document.getElementById("kata").disabled=true;
+        	document.getElementById("localtempo").disabled=true;
+        	document.getElementById("bharai").disabled=true;
+        	document.getElementById("ddcharges").disabled=true;
+       
+        }
+       
+    });
+});
+
+
+$(document).ready(function(){
+    $('#paymentByPaid').click(function(){
+        if($(this).prop("checked") == true){
+            
+            
+            document.getElementById("freight").disabled=false;
+        	document.getElementById("gst").disabled=false;
+        	document.getElementById("hamali").disabled=false;
+        	document.getElementById("bccharge").disabled=false;
+        	document.getElementById("kata").disabled=false;
+        	document.getElementById("localtempo").disabled=false;
+        	document.getElementById("bharai").disabled=false;
+        	document.getElementById("ddcharges").disabled=false;
+       
+        }
+       
+    });
+});
+
+
+</script>
 
 
 

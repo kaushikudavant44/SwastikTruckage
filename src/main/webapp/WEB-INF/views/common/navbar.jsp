@@ -159,25 +159,25 @@
 					</ul></li>	
 						
 
-			<%-- 	<li class="menu-item-has-children dropdown"><a href="#"
+				<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Orders
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Local Memo
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
 
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showTodaysOrder"></a></li>
+							href="${pageContext.request.contextPath}/showCreateMemo">Create Local Memo</a></li>
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showUpdateOrderStatus"></a></li>
+							href="${pageContext.request.contextPath}/showAllLocalMemo">Show All Local Memo</a></li>
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOrderHistory"></a></li>
+							href="${pageContext.request.contextPath}/showAllReceivedLr"></a></li>
 
 
 
-					</ul></li> --%>
+					</ul></li> 
 
 
 

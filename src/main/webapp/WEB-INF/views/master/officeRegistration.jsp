@@ -53,8 +53,9 @@
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
 
 <c:url var="getCityByStateId" value="/getCityByStateId" />
-
-<body>
+<div id="loader">
+		</div>
+<body id="bgbdy">
 
 
 	<!-- Left Panel -->
@@ -80,7 +81,7 @@
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertOffice"
-								method="post">
+								method="post" id="submitOfficeData">
 								<div class="row">
 									<div class="col-md-2">
 										Name
@@ -309,6 +310,12 @@ function getCityList(){
 	});
 	
 }
+
+
+$('#submitOfficeData').submit(function() {
+	$('#loader').addClass("loader");
+	$('#bgbdy').addClass("bg-body");
+});
 </script>
 
 </body>

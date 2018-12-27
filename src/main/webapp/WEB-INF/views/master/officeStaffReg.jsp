@@ -55,8 +55,10 @@
 
 <c:url var="getCityByStateId" value="/getCityByStateId" />
 <c:url var="staffContactValidation" value="/staffContactValidation" />
+<div id="loader">
+		</div>
 
-<body>
+<body id="bgbdy">
 
 
 	<!-- Left Panel -->
@@ -82,7 +84,7 @@
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertOfficeStaff"
-								method="post">
+								method="post" id="submitStaff">
 								<div class="row">
 									<div class="col-md-2">
 										Staff Name
@@ -351,6 +353,12 @@ function contactNoValidation(){
 	});
 	
 }
+
+
+$('#submitStaff').submit(function() {
+	$('#loader').addClass("loader");
+	$('#bgbdy').addClass("bg-body");
+});
 </script>
 
 </body>

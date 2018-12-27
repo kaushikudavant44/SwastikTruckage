@@ -22,4 +22,7 @@ public interface VehicleOwnersRepository extends JpaRepository<VehicleOwners, In
 	@Modifying
 	@Query("DELETE FROM VehicleOwners where ownerId=:ownerId")
 	int deleteOwnerById(@Param("ownerId")int ownerId);
+	
+	@Query(value="SELECT o.* FROM m_vehicle_owners o, m_vehicles v WHERE v.veh_id=:vehId AND v.owner_id=o.owner_id AND o.is_used=TRUE" ,nativeQuery=true)
+	VehicleOwners findByVehId(@Param("vehId")int vehId);
 }
