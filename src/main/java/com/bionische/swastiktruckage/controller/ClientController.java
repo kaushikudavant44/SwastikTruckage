@@ -238,7 +238,7 @@ public class ClientController {
 		System.out.println("clientId:"+clientId);
 		
 		ModelAndView model=new ModelAndView("client/lrBilling");
-		
+		addedLrList=null;
 		try {
 			ClientDetails clientDetails = clientDetailsRepository.findByClientId(clientId);
 			/*

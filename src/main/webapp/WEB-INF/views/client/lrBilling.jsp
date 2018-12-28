@@ -161,7 +161,7 @@
 	  </div>
 
 </div>
-		
+		<br>
 		
 		
 			<div class="row">
@@ -219,11 +219,11 @@
 
 									</tr>
 								</thead>
-								 <tbody>
+							 <tbody>
 								
 								
 								
-								</tbody>
+							</tbody> 
 							</table>
 
 <div class="col-sm-12 text-center">
@@ -310,7 +310,7 @@ function addLR()
 {	 
 	
 	var lrNo = document.getElementById("lrNo").value; 
-	$('#bootstrap-data-table td').remove();
+	
 	 $
 		.getJSON(
 				'${lrDetailsByLrNo}',
@@ -322,7 +322,8 @@ function addLR()
 				function(data) {		
 					
 					if(data!=null)
-{
+						{
+					
 					var tr = $('<tr></tr>');
 					
 					tr.append($('<td></td>').html(data.lrNo));
@@ -338,14 +339,13 @@ function addLR()
 					tr.append($('<td></td>').html(data.total));
 													
 				 	 $('#bootstrap-data-table tbody').append(tr);
-				}
-				else
-					{
-					alert("Bill Has Been Already Generated");
-					}
-
-				})  
-      
+						}
+					else
+						{
+						alert("Bill Has Been Already Generated");
+						}
+				 	 
+				}) 
 	 
 } 
 

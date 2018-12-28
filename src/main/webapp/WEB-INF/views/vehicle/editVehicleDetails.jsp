@@ -62,28 +62,11 @@
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 
-<style type="text/css">
 
-.gstinnumber {
-	display: block;
-	width: 100%;
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	color: #495057;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	border-radius: .25rem;
-	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-</style>
 
 </head>
 <body>
-	<c:url var="getCityByStateId" value="/getCityByStateId" />
-	<c:url var="clientNameValidation" value="/clientNameValidation" />
+	
 
 	<div><jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 
@@ -116,20 +99,22 @@
 				</div>
 
 
-  <div class="content mt-3">
- 
- <div class="row">
- 
- 
-  <div class="col-lg-3">
- </div> 
- 
- 		<div class="col-xs-12 col-sm-12"> 	
-					<div class="cardview">
-						<div class="cardview-header">
-							<h4>Edit Vehicle details</h4>
-						</div>
-						<form action="${pageContext.request.contextPath}/insertVehicleInfo" method="POST">
+				 <div class="content mt-3">
+					<div class="row"> 
+
+
+				<div class="content mt-3">
+					<div class="animated fadeIn">
+
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-12">
+								<div class="cardview">
+									<div class="cardview-header">
+										<strong>Edit Vehicle Details</strong>
+									</div>
+									<div class="card-body card-block">
+<form action="${pageContext.request.contextPath}/insertVehicleInfo" method="POST">
 						<input type="hidden" name="vehicleId" value="${vehicleDetails.vehId}">
 						<div class="card-body">
 							<div class="row">
@@ -181,25 +166,32 @@
 							</div>
 							</div>
 							</form>
+									</div>
+								</div>
+								<div class="col-lg-3"></div>
+
+
+
+
+							</div>
 						</div>
 					</div>
-	<div class="col-lg-3">
-	</div>			
- 
 
-</div>
- </div>
-</div>
- </div>
-       
-  
-    <div align="center" ><jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-        </div> <!-- .content -->
-    </div><!-- /#right-panel -->
+					<div align="center"><jsp:include
+							page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
-    <!-- Right Panel -->
-   <script
+					</div>
+					<!-- .content -->
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+			
+				
+				<script
 					src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 				<script
 					src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
@@ -245,11 +237,9 @@
 				</script>
 
 
-				<script>
-					setTimeout(function() {
-						$('#messageAnimation').fadeOut('slow');
-					}, 5000);
-				</script>
+				
+
 
 </body>
+
 </html>

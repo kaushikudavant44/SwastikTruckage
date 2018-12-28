@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 /*import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 */import com.bionische.swastiktruckage.mastermodel.LrBilling;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
@@ -207,31 +208,46 @@ public class ReportController {
 		
 	}
 	
-	/*
-	 * @RequestMapping(value="/showExcel/{type}", method=RequestMethod.GET)
-	 * 
-	 * public String showExcel(@PathVariable("type") int type,HttpServletRequest
-	 * request) { String url = "redirect:/"; try { if(type==1) {
-	 * 
-	 * ExcelWriter.paymentPendingExcel(lrHeaderList);
-	 * url="redirect:/showpendingPaymentLrList"; } else if(type==2) {
-	 * 
-	 * ExcelWriter.lrExcel(lrList); url="redirect:/showLrListByDate"; } else
-	 * if(type==3) {
-	 * 
-	 * ExcelWriter.totalBillExcel(billList); url="redirect:/showPaidBills"; } else
-	 * if(type==4) {
-	 * 
-	 * ExcelWriter.collectionExcel(collectionList);
-	 * url="redirect:/showLrListByDate"; }
-	 * 
-	 * } catch (IOException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); url = "redirect:/errorMessage"; }
-	 * 
-	 * return url;
-	 * 
-	 * }
-	 */
+	
+	  @RequestMapping(value="/showExcel/{type}", method=RequestMethod.GET)
+	  
+	  public String showExcel(@PathVariable("type") int type,HttpServletRequest 
+			  request) 
+	  { 
+		  String url = "redirect:/"; 
+		 try { 		  
+			  
+	if(type==1) 
+	{
+	  
+	  ExcelWriter.paymentPendingExcel(lrHeaderList);
+	  url="redirect:/showpendingPaymentLrList"; 
+	  } 
+	else if(type==2) {
+	  
+	  ExcelWriter.lrExcel(lrList);
+	  url="redirect:/showLrListByDate"; 
+	  
+	} 
+	else if(type==3) {
+	  
+	  ExcelWriter.totalBillExcel(billList); 
+	  url="redirect:/showPaidBills"; 
+	  }
+	else if(type==4) {
+	  
+	  ExcelWriter.collectionExcel(collectionList);
+	  url="redirect:/showLrListByDate"; }
+	  
+	  } catch (IOException e) 
+		 { // TODO Auto-generated catch block
+	  e.printStackTrace(); url = "redirect:/errorMessage";
+	  }
+	  
+	  return url;
+	  
+	  }
+	 
 	
 	
 }
