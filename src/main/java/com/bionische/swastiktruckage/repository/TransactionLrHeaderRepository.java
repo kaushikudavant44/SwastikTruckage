@@ -60,7 +60,7 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	int updateLrLocalDeliveryStatusByHeaderId(@Param("lrHeaderId")int lrHeaderId);
 	
 	
-	@Query(value="SELECT COUNT(l.lr_header_id) FROM t_lr_header l WHERE l.from_id=:officeId AND lr_date=CURDATE() AND l.is_used=true",nativeQuery=true)
+	@Query(value="SELECT COUNT(l.lr_header_id) FROM t_lr_header l WHERE l.from_id=:officeId AND lr_date=CURDATE() AND l.delivery_status=0 AND l.is_used=true",nativeQuery=true)
 	int getLrCountByOfficeId(@Param("officeId")int officeId);
 	
 	@Query(value="SELECT COUNT(h.lr_header_id) FROM t_memo_header mh, t_lr_header h " + 

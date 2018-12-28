@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.bionische.swastiktruckage.mastermodel.VehicleDetailsWithOwnerName;
 import com.bionische.swastiktruckage.mastermodel.VehicleDriverWithVehNo;
 
 public interface VehicleDriverWithVehNoRepository extends JpaRepository<VehicleDriverWithVehNo, Integer>{

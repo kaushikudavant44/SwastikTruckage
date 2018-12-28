@@ -70,7 +70,7 @@ public class VehicleController {
 	    	vehicleOwners.setOwnerId(Integer.parseInt(ownerId));
 	    	url ="redirect:/showAllVehicleOwnerDetails";
 	    }
-	    
+	    vehicleOwners.setPanNo(request.getParameter("panNo"));
 	    vehicleOwners.setOwnerName(request.getParameter("ownerName"));
 	  
 	    vehicleOwners.setOwnerContactNo(request.getParameter("contactNo"));

@@ -95,6 +95,7 @@ public class MemoController {
 			// get staff id through session
 			// TODO
 			int staffId = officeStaff.getStaffId();
+			int officeId=officeStaff.getStaffOfficeId();
 			OfficeStaff staffDetails = new OfficeStaff();
 			
 			List<VehiclesDrivers> vehicleDriverList=new ArrayList<>();
@@ -103,7 +104,7 @@ public class MemoController {
 			List<OfficeDetails> officeList = officeDetailsRepository.findByIsUsed(true);
 			//List<ClientDetails> clientDetails=clientDetailsRepository.findByIsUsed(true);
 			staffDetails = officeStaffRepository.findByStaffId(staffId);
-			lrDetailsList=getAllLrDetailsRepository.findLrForMakeMemo();
+			lrDetailsList=getAllLrDetailsRepository.findLrForMakeMemo(officeId);
 			vehicleDriverList=vehiclesDriversRepository.findByIsUsed(true);
 			
 			
@@ -223,8 +224,8 @@ public class MemoController {
 					
 					
 				}
+				info.setMessage(""+memoHeaderResult.getMemoHeaderId());
 				
-				info.setMessage("Memo created Successfully");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

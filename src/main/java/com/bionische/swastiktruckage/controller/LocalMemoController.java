@@ -25,6 +25,7 @@ import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
+import com.bionische.swastiktruckage.model.GetAllMemo;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.DeliverMemoDetailsRepository;
 import com.bionische.swastiktruckage.repository.DeliverMemoHeaderRepository;
@@ -205,18 +206,19 @@ public class LocalMemoController {
 			}
 			deliverMemoDetailsList=deliverMemoDetailsRepository.saveAll(deliverMemoDetailsList);
 			
-		
+			
 			
 			if(deliverMemoDetailsList.isEmpty()) {
 				info.setMessage("Something Went wrong! Try agin");
 			}else {
-				for(int i=0;i<deliverMemoDetailsList.size();i++) {
+				for(int i=0;i<lrHeaderNumbers.length;i++) {
 					
-					int deliveryStatus=transactionLrHeaderRepository.updateLrLocalDeliveryStatusByHeaderId(deliverMemoDetailsList.get(i).getLrHeaderId());
 					
+					int deliveryStatus=transactionLrHeaderRepository.updateLrLocalDeliveryStatusByHeaderId(Integer.parseInt(lrHeaderNumbers[i]));
+				
 				}
 				
-				info.setMessage("Memo created Successfully");
+				info.setMessage(""+deliverMemoHeaderRes.getDeliMemoHeaderId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -352,5 +354,118 @@ public class LocalMemoController {
 
 	}
 	
+	
+	@RequestMapping(value = "/showLrReturn", method = RequestMethod.GET)
+
+	public ModelAndView showMemoReceived(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("transaction/showReturnLr");
+
+		try {
+			
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/getReturnLrDetails", method = RequestMethod.GET)
+
+	public @ResponseBody GetAllLrDetails getReturnLrDetails(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("localmemo/createMemo");
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		// get staff id through session
+		// TODO
+		int officeId = officeStaff.getStaffOfficeId();
+		
+		int lrNo=Integer.parseInt(request.getParameter("lrNo"));
+		System.out.println("lrNo ="+lrNo);
+		GetAllLrDetails getAllLrDetails=new GetAllLrDetails();
+		
+		try {
+			
+			getAllLrDetails=getAllLrDetailsRepository.findReturnLrBylrNoAndOfficeId(lrNo,officeId);
+			System.out.println(getAllLrDetails.toString());
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return getAllLrDetails;
+
+	}
+	
+	
+	@RequestMapping(value = "/localMemoPreview/{deliMemoHeaderId}", method = RequestMethod.GET)
+
+	public ModelAndView memoPreview(HttpServletRequest request, @PathVariable int deliMemoHeaderId) {
+		ModelAndView model = new ModelAndView("localmemo/localMemoPreview");
+
+		
+		try {
+			HttpSession session = request.getSession();
+			OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+			int officeId=officeStaff.getStaffOfficeId();
+			OfficeStaff staffDetails = new OfficeStaff();
+			int staffId=officeStaff.getStaffId();
+			GetDeliverMemoHeader getDeliverMemoHeader=getDeliverMemoHeaderRepository.findLocalMemoDetailsByOfficeIdAnddeliMemoHeaderId(officeId,deliMemoHeaderId);
+			getDeliverMemoHeader.setDeliMemoDate(DateConverter.convertToDMY(getDeliverMemoHeader.getDeliMemoDate())); 
+			if(getDeliverMemoHeader!=null) {
+				
+				List<GetAllLrDetails> getAllDeliverLrDetailsList=getAllLrDetailsRepository.getAllLocalMemoLrByDeliMemoHeaderId(getDeliverMemoHeader.getDeliMemoHeaderId());
+				model.addObject("getAllDeliverLrDetailsList", getAllDeliverLrDetailsList);
+				System.out.println("Lr "+getAllDeliverLrDetailsList.toString());
+			}
+			System.out.println("getDeliverMemoHeader"+getDeliverMemoHeader.toString());
+			model.addObject("getDeliverMemoHeader", getDeliverMemoHeader);
+		
+		
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+	
+	
+	@RequestMapping(value = "/updateReturnLrDeliveryStatus", method = RequestMethod.GET)
+
+	public @ResponseBody Info updateReturnLrDeliveryStatus(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("transaction/showReturnLr");
+		Info info=new Info();
+		
+		
+		System.out.println("Inside Update LR status");
+
+		try {
+			
+			String lrHeader=request.getParameter("selectedLrHeaderId");
+		
+			String str=lrHeader.substring(1, lrHeader.length()-1);
+			
+			String[] lrHeaderId=str.split(",");
+			
+			for(int i=0;i<lrHeaderId.length;i++) {
+			
+				int lrId=Integer.parseInt(lrHeaderId[i]);
+				
+				int updateDeliveryStatus=transactionLrHeaderRepository.updateLrRecDeliveryStatusByHeaderId(Integer.parseInt(lrHeaderId[i]));
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return info;
+
+	}
 
 }

@@ -29,7 +29,19 @@ public class VehicleOwners {
 	@Column(name="is_used")
 	private boolean isUsed;
 	
+	@Column(name="pan_no")
+	private String panNo;
+
 	
+	
+	
+	public String getPanNo() {
+		return panNo;
+	}
+
+	public void setPanNo(String panNo) {
+		this.panNo = panNo;
+	}
 
 	public boolean isUsed() {
 		return isUsed;
@@ -66,8 +78,12 @@ public class VehicleOwners {
 	@Override
 	public String toString() {
 		return "VehicleOwners [ownerId=" + ownerId + ", ownerName=" + ownerName + ", ownerContactNo=" + ownerContactNo
-				+ ", isUsed=" + isUsed + "]";
+				+ ", isUsed=" + isUsed + ", panNo=" + panNo + "]";
 	}
+
+	
+
+	
 
 	
 	

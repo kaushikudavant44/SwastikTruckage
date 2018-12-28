@@ -1,5 +1,6 @@
 package com.bionische.swastiktruckage.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.mastermodel.LrGraph;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
 import com.bionische.swastiktruckage.mastermodel.StaffRoles;
 import com.bionische.swastiktruckage.model.NavBarMainMenu;
 import com.bionische.swastiktruckage.model.NavBarSubMainMenu;
+import com.bionische.swastiktruckage.repository.LrGraphRepository;
 import com.bionische.swastiktruckage.repository.NavBarMainMenuRepository;
 import com.bionische.swastiktruckage.repository.OfficeStaffRepository;
 import com.bionische.swastiktruckage.repository.StaffRolesRepository;
@@ -26,6 +29,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class LoginController {
+	
+	@Autowired
+	LrGraphRepository lrGraphRepository;
 	
 	@Autowired
 	OfficeStaffRepository officeStaffRepository;
@@ -118,8 +124,13 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 			int lrCount=transactionLrHeaderRepository.getLrCountByOfficeId(officeId);
 			int pendingBillCount=transactionBillHeaderRepository.getPendingBillCount();
 			int pendingLrCount=transactionLrHeaderRepository.getPendingLrDeliveryCount();
+			List<LrGraph> lrGraphList=new ArrayList<>();
 			
-		
+			lrGraphList=lrGraphRepository.getLrCountAndLrDate(officeId);
+			System.out.println(lrGraphList.toString());
+			
+			
+			model.addObject("lrGraphList", lrGraphList);
 			model.addObject("lrCount", lrCount);
 			model.addObject("pendingBillCount", pendingBillCount);
 			model.addObject("pendingLrCount", pendingLrCount);
@@ -130,6 +141,5 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 		return model;
 
 	}
-	
 
 }
