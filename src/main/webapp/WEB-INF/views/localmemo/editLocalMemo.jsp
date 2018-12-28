@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Data Table</title>
+<title>Swastik Truckage</title>
 
 
 <link rel="apple-touch-icon" href="apple-icon.png">
@@ -18,7 +18,8 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
 <link rel="stylesheet"
@@ -84,7 +85,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -103,7 +104,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -111,9 +112,9 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
+					<div class="cardview">
 						<div class="card-header">
-							<strong>Create Deliver Memo</strong>
+							<strong>Edit Local Deliver Memo</strong>
 						</div>
 						<div class="card-body card-block">
 							<form action=""
@@ -215,7 +216,7 @@
 											<div class="col-md-1">PAN No:</div>
 											<div class="col-md-3">
 												<div class="input-group">
-													<input type="text" id="panNo" value="${vehicleOwners.ownerName}" disabled/>
+													<input type="text" id="panNo" value="${vehicleOwners.panNo}" disabled/>
 													
 												</div>
 											</div>
@@ -243,8 +244,8 @@
 			<div class="row">
 
 				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong class="card-title">Memo Details</strong>
 						</div>
 						<div class="card-body">
@@ -335,8 +336,8 @@
 			</div>
 			<div class="row">
 			<div class="col-lg-12" align="center">
-			<div class="card">
-						<div class="card-header">
+			<div class="cardview">
+						<div class="cardview-header">
 
 									<button type="button" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;" onclick="saveDeliverMemoDetails()">

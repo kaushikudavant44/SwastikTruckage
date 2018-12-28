@@ -8,8 +8,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Data Table</title>
-
+<title>Swastik Truckage</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 
 <link rel="apple-touch-icon" href="apple-icon.png">
 <link rel="shortcut icon" href="favicon.ico">
@@ -85,7 +86,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -104,7 +105,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -112,8 +113,8 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<strong>Edit Memo</strong>
 						</div>
 						<div class="card-body card-block">

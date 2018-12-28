@@ -2,13 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Dairy Hub Panel</title>
-
+<title>Swastik Truckage</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="apple-touch-icon" href="apple-icon.png">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/favicon.ico">
@@ -191,9 +193,9 @@
 
 
 					<div class="col-xs-12 col-sm-12">
-						<div class="card">
-							<div class="card-header">
-								<strong>Categorywise Trend</strong>
+						<div class="cardview">
+							<div class="cardview-header">
+								<strong>Last 15 Days Created Lr</strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -232,6 +234,26 @@
 
 
 	<script>
+	
+	var lrCount;
+	var lrDate;
+	var lrDateWiseCount = [];
+	
+	<c:forEach items="${lrGraphList}" var="lrGraphList">
+	
+	
+	lrCount = "<c:out value="${lrGraphList.lrCount}"/>";
+	
+	
+	
+	lrDate = "<c:out value="${lrGraphList.lrDate}"/>";
+
+	lrDateWiseCount.push([lrDate,parseInt(lrCount,10)]);
+
+	</c:forEach>
+	
+	
+	
 		function setData() {
 
 			
@@ -300,25 +322,27 @@
 				'packages' : [ 'line' ]
 			});
 			google.charts.setOnLoadCallback(drawChart3);
-
+			
+			
+			
 			function drawChart3() {
 
 				var data = new google.visualization.DataTable();
-				data.addColumn('number', 'Day');
-				data.addColumn('number', 'Cat 1');
-				data.addColumn('number', 'Cat 2');
+				data.addColumn('string', 'Day');
+				data.addColumn('number', 'LR');
+				/* data.addColumn('number', 'Cat 2');
 				data.addColumn('number', 'Cat 3');
-				data.addColumn('number', 'Cat 4');
+				data.addColumn('number', 'Cat 4'); */
 
-				data.addRows([ [ 1, 3700.8, 8000.8, 8900.5, 6922.5 ],
-						[ 2, 3000.9, 6900.5, 3009.5, 8902.5 ],
-						[ 3, 4500.4, 5007, 4009.5, 9901.5 ],
-						[ 4, 3600.7, 1800.8, 5009.5, 1090.5 ],
-						[ 5, 4000.9, 2000.5, 1900.5, 6025 ],
-						[ 6, 5000.8, 4500.8, 4902.5, 8009.5 ]
+			  	 data.addRows(lrDateWiseCount);  
+			  	/*	 data.addRows([ [ "1", 15 ],
+						[ "2", 25],
+						[ "3", 10],
+						[ "4", 20],
+						[ "5", 40 ],
+						[ "6", 50]
 
-				]);
-
+				]); */
 				var options = {
 					chart : {
 						title : '',

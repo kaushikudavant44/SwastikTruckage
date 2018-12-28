@@ -24,6 +24,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/assets/lr/css/style.css"
 	rel="stylesheet" type="text/css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 </head>
 <style>
 .t-table {
@@ -54,12 +56,12 @@ border: 1px solid black;
 		<div class="col-sm-3" style="padding-top: 80px;">
 		
 		<p style="text-align: left; width: auto" >
-				<strong> <font size="4">Memo No.: ${getMemoDeatails.memoNo}</font>
+				<strong> <font size="4">Memo No.: ${getDeliverMemoHeader.localMemoNo}</font>
 				</strong>
 			</p>
 			
 			<p style="text-align: left">
-				<strong> <font size="4">Date : ${getMemoDeatails.createdDate}</font>
+				<strong> <font size="4">Date : ${getDeliverMemoHeader.deliMemoDate}</font>
 				</strong>
 			</p>
 			
@@ -68,13 +70,13 @@ border: 1px solid black;
 		<div class="col-sm-6" style="margin-left: 0px">
 
 			<h5 class="text-center" style="padding: 1px; margin: 1px;">Subject
-				to Mumbai Jurisdiction</h5>
+				to Nashik Jurisdiction</h5>
 			<img
 				src="${pageContext.request.contextPath}/resources/images/swastik.png"
 				class="img-responsive" alt="logo">
 			<!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
 			<p class="text-center">
-				<strong>Address:</strong> ${getMemoDeatails.officeAddress}
+				<%-- <strong>Address:</strong> ${getDeliverMemoHeader.deliMemoDate} --%>
 			</p>
 
 
@@ -95,9 +97,9 @@ border: 1px solid black;
 
 		<table width="100%" style="border: 1px solid black;">
 			<tr height="30px;">
-				<th style="padding-left: 10px;" width="38%">Vehicle Owner : ${getMemoDeatails.ownerName}
+				<th style="padding-left: 10px;" width="38%">Staff Name : ${getDeliverMemoHeader.staffName}
 					</th>
-				<th width="37%">Drivers Name :  ${getMemoDeatails.driverName}</th>
+				<th width="37%">Drivers Name :  ${getDeliverMemoHeader.driverName}</th>
 			</tr>
 
 		</table>
@@ -107,8 +109,8 @@ border: 1px solid black;
 			<tr height="30px;"
 				style="border-top: 0px; border-left: 1px solid #000000; border-right: 1px solid #000000;">
 				<th width="38%" style="padding-left: 10px;">License No
-					: ${getMemoDeatails.licenseNo}</th>
-				<th width="37%">Vehicle No : ${getMemoDeatails.vehNo}</th>
+					: </th>
+				<th width="37%">Vehicle No : ${getDeliverMemoHeader.vehNo}</th>
 
 			</tr>
 
@@ -116,14 +118,14 @@ border: 1px solid black;
 		
 		<div class="clearfix"></div>
 		
-		<table width="100%" style="border: 1px solid black;">
+		<%-- <table width="100%" style="border: 1px solid black;">
 			<tr height="30px;">
 				<th style="padding-left: 10px;" width="38%">From : ${getMemoDeatails.fromOffice}
 					</th>
 				<th width="37%">To : ${getMemoDeatails.toOffice}</th>
 			</tr>
 
-		</table>
+		</table> --%>
 		
 		
 		&nbsp;
@@ -136,27 +138,30 @@ border: 1px solid black;
 				<th>Delivery location</th>
 				<th>Goods</th>
 				<th>No. of Quant.</th>
+				<th>Total Amount</th>
 				<th>Payment By</th>
 			</tr>
-			<c:forEach items="${lrDetailsList }" var="lrDetailsList" varStatus="count">
+			<c:forEach items="${getAllDeliverLrDetailsList }" var="getAllDeliverLrDetailsList" varStatus="count">
 			<tr style="line-height: 20px; height: 20px;">
 				
 				<td align="center">${count.index+1}</td>
-				<td align="center">${lrDetailsList.lrNo}</td>
-				<td align="center">${lrDetailsList.consignor}</td>
-				<td align="center">${lrDetailsList.consignee}</td>
-				<td align="center">${lrDetailsList.clientAddress}</td>
-				<td align="center">${lrDetailsList.particular}</td>
-				<td align="center">${lrDetailsList.quantity}</td>
-				
-				<c:choose>
-				<c:when test="${lrDetailsList.paymentBy==0}">
+				<td align="center">${getAllDeliverLrDetailsList.lrNo}</td>
+				<td align="center">${getAllDeliverLrDetailsList.consignor}</td>
+				<td align="center">${getAllDeliverLrDetailsList.consignee}</td>
+				<td align="center">${getAllDeliverLrDetailsList.clientAddress}</td>
+				<td align="center">${getAllDeliverLrDetailsList.particular}</td>
+				<td align="center">${getAllDeliverLrDetailsList.quantity}</td>
+				<td align="center">${getAllDeliverLrDetailsList.amount}</td>
+			
+				<c:if test="${getAllDeliverLrDetailsList.paymentBy==0}">
 				<td align="center">to be billed</td>
-				</c:when>
-				<c:otherwise>
+				</c:if>
+				<c:if test="${getAllDeliverLrDetailsList.paymentBy==1}">
 				<td align="center">to pay</td>
-				</c:otherwise>
-				</c:choose>
+				</c:if>
+				<c:if test="${getAllDeliverLrDetailsList.paymentBy==2}">
+				<td align="center">Paid</td>
+				</c:if>
 			</tr>
 			</c:forEach>
 			<tr>

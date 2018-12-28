@@ -10,7 +10,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Swastik Truckage</title>
 
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="apple-touch-icon" href="apple-icon.png">
 <link rel="shortcut icon" href="favicon.ico">
 
@@ -44,8 +45,6 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
-	<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 	<%-- <link
 	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
 	rel='stylesheet' type='text/css'> --%>
@@ -66,8 +65,8 @@
 </style>
 
 <c:url var="getVehicalOwner" value="/getVehicalOwner" />
-<c:url var="getLrDetails" value="/getLrDetails" />
-<c:url var="saveDeliverMemoDetails" value="/saveDeliverMemoDetails" />
+<c:url var="getReturnLrDetails" value="/getReturnLrDetails" />
+<c:url var="updateReturnLrDeliveryStatus" value="/updateReturnLrDeliveryStatus" />
 
 </head>
 <body id="bgbdy">
@@ -103,133 +102,14 @@
 			</div>
 		</div>
 	</div> -->
-
-	<div class="content mt-3">
-		<div class="animated fadeIn">
-		
-			<div class="row">
-
-				<div class="col-xs-12 col-sm-12">
+	
+					<div class="col-md-12">
 					<div class="cardview">
 						<div class="cardview-header">
-							<strong>Create Local Deliver Memo</strong>
-						</div>
-						<div class="card-body card-block">
-							<form action=""
-								method="post">
-								<div class="row">
-									
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
-											
-
-											<div class="col-md-2">Vehical No.:</div>
-											<div class="col-md-2">
-												<div class="input-group">
-													<select id="vehId" name="vehId"
-														class="standardSelect" tabindex="1"
-														onchange="getVehicalOwner()">
-													
-														<option value=""></option>
-													<c:forEach items="${vehicalDetailsList}" var="vehicalDetailsList">
-														<option value="${vehicalDetailsList.vehId}">${vehicalDetailsList.vehNo}</option>
-													</c:forEach>	
-
-
-													</select> <a href="${pageContext.request.contextPath}/showVehicleReg"><span
-														style="color: blue">If Vehical not found?</span></a>
-												</div>
-											</div>
-
-											
-											<div class="col-md-2">Driver:</div>
-											<div class="col-md-2">
-												<div class="input-group">
-													<select id="driverId" name="driverId"
-														class="standardSelect" tabindex="1"
-														onchange="getVehicalOwner()">
-													
-														<option value=""></option>
-													<c:forEach items="${vehicleDriverList}" var="vehicleDriverList">
-														<option value="${vehicleDriverList.driverId}">${vehicleDriverList.driverName}</option>
-													</c:forEach>	
-
-
-													</select> <a href="${pageContext.request.contextPath}/showVehicleDriverReg"><span
-														style="color: blue">If driver not found?</span></a>
-												</div>
-											</div>
-											
-											<div class="col-md-1">DATE:</div>
-											<div class="col-md-3">
-												<div class="input-group">
-
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" id="datepicker" name="lrDate" autocomplete="off"
-														required="required">
-
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
-										
-											<div class="col-md-2">Vehical Owner:</div>
-											<div class="col-md-2">
-												<div class="input-group">
-													<input type="text" id="vehicalOwner" value="" disabled/>
-													
-												</div>
-											</div>
-											
-											<div class="col-md-2">Contact Number:</div>
-											<div class="col-md-2">
-												<div class="input-group">
-													<input type="text" id="contactNo" value="" disabled/>
-													
-												</div>
-											</div>
-											<div class="col-md-1">PAN No:</div>
-											<div class="col-md-3">
-												<div class="input-group">
-													<input type="text" id="panNo" value="" disabled/>
-													
-												</div>
-											</div>
-											
-										</div>
-										</div>
-
-									
-								</div>							
-							</form>
-						</div>
-
-
-					</div>
-
-
-
-
-				</div>
-
-			</div>
-		
-		
-		
-			<div class="row">
-
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
-							<strong class="card-title">Memo Details</strong>
+							<strong class="card-title">Show Return Lr</strong>
 						</div>
 						<div class="card-body">
-						
+							<form action="#" method="post">
 							<div class="col-xs-12 col-sm-12">
 										<div class="row">
 										
@@ -244,7 +124,7 @@
 									
 											<div class="col-md-4">
 												<div class="input-group">
-													<button type="button" id="addLr" value="" onclick="getReceivedLrDetails()">ADD</button>
+													<button type="button" id="addLr" value="" onclick="getReturnLrDetails()">ADD</button>
 													
 												</div>
 											</div>
@@ -274,35 +154,53 @@
 									</tr>
 								</thead>
 								<tbody>
+								<%-- <c:forEach items="${getAllDeliverLrDetailsList}" var="getAllDeliverLrDetailsList" varStatus="count">
+								<tr id="${getAllDeliverLrDetailsList.lrHeaderId}">
+								<td>${count.index+1}</td>
+								<td>${getAllDeliverLrDetailsList.officeName}</td>
+								<td>${getAllDeliverLrDetailsList.lrNo}</td>
+								<td>${getAllDeliverLrDetailsList.lrDate}</td>
+								<td>${getAllDeliverLrDetailsList.consignor}</td>
+								<td>${getAllDeliverLrDetailsList.consignee}</td>
+								<td>${getAllDeliverLrDetailsList.particular}</td>
+								<td>${getAllDeliverLrDetailsList.quantity}</td>
+								<td>${getAllDeliverLrDetailsList.amount}</td>
+								<c:if test="${getAllDeliverLrDetailsList.paymentBy==0}">
+								<td>To Be Bill</td>
+								</c:if>
+								<c:if test="${getAllDeliverLrDetailsList.paymentBy==1}">
+								<td>To Pay</td>
+								</c:if>
+								<c:if test="${getAllDeliverLrDetailsList.paymentBy==2}">
+								<td>Paid</td>
+								</c:if>
+								<td>
+								<div class="fa-hover col-lg-3 col-md-6">
+														<a
+														style='cursor:pointer; color:blue;' onclick="deleteLr(${getAllDeliverLrDetailsList.lrHeaderId})"><i
+														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+														
+														</div>
+								</td>
+								</tr>
+								
+								</c:forEach> --%>
 								</tbody>
 							</table>
+							<div class="col-lg-12" align="center">
 
+
+									<button type="button" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;" onclick="updateLrReturnStatus()">
+										Submit</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 
 
-			</div>
-			<div class="row">
-			<div class="col-lg-12" align="center">
-			<div class="card">
-						<div class="card-header">
-
-									<button type="button" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;" onclick="saveDeliverMemoDetails()">
-										Submit</button>
-								</div></div></div>
-		</div>
-		</div>
-		<!-- .animated -->
-	</div>
-	<!-- .content -->
-
-
-
-
-
-	<!-- Footer -->
+			<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Footer -->
 
@@ -376,11 +274,11 @@
 <script type="text/javascript">
 	var selectedLrHeaderId=[];
 	var srNo=0;
-	function getReceivedLrDetails(){
+	function getReturnLrDetails(){
 				
 		var lrNo=document.getElementById("lrNo").value;
 		
-		$.getJSON('${getLrDetails}', {
+		$.getJSON('${getReturnLrDetails}', {
 			
 			lrNo: lrNo,
 			ajax : 'true'
@@ -441,53 +339,28 @@
 
 <script type="text/javascript">
 
-function getVehicalOwner(){
+
+</script>
+
+<script type="text/javascript">
+
+
+function updateLrReturnStatus(){
 	
-	var vehId=document.getElementById("vehId").value;
-	
-	
-	$.getJSON('${getVehicalOwner}', {
+	$.getJSON('${updateReturnLrDeliveryStatus}', {
 		
-		vehId: vehId,
+		selectedLrHeaderId: JSON.stringify(selectedLrHeaderId),
 		ajax : 'true'
 		
 	}, function(data) {
 		
 		
-		document.getElementById("vehicalOwner").value=data.ownerName;
-		document.getElementById("contactNo").value=data.ownerContactNo;
-		document.getElementById("panNo").value=data.panNo;
 	});
-}
-
-
-
-function saveDeliverMemoDetails(){
+	}
 	
-	
-	var memoDate=document.getElementById("datepicker").value;
-	var vehId=document.getElementById("vehId").value;
-	var driverId=document.getElementById("driverId").value;
-	$('#loader').addClass("loader");
-	$('#bgbdy').addClass("bg-body");
-	$.getJSON('${saveDeliverMemoDetails}', {
-		
-		driverId:driverId,
-		vehId:vehId,
-		memoDate:memoDate,
-		selectedLrHeaderId:JSON.stringify(selectedLrHeaderId),
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		
-		
-		window.open("${pageContext.request.contextPath}/localMemoPreview/"+data.message,'_self')
-		 $('#loader').addClass("hide-loader");
-		 $('#bgbdy').removeClass("bg-body");
-		
-	});
-}
+
+
+
 </script>
 
 </body>

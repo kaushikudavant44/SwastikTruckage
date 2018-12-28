@@ -33,11 +33,12 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
+
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 
 <style type="text/css">
 .right {
@@ -100,7 +101,7 @@
  
  		<div class="col-lg-12">
 					<div class="cardview">
-						<div class="cardview-header">
+						<div class="card-header">
 							<h4>Vehicle Owner Registration</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/insertVehicleOwnerInfo" method="POST">
@@ -125,8 +126,23 @@
 							</div>
 							</div>
 							
-							
-							
+							<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-6 col-md-6">
+							<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class=" form-control-label">PAN No</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-phone"></i>
+									</div>
+									<input class="form-control" name="panNo">
+								</div>
+							</div>
+							</div>
+							</div>
+							</div>
+							</div>
 							<br>
 							<br>
 							<div class="clearfix"></div>

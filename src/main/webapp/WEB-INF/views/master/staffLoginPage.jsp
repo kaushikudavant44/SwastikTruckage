@@ -9,10 +9,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title>Swastik Truckage</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 
@@ -77,8 +79,8 @@
  </div> 
  
  		<div class="col-lg-4">
-					<div class="card">
-						<div class="card-header">
+					<div class="cardview">
+						<div class="cardview-header">
 							<h4>Staff Login</h4>
 						</div>
 						<form action="${pageContext.request.contextPath}/staffLoginProcess" method="POST" id="submitLogin">

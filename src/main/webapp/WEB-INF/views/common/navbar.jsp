@@ -13,13 +13,13 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<i class="fa fa-bars"></i>
 			</button>
-			<a class="navbar-brand" href="./getLogin">Swastik Truckage
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/showHome">Swastik Truckage
 			</a> <a class="navbar-brand hidden" href="./"> S</a>
 		</div>
 		
 		<div id="main-menu" class="main-menu collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/translate">
+				<li><a href="${pageContext.request.contextPath}/showHome">
 						<i class="menu-icon fa fa-dashboard"></i> DASHBOARD
 				</a></li>
 

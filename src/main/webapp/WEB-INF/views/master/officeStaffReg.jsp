@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add New Hub User</title>
+<title>Swastik Truckage</title>
 
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="apple-touch-icon"
 	href="${pageContext.request.contextPath}/resources/apple-icon.png">
 <link rel="shortcut icon"
@@ -78,9 +79,9 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
-						<div class="card-header">
-							<strong> Add New Staff</strong>
+					<div class="cardview">
+						<div class="cardview-header">
+							<strong>Add New Staff</strong>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertOfficeStaff"

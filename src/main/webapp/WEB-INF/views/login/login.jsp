@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Sign In</title>
+<title>Swastik Truckage</title>
 <meta name="viewport" content="width=device-width">
 <meta name="mobile-web-app-capable" content="yes">
 
 <!--===============================================================================================-->
-<link rel="icon" type="image/png"
-	href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/favicon.ico">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">

@@ -12,6 +12,8 @@
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 <title>Swastik Truckage</title>
 <!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link
 	href="${pageContext.request.contextPath}/resources/assets/lr/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">

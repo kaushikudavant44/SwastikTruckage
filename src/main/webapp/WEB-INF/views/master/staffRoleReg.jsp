@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add New Hub User</title>
+<title>Swastik Truckage</title>
 
 
 <link rel="apple-touch-icon"

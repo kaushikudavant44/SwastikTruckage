@@ -8,8 +8,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Generate LR</title>
-
+<title>Swastik Truckage</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
 <link rel="apple-touch-icon" href="apple-icon.png">
 <link rel="shortcut icon" href="favicon.ico">
 
@@ -75,7 +76,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -94,7 +95,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -102,9 +103,9 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-12">
-					<div class="card">
-						<div class="card-header">
-							<strong>Make LR</strong>
+					<div class="cardview">
+						<div class="cardview-header">
+							<strong>Create LR</strong>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertLR"
@@ -896,14 +897,17 @@ $(document).ready(function(){
     $('#paymentByTobe').click(function(){
         if($(this).prop("checked") == true){
            
-            document.getElementById("freight").disabled=true;
-        	document.getElementById("gst").disabled=true;
-        	document.getElementById("hamali").disabled=true;
-        	document.getElementById("bccharge").disabled=true;
-        	document.getElementById("kata").disabled=true;
-        	document.getElementById("localtempo").disabled=true;
-        	document.getElementById("bharai").disabled=true;
-        	document.getElementById("ddcharges").disabled=true;
+        	$("#freight").attr('readonly','readonly');
+        	$("#gst").attr('readonly','readonly');
+        	$("#hamali").attr('readonly','readonly');
+        	$("#bccharge").attr('readonly','readonly');
+        	$("#kata").attr('readonly','readonly');
+        	$("#localtempo").attr('readonly','readonly');
+        	$("#bharai").attr('readonly','readonly');
+        	$("#ddcharges").attr('readonly','readonly');
+        	
+        	
+        	
        
         }
        
@@ -916,14 +920,14 @@ $(document).ready(function(){
         if($(this).prop("checked") == true){
             
             
-            document.getElementById("freight").disabled=true;
-        	document.getElementById("gst").disabled=true;
-        	document.getElementById("hamali").disabled=true;
-        	document.getElementById("bccharge").disabled=true;
-        	document.getElementById("kata").disabled=true;
-        	document.getElementById("localtempo").disabled=true;
-        	document.getElementById("bharai").disabled=true;
-        	document.getElementById("ddcharges").disabled=true;
+        	$("#freight").attr('readonly','readonly');
+        	$("#gst").attr('readonly','readonly');
+        	$("#hamali").attr('readonly','readonly');
+        	$("#bccharge").attr('readonly','readonly');
+        	$("#kata").attr('readonly','readonly');
+        	$("#localtempo").attr('readonly','readonly');
+        	$("#bharai").attr('readonly','readonly');
+        	$("#ddcharges").attr('readonly','readonly');
        
         }
        
@@ -936,14 +940,14 @@ $(document).ready(function(){
         if($(this).prop("checked") == true){
             
             
-            document.getElementById("freight").disabled=false;
-        	document.getElementById("gst").disabled=false;
-        	document.getElementById("hamali").disabled=false;
-        	document.getElementById("bccharge").disabled=false;
-        	document.getElementById("kata").disabled=false;
-        	document.getElementById("localtempo").disabled=false;
-        	document.getElementById("bharai").disabled=false;
-        	document.getElementById("ddcharges").disabled=false;
+        	$("#freight").removeAttr('readonly');
+        	$("#gst").removeAttr('readonly');
+        	$("#hamali").removeAttr('readonly');
+        	$("#bccharge").removeAttr('readonly');
+        	$("#kata").removeAttr('readonly');
+        	$("#localtempo").removeAttr('readonly');
+        	$("#bharai").removeAttr('readonly');
+        	$("#ddcharges").removeAttr('readonly');
        
         }
        
