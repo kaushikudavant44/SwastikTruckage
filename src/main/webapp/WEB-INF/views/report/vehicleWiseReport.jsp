@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Swastik Truckage</title>
+<title>Data Table</title>
 
 
 <link rel="apple-touch-icon"
@@ -38,6 +38,12 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+	
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
+	
 
 <style type="text/css">
 .right {
@@ -49,9 +55,11 @@
 }
 </style>
 
+
+
 </head>
 <body>
-<c:url var="deleteDriverById" value="/deleteDriverById" />
+
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -76,7 +84,7 @@
 				<div class="page-title">
 					<ol class="breadcrumb text-right">
 						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Driver Details</a></li>
+						<li><a href="#">Bill Detaila</a></li>
 						
 					</ol>
 				</div>
@@ -84,15 +92,104 @@
 		</div>
 	</div>
 	
-	  <div class="form-group ">
-                        <div class="col-lg-5"></div>
-                         <div class="col-lg-5">
-                        <p style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;" id="messageAnimation">${message}</p>
-         </div> 
-         </div>
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
+		
+		
+		
+				<div class="row">
+
+				<div class="col-xs-12 col-sm-12">
+					<div class="cardview">
+						<div class="cardview-header">
+							<strong>Search LR DateWise</strong>
+						</div>
+						<div class="card-body card-block">
+					
+					<form action="${pageContext.request.contextPath}/getDataLrListByDateAndVehicleWise" method="GET">
+        <div class="row">
+             <div class="col-sm-6 col-md-1">          
+                  <label>From Date </label>
+             </div>
+             
+             <div class="col-sm-6 col-md-2">
+              <input type="text" id="datepicker" name="from" value="${from}" class="form-control form-control-sm datepicker" >             
+             </div>
+              <div class="col-sm-6 col-md-1">
+             </div>
+              <div class="col-sm-6 col-md-1">  
+             <label>To Date </label>
+             </div>
+             
+              <div class="col-sm-6 col-md-2">
+          <input type="text" id="datepicker1" name="to" value="${to}" class="form-control form-control-sm datepicker" >
+            
+             </div>
+             <div class="col-sm-6 col-md-1">
+              <label>Vehicle Number</label>
+             </div>
+              <div class="col-sm-6 col-md-2">
+              
+              			<select id="vehNo" name="vehNo" class="standardSelect"
+													 required="required">
+														<option value=""></option>
+															<c:forEach items="${vehicleDetailsList}" var="vehicleDetailsList">
+
+															<c:choose>
+																<c:when
+																	test="${vehicleDetailsList.vehNo==vehicleDetailsList.vehNo}">
+																		<option selected value="${vehicleDetailsList.vehNo}">${vehicleDetailsList.vehNo}</option>
+																	
+																</c:when>
+																<c:otherwise>
+																	<option value="${vehicleDetailsList.vehNo}">${vehicleDetailsList.vehNo}</option>
+																	
+																</c:otherwise>
+															</c:choose>
+
+														</c:forEach>
+													</select>
+              	
+        				
+            
+             </div>
+             
+             
+             <div class="col-sm-6 col-md-3">
+							
+             <button type="submit" class="btn btn-primary" >
+				Generate
+			 </button>							
+							</div>
+							</div>
+            </form>
+					
+					
+						</div>
+
+
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- Devide -->
+		
+		
 			<div class="row">
 
 				<div class="col-md-12">
@@ -102,40 +199,68 @@
 						</div>
 						<div class="card-body">
 
-							<table id="bootstrap-data-table"
+            <div class="row">
+             <div class="col-sm-6 col-md-6">          
+                  <label>Total Collection : </label>${totalLr}
+             </div>
+              <div class="col-sm-6 col-md-6">          
+                  <label>Total Bill : </label>${totalBill}
+             </div>
+             </div>
+							<table id="bootstrap-data-table1"
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									<th>Sr.No</th>
-										<th>Driver Name</th>
-										<th>Contact No</th>
-										<th>Vehicle No</th>
-										<th>License No</th>
-										
-										<th >edit / delete</th>
-
+									    <th>LR No</th>
+										<th>LR Date</th>
+										<th>Payment By</th>
+										<th >Total</th>
+									
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${vehicleDricerList}" var="vehicleDricerList" varStatus="myIndex">
+								<c:forEach items="${lrList}" var="lrList" varStatus="count">
 									
-									<tr>
-									    <td>${myIndex.index+1}</td>
-										<td>${vehicleDricerList.driverName}</td>
-										<td>${vehicleDricerList.driverContactNo}</td>
-										<td>${vehicleDricerList.vehNo}</td>
-										<td>${vehicleDricerList.driverLicenseNo}</td>
+						<tr>
+						
+						    <td>${lrList.lrNo}</td>
+							<td>${lrList.lrDate}</td>
+							
+										 <c:choose>
+                              <c:when test="${lrList.paymentBy==0}">
+                              
+  							<td>To Be Bill</td>
+  							
+  							</c:when>
+  							<c:when test="${lrList.paymentBy==1}">
+                              
+  							<td>To Pay</td>
+  							
+  							</c:when>
+  							<c:when test="${lrList.paymentBy==2}">
+                              
+  							<td>Paid</td>
+  							
+  							</c:when>
+  							
+  							</c:choose>
 										
-										<th >
-										<c:if test="${operationOfAccessRight.edit==1 }"><a href="${pageContext.request.contextPath}/showEditDriverDetails/${vehicleDricerList.driverId}"><i class="fa fa-edit" aria-hidden="true"></i></a> </c:if> &nbsp; | &nbsp;
-										<c:if test="${operationOfAccessRight.mdelete==1 }"><a href="#" onclick="deleteDriver(${vehicleDricerList.driverId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a></c:if>
-										 </th>
-									</tr>
+							<td>${lrList.total}</td>
+										
+					   </tr>
+									
 									</c:forEach>
 								</tbody>
 							</table>
 
+<div class="col-sm-12 text-center">
+
+													<button type="button" class="btn btn-primary" style="color:white;">
+														 <a href="${pageContext.request.contextPath}/showExcel/5" style="color:white;">excel</a></button>
+												</div>
+							
 						</div>
+						
 					</div>
 				</div>
 
@@ -155,9 +280,6 @@
 	<!-- Footer -->
 
 
-
-
-
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
@@ -166,7 +288,6 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-
 
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
@@ -191,6 +312,37 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+		
+		
+		<script>
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 3,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
+		
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		$(function() {
+			$('input[id$=datepicker]').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+		
+		$(function() {
+			$('input[id$=datepicker1]').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+		
+	</script>
+	
+
 
 	<script type="text/javascript">
         $(document).ready(function() {
@@ -202,42 +354,12 @@
         } );
     </script>
  
-    <script>
-                        setTimeout(function() {
-    $('#messageAnimation').fadeOut('slow');
-}, 5000);
-                        </script>
-    
-
-<script>
-
-<script>
-
-function deleteDriver(driverId){
-	
-	if(confirm("Delete Slected Item?!!"))
-		{
-	$.getJSON('${deleteDriverById}', {
-		
-		driverId : driverId,
-		ajax : 'true'
-		
-	}, function(data) {
-		
-		if(data.message=="success"){
-			
-			alert("deleted successfully");
-			location.reload();
-			
-		}
-
-	});
-	}
-	
-}
-</script>
-</script>
+   
 
 
 </body>
 </html>
+
+
+
+

@@ -104,7 +104,7 @@
 					
 								<div class="col-lg-12" align="center">
 
-
+									
 									<button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										Submit
@@ -141,14 +141,32 @@
 										<td>${count.index+1 }</td>
 										<td>${goodsList.goodsName}</td>
 										<td><div class="fa-hover col-lg-3 col-md-6">
+										<c:choose>
+										<c:when test="${operationOfAccessRight.edit==1}">
 										<a
 														href="${pageContext.request.contextPath}/editGoodsDetails/${goodsList.goodsId}"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
+														class="fa fa-edit"></i> <span class="text-muted"></span></a>
+										
+										</c:when>
+										<c:otherwise>
+										<a href="#"><i
+														class="fa fa-ban"></i> <span class="text-muted"></span></a>
+										</c:otherwise>
+										</c:choose>				
+														
+														</div>
 														<div class="fa-hover col-lg-3 col-md-6">
+														<c:choose>
+														<c:when test="${operationOfAccessRight.mdelete==1}">
 														<a
 														href="${pageContext.request.contextPath}/deleteGoods/${goodsList.goodsId}"><i
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
-														
+														</c:when>
+														<c:otherwise>
+														<a href="#"><i
+														class="fa fa-ban"></i> <span class="text-muted"></span></a>
+														</c:otherwise>
+														</c:choose>
 														</div>
 										
 										</td>

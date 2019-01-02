@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Sufee Admin - HTML5 Admin Template</title>
+<title>Swastik Truckage</title>
 <meta name="description" content="Sufee Admin - HTML5 Admin Template">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -94,7 +94,7 @@
 
 			<div><jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
 
-				<div class="breadcrumbs">
+				<!-- <div class="breadcrumbs">
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
@@ -113,7 +113,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 
 				 <div class="content mt-3">
@@ -150,7 +150,7 @@
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">Full Name</label> <input
-															required name="name" id="name" class="form-control"
+															required name="name" id="name" class="form-control" style="text-transform: uppercase;"
 															onblur="nameValidation()">
 													</div>
 													<p id="validationMsg"
@@ -209,7 +209,7 @@
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">Bill Name</label> <input
-															required class="form-control" name="billName">
+															required class="form-control" name="billName" style="text-transform: uppercase;">
 													</div>
 												</div>
 

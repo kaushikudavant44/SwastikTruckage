@@ -91,7 +91,7 @@
 
 										<div class="input-group">
 											<input class="form-control" name="officeName" id="Name"
-												type="text" required
+												type="text" required style="text-transform: uppercase;"
 												oninvalid="setCustomValidity('Please enter name ')"
 												onchange="try{setCustomValidity('')}catch(e){}" /> <span
 												class="error" aria-live="polite"></span>

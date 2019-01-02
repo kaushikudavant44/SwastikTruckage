@@ -306,8 +306,9 @@
 							}else{
 								tr.append($('<td></td>').html("Paid"));
 							}
+							<c:if test="${operationOfAccessRight.mdelete==1}"> 
 							tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteLr("+data.lrHeaderId+")'><i class='fa fa-trash-o'></i> </a>"));
-						
+							</c:if>
 				
 							$('#lrTable tbody').append(tr);
 						

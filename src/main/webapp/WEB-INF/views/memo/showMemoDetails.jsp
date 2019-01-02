@@ -120,14 +120,19 @@
 										<td>${getAllMemoList.memoNo}</td>
 										<td>${getAllMemoList.vehNo}</td>
 										<td>${getAllMemoList.driverName}</td>
-										<td><div class="fa-hover col-lg-3 col-md-6">
+										<td>
+										<c:if test="${operationOfAccessRight.edit==1 }"> 
+										<div class="fa-hover col-lg-3 col-md-6">
 										<a
 														href="${pageContext.request.contextPath}/showEditMemoDetails/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-edit" title="Edit Memo"></i> <span class="text-muted"></span></a></div>
+													</c:if>
+													<c:if test="${operationOfAccessRight.mdelete==1 }"> 
 														<div class="fa-hover col-lg-3 col-md-6">
 														<a
 														href="${pageContext.request.contextPath}/deleteMemo/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-trash-o" title="Delete Memo"></i> <span class="text-muted"></span></a></div>
+													</c:if>
 														<div class="fa-hover col-lg-3 col-md-6">
 														<a
 														href="${pageContext.request.contextPath}/showVoucherReg/${getAllMemoList.memoHeaderId}"><i

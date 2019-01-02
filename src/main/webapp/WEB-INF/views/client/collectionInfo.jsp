@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Data Table</title>
+<title>Swastik Truckage</title>
 
 
 <link rel="apple-touch-icon"
@@ -62,7 +62,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -81,7 +81,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	
   <div class="content mt-3">
  

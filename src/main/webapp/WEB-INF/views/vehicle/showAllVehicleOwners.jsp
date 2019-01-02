@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Data Table</title>
+<title>Swastik Truckage</title>
 
 
 <link rel="apple-touch-icon"
@@ -62,7 +62,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -81,7 +81,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="form-group ">
                         <div class="col-lg-5"></div>
                          <div class="col-lg-5">
@@ -118,8 +118,8 @@
 										<td>${vehicleOwners.ownerName}</td>
 										<td>${vehicleOwners.ownerContactNo}</td>
 										
-										<th ><a href="${pageContext.request.contextPath}/showEditVehicleOwnertDetails/${vehicleOwners.ownerId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteOwner(${vehicleOwners.ownerId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
+										<th ><c:if test="${operationOfAccessRight.edit==1 }"><a href="${pageContext.request.contextPath}/showEditVehicleOwnertDetails/${vehicleOwners.ownerId}"><i class="fa fa-edit" aria-hidden="true"></i></a> </c:if> &nbsp; | &nbsp;
+									<c:if test="${operationOfAccessRight.mdelete==1 }">	<a href="#" onclick="deleteOwner(${vehicleOwners.ownerId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a></c:if> </th>
 									</tr>
 									</c:forEach>
 								</tbody>

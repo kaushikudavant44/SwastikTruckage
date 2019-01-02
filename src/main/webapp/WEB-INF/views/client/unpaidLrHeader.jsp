@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Data Table</title>
+<title>Swastik Truckage</title>
 
 
 <link rel="apple-touch-icon"
@@ -65,7 +65,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -84,7 +84,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="content mt-3">
 	<div class="form-group ">
@@ -102,7 +102,7 @@
 				<div class="col-md-12">
 					<div class="cardview">
 						<div class="cardview-header">
-							<strong class="card-title">Data Table</strong>
+							<strong class="card-title">Show All UnPiad LR</strong>
 						</div>
 						<div class="card-body">
 <form action="${pageContext.request.contextPath}" method="GET">
@@ -145,18 +145,21 @@
                                       <td>${lrHeaderList.localTempo}</td>
                                        <td>${lrHeaderList.hamali}</td>
 						
-						        <c:choose>
-                              <c:when test="${lrHeaderList.paymentBy==0}">
+						       
+                              <c:if test="${lrHeaderList.paymentBy==0}">
                               
-  							<td>Consignee</td>
+  							<td>To Be Bill</td>
   							
-  							</c:when>
-  							<c:when test="${lrHeaderList.paymentBy==1}">
+  							</c:if>
+  							<c:if test="${lrHeaderList.paymentBy==1}">
                               
-  								<td>Consignor</td>
+  								<td>To Pay</td>
   							
-  							</c:when>
-  							</c:choose>
+  							</c:if>
+  							<%-- <c:if test="${lrHeaderList.paymentBy==2}">
+  							<td>Paid</td>
+  							</c:if>
+  						 --%>
 						
 									
 							<td>${lrHeaderList.total}</td>

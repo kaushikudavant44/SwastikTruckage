@@ -95,7 +95,9 @@
 					<div class="cardview">
 						<div class="cardview-header">
 						<strong class="card-title">List Of Staff</strong>
+							<c:if test="${operationOfAccessRight.add==1}">
 							<strong class="card-title">	<a href="${pageContext.request.contextPath}/showOfficeStaffReg" class="an-button">Add Staff</a></strong>
+							</c:if>
 						</div>
 						<div class="card-body">
 
@@ -108,7 +110,7 @@
 										<th>Office</th>
 										<th>Contact No</th>
 										<th>Address</th>
-										<th>User Name</th>
+									<!-- 	<th>User Name</th> -->
 										<th>Password</th>
 										<!-- <th>Role</th> -->
 										<th>Action</th>
@@ -123,20 +125,41 @@
 										 <td>${staffList.officeName}</td> 
 										<td>${staffList.staffContactNo}</td>
 										<td>${staffList.staffAddress}</td>
-										<td>${staffList.userName}</td>
+										<%-- <td>${staffList.userName}</td> --%>
 										<td>${staffList.password}</td>
 										<%-- <td>${staffList.roleName}</td> --%>
 										<td><div class="fa-hover col-lg-3 col-md-6">
+									<c:choose><c:when test="${operationOfAccessRight.edit==1}">
+										
 										<a
 														href="${pageContext.request.contextPath}/editStaffDetails/${staffList.staffId}"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
+														class="fa fa-edit"></i> <span class="text-muted"></span></a>
+														</c:when>
+										<c:otherwise>
+										<a href="#"><i
+														class="fa fa-ban"></i> <span class="text-muted"></span></a>
+										</c:otherwise>
+										
+											</c:choose>	
+														
+														</div>
 														<div class="fa-hover col-lg-3 col-md-6">
+														<c:choose>
+														<c:when test="${operationOfAccessRight.mdelete==1}">
+														
 														<a
 														href="#" onclick="deleteStaff(${staffList.staffId})"><i
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+													
 														
+														</c:when>
+														<c:otherwise>
+														<a href="#"><i
+														class="fa fa-ban"></i> <span class="text-muted"></span></a>
+														
+														</c:otherwise>
+														</c:choose>
 														</div>
-										
 										</td>
 									</tr>
 								</c:forEach>

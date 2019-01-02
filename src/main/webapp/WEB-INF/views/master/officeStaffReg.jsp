@@ -144,7 +144,7 @@
 										</div>
 									</div>
 
-									<div class="col-md-2">
+									<%-- <div class="col-md-2">
 										Staff Role
 									</div>
 									<div class="col-md-4">
@@ -162,28 +162,9 @@
 											</c:forEach> 
 										</select>
 									</div>
-									</div>
-								</div>
-								
-								&nbsp;
-								
-								
-								<div class="row">
-									<div class="col-md-2">
-										 Username
-									</div>
-									<div class="col-md-4">
-
-										<div class="input-group">
-
-											<input class="form-control" name="userName" id="userName"
-												required
-												type="text" > <span class="error"
-												aria-live="polite"></span>
-										</div>
-									</div>
-
-									<div class="col-md-2">
+									</div> --%>
+									
+										<div class="col-md-2">
 									Password
 									</div>
 									<div class="col-md-4">
@@ -197,6 +178,27 @@
 										</div>
 									</div>
 								</div>
+								
+								
+								
+								
+								<!-- <div class="row">
+									< div class="col-md-2">
+										 Username
+									</div>
+									<div class="col-md-4">
+
+										<div class="input-group">
+
+											<input class="form-control" name="userName" id="userName"
+												required
+												type="text" > <span class="error"
+												aria-live="polite"></span>
+										</div>
+									</div>
+
+								
+								</div> -->
 								&nbsp;
 								
 								

@@ -120,13 +120,13 @@
 										<td>${getAllMemoList.memoNo}</td>
 										<td>${getAllMemoList.vehNo}</td>
 										<td>${getAllMemoList.driverName}</td>
-										<td><%-- <div class="fa-hover col-lg-3 col-md-6">
+										<td><div class="fa-hover col-lg-3 col-md-6">
 										
 														<a
 														href="${pageContext.request.contextPath}/showVoucherReg/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-file-text-o" title="Create Voucher"></i> <span class="text-muted"></span></a>
 														</div> --%>
-														
+											<%-- 			
 														<a
 														href="${pageContext.request.contextPath}/memoPreview/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>

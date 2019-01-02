@@ -126,15 +126,22 @@
 										<td>${lrDetailsList.particular}</td>
 										<td>${lrDetailsList.quantity}</td>
 										<td>${lrDetailsList.amount}</td>
-										<td><div class="fa-hover col-lg-3 col-md-6">
+										<td>
+										<c:if test="${operationOfAccessRight.edit==1 }"> 
+										<div class="fa-hover col-lg-3 col-md-6">
 										<a
 														href="${pageContext.request.contextPath}/editLRDetails/${lrDetailsList.lrHeaderId}"><i
 														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
+														</c:if>
+														
+														<c:if test="${operationOfAccessRight.mdelete==1 }"> 
 														<div class="fa-hover col-lg-3 col-md-6">
 														<a
 														href="${pageContext.request.contextPath}/deleteLr/${lrDetailsList.lrHeaderId}"><i
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
 														</div>
+														
+														</c:if>
 														<div class="fa-hover col-lg-3 col-md-6">
 														<a
 														href="${pageContext.request.contextPath}/showLrPreview/${lrDetailsList.lrHeaderId}"><i

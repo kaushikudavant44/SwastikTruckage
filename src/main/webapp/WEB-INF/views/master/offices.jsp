@@ -96,7 +96,14 @@
 					<div class="cardview">
 						<div class="cardview-header">
 							<strong class="card-title">List Of Offices</strong>
+							<c:choose>	
+							<c:when test="${operationOfAccessRight.edit==1 }">
 							<strong class="card-title"><a href="${pageContext.request.contextPath}/showOfficeReg" class="an-button">Add Office</a></strong>
+							</c:when>
+							<c:otherwise>
+							
+							</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="card-body">
 
@@ -121,17 +128,43 @@
 										<td>${officeList.officeContactNo}</td>
 										<td>${officeList.officeAddress}</td>
 										<td>${officeList.faxNo}</td>
-										<td><div class="fa-hover col-lg-3 col-md-6">
+										<td>
+										<div class="fa-hover col-lg-3 col-md-6">
+										<c:choose>
+										
+										<c:when test="${operationOfAccessRight.edit==1}">
+										
+									
+										
 										<a
 														href="${pageContext.request.contextPath}/editOfficeDetails/${officeList.officeId}"><i
-														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
-														<div class="fa-hover col-lg-3 col-md-6">
+														class="fa fa-edit"></i> <span class="text-muted"></span></a>
+										</c:when>
+										<c:otherwise>
+										
+										<a href="#"><i
+														class="fa fa-ban"></i> <span class="text-muted"></span></a>
+										</c:otherwise>
+										</c:choose>		
+										</div>
+										<div class="fa-hover col-lg-3 col-md-6">
+										<c:choose>	
+										<c:when test="${operationOfAccessRight.mdelete==1}">
+														
 														<a
 														href="#" onclick="deleteOffice(${officeList.officeId})"><i
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
 														
-														</div>
+														
+										</c:when>
+										<c:otherwise>
 										
+										<a href="#"><i
+														class="fa fa-ban"></i> <span class="text-muted"></span></a>
+										</c:otherwise>
+										
+										</c:choose>
+										</div>
 										</td>
 										
 										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>

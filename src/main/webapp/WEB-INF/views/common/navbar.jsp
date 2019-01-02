@@ -77,7 +77,7 @@
 						 
 							
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/${navBarSubMainMenu.subMenuUrl}" onclick="setAccessRight(${navBarSubMainMenu.menuId},${navBarSubMainMenu.subMenuId})">${navBarSubMainMenu.subMenuName}</a></li>
+							href="${pageContext.request.contextPath}/${navBarSubMainMenu.subMenuUrl}" onclick="setAccessRight(${navBarSubMainMenu.menuId},${navBarSubMainMenu.subMenuId},${navBarSubMainMenu.view},${navBarSubMainMenu.edit},${navBarSubMainMenu.mdelete}, ${navBarSubMainMenu.add})">${navBarSubMainMenu.subMenuName}</a></li>
 								
 					 
 						
@@ -217,7 +217,7 @@
 		</div>
 
 <script type="text/javascript">
-function setAccessRight(menuId,subMenuId){
+function setAccessRight(menuId,subMenuId, view, edit, mdelete, add){
 
 $('input:checkbox').removeAttr('checked');
 $
@@ -227,6 +227,10 @@ $
 		
 			menuId : menuId,
 			subMenuId : subMenuId,
+			view : view,
+			edit : edit,
+			mdelete : mdelete,
+			add : add,
 		ajax : 'true'
 		
 	});

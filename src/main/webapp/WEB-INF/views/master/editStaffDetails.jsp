@@ -146,7 +146,7 @@
 										</div>
 									</div>
 
-									<div class="col-md-2">
+									<%-- <div class="col-md-2">
 										Staff Role
 									</div>
 									<div class="col-md-4">
@@ -172,10 +172,24 @@
 											</c:forEach> 
 										</select>
 									</div>
+									</div> --%>
+									<div class="col-md-2">
+									Password
 									</div>
+									<div class="col-md-4">
+										<div class="input-group">
+
+											<input class="form-control" name="password" id="password" autocomplete="off"
+												type="pincode" required value="${staffDetails.password}"
+												oninvalid="setCustomValidity('Please enter password ')"
+												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												class="error" aria-live="polite"></span>
+										</div>
+									</div>
+									
 								</div>
 								
-								&nbsp;
+							<%-- 	&nbsp;
 								
 								
 								<div class="row">
@@ -193,20 +207,8 @@
 										</div>
 									</div>
 
-									<div class="col-md-2">
-									Password
-									</div>
-									<div class="col-md-4">
-										<div class="input-group">
-
-											<input class="form-control" name="password" id="password" autocomplete="off"
-												type="pincode" required value="${staffDetails.password}"
-												oninvalid="setCustomValidity('Please enter password ')"
-												onchange="try{setCustomValidity('')}catch(e){}" /> <span
-												class="error" aria-live="polite"></span>
-										</div>
-									</div>
-								</div>
+									
+								</div> --%>
 								&nbsp;
 								
 								

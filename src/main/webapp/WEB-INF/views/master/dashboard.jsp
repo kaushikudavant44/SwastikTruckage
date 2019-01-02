@@ -81,7 +81,7 @@
 										<span class="count" style="font-size: 50px;">${lrCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">Created Lr's</font>
+										<font color="white">Created LR</font>
 									</p>
 
 								</div>
@@ -114,7 +114,7 @@
 										<span class="count" style="font-size: 50px;">${pendingLrCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">Pending Lr Delivery</font>
+										<font color="white">Pending LR Delivery</font>
 									</p>
 
 								</div>
@@ -195,7 +195,7 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="cardview">
 							<div class="cardview-header">
-								<strong>Last 15 Days Created Lr</strong>
+								<strong>Last 15 Days Created LR</strong>
 							</div>
 							<div class="card-body card-block">
 

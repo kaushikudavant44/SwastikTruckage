@@ -63,7 +63,7 @@
 	<!-- Header-->
 
 
-	<div class="breadcrumbs">
+	<!-- <div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	
 	  <div class="form-group ">
                         <div class="col-lg-5"></div>
@@ -128,8 +128,9 @@
 										<td>${allClientDetails.clientAddress}</td>
 										<td>${allClientDetails.pincode}</td>
 										<td>${allClientDetails.gstin}</td>
-										<th ><a href="${pageContext.request.contextPath}/showEditClientDetails/${allClientDetails.clientId}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp; | &nbsp;
-										<a href="#" onclick="deleteClient(${allClientDetails.clientId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a> </th>
+										<th >
+										<c:if test="${operationOfAccessRight.edit==1 }"> <a href="${pageContext.request.contextPath}/showEditClientDetails/${allClientDetails.clientId}"><i class="fa fa-edit" aria-hidden="true"></i></a></c:if>  &nbsp; | &nbsp;
+										<c:if test="${operationOfAccessRight.mdelete==1 }"> <a href="#" onclick="deleteClient(${allClientDetails.clientId})"><i class="fa  fa-trash-o" aria-hidden="true"></i></a></c:if> </th>
 									</tr>
 									</c:forEach>
 								</tbody>
