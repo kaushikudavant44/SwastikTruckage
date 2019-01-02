@@ -208,12 +208,12 @@ public class MasterController {
 				// TODO: handle exception
 			}
 			officeStaff.setPassword(request.getParameter("password"));
-			officeStaff.setRoleId(Integer.parseInt(request.getParameter("roleId")));
+			officeStaff.setRoleId(0);
 			officeStaff.setStaffAddress(request.getParameter("staffAddress"));
 			officeStaff.setStaffContactNo(request.getParameter("staffContactNo"));
 			officeStaff.setStaffName(request.getParameter("staffName"));
 			officeStaff.setStaffOfficeId(Integer.parseInt(request.getParameter("staffOfficeId")));
-			officeStaff.setUserName(request.getParameter("userName"));
+			officeStaff.setUserName("");
 			officeStaff.setUsed(true);
 		
 			OfficeStaff officeStaffRes=officeStaffRepository.save(officeStaff);

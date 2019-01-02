@@ -38,13 +38,9 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 
 		if (path.equalsIgnoreCase("/sessionTimeOut") || path.equalsIgnoreCase("/")
 				|| path.equalsIgnoreCase("/staffLoginProcess")
-				 
-				
-				
-				)
-			
-			
-			
+
+		)
+
 		{
 
 			return true;
@@ -54,7 +50,6 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 
 			try {
 
-			
 				officeStaff = (OfficeStaff) session.getAttribute("staffDetails");
 
 			} catch (Exception e) {
@@ -65,12 +60,11 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 				return false;
 			}
 
-			if (officeStaff == null ) {
-
+			if (officeStaff == null) {
 
 				response.sendRedirect(request.getContextPath() + "/sessionTimeOut");
 				return false;
-			} 
+			}
 
 			else {
 

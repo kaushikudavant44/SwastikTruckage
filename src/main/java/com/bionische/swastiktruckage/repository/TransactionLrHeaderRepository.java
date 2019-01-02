@@ -68,5 +68,9 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 			"AND h.delivery_status=4 AND h.is_used=TRUE ",nativeQuery=true)
 	int getPendingLrDeliveryCount();
 	
+	
+	@Query(value="SELECT * from t_lr_header where lr_date between :fromDate AND :toDate AND truck_no=:vehNo ORDER BY lr_no ASC",nativeQuery=true)
+	List<TransactionLrHeader> lrListByDateAndVehNo(@Param("fromDate")String fromDate,@Param("toDate")String toDate,@Param("vehNo")String vehNo);
+	
 
 }

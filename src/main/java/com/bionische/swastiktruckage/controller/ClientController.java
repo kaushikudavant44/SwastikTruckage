@@ -238,7 +238,7 @@ public class ClientController {
 		System.out.println("clientId:"+clientId);
 		
 		ModelAndView model=new ModelAndView("client/lrBilling");
-		addedLrList=null;
+		addedLrList.clear();
 		try {
 			ClientDetails clientDetails = clientDetailsRepository.findByClientId(clientId);
 			/*
@@ -264,6 +264,9 @@ public class ClientController {
 		System.out.println("lrNO:"+lrNO);
 		
 		TransactionLrHeader transactionLrHeader = transactionLrHeaderRepository.findByLrNoAndBillStatus(lrNO,0);
+		System.out.println("Tra LR "+transactionLrHeader.toString());
+		
+		
 		if(transactionLrHeader!=null)
 		{
 			addedLrList.add(transactionLrHeader); 

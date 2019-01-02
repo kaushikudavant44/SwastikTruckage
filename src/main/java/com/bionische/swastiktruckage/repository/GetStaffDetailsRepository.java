@@ -9,9 +9,9 @@ import com.bionische.swastiktruckage.model.GetStaffDetails;
 
 public interface GetStaffDetailsRepository extends JpaRepository<GetStaffDetails,Integer>{
 	
-	@Query(value="SELECT s.staff_id,s.is_used,s.password,s.role_id,s.staff_address,s.staff_contact_no,s.staff_name,s.staff_office_id," + 
-			"s.user_name, o.office_name, r.role_name FROM m_office_staff s,m_office o,m_staff_roles r WHERE s.role_id= r.role_id AND s.staff_office_id=o.office_id "
-			+ "AND s.is_used=true",nativeQuery=true)
+	@Query(value="SELECT s.staff_id,s.is_used,s.password,s.role_id,s.staff_address,s.staff_contact_no,s.staff_name,s.staff_office_id, " + 
+			"s.user_name, o.office_name FROM m_office_staff s,m_office o WHERE s.staff_office_id=o.office_id  " + 
+			"AND s.is_used=TRUE",nativeQuery=true)
 	List<GetStaffDetails> findAllStaff();
 	
 }

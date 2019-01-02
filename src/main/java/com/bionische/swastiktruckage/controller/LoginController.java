@@ -83,6 +83,7 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 			System.out.println("Success");
 			StaffRoles staffRolesRes=staffRolesRepository.findByStaffId(officeStaffDetails.getStaffId());
 			 ObjectMapper mapper = new ObjectMapper();
+			
 			 List<NavBarSubMainMenu> navBarSubMainMenuList = mapper.readValue(staffRolesRes.getRole(), List.class);
 			 System.out.println("navBarSubMainMenuList "+navBarSubMainMenuList.toString());
 			List<NavBarMainMenu> navBarMainMenuList=navBarMainMenuRepository.findAll();
@@ -141,5 +142,19 @@ private static final Logger logger = LoggerFactory.getLogger(MasterController.cl
 		return model;
 
 	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+
+	public ModelAndView logout(HttpServletRequest request)   
+	{
+		ModelAndView model=new ModelAndView("login/login");		
+
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		session.invalidate();
+		
+		return model;
+		
+	}	
 
 }

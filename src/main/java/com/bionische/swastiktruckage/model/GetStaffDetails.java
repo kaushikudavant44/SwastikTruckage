@@ -38,9 +38,6 @@ public class GetStaffDetails {
 	@Column(name="is_used")
 	private boolean isUsed;
 	
-	@Column(name="role_name")
-	private String roleName;
-	
 	@Column(name="office_name")
 	private String officeName;
 
@@ -116,13 +113,7 @@ public class GetStaffDetails {
 		this.isUsed = isUsed;
 	}
 
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+	
 
 	public String getOfficeName() {
 		return officeName;
@@ -136,10 +127,11 @@ public class GetStaffDetails {
 	public String toString() {
 		return "GetStaffDetails [staffId=" + staffId + ", staffOfficeId=" + staffOfficeId + ", staffName=" + staffName
 				+ ", staffContactNo=" + staffContactNo + ", staffAddress=" + staffAddress + ", userName=" + userName
-				+ ", password=" + password + ", roleId=" + roleId + ", isUsed=" + isUsed + ", roleName=" + roleName
-				+ ", officeName=" + officeName + "]";
+				+ ", password=" + password + ", roleId=" + roleId + ", isUsed=" + isUsed + ", officeName=" + officeName
+				+ "]";
 	}
-	
+
+
 	
 	
 }

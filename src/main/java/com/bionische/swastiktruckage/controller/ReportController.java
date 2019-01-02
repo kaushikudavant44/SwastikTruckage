@@ -23,12 +23,14 @@ import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
+import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.model.GetPaymentDetails;
 import com.bionische.swastiktruckage.repository.GetPaymentDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrCollectionRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
+import com.bionische.swastiktruckage.repository.VehicleDetailsRepository;
 
 @Controller
 public class ReportController {
@@ -47,6 +49,9 @@ public class ReportController {
 	
 	@Autowired
 	GetPaymentDetailsRepository getPaymentDetailsRepository;
+	
+	@Autowired
+	VehicleDetailsRepository vehicleDetailsRepository;
 	
 	
 	public List<LrBilling> lrHeaderList;
@@ -237,7 +242,11 @@ public class ReportController {
 	else if(type==4) {
 	  
 	  ExcelWriter.collectionExcel(collectionList);
-	  url="redirect:/showLrListByDate"; }
+	  url="redirect:/showLrListByDate"; 
+	  }else if(type==5) {
+		  ExcelWriter.lrExcel(lrList);
+		  url="redirect:/showDataLrListByDateAndVehicleWise";
+	  }
 	  
 	  } catch (IOException e) 
 		 { // TODO Auto-generated catch block
@@ -248,6 +257,73 @@ public class ReportController {
 	  
 	  }
 	 
+	  
+	  @RequestMapping(value="/showDataLrListByDateAndVehicleWise", method=RequestMethod.GET)
+
+		public ModelAndView showDataLrListByDateAndVehicleWise(HttpServletRequest request)   
+		{
+			ModelAndView model=new ModelAndView("report/vehicleWiseReport");
+			
+			try
+			{
+				
+				List<VehicleDetails> vehicleDetailsList=new ArrayList<>();
+				
+				vehicleDetailsList=vehicleDetailsRepository.findAll();
+				
+				 model.addObject("from",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+				 model.addObject("to",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+				
+				model.addObject("vehicleDetailsList", vehicleDetailsList);
+			}
+				catch (Exception e) {
+					e.printStackTrace();
+					
+				}
+			return model;
+			
+		}
+	  
+	  
+	  @RequestMapping(value="/getDataLrListByDateAndVehicleWise", method=RequestMethod.GET)
+
+		public ModelAndView getDataLrListByDateAndVehicleWise(HttpServletRequest request)   
+		{
+			ModelAndView model=new ModelAndView("report/vehicleWiseReport");
+			
+			try
+			{
+				
+				String fromDate = request.getParameter("from");
+				String toDate = request.getParameter("to");
+				String vehNo=request.getParameter("vehNo");
+				
+				
+				if(fromDate!=null && toDate!=null && vehNo!=null)
+				{
+					lrList = transactionLrHeaderRepository.lrListByDateAndVehNo(fromDate,toDate,vehNo);
+				 model.addObject("from",fromDate);
+				 model.addObject("to",toDate);
+				
+				}
+				float totalBill = 0;
+				for(TransactionLrHeader lr:lrList)
+				{
+					totalBill+=lr.getTotal();
+				}
+				
+				model.addObject("vehNo", vehNo);
+				model.addObject("lrList",lrList);
+				model.addObject("totalLr",lrList.size());
+				model.addObject("totalBill",totalBill);
+			}
+				catch (Exception e) {
+					e.printStackTrace();
+					
+				}
+			return model;
+			
+		}
 	
 	
 }
