@@ -141,7 +141,11 @@ public class ClientController {
 		clientDetails.setClientContactNo(request.getParameter("contactNo"));
 		clientDetails.setClientName(request.getParameter("name"));
 		clientDetails.setGstin(request.getParameter("gst"));
+		try {
 		clientDetails.setPincode(Integer.parseInt(request.getParameter("pincode")));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		clientDetails.setStateId(Integer.parseInt(request.getParameter("stateId")));
 		clientDetails.setUsed(true);
 		

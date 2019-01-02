@@ -291,7 +291,7 @@
 										
 										<td>${count.index+1 }</td>
 										<td>${lrDetailsList.officeName}</td>
-										<td>${lrDetailsList.lrNo}</td>
+										<td><strong>${lrDetailsList.lrNo}</strong></td>
 										<td>${lrDetailsList.lrDate}</td>
 										<td>${lrDetailsList.consignor}</td>
 										<td>${lrDetailsList.consignee}</td>
@@ -426,7 +426,7 @@
 					
 	    	 }else{
 	    		 selectedRowList.push($(this).data('value'));
-	    		 alert(JSON.stringify(selectedRowList));
+	    		 
 
 	            $(this).addClass('selected');
 	    }

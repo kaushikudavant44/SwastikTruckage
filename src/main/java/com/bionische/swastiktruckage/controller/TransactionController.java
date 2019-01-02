@@ -115,8 +115,9 @@ public class TransactionController {
 	@RequestMapping(value = "/showLRRegistration", method = RequestMethod.GET)
 
 	public ModelAndView showLR(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView("transaction/lrGenerate");
+		/*ModelAndView model = new ModelAndView("transaction/lrGenerate");*/
 
+		ModelAndView model = new ModelAndView("transaction/tempLRCreate");
 		try {
 			lrContaintDetailsList.clear();
 			transactionLrInvoiceDetailList.clear();
@@ -698,6 +699,141 @@ public class TransactionController {
 
 	}
 	
+	
+	@RequestMapping(value = "/insertTempLR", method = RequestMethod.POST)
+
+	public String insertTempLR(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("transaction/tempLRCreate");
+		
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		int staffId=officeStaff.getStaffId();
+		TransactionLrHeader transactionLrHeaderRes1 = null;
+		int lrId=0;
+		try {
+			TransactionLrInvoiceHeader transactionLrInvoiceHeader = new TransactionLrInvoiceHeader();
+
+			// transactionLrContaintDetails=new TransactionLrContaintDetails();
+
+			transactionLrInvoiceHeader.setUsed(true);
+			TransactionLrInvoiceHeader transactionLrInvoiceHeaderRes = transactionLrInvoiceHeaderRepository.save(transactionLrInvoiceHeader);
+			String invoiceNumbers=request.getParameter("invoiceNo");
+			
+			String[] invNo=invoiceNumbers.split(",");
+			System.out.println("cd"+invNo.toString());
+			if(transactionLrInvoiceHeaderRes !=null) {
+				
+				for(int i=0;i<invNo.length;i++) {
+					
+					TransactionLrInvoiceDetail transactionLrInvoiceDetail=new TransactionLrInvoiceDetail();
+					transactionLrInvoiceDetail.setInvHeaderId(transactionLrInvoiceHeaderRes.getInvHeaderId());
+					transactionLrInvoiceDetail.setInvNo((Integer.parseInt(invNo[i])));
+					transactionLrInvoiceDetailList.add(transactionLrInvoiceDetail);
+					
+				}
+				
+			}
+			List<TransactionLrInvoiceDetail> transactionLrInvoiceDetailListRes=transactionLrInvoiceDetailRepository.saveAll(transactionLrInvoiceDetailList);
+			
+			System.out.println("Invoice details"+transactionLrInvoiceDetailListRes.toString());
+			
+			
+			/*try {
+				TransactionLrHeader transactionLrHeaderRes=transactionLrHeaderRepository.findLastRecord();
+				if(transactionLrHeaderRes!=null) {
+					lrId=transactionLrHeaderRes.getLrNo();
+					lrId++;
+				}else {
+					lrId=180001;
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}*/
+			
+			
+			TransactionLrHeader transactionLrHeader=new TransactionLrHeader();
+			
+			String lrDate=DateConverter.convertToYMD(request.getParameter("lrDate"));
+			
+			transactionLrHeader.setLrNo(Integer.parseInt(request.getParameter("lrNo")));
+			transactionLrHeader.setInvHeaderId(transactionLrInvoiceHeaderRes.getInvHeaderId());
+			transactionLrHeader.setFromId(Integer.parseInt(request.getParameter("fromId")));
+			transactionLrHeader.setConsignor(Integer.parseInt(request.getParameter("consignor")));
+			transactionLrHeader.setLrDate(lrDate);
+			transactionLrHeader.setConsigneeId(Integer.parseInt(request.getParameter("consigneeId")));
+			transactionLrHeader.setTruckNo(request.getParameter("truckNo"));
+			transactionLrHeader.setWeight(Float.parseFloat(request.getParameter("weight")));
+			transactionLrHeader.setFreight(Float.parseFloat(request.getParameter("freight")));
+			transactionLrHeader.setGst(Float.parseFloat(request.getParameter("gst")));
+			transactionLrHeader.setHamali(Float.parseFloat(request.getParameter("hamali")));
+			transactionLrHeader.setB_c_charge(Float.parseFloat(request.getParameter("bccharge")));
+			transactionLrHeader.setKata(Float.parseFloat(request.getParameter("kata")));
+			transactionLrHeader.setLocalTempo(Float.parseFloat(request.getParameter("localtempo")));
+			transactionLrHeader.setBharai(Float.parseFloat(request.getParameter("bharai")));
+			transactionLrHeader.setDd_charges(Float.parseFloat(request.getParameter("ddcharges")));
+			transactionLrHeader.setTotal(Float.parseFloat(request.getParameter("total")));
+			transactionLrHeader.setPaymentBy(Integer.parseInt(request.getParameter("paymentBy")));
+			transactionLrHeader.setBillStatus(0);
+			transactionLrHeader.setDeliveryStatus(0);
+			transactionLrHeader.setUsed(true);
+			
+			
+			 transactionLrHeaderRes1=transactionLrHeaderRepository.save(transactionLrHeader);
+			
+			System.out.println("dds0"+transactionLrHeaderRes1.toString());
+			
+			if (transactionLrHeaderRes1 != null) {
+				ClientDetails	clientDetails = clientDetailsRepository.findByClientId(transactionLrHeaderRes1.getConsignor());
+			
+				SMSSender.send(clientDetails.getClientContactNo(),"LR has been generated");
+			}
+			
+			if (transactionLrHeaderRes1 != null) {
+			
+				
+				System.out.println("dccdfvfv" + lrContaintDetailsList.toString());
+				
+				for (int i = 0; i < lrContaintDetailsList.size(); i++) {
+					
+					TransactionLrContaintDetails transactionLrContaintDetails=new TransactionLrContaintDetails();
+					
+					
+					transactionLrContaintDetails.setLrHeaderId(transactionLrHeaderRes1.getLrHeaderId());
+					transactionLrContaintDetails.setDescription(lrContaintDetailsList.get(i).getDescription());
+					transactionLrContaintDetails.setGoodsId(lrContaintDetailsList.get(i).getGoodsId());
+					transactionLrContaintDetails.setNoOfContaints(lrContaintDetailsList.get(i).getNoOfContaints());
+					transactionLrContaintDetailsList.add(transactionLrContaintDetails);
+				}
+				
+			}
+			
+			 List<TransactionLrContaintDetails> transactionLrContaintDetailsListRes=transactionLrContaintDetailsRepository.saveAll(transactionLrContaintDetailsList);
+			
+			 System.out.println("result"+transactionLrContaintDetailsListRes);
+		try {
+			
+			 LrLogs lrLogs=new LrLogs();
+			 
+			 lrLogs.setLrNo(transactionLrHeaderRes1.getLrNo());
+			 lrLogs.setModifiedById(staffId);
+			 lrLogs.setModifiedByOffice(transactionLrHeaderRes1.getFromId());
+			 lrLogs=lrLogsRepository.save(lrLogs);
+			 System.out.println("xsxs"+lrLogs.toString());
+		
+
+		} catch (Exception e) {
+				e.printStackTrace();
+		}	
+		
+		
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showLrPreview/"+transactionLrHeaderRes1.getLrHeaderId();
+
+	}
 	
 	
 }

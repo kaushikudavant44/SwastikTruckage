@@ -63,9 +63,7 @@
 
 
 </head>
-<div id="loader">
-		</div>
-<body onload="getTotal()" id="bgbdy">
+<body onload="getTotal()">
 
 
 	<!-- Left Panel -->
@@ -110,8 +108,8 @@
 							<strong>Create LR</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertLR"
-								method="post" id="submitLR">
+							<form action="${pageContext.request.contextPath}/insertTempLR"
+								method="post">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
@@ -231,17 +229,17 @@
 														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
-											<div class="col-md-5"></div>
-											<!-- <div class="col-md-2">TRUCK No.:</div>
+											<!-- <div class="col-md-5"></div> -->
+										 <div class="col-md-2">LR No.:</div>
 											<div class="col-md-3">
 												<div class="input-group">
 
-													<input class="form-control" name="truckNo" id="truckNo"
-														type="text" tabindex="1" /> <span class="error"
+													<input class="form-control" name="lrNo" id="lrNo"
+														type="text" tabindex="4" /> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
-											</div> -->
+											</div> 
 
 											<div class="col-md-2"></div>
 										</div>
@@ -260,7 +258,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy" id="paymentByTobe"
-														type="radio" value="0" tabindex="4" /> <span class="error"
+														type="radio" value="0" tabindex="5" /> <span class="error"
 														aria-live="polite"></span>
 
 
@@ -275,7 +273,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy" id="paymentByToPay"
-														type="radio" value="1" tabindex="5" /> <span
+														type="radio" value="1" tabindex="6" /> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -285,7 +283,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy" id="paymentByPaid"
-														type="radio" value="2" tabindex="6" checked /> <span class="error"
+														type="radio" value="2" tabindex="7" checked /> <span class="error"
 														aria-live="polite"></span>
 
 
@@ -306,7 +304,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="weight" id="weight"
-														type="number" required min="0" value="" tabindex="7" /> <span
+														type="number" required min="0" value="" tabindex="8" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
@@ -316,7 +314,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="freight" id="freight"
-														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="8"/> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="9"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -328,7 +326,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="gst" id="gst"
-														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="9"/> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="10"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -352,7 +350,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="hamali" id="hamali"
-														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="10"/> <span
+														type="number" value="0" min="0" onkeyup="getTotal()" tabindex="11"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -364,7 +362,7 @@
 
 													<input class="form-control" name="bccharge" id="bccharge"
 														type="number" required value="0" min="0"
-														onkeyup="getTotal()" tabindex="11"/> <span class="error"
+														onkeyup="getTotal()" tabindex="12"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -374,7 +372,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="kata" id="kata" value="0"
-														type="number" min="0" onkeyup="getTotal()" tabindex="12"/> <span
+														type="number" min="0" onkeyup="getTotal()" tabindex="13"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -399,7 +397,7 @@
 
 													<input class="form-control" name="localtempo"
 														id="localtempo" value="0" type="number" min="0"
-														onkeyup="getTotal()" tabindex="13"/> <span class="error"
+														onkeyup="getTotal()" tabindex="14"/> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -411,7 +409,7 @@
 
 													<input class="form-control" name="bharai" id="bharai"
 														type="number" min="0" required value="0"
-														onkeyup="getTotal()" value="0" tabindex="14"/> <span class="error"
+														onkeyup="getTotal()" value="0" tabindex="15"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
 											</div>
@@ -421,7 +419,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="ddcharges" id="ddcharges"
-														type="number" min="0" onkeyup="getTotal()" value="0" tabindex="15"/> <span
+														type="number" min="0" onkeyup="getTotal()" value="0" tabindex="16"/> <span
 														class="error" aria-live="polite"></span>
 
 												</div>
@@ -440,7 +438,7 @@
 											<div class="input-group">
 
 												<input class="form-control" name="invoiceNo" id="invoiceNo"
-													type="text" required value="" tabindex="16"/> <span class="error"
+													type="text" required value="" tabindex="17"/> <span class="error"
 													aria-live="polite"></span>
 											</div>
 										</div>
@@ -455,7 +453,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="total" id="total"
-														type="text" tabindex="17" readonly> <span class="error"
+														type="text" tabindex="18" readonly> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -510,7 +508,7 @@
 											<div class="input-group">
 
 												<input class="form-control" name="noOfContaint"
-													id="noOfContaint" type="number" required value="" tabindex="18"/> <span
+													id="noOfContaint" type="number" required value="" tabindex="19"/> <span
 													class="error" aria-live="polite"></span>
 											</div>
 										</div>
@@ -520,7 +518,7 @@
 											<div class="input-group">
 
 												<select id="goodsId" name="goodsId"
-														class="standardSelect" tabindex="19">
+														class="standardSelect" tabindex="20">
 														<option value=""></option>
 														<c:forEach items="${goodsList}" var="goodsList">
 
@@ -540,13 +538,13 @@
 
 											<div class="input-group">
 												<textarea class="form-control" name="description"
-													id="description" type="text" required value="1" row="2" tabindex="20"></textarea>
+													id="description" type="text" required value="1" row="2" tabindex="21"></textarea>
 												<span class="error" aria-live="polite"></span>
 
 											</div>
 										</div>
 										<div class="col-md-1">
-											<input type="button" value="add" onclick="addContaints()" tabindex="21"/>
+											<input type="button" value="add" onclick="addContaints()" tabindex="22"/>
 										</div>
 									</div>
 								</div>
@@ -739,7 +737,7 @@ $.getJSON('${addContaint}', {
 		                 '<a href="#" onclick="deleteContaint('+key+')"><i class="fa fa-trash-o"></i> <span class="text-muted"></span></a>' ] ).draw();
 			
 					});
-		
+		 document.getElementById("noOfContaint").focus();
 
 	});
 	
@@ -956,10 +954,7 @@ $(document).ready(function(){
     });
 });
 
-$('#submitLR').submit(function() {
-	$('#loader').addClass("loader");
-	$('#bgbdy').addClass("bg-body");
-});
+
 </script>
 
 

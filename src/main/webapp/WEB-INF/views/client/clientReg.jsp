@@ -164,7 +164,7 @@
 															<div class="input-group-addon">
 																<i class="fa fa-phone"></i>
 															</div>
-															<input required class="form-control" name="contactNo">
+															<input class="form-control" name="contactNo">
 														</div>
 													</div>
 												</div>
@@ -216,14 +216,14 @@
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">Pincode</label> <input
-															required class="form-control" name="pincode">
+															 class="form-control" name="pincode">
 													</div>
 												</div>
 												
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">GST</label>
-													 <input name="gst" class="gstinnumber" required>
+													 <input name="gst" class="gstinnumber">
 													</div>
 												</div>
 

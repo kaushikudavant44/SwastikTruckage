@@ -433,7 +433,7 @@
 			
 			
 		 }
-		 alert(JSON.stringify(selectedLrHeaderId));
+		
 	}
 	
 	

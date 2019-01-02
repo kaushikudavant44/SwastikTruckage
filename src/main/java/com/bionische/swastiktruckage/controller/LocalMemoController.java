@@ -125,7 +125,7 @@ public class LocalMemoController {
 		try {
 			
 			getAllLrDetails=getAllLrDetailsRepository.findReceiveLrBylrNoAndOfficeId(lrNo,officeId);
-			System.out.println(getAllLrDetails.toString());
+
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
