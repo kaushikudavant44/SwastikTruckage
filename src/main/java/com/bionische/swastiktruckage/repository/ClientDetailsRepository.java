@@ -29,7 +29,7 @@ public interface ClientDetailsRepository extends JpaRepository<ClientDetails, In
 	
 	@Query(value="SELECT c.* FROM m_clients AS c WHERE c.client_id IN(SELECT  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id \r\n" + 
 			"ELSE h.consignor \r\n" + 
-			"END ) AS client_id   FROM t_lr_header h  WHERE  h.bill_status=0 AND h.delivery_status =3 ) " ,nativeQuery=true)
+			"END ) AS client_id   FROM t_lr_header h  WHERE  h.bill_status=0 ) " ,nativeQuery=true)
 	List<ClientDetails> getUnPaidClients();
 
 	List<ClientDetails> findAll();

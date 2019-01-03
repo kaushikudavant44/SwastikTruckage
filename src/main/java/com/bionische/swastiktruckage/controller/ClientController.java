@@ -228,7 +228,7 @@ public class ClientController {
 	public ModelAndView showUnPaidClients(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("client/unPaidClients");
-		List<ClientDetails> allClientDetails = clientDetailsRepository.findAll();
+		List<ClientDetails> allClientDetails = clientDetailsRepository.getUnPaidClients();
 		
 		model.addObject("allClientDetails",allClientDetails);
 	
@@ -242,16 +242,11 @@ public class ClientController {
 		System.out.println("clientId:"+clientId);
 		
 		ModelAndView model=new ModelAndView("client/lrBilling");
-		addedLrList.clear();
-		try {
-			ClientDetails clientDetails = clientDetailsRepository.findByClientId(clientId);
-			/*
-			 * List<TransactionLrHeader> transactionLrHeader =
-			 * transactionLrHeaderRepository.getLrByClientId(clientId);
-			 */
 		
-			model.addObject("clientDetails",clientDetails);
-			/* model.addObject("transactionLrHeader",transactionLrHeader); */
+		try {
+			List<TransactionLrHeader> transactionLrHeader = transactionLrHeaderRepository.getLrByClientId(clientId);
+		
+		model.addObject("transactionLrHeader",transactionLrHeader);
 		} catch (Exception e) {
 			e.printStackTrace();
 			model = new ModelAndView("common/errorMsg");
@@ -284,35 +279,38 @@ public class ClientController {
 	public ModelAndView saveClientBillDetails(HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("client/billingPage");
-		/*
-		 * int[] lrHeaderId;
-		 * 
-		 * String senderHeaderID[] = request.getParameterValues("0"); String
-		 * recHeaderID[] = request.getParameterValues("1");
-		 * 
-		 * 
-		 * if(senderHeaderID!=null) { lrHeaderId =
-		 * Arrays.stream(senderHeaderID).mapToInt(Integer::parseInt).toArray(); } else {
-		 * lrHeaderId =
-		 * Arrays.stream(recHeaderID).mapToInt(Integer::parseInt).toArray(); }
-		 */
+		int[] lrHeaderId;
+		
+        String senderHeaderID[] = request.getParameterValues("0");
+        String recHeaderID[] = request.getParameterValues("1");
+        
+       
+        if(senderHeaderID!=null)
+        {
+        lrHeaderId = Arrays.stream(senderHeaderID).mapToInt(Integer::parseInt).toArray();
+        }
+        else
+        {
+         lrHeaderId = Arrays.stream(recHeaderID).mapToInt(Integer::parseInt).toArray();
+        }
         List<LrBilling> clientBillDetails = new ArrayList<LrBilling>();
             
-     for(TransactionLrHeader lrList : addedLrList)
+     for(int i=0;i<lrHeaderId.length;i++)
       {
     	 LrBilling lrBilling = new LrBilling();
-    	
-    	 lrBilling = lrBillingRepository.getBillDetailByLrId(lrList.getLrHeaderId());
+    	 System.out.println("lrHeaderId[i]:"+lrHeaderId[i]);
+    	 lrBilling = lrBillingRepository.getBillDetailByLrId(lrHeaderId[i]);
+    	 System.out.println("lrBilling:"+lrBilling.toString());
     	 clientBillDetails.add(lrBilling);
       }
      
      ClientFullDetails clientFullDetails = new ClientFullDetails();
 
-     if(clientBillDetails.get(0).getPaymentBy()==0)
+     if(clientBillDetails.get(0).getPaymentBy()==0 )
      {
       clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
      }
-     else
+     else 
      {
       clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());
      } 
@@ -329,24 +327,23 @@ public class ClientController {
 			totalHamali+=clientBill.getHamali();
 					
 			clientBill.setInvoiceDetailList(transactionLrInvoiceDetailRepository.findByInvHeaderId(clientBill.getInvHeaderId()));
-		}		
+		}
+		
 		//save bill header
 		
 		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
-		TransactionBillHeader billHeaderList = transactionBillHeaderRepository.getLastEntry();
+		List<TransactionBillHeader> billHeaderList = transactionBillHeaderRepository.findAll();
 		
-		if(billHeaderList!=null)
-		{
-			int billNo = billHeaderList.getBillNo()+1;
-			transactionBillHeader.setBillNo(billNo);
-		
-		}
-		else
+		if(billHeaderList==null)
 		{
 			transactionBillHeader.setBillNo(00000001);
 		}
-		
-		if(clientBillDetails.get(0).getPaymentBy()==0)
+		else
+		{
+			int billNo = transactionBillHeader.getBillNo()+1;
+			transactionBillHeader.setBillNo(billNo);
+		}
+		if(clientBillDetails.get(0).getPaymentBy()==0 )
 		{
 			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsigneeId());
 		}
@@ -354,11 +351,11 @@ public class ClientController {
 		{
 			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsignor());
 		}	
+		
 		transactionBillHeader.setBillPayableBy(clientBillDetails.get(0).getPaymentBy());
 		transactionBillHeader.setBillDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		transactionBillHeader.setBillTotal(totalBill);		
 		transactionBillHeader.setBillStatus(0);
-		
 		transactionBillHeader.isUsed();
 		
 		TransactionBillHeader billHeader = transactionBillHeaderRepository.save(transactionBillHeader);
@@ -395,7 +392,7 @@ public class ClientController {
 			transactionLrHeaderRepository.updatePaymentStatus(clientBill.getLrHeaderId());
 		}
 		
-		addedLrList=null;
+		
 		//company details
 		CompanyDetails	companyDetails = companyDetailsRepository.findByCompanyId(1);
 		
@@ -497,7 +494,7 @@ public class ClientController {
 			
 			transactionLrCollection.setUsed(true);
 			int type=Integer.parseInt(request.getParameter("paymentType"));
-			if(type==0)
+			if(type==1)
 			{
 				transactionLrCollection.setTrId(0);	
 			}
@@ -553,12 +550,7 @@ public class ClientController {
 			 model.addObject("from",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("to",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			}
-			
-			/*
-			 * float paid=0; for(TransactionBillPayments installementList : installement) {
-			 * paid = installementList.getAmountReceived(); }
-			 */
-			
+					
 			model.addObject("clientBills",clientBills);
 		}
 			catch (Exception e) {
@@ -699,7 +691,7 @@ public class ClientController {
 	
 	@RequestMapping(value="/showPaymentPage/{total}/{billHeaderId}", method=RequestMethod.GET)
 
-	public ModelAndView showCollectionInfo(@PathVariable("total") float total,@PathVariable("billHeaderId") int billHeaderId,HttpServletRequest request)   
+	public ModelAndView showPaymentPage(@PathVariable("total") float total,@PathVariable("billHeaderId") int billHeaderId,HttpServletRequest request)   
 	{
 		ModelAndView model=new ModelAndView("client/paymentPage");
 		

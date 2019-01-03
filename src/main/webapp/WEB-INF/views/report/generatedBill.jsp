@@ -191,12 +191,12 @@
 						 <c:choose>
                               <c:when test="${billList.billPayableBy==0}">
                               
-  							<td>Consignee</td>
+  							<td>To Be BBilled</td>
   							
   							</c:when>
   							<c:when test="${billList.billPayableBy==1}">
                               
-  							<td>Consignor</td>
+  							<td>To Pay</td>
   							
   							</c:when>
   							</c:choose>

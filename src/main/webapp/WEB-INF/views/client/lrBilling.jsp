@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Swastik Truckage</title>
+<title>Data Table</title>
 
 
 <link rel="apple-touch-icon"
@@ -30,8 +30,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 
@@ -52,9 +51,8 @@
 
 
 </head>
-<c:url var="lrDetailsByLrNo" value="/lrDetailsByLrNo" />
-
 <body>
+
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
@@ -66,7 +64,7 @@
 	<!-- Header-->
 
 
-	<!-- <div class="breadcrumbs">
+	<div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -85,133 +83,24 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
-		
-		<div class="row">
-				<div class="col-xs-12 col-sm-12">
-					<div class="cardview">
-						<div class="cardview-header">
-							<strong>Search By LR No</strong>
-						</div>
-						<div class="card-body card-block">
-
-       <%--  <div class="row">
-             <div class="col-sm-6 col-md-1">
-             
-             <label>Bill To :</label>
-             
-             </div>
-              <div class="col-sm-6 col-md-2">
-<input type="text"  value="${clientDetails.billingName}" class="form-control form-control-sm " readonly>
-              
-              </div>
-              <div class="col-sm-6 col-md-1">
-             </div>
-              <div class="col-sm-6 col-md-1">
-             
-             <label>GSTIN :</label>
-             
-             </div>
-             <div class="col-sm-6 col-md-2">
-             
-             <input type="text"  name="to" value="${clientDetails.gstin}" class="form-control form-control-sm" readonly>
-             </div>
-             <div class="col-sm-6 col-md-1">
-             </div>
-                    <div class="col-sm-6 col-md-1">
-             
-             <label>ContactNo :</label>
-             
-             </div>
-              <div class="col-sm-6 col-md-2">
-<input type="text"  value="${clientDetails.clientContactNo}" class="form-control form-control-sm " readonly>
-              
-              </div>
-            
-             
-			</div> --%>
-			
-			<div class="row">
-          <div class="col-sm-6 col-md-1">             
-             <label>LR No :</label>
-             
-             </div>
-              <div class="col-sm-6 col-md-2">
-<input type="text"  value="" class="form-control form-control-sm" id="lrNo" name="lrNo">             
-              </div>
-              
-               <div class="col-sm-6 col-md-1">
-             </div>
-             
-             <div class="col-sm-6 col-md-3">
-							
-             <button type="button" class="btn btn-primary" onclick="addLR()">
-				ADD
-			 </button>							
-							</div>
-                 </div>
-						
-	          </div>
-
-            </div>
-
-	  </div>
-
-</div>
-		<br>
-		
-		
 			<div class="row">
 
 				<div class="col-md-12">
-					<div class="cardview">
-						<div class="cardview-header">
-							<div class="row">
-             <div class="col-sm-6 col-md-1">
-             
-             <label>Bill To :</label>
-             
-             </div>
-              <div class="col-sm-6 col-md-2">
-<input type="text"  value="${clientDetails.billingName}" class="form-control form-control-sm " readonly>
-              
-              </div>
-              <div class="col-sm-6 col-md-1">
-             </div>
-              <div class="col-sm-6 col-md-1">
-             
-             <label>GSTIN :</label>
-             
-             </div>
-             <div class="col-sm-6 col-md-2">
-             
-             <input type="text"  name="to" value="${clientDetails.gstin}" class="form-control form-control-sm" readonly>
-             </div>
-             <div class="col-sm-6 col-md-1">
-             </div>
-                    <div class="col-sm-6 col-md-1">
-             
-             <label>ContactNo </label>
-             
-             </div>
-              <div class="col-sm-6 col-md-2">
-<input type="text"  value="${clientDetails.clientContactNo}" class="form-control form-control-sm " readonly>
-              
-              </div>
-            
-             
-			</div>
-									</div>
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Data Table</strong>
+						</div>
 						<div class="card-body">
 <form action="${pageContext.request.contextPath}/saveClientBillDetails" method="GET" id="generateBill">
 							<table id="bootstrap-data-table"
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									   
+									    <th>select</th>
 										<th>Lr No</th>
 										<th>Payment By</th>
 										<th >Total</th>
@@ -219,16 +108,58 @@
 
 									</tr>
 								</thead>
-							 <tbody>
-								
-								
-								
-							</tbody> 
+								<tbody>
+								<c:forEach items="${transactionLrHeader}" var="transactionLrHeader" varStatus="count">
+									
+						<tr>
+						
+						<c:choose>
+                              <c:when test="${transactionLrHeader.paymentBy==0}">
+                              
+  							<td><input type="checkbox" value="${transactionLrHeader.lrHeaderId}" name="${transactionLrHeader.paymentBy}"></td>
+  							
+  							</c:when>
+  							<c:when test="${transactionLrHeader.paymentBy==1}">
+                              
+  							<td><input type="checkbox" value="${transactionLrHeader.lrHeaderId}" name="${transactionLrHeader.paymentBy}"></td>
+  							
+  							</c:when>
+  							</c:choose>
+						
+						
+						
+							
+							<td>${transactionLrHeader.lrNo}</td>
+										 <c:choose>
+                              <c:when test="${transactionLrHeader.paymentBy==0}">
+                              
+  							<td>To Be Billed</td>
+  							
+  							</c:when>
+  							<c:when test="${transactionLrHeader.paymentBy==1}">
+                              
+  							<td>To Pay</td>
+  							
+  							</c:when>
+  							 <c:when test="${transactionLrHeader.paymentBy==2}">
+                              
+  							<td>Paid</td>
+  							
+  							</c:when>
+  							</c:choose>
+										
+							<td>${transactionLrHeader.total}</td>
+										
+										
+						</tr>
+									
+									</c:forEach>
+								</tbody>
 							</table>
 
 <div class="col-sm-12 text-center">
 							
-<button type="submit" class="btn btn-primary" >
+<button type="button" class="btn btn-primary" onclick="validateType()">
 										Generate
 									</button>							
 							</div>
@@ -305,50 +236,6 @@
     
 
 <script>
-
-function addLR()
-{	 
-	
-	var lrNo = document.getElementById("lrNo").value; 
-	
-	 $
-		.getJSON(
-				'${lrDetailsByLrNo}',
-				{
-					lrNo : lrNo,
-					
-					ajax : 'true'
-				},
-				function(data) {		
-					
-					if(data!=null)
-						{
-					
-					var tr = $('<tr></tr>');
-					
-					tr.append($('<td></td>').html(data.lrNo));
-					if(data.paymentBy==0)
-						{
-					tr.append($('<td></td>').html("Consignee"));
-						}
-					else(data.paymentBy==1)
-					{
-				tr.append($('<td></td>').html("Consignor"));
-					}
-					
-					tr.append($('<td></td>').html(data.total));
-													
-				 	 $('#bootstrap-data-table tbody').append(tr);
-						}
-					else
-						{
-						alert("Bill Has Been Already Generated");
-						}
-				 	 
-				}) 
-	 
-} 
-
 
 function validateType()
 {

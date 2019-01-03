@@ -199,12 +199,17 @@
 										 <c:choose>
                               <c:when test="${lrList.paymentBy==0}">
                               
-  							<td>Consignee</td>
+  							<td>To Be Billed</td>
   							
   							</c:when>
   							<c:when test="${lrList.paymentBy==1}">
                               
-  							<td>Consignor</td>
+  							<td>To Pay</td>
+  							
+  							</c:when>
+  							<c:when test="${lrList.paymentBy==2}">
+                              
+  							<td>Paid</td>
   							
   							</c:when>
   							</c:choose>

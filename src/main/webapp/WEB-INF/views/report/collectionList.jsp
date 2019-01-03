@@ -214,7 +214,7 @@
 						    <td>${collectionList.lrNo}</td>
 							<td>${collectionList.createDate}</td>
 							
-										 <%-- <c:choose>
+							 <c:choose>
                               <c:when test="${collectionList.paymentMode==1}">
                               
   							<td>Cash</td>
@@ -230,7 +230,7 @@
   							<td>NEFT</td>
   							
   							</c:when>
-  							</c:choose> --%>
+  							</c:choose>
 										
 							<td>${collectionList.total}</td>
 										

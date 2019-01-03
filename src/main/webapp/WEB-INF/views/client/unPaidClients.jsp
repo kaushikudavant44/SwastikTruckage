@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Swastik Truckage</title>
+<title>Data Table</title>
 
 
 <link rel="apple-touch-icon"
@@ -33,8 +33,7 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/cardview.css">
+
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -64,7 +63,7 @@
 	<!-- Header-->
 
 
-	<!-- <div class="breadcrumbs">
+	<div class="breadcrumbs">
 		<div class="col-sm-4">
 			<div class="page-header float-left">
 				<div class="page-title">
@@ -83,16 +82,16 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
 			<div class="row">
 
 				<div class="col-md-12">
-					<div class="cardview">
-						<div class="cardview-header">
-							<strong class="card-title">Show All Unpaid Clients</strong>
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Client detail</strong>
 						</div>
 						<div class="card-body">
 
@@ -118,9 +117,9 @@
 										<td>${allClientDetails.clientAddress}</td>
 										<td>${allClientDetails.pincode}</td>
 										<td>${allClientDetails.gstin}</td>
-										<td> <a href="${pageContext.request.contextPath}/showLrBilling/${allClientDetails.clientId}">
-										<i class="fa  fa-arrow-circle-o-right" aria-hidden="true" style="font-size:30px;"></i></a>
-								        </td>
+										<th> <button type="submit" class="btn btn-primary" ><a href="${pageContext.request.contextPath}/showLrBilling/${allClientDetails.clientId}">
+										Submit</a>
+									</button>	 </th>
 									</tr>
 									</c:forEach>
 								

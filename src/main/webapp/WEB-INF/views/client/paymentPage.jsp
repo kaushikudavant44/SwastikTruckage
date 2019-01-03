@@ -90,11 +90,10 @@
 				<div class="col-md-12">
 					<div class="cardview">
 						<div class="cardview-header">
-							<strong class="card-title">Data Table</strong>
+							<strong class="card-title">Bill Details</strong>
 						</div>
 						<div class="card-body">
-
-    <%--    <table width="100%" border="0">
+  <table width="100%" border="0">
 			<tr>
 				<td border="0" align="left">
 					<div class="col-sm-6">
@@ -130,8 +129,58 @@
 				</td>
 
 			</tr>
-		</table> --%>
-
+		</table> 
+		
+		<table id=""
+								class="table table-striped table-bordered">
+								<thead>
+									<tr>
+				<td><strong>LR No</strong>.</td>
+				<td><strong>LR Date</strong></td>
+				<td><strong>Particular</strong></td>
+				<td><strong>Vehicle No.</strong></td>
+				<td><strong>Quantity</strong></td>
+				<td><strong>Freight</strong></td>
+				<td><strong>Local Tempo</strong></td>
+				<td><strong>Hamali</strong></td>
+				<td><strong>Inv No</strong></td>
+				<td><strong>Amount</strong></td>
+			</tr>
+  <c:forEach items="${clientBillDetails}" var="clientBillDetails" varStatus="myIndex">
+									
+<tr>
+    <td> ${clientBillDetails.lrNo} </td>
+    <td> ${clientBillDetails.lrDate} </td>
+    <td>${clientBillDetails.goods}</td>
+    <td>${clientBillDetails.truckNo}</td>
+    <td>${clientBillDetails.quantity}</td>
+    <td>${clientBillDetails.freight}</td>
+    <td>${clientBillDetails.localTempo}</td>
+    <td>${clientBillDetails.hamali}</td>
+    <td>
+     <c:forEach items="${clientBillDetails.invoiceDetailList}" var="invoiceDetailList" varStatus="loop">
+    ${invoiceDetailList.invNo}<c:if test="${!loop.last}">,</c:if>
+    </c:forEach>
+    </td>
+    <td>${clientBillDetails.total}</td>
+  </tr>
+ </c:forEach> 
+			
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><strong>Total</strong></td>
+				<td>&nbsp;</td>
+				<td><strong>${totalFreight}</strong></td>
+				<td>&nbsp;</td>
+				<td><strong>${totalHamali}</strong></td>
+				<td><strong>&nbsp;</strong></td>
+				<td><strong>${totalBill}</strong></td>
+			</tr>
+							</table>
+<hr>
+<h4>Installment</h4>
 							<table id=""
 								class="table table-striped table-bordered">
 								<thead>

@@ -190,12 +190,17 @@
 										 <c:choose>
                               <c:when test="${clientBills.billPayableBy==0}">
                               
-  							<td>Consignee</td>
+  							<td>To Be Billed</td>
   							
   							</c:when>
   							<c:when test="${clientBills.billPayableBy==1}">
                               
-  							<td>Consignor</td>
+  							<td>To Pay</td>
+  							
+  							</c:when>
+  							<c:when test="${clientBills.billPayableBy==2}">
+                              
+  							<td>Paid</td>
   							
   							</c:when>
   							</c:choose>
