@@ -169,7 +169,18 @@
 												<div class="input-group">
 													<select id="consignor" name="consignor"
 														class="standardSelect" tabindex="1">
-														<option value="${lrDetails.consignor}">${lrDetails.consignorName}</option>
+														<c:forEach items="${clientList}" var="clientList">
+														<c:choose>
+														<c:when test="${clientList.clientId==lrDetails.consignor }">
+														<option selected value="${lrDetails.consignor}">${lrDetails.consignorName}</option>
+														</c:when>
+														<c:otherwise>
+														<option value="${clientList.clientId}">${clientList.clientName}</option>
+														</c:otherwise>
+														</c:choose>
+														
+														</c:forEach>
+														
 														
 													</select> <%-- <a href="${pageContext.request.contextPath}/showClientReg"><span
 														style="color: blue">If client not found?</span></a> --%>
@@ -202,7 +213,17 @@
 												<div class="input-group">
 													<select id="consigneeId" name="consigneeId"
 														class="standardSelect" tabindex="1">
-														<option value="${lrDetails.consigneeId}">${lrDetails.consigneeName}</option>
+														<c:forEach items="${clientList}" var="clientList">
+														<c:choose>
+														<c:when test="${clientList.clientId==lrDetails.consigneeId }">
+														
+														<option selected value="${lrDetails.consigneeId}">${lrDetails.consigneeName}</option>
+														</c:when>
+														<c:otherwise>
+														<option value="${clientList.clientId}">${clientList.clientName}</option>
+														</c:otherwise>
+														</c:choose>
+													</c:forEach>
 													</select> 
 												</div>
 											</div>
@@ -217,6 +238,7 @@
 														
 													<select id="vehId" name="vehId"
 														class="standardSelect" tabindex="1">
+														<option value="">select</option>
 														<c:forEach items="${vehicleDetailsList}" var="vehicleDetailsList">
 														<option value="${vehicleDetailsList.vehNo}">${vehicleDetailsList.vehNo}</option>
 														</c:forEach>

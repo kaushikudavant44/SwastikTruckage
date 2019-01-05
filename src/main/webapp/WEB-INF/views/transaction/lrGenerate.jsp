@@ -828,12 +828,16 @@
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-  $( function() {
-	  $('input[id$=datepicker]').datepicker({
-		    dateFormat: 'dd-mm-yy',
-		    maxDate: new Date()
-		});
-  } );
+	
+	
+	 $('input[id$=datepicker]').datepicker({
+	     
+	      "dateFormat": 'dd-mm-yy',
+		  "maxDate": new Date(),
+	      "autoclose": true
+	});
+  
+	 $( "#datepicker" ).datepicker({dateFormat:"dd/mm/yy"}).datepicker("setDate",new Date());
   </script>
 	<script type="text/javascript">
 function editOfficeDetails(officeId){

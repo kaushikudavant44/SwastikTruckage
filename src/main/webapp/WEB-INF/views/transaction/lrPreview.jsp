@@ -90,13 +90,23 @@
         	    <th width="33%" align="center"><strong>Good</strong></th>
         	    <th width="33%" align="center"><strong>Description</strong></th>
       	    </tr>
+      	    <tbody>
            <c:forEach items="${lrContaintDetailsList}" var="lrContaintDetailsList" varStatus="count"> 
              <tr>
               <td class="containtTd" align="center">${lrContaintDetailsList.noOfContaints}</td>
               <td class="containtTd" align="center">${lrContaintDetailsList.goodsName}</td>
               <td class="containtTd" align="center">${lrContaintDetailsList.description}</td>
             </tr>
+           
 			</c:forEach>
+			</tbody>
+			 <tfoot>
+			<tr>
+			<td align="center"><strong>Total = ${containtTotal}</strong></td>
+			<td></td>
+			<td></td>
+			</tr>
+			</tfoot>
           </table>
 
           <div class="col-sm-8">

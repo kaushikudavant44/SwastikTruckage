@@ -160,7 +160,7 @@
 												<div class="col-sm-6 col-md-6">
 													<div class="form-group">
 														<label class=" form-control-label">GST</label>
-													 <input name="gst" id="gst" class="gstinnumber" >
+													 <input name="gst" id="gst1" class="gstinnumber" >
 													</div>
 												</div>
 
@@ -365,7 +365,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="lrNo" id="lrNo"
-														type="text" tabindex="4" /> <span class="error"
+														type="text" tabindex="4" required/> <span class="error"
 														aria-live="polite"></span>
 
 												</div>
@@ -637,8 +637,9 @@
 										<div class="col-md-1">
 											<div class="input-group">
 
+													
 												<input class="form-control" name="noOfContaint"
-													id="noOfContaint" type="number" required value="" tabindex="19"/> <span
+													id="noOfContaint" type="number" required value="" min="0" tabindex="19"/> <span
 													class="error" aria-live="polite"></span>
 											</div>
 										</div>
@@ -794,12 +795,14 @@
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-  $( function() {
-	  $('input[id$=datepicker]').datepicker({
-		    dateFormat: 'dd-mm-yy',
-		    maxDate: new Date()
-		});
-  } );
+	$('input[id$=datepicker]').datepicker({
+	     
+	      "dateFormat": 'dd-mm-yy',
+		  "maxDate": new Date(),
+	      "autoclose": true
+	});
+
+	 $( "#datepicker" ).datepicker({dateFormat:"dd/mm/yy"}).datepicker("setDate",new Date());
   </script>
 	<script type="text/javascript">
 function editOfficeDetails(officeId){
@@ -1088,7 +1091,7 @@ $(document).ready(function(){
 <script>
 var flag;
 function openModel(type){
-	alert(type);
+	
 	flag=type;
 document.getElementById('id01').style.display='block'
 
@@ -1169,7 +1172,7 @@ function saveClientDetails(){
 			},
 			function(data) {
 				
-				alert(flag);
+				
 				if(flag==1){
 				$('#consignor').append("<option value='"+data.clientId+"'>"+data.clientName+"</option>");
 				$('#consignor').val(data.clientId);
