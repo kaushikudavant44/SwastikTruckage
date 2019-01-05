@@ -316,7 +316,7 @@ public class TransactionController {
 			transactionLrHeader.setLrDate(lrDate);
 			transactionLrHeader.setConsigneeId(Integer.parseInt(request.getParameter("consigneeId")));
 			transactionLrHeader.setTruckNo(request.getParameter("truckNo"));
-			transactionLrHeader.setWeight(Float.parseFloat(request.getParameter("weight")));
+			transactionLrHeader.setWeight(request.getParameter("weight"));
 			transactionLrHeader.setFreight(Float.parseFloat(request.getParameter("freight")));
 			transactionLrHeader.setGst(Float.parseFloat(request.getParameter("gst")));
 			transactionLrHeader.setHamali(Float.parseFloat(request.getParameter("hamali")));
@@ -455,9 +455,13 @@ public class TransactionController {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+			clientList = clientFullDetailsRepository.getAllClientDetailsByStatus(1);
+			
 			System.out.println("containt"+lrContaintDetailsList.toString());
 			
 			System.out.println("invoice"+transactionLrInvoiceDetailList.toString());
+			
+			model.addObject("clientList", clientList);
 			
 			model.addObject("lrDetails", lrDetails);
 			
@@ -513,7 +517,7 @@ public class TransactionController {
 			transactionLrHeader.setLrDate(DateConverter.convertToYMD(request.getParameter("lrDate")));
 			transactionLrHeader.setConsigneeId(Integer.parseInt(request.getParameter("consigneeId")));
 			transactionLrHeader.setTruckNo(request.getParameter("vehId"));
-			transactionLrHeader.setWeight(Float.parseFloat(request.getParameter("weight")));
+			transactionLrHeader.setWeight(request.getParameter("weight"));
 			transactionLrHeader.setFreight(Float.parseFloat(request.getParameter("freight")));
 			transactionLrHeader.setGst(Float.parseFloat(request.getParameter("gst")));
 			transactionLrHeader.setHamali(Float.parseFloat(request.getParameter("hamali")));
@@ -678,7 +682,14 @@ public class TransactionController {
 			List<LrContaintDetails> lrContaintDetailsListResult=new ArrayList<>();
 			
 			lrContaintDetailsListResult=lrContaintDetailsRepository.findByLrHeaderId(lrDetails.getLrHeaderId());
-			
+			float total=0.0f;
+			for(int i=0;i<lrContaintDetailsListResult.size();i++) {
+				
+				float containt=lrContaintDetailsListResult.get(i).getNoOfContaints();
+				
+				total=total+containt;
+			}
+			System.out.println("total="+total);
 			
 			List<TransactionLrInvoiceDetail> transactionLrInvoiceDetailRes=new ArrayList<>();
 			System.out.println("lr details"+lrContaintDetailsListResult.toString());
@@ -699,6 +710,7 @@ public class TransactionController {
 			
 			System.out.println("invoice"+transactionLrInvoiceDetailList.toString());
 			
+			model.addObject("containtTotal", total);
 			model.addObject("lrDetails", lrDetails);
 			
 			model.addObject("lrContaintDetailsList", lrContaintDetailsList);
@@ -777,7 +789,9 @@ public class TransactionController {
 			transactionLrHeader.setLrDate(lrDate);
 			transactionLrHeader.setConsigneeId(Integer.parseInt(request.getParameter("consigneeId")));
 			transactionLrHeader.setTruckNo(request.getParameter("truckNo"));
-			transactionLrHeader.setWeight(Float.parseFloat(request.getParameter("weight")));
+			
+			transactionLrHeader.setWeight(request.getParameter("weight"));
+			
 			transactionLrHeader.setFreight(Float.parseFloat(request.getParameter("freight")));
 			transactionLrHeader.setGst(Float.parseFloat(request.getParameter("gst")));
 			transactionLrHeader.setHamali(Float.parseFloat(request.getParameter("hamali")));

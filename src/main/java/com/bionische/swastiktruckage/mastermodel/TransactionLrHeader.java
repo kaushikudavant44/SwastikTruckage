@@ -51,7 +51,7 @@ public class TransactionLrHeader {
 	private String truckNo;
 	
 	@Column(name="weight")
-	private float weight;
+	private String weight;
 	
 	@Column(name="freight")
 	private float freight;
@@ -178,13 +178,7 @@ public class TransactionLrHeader {
 		this.truckNo = truckNo;
 	}
 
-	public float getWeight() {
-		return weight;
-	}
 
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
 
 	public float getFreight() {
 		return freight;
@@ -305,6 +299,16 @@ public class TransactionLrHeader {
 	public void setDeliveryStatus(int deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
+	
+	
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
 
 	@Override
 	public String toString() {
@@ -316,6 +320,8 @@ public class TransactionLrHeader {
 				+ ", paymentBy=" + paymentBy + ", billStatus=" + billStatus + ", deliveryStatus=" + deliveryStatus
 				+ ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
+
+	
 
 	
 
