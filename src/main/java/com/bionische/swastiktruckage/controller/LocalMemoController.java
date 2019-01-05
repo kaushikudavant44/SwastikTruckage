@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.common.DateConverter;
@@ -25,7 +26,6 @@ import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleOwners;
 import com.bionische.swastiktruckage.mastermodel.VehiclesDrivers;
-import com.bionische.swastiktruckage.model.GetAllMemo;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.DeliverMemoDetailsRepository;
 import com.bionische.swastiktruckage.repository.DeliverMemoHeaderRepository;
@@ -39,6 +39,7 @@ import com.bionische.swastiktruckage.repository.VehicleOwnersRepository;
 import com.bionische.swastiktruckage.repository.VehiclesDriversRepository;
 
 @Controller
+@SessionScope
 public class LocalMemoController {
 	
 	@Autowired

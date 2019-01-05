@@ -1,6 +1,5 @@
 package com.bionische.swastiktruckage.controller;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,10 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
-/*import com.bionische.swastiktruckage.master.controller.ExcelWriter;
-*/import com.bionische.swastiktruckage.master.controller.SMSSender;
 import com.bionische.swastiktruckage.mastermodel.City;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
@@ -55,6 +53,7 @@ import com.bionische.swastiktruckage.service.ClientDetailsService;
 import com.bionische.swastiktruckage.service.StateDetailsService;
 
 @Controller
+@SessionScope
 public class ClientController {
 	
 	@Autowired

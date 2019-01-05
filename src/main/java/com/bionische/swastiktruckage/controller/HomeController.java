@@ -15,6 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.mastermodel.City;
@@ -23,6 +24,7 @@ import com.bionische.swastiktruckage.repository.CityRepository;
 import com.bionische.swastiktruckage.repository.StatesRepository;
 
 @Controller
+@SessionScope
 public class HomeController {
 	
 	public static List<States> stateList;

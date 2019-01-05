@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bionische.swastiktruckage.mastermodel.ClientDetails;
-import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 import com.bionische.swastiktruckage.mastermodel.Info;
-import com.bionische.swastiktruckage.mastermodel.States;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetailsWithOwnerName;
 import com.bionische.swastiktruckage.mastermodel.VehicleDriverWithVehNo;
@@ -29,6 +27,7 @@ import com.bionische.swastiktruckage.repository.VehiclesDriversRepository;
 import com.bionische.swastiktruckage.service.VehicleService;
 
 @Controller
+@SessionScope
 public class VehicleController {
 	
 	@Autowired

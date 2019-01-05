@@ -1,7 +1,6 @@
 package com.bionische.swastiktruckage.controller;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,16 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 /*import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 */import com.bionische.swastiktruckage.mastermodel.LrBilling;
-import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
@@ -33,6 +31,7 @@ import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.VehicleDetailsRepository;
 
 @Controller
+@SessionScope
 public class ReportController {
 	
 	@Autowired

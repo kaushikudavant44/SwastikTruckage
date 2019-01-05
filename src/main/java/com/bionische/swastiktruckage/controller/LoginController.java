@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.mastermodel.LrGraph;
@@ -28,6 +29,7 @@ import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
+@SessionScope
 public class LoginController {
 	
 	@Autowired

@@ -1,10 +1,10 @@
 package com.bionische.swastiktruckage.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.common.DateConverter;
@@ -23,11 +24,13 @@ import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
 import com.bionische.swastiktruckage.mastermodel.CompanyDetails;
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
 import com.bionische.swastiktruckage.mastermodel.Goods;
+import com.bionische.swastiktruckage.mastermodel.Info;
 import com.bionische.swastiktruckage.mastermodel.LRDetails;
 import com.bionische.swastiktruckage.mastermodel.LrContaintDetails;
 import com.bionische.swastiktruckage.mastermodel.LrLogs;
 import com.bionische.swastiktruckage.mastermodel.OfficeDetails;
 import com.bionische.swastiktruckage.mastermodel.OfficeStaff;
+import com.bionische.swastiktruckage.mastermodel.States;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrContaintDetails;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrInvoiceDetail;
@@ -49,11 +52,16 @@ import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrInvoiceDetailRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrInvoiceHeaderRepository;
 import com.bionische.swastiktruckage.repository.VehicleDetailsRepository;
+import com.bionische.swastiktruckage.service.ClientDetailsService;
 import com.bionische.swastiktruckage.service.StateDetailsService;
 
 @Controller
+@SessionScope
 public class TransactionController {
 
+	@Autowired
+	ClientDetailsService clientDetailsService;
+	
 	@Autowired
 	LRDetailsRepository lRDetailsRepository;
 	
@@ -111,7 +119,10 @@ public class TransactionController {
 	
 	List<TransactionLrContaintDetails> transactionLrContaintDetailsList=new ArrayList<>();
 	
-
+	public String message;
+	
+	List<ClientFullDetails> clientList;
+	
 	@RequestMapping(value = "/showLRRegistration", method = RequestMethod.GET)
 
 	public ModelAndView showLR(HttpServletRequest request) {
@@ -131,13 +142,16 @@ public class TransactionController {
 			// TODO
 			int staffId = officeStaff.getStaffId();
 			List<OfficeDetails> officeList = officeDetailsRepository.findByIsUsed(true);
-			List<ClientFullDetails> clientList = clientFullDetailsRepository.getAllClientDetailsByStatus(1);
+			 clientList = clientFullDetailsRepository.getAllClientDetailsByStatus(1);
 			List<City> cityList = stateDetailsService.getAllCity();
+			List<States> stateList=stateDetailsService.getAllStates();
+			
 			List<Goods> goodsList=goodsRepository.findByIsUsedOrderByGoodsIdDescIsUsed(true);
 
 			companyDetails = companyDetailsRepository.findByCompanyId(1);
 			staffDetails = officeStaffRepository.findByStaffId(staffId);
 
+			model.addObject("stateList", stateList);
 			model.addObject("goodsList", goodsList);
 			model.addObject("cityList", cityList);
 			model.addObject("clientList", clientList);
@@ -383,6 +397,7 @@ public class TransactionController {
 		HttpSession session = request.getSession();
 		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
 		int officeId=officeStaff.getStaffOfficeId();
+		System.out.println("cdd"+officeId);
 		List<GetAllLrDetails> lrDetailsList=new ArrayList<>();
 		
 		try {
@@ -832,6 +847,47 @@ public class TransactionController {
 		}
 
 		return "redirect:/showLrPreview/"+transactionLrHeaderRes1.getLrHeaderId();
+
+	}
+	
+	@RequestMapping(value = "/saveClientDetails", method = RequestMethod.GET)
+	public @ResponseBody ClientDetails saveClientDetails(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		Info info=new Info();
+		ClientDetails clientDetails = new ClientDetails();
+		
+		clientDetails.setCityId(Integer.parseInt(request.getParameter("cityId")));
+		clientDetails.setClientAddress(request.getParameter("address"));
+		clientDetails.setBillingName(request.getParameter("billName"));
+		clientDetails.setClientContactNo(request.getParameter("contactNo"));
+		clientDetails.setClientName(request.getParameter("name"));
+		clientDetails.setGstin(request.getParameter("gst"));
+		try {
+		clientDetails.setPincode(Integer.parseInt(request.getParameter("pincode")));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		clientDetails.setStateId(Integer.parseInt(request.getParameter("stateId")));
+		clientDetails.setUsed(true);
+		
+		try {
+		 info = clientDetailsService.insertClientDetails(clientDetails);
+		
+		if(info.isError())
+		{
+			message = "Something Went Wrong";
+		}
+		else
+		{
+			message = "Client Added Successfully";
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+
+		}
+		return clientDetails;
 
 	}
 	
