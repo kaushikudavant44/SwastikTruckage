@@ -44,7 +44,7 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- <style type="text/css">
 .right {
 	text-align: right;
@@ -60,12 +60,140 @@
 <c:url var="deleteContaint" value="/deleteContaint" />
 <c:url var="addInvoiceNumber" value="/addInvoiceNumber" />
 <c:url var="deleteInvoice" value="/deleteInvoice" />
-
+<c:url var="getCityByStateId" value="/getCityByStateId" />
+<c:url var="saveClientDetails" value="/saveClientDetails" />
 
 </head>
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4">
+      <!-- <header class="w3-container w3-teal"> 
+        
+        <h2>Modal Header</h2>
+      </header> -->
+     	<div class="row">
+
+							<div class="col-xs-12 col-sm-12">
+								<div class="cardview">
+									<div class="cardview-header">
+										<strong>Add New Client</strong>
+										<span onclick="document.getElementById('id01').style.display='none'" 
+       									 class="w3-button w3-display-topright">&times;</span>
+									</div>
+									<div class="card-body card-block">
+
+										<form action="#">
+
+											<div class="row">
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Full Name</label> <input
+															required name="name" id="name" class="form-control"  style="text-transform: uppercase;"
+															onblur="nameValidation()">
+													</div>
+													<p id="validationMsg"
+														style="position: absolute; color: red;"></p>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Contact No</label>
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-phone"></i>
+															</div>
+															<input class="form-control" name="contactNo" id="contactNo">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+
+													<label class=" form-control-label">Select State</label> <select
+														data-placeholder="Choose a state" class="standardSelect"
+														id="stateId" name="stateId" onchange=getCityList() >
+
+														<option value=""></option>
+
+														<c:forEach items="${stateList}" var="state">
+
+															<option value="${state.stateId}">${state.stateName}
+															</option>
+
+														</c:forEach>
+													</select>
+
+
+
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Select City</label> <select
+															required class="standardSelect form-control" 
+															id="cityId" name="cityId">
+															<option value=""></option>
+														</select>
+													</div>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Address</label>
+														<textarea required class="form-control" name="address" id="address"></textarea>
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Bill Name</label> <input 
+															 class="form-control" name="billName" id="billName" style="text-transform: uppercase;">
+													</div>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Pincode</label> <input 
+															 class="form-control" id="pincode" name="pincode">
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">GST</label>
+													 <input name="gst" id="gst" class="gstinnumber" >
+													</div>
+												</div>
+
+
+
+												<br> <br>
+												<div class="clearfix"></div>
+												<br>
+												<hr>
+												<div class="col-sm-12 text-center">
+
+													<button type="button" class="btn btn-primary" onclick="saveClientDetails()">
+														Submit</button>
+												</div>
+											</div>
+
+
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+    
+    </div>
+  </div>
+
+
+
 <body onload="getTotal()">
 
-
+	
+	
+	
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/navbar.jsp"></jsp:include>
 	<!-- Left Panel -->
@@ -96,6 +224,8 @@
 			</div>
 		</div>
 	</div> -->
+
+	
 
 	<div class="content mt-3">
 		<div class="animated fadeIn">
@@ -185,7 +315,7 @@
 															<option value="${clientList.clientId}">${clientList.clientName},&nbsp;${clientList.clientAddress}
 																</option>
 														</c:forEach>
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select> <a class="w3-button" href="#" onclick="openModel(1)" ><span
 														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
@@ -225,7 +355,7 @@
 														</c:forEach>
 
 
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select><a class="w3-button" href="#" onclick="openModel(2)" ><span
 														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
@@ -304,7 +434,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="weight" id="weight"
-														type="number" required min="0" value="" tabindex="8" /> <span
+														type="text" min="0" value="" tabindex="8" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
@@ -601,8 +731,6 @@
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Footer -->
-
-
 
 
 
@@ -957,6 +1085,106 @@ $(document).ready(function(){
 
 </script>
 
+<script>
+var flag;
+function openModel(type){
+	alert(type);
+	flag=type;
+document.getElementById('id01').style.display='block'
+
+}
+
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+function getCityList() {
+
+	var stateId = document.getElementById("stateId").value;
+
+	$
+			.getJSON(
+					'${getCityByStateId}',
+					{
+
+						stateId : stateId,
+						ajax : 'true'
+
+					},
+					function(data) {
+
+						var html = '<option value="" disabled="disabled" selected >Choose City...</option>';
+
+						var len = data.length;
+						for (var i = 0; i < len; i++) {
+
+							html += '<option value="' + data[i].cityId + '">'
+									+ data[i].cityName
+									+ '</option>';
+						}
+						html += '</option>';
+						$('#cityId').html(html);
+
+						$("#cityId").trigger(
+								"chosen:updated");
+
+					});
+
+}
+
+
+function saveClientDetails(){
+	
+	var name=document.getElementById("name").value;
+	var contactNo=document.getElementById("contactNo").value;
+	var stateId=document.getElementById("stateId").value;
+	var cityId=document.getElementById("cityId").value;
+	var address=document.getElementById("address").value;
+	var billName=document.getElementById("billName").value;
+	var pincode=document.getElementById("pincode").value;
+	var gst=document.getElementById("gst").value;
+	
+	$.getJSON(
+			'${saveClientDetails}',
+			{
+
+				name : name,
+				contactNo : contactNo,
+				stateId : stateId,
+				cityId : cityId,
+				address : address,
+				billName : billName,
+				pincode : pincode,
+				gst : gst,
+				ajax : 'true'
+
+			},
+			function(data) {
+				
+				alert(flag);
+				if(flag==1){
+				$('#consignor').append("<option value='"+data.clientId+"'>"+data.clientName+"</option>");
+				$('#consignor').val(data.clientId);
+				$('#consignor').trigger("chosen:updated");
+				}else if(flag==2){
+					$('#consigneeId').append("<option value='"+data.clientId+"'>"+data.clientName+"</option>");
+					$('#consigneeId').val(data.clientId);
+					$('#consigneeId').trigger("chosen:updated");
+					
+				}
+				  modal.style.display = "none";
+			});
+	
+}
+</script>
 
 
 </body>

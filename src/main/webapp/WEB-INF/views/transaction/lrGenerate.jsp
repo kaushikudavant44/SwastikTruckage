@@ -187,7 +187,7 @@
 															<option value="${clientList.clientId}">${clientList.clientName},&nbsp;${clientList.clientAddress}
 																</option>
 														</c:forEach>
-													</select> <a href="${pageContext.request.contextPath}/showClientReg"><span
+													</select> <a href="#" data-toggle="modal" data-target="#myModal"><span
 														style="color: blue">If client not found?</span></a>
 												</div>
 											</div>
@@ -597,8 +597,168 @@
 	<!-- .content -->
 
 
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+   <!--   <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>-->
+     <div class="content mt-3">
+
+					<div class="form-group ">
+						<div class="col-lg-5"></div>
+						<div class="col-lg-5">
+							<p
+								style="position: absolute; color: black; background-color: #9bf79b; border-radius: 3px;"
+								id="messageAnimation">${message}</p>
+						</div>
+					</div>
+					<br>
+					<div class="row"> 
 
 
+				<div class="content mt-3">
+					<div class="animated fadeIn">
+
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-12">
+								<div class="cardview">
+									<div class="cardview-header">
+										<strong>Add New Client</strong>
+									</div>
+									<div class="card-body card-block">
+
+										<form
+											action="${pageContext.request.contextPath}/insertClientInfo"
+											method="POST">
+
+											<div class="row">
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Full Name</label> <input
+															required name="name" id="name" class="form-control" style="text-transform: uppercase;"
+															onblur="nameValidation()">
+													</div>
+													<p id="validationMsg"
+														style="position: absolute; color: red;"></p>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Contact No</label>
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-phone"></i>
+															</div>
+															<input class="form-control" name="contactNo">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+
+													<label class=" form-control-label">Select State</label> <select
+														data-placeholder="Choose a state" class="standardSelect"
+														id="stateId" name="stateId" onchange=getCityList()>
+
+														<option value=""></option>
+
+														<c:forEach items="${stateList}" var="state">
+
+															<option value="${state.stateId}">${state.stateName}
+															</option>
+
+														</c:forEach>
+													</select>
+
+
+
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Select City</label> <select
+															required class="standardSelect form-control" tabindex="1"
+															id="cityId" name="cityId">
+															<option value=""></option>
+														</select>
+													</div>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Address</label>
+														<textarea required class="form-control" name="address"></textarea>
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Bill Name</label> <input
+															 class="form-control" name="billName" style="text-transform: uppercase;">
+													</div>
+												</div>
+
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">Pincode</label> <input
+															 class="form-control" name="pincode">
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6">
+													<div class="form-group">
+														<label class=" form-control-label">GST</label>
+													 <input name="gst" class="gstinnumber">
+													</div>
+												</div>
+
+
+
+												<br> <br>
+												<div class="clearfix"></div>
+												<br>
+												<hr>
+												<div class="col-sm-12 text-center">
+
+													<button type="submit" class="btn btn-primary">
+														Submit</button>
+												</div>
+											</div>
+
+
+										</form>
+									</div>
+								</div>
+								<div class="col-lg-3"></div>
+
+
+
+
+							</div>
+						</div>
+					</div>
+
+
+					
+					<!-- .content -->
+				</div>
+    
+  </div>
+	</div></div></div>
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
