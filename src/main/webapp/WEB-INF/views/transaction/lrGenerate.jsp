@@ -115,8 +115,7 @@
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											<div class="col-md-2">From</div>
-											<div class="col-md-3">
+											<div class="col-md-1">From
 												<div class="input-group">
 													<select id="fromId" name="fromId" class="standardSelect"
 														tabindex="1" required="required">

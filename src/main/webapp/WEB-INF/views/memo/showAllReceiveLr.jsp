@@ -98,7 +98,7 @@ table.dataTable tbody tr.selected {
 				<div class="col-md-12">
 					<div class="cardview">
 						<div class="cardview-header">
-							<strong class="card-title">Show All Delivered Lr Details</strong>
+							<strong class="card-title">Show All Delivered LR Details</strong>
 						</div>
 						<div class="card-body">
 
@@ -109,7 +109,7 @@ table.dataTable tbody tr.selected {
 										<th>Sr. No.</th>
 										<th>Office Name</th>
 										<th>LR Number</th>
-										<th>Lr Date</th>
+										<th>LR Date</th>
 										<th>Consignor</th>
 										<th>Consignee</th>
 										<th>Particular</th>

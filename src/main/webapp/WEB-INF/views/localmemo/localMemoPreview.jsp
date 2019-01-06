@@ -132,7 +132,7 @@ border: 1px solid black;
 		<table class="t-table">
 			<tr style="line-height: 20px; height: 20px;">
 				<th align="center">Sr No.</th>
-				<th>Lr No.</th>
+				<th>LR No.</th>
 				<th>Consignor</th>
 				<th>Consignee</th>
 				<th>Delivery location</th>

@@ -253,7 +253,7 @@
 							<div class="col-xs-12 col-sm-12">
 										<div class="row">
 										
-											<div class="col-md-4">Search By Lr Number</div>
+											<div class="col-md-4">Search By LR Number</div>
 											<div class="col-md-4">
 												<div class="input-group">
 													<input type="text" id="lrNo" name="lrNo" />
@@ -281,7 +281,7 @@
 										<th>Sr. No.</th>
 										<th>Office Name</th>
 										<th>LR Number</th>
-										<th>Lr Date</th>
+										<th>LR Date</th>
 										<th>Consignor</th>
 										<th>Consignee</th>
 										<th>Particular</th>

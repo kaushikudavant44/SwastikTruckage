@@ -109,7 +109,7 @@
 				<div class="col-xs-12 col-sm-12">
 					<div class="cardview">
 						<div class="cardview-header">
-							<strong>Edit Created Lr</strong>
+							<strong>Edit Created LR</strong>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertEditedLR"

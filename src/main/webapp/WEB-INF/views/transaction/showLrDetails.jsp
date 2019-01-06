@@ -93,7 +93,7 @@
 				<div class="col-md-12">
 					<div class="cardview">
 						<div class="cardview-header">
-							<strong class="card-title">Show All Lr Details</strong>
+							<strong class="card-title">LR List</strong>
 						</div>
 						<div class="card-body">
 
@@ -104,7 +104,7 @@
 										<th>Sr. No.</th>
 										<th>Office Name</th>
 										<th>LR Number</th>
-										<th>Lr Date</th>
+										<th>LR Date</th>
 										<th>Consignor</th>
 										<th>Consignee</th>
 										<th>Particular</th>
@@ -129,8 +129,8 @@
 										<td>
 										<c:if test="${operationOfAccessRight.edit==1 }"> 
 										<div class="fa-hover col-lg-3 col-md-6">
-										<a
-														href="${pageContext.request.contextPath}/editLRDetails/${lrDetailsList.lrHeaderId}"><i
+										
+										<a	href="${pageContext.request.contextPath}/editLRDetails/${lrDetailsList.lrHeaderId}"><i
 														class="fa fa-edit"></i> <span class="text-muted"></span></a></div>
 														</c:if>
 														
@@ -177,8 +177,6 @@
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Footer -->
-
-
 
 
 

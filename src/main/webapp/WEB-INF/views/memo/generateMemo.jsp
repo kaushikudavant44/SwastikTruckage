@@ -274,7 +274,7 @@
 										<th>Sr. No.</th>
 										<th>Office Name</th>
 										<th>LR Number</th>
-										<th>Lr Date</th>
+										<th>LR Date</th>
 										<th>Consignor</th>
 										<th>Consignee</th>
 										<th>Particular</th>
