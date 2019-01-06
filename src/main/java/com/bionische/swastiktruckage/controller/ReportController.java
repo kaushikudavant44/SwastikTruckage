@@ -1,6 +1,7 @@
 package com.bionische.swastiktruckage.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,20 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.master.controller.ExcelWriter;
+import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 /*import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 */import com.bionische.swastiktruckage.mastermodel.LrBilling;
+import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
+import com.bionische.swastiktruckage.model.GetLrDetailsOfClient;
 import com.bionische.swastiktruckage.model.GetPaymentDetails;
+import com.bionische.swastiktruckage.model.GetVoucherReport;
+import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
+import com.bionische.swastiktruckage.repository.GetLrDetailsOfClientRepository;
 import com.bionische.swastiktruckage.repository.GetPaymentDetailsRepository;
+import com.bionische.swastiktruckage.repository.GetVoucherReportRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
 import com.bionische.swastiktruckage.repository.TransactionLrCollectionRepository;
@@ -31,7 +40,6 @@ import com.bionische.swastiktruckage.repository.TransactionLrHeaderRepository;
 import com.bionische.swastiktruckage.repository.VehicleDetailsRepository;
 
 @Controller
-@SessionScope
 public class ReportController {
 	
 	@Autowired
@@ -52,11 +60,23 @@ public class ReportController {
 	@Autowired
 	VehicleDetailsRepository vehicleDetailsRepository;
 	
+	@Autowired
+	GetLrDetailsOfClientRepository getLrDetailsOfClientRepository;
+	
+	@Autowired
+	ClientDetailsRepository clientDetailsRepository;
+	
+	@Autowired
+	GetVoucherReportRepository getVoucherReportRepository;
+	
 	
 	public List<LrBilling> lrHeaderList;
 	public List<TransactionLrHeader> lrList;
 	List<GetPaymentDetails> billList;
 	List<TransactionLrCollection> collectionList;
+	List<GetLrDetailsOfClient> clientLrList;
+	List<TransactionBillHeader> clientBillList;
+	List<GetVoucherReport> voucherList;
 	
 	@RequestMapping(value="/showpendingPaymentLrList", method=RequestMethod.GET)
 	  
@@ -246,6 +266,15 @@ public class ReportController {
 		  ExcelWriter.lrExcel(lrList);
 		  url="redirect:/showDataLrListByDateAndVehicleWise";
 	  }
+	
+	  else if(type==6) {
+		  ExcelWriter.clientLrListExcel(clientLrList);
+		  url="redirect:/showLrListOfClient";
+	  }
+	  else if(type==7) {
+		  ExcelWriter.voucherExcel(voucherList);
+		  url="redirect:/showVoucher";
+	  }
 	  
 	  } catch (IOException e) 
 		 { // TODO Auto-generated catch block
@@ -323,6 +352,132 @@ public class ReportController {
 			return model;
 			
 		}
+	  
+	  @RequestMapping(value="/showLrListOfClient", method=RequestMethod.GET)
+	  
+		public ModelAndView showLrListOfClient(HttpServletRequest request)   
+		{
+			ModelAndView model=new ModelAndView("report/lrListOfClient");
+			
+			List<ClientDetails> clients = clientDetailsRepository.findAll();
+			model.addObject("clientList",clients);
+			
+			return model;
+			
+		}
 	
+	  
+	  @RequestMapping(value="/getLrListByClientId", method=RequestMethod.GET)
+	  
+		public @ResponseBody List<GetLrDetailsOfClient> getLrListByClientId(HttpServletRequest request)   
+		{
+			
+		  clientLrList = new ArrayList<GetLrDetailsOfClient>();
+		    
+			int clientId = Integer.parseInt(request.getParameter("clientId"));
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
+			
+		  try { 
+			  clientLrList = getLrDetailsOfClientRepository.getLrByClientId(clientId ,fromDate, toDate);
+		  System.out.println("lrHeaderList:"+lrHeaderList.toString());
+		  }
+		 		  catch (Exception e) { 
+		 			  e.printStackTrace(); 
+		  
+		  }
+		 
+			return clientLrList;
+			
+		}
 	
+	  @RequestMapping(value="/showBillListOfClient", method=RequestMethod.GET)
+	  
+		public ModelAndView showBillListOfClient(HttpServletRequest request)   
+		{
+			ModelAndView model=new ModelAndView("report/billListOfClient");
+			
+			List<ClientDetails> clients = clientDetailsRepository.findAll();
+			model.addObject("clientList",clients);
+			
+			return model;
+			
+		}
+	  
+	  @RequestMapping(value="/getBillListByClientId", method=RequestMethod.GET)
+	  
+		public @ResponseBody List<TransactionBillHeader> getBillListByClientId(HttpServletRequest request)   
+		{
+		 
+		  clientBillList = new ArrayList<TransactionBillHeader>();
+		    
+			int clientId = Integer.parseInt(request.getParameter("clientId"));
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
+			
+		  try { 
+			  clientBillList = transactionBillHeaderRepository.getBillByClientId(clientId ,fromDate, toDate);
+		 
+		      }
+		 		  catch (Exception e) { 
+		 			  e.printStackTrace(); 
+		  
+		  }
+		 
+			return clientBillList;
+			
+		}
+	  
+	  @RequestMapping(value="/getLrByBillHeader", method=RequestMethod.GET)
+	  
+		public @ResponseBody List<LrBilling> getLrByBillHeader(HttpServletRequest request)   
+		{
+		 
+			List<LrBilling> lrList = new ArrayList<LrBilling>();
+		    
+			int billHeaderId = Integer.parseInt(request.getParameter("billHeaderId"));
+						
+		  try { 
+			  lrList = lrBillingRepository.getLrByBillHeader(billHeaderId);
+		 
+		      }
+		 		  catch (Exception e) { 
+		 			  e.printStackTrace(); 
+		  
+		  }
+		 
+			return lrList;
+			
+		}
+	  
+	  @RequestMapping(value="/showVoucher", method=RequestMethod.GET)
+	  
+		public ModelAndView showVoucher(HttpServletRequest request)   
+		{
+			ModelAndView model=new ModelAndView("report/voucher");
+			
+			List<VehicleDetails> vehicles = vehicleDetailsRepository.findAll();
+			model.addObject("vehicles",vehicles);
+			
+			return model;
+			
+		}
+	  
+	  @RequestMapping(value="/getVoucherReport", method=RequestMethod.GET)
+	  
+		public @ResponseBody List<GetVoucherReport> getVoucherReport(HttpServletRequest request)   
+		{
+		 
+		    voucherList = new ArrayList<GetVoucherReport>();
+		    
+			int vehId = Integer.parseInt(request.getParameter("vehId"));
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
+		 
+			voucherList = getVoucherReportRepository.getVoucherReport(vehId,fromDate,toDate);
+		 
+		 
+			return voucherList;
+			
+		}
 }

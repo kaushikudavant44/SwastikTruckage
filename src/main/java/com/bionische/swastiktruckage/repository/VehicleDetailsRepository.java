@@ -21,6 +21,8 @@ public interface VehicleDetailsRepository extends JpaRepository<VehicleDetails, 
 	
 	VehicleDetails findByVehId(int vehId);
 	
+	List<VehicleDetails> findAll();
+	
 	@Transactional
 	@Modifying
 	@Query("DELETE FROM VehicleOwners where vehId=:vehId")

@@ -36,4 +36,6 @@ public interface TransactionBillHeaderRepository extends JpaRepository<Transacti
 	@Query(value="SELECT COUNT(bill_header_id) FROM t_bill_header b WHERE b.bill_status=0" ,nativeQuery=true)
 	int getPendingBillCount();
 
+	@Query(value="select * from t_bill_header where bill_to=:clientId AND bill_date between :fromDate and :toDate" ,nativeQuery=true)
+	List<TransactionBillHeader> getBillByClientId(@Param("clientId") int clientId,@Param("fromDate") String fromDate,@Param("toDate") String toDate);
 }

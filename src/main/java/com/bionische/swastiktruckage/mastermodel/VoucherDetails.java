@@ -46,7 +46,7 @@ public class VoucherDetails {
 	private boolean isUsed;
 	
 	@Column(name="create_date",updatable=false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@CreatedDate
 	private Date createDate;
 	

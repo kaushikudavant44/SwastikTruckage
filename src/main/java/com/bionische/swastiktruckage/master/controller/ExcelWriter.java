@@ -10,7 +10,9 @@ import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.model.Employee;
+import com.bionische.swastiktruckage.model.GetLrDetailsOfClient;
 import com.bionische.swastiktruckage.model.GetPaymentDetails;
+import com.bionische.swastiktruckage.model.GetVoucherReport;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -390,8 +392,182 @@ public class ExcelWriter {
 	        // Closing the workbook
 	        workbook.close();
 	    }
+	
+	    public static void clientLrListExcel(List<GetLrDetailsOfClient> list) throws IOException {
+	        // Create a Workbook
+	    	
+	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
+	    	Object[] strings = (Object[])declaredFields;
+	    	
+	    	String[] lrBill = (String[])strings;*/
+	        String[] columns = {"LR No","LR Date", "Consignee", "Consignor","PaymentBy", "Freight","LocalTempo","Hamali","Total"};
+	        Workbook workbook = new HSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+	        /* CreationHelper helps us create instances of various things like DataFormat, 
+	           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
+	        CreationHelper createHelper = workbook.getCreationHelper();
+
+	        // Create a Sheet
+	        Sheet sheet = workbook.createSheet("LrBilling");
+
+	        // Create a Font for styling header cells
+	        Font headerFont = workbook.createFont();
+	        headerFont.setBold(true);
+	        headerFont.setFontHeightInPoints((short) 14);
+	        headerFont.setColor(IndexedColors.RED.getIndex());
+
+	        // Create a CellStyle with the font
+	        CellStyle headerCellStyle = workbook.createCellStyle();
+	        headerCellStyle.setFont(headerFont);
+
+	        // Create a Row
+	        Row headerRow = sheet.createRow(0);
+
+	        // Create cells
+	        for(int i = 0; i < columns.length; i++) {
+	            Cell cell = headerRow.createCell(i);
+	            cell.setCellValue(columns[i]);
+	            cell.setCellStyle(headerCellStyle);
+	        }
+
+	        // Create Cell Style for formatting Date
+	        CellStyle dateCellStyle = workbook.createCellStyle();
+	        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+
+	        // Create Other rows and cells with employees data'
 	    
+	        int rowNum = 1;
+	        for(GetLrDetailsOfClient billing: list) {
+	            Row row = sheet.createRow(rowNum++);
+
+	            row.createCell(0)
+	                    .setCellValue(billing.getLrNo());
+	            
+	            row.createCell(1)
+                .setCellValue(billing.getLrDate());
+
+	            row.createCell(2)
+	                    .setCellValue(billing.getConsigneeName());
+
+	            row.createCell(3)
+                .setCellValue(billing.getConsignorName());
+	            
+	            if(billing.getPaymentBy()==0)
+	            {
+	            	 row.createCell(4)
+	                 .setCellValue("To Be Billed");
+	            }
+	            else if(billing.getPaymentBy()==1)
+	            {
+	            	 row.createCell(4)
+	                 .setCellValue("To Pay");
+	            }
+
+	            row.createCell(5)
+                .setCellValue(billing.getFreight());
+	            
+	            row.createCell(6)
+                .setCellValue(billing.getLocalTempo());
+	            
+	            row.createCell(7)
+                .setCellValue(billing.getHamali());
+	                        
+	            row.createCell(8)
+                .setCellValue(billing.getTotal());
+	        }
+
+			// Resize all columns to fit the content size
+	        for(int i =0; i < columns.length; i++) {
+	            sheet.autoSizeColumn(i);
+	        }
+
+	        // Write the output to a file
+	        FileOutputStream fileOut = new FileOutputStream("D:\\first.xls");
+	        workbook.write(fileOut);
+	        fileOut.close();
+
+	        // Closing the workbook
+	        workbook.close();
+	    }
 	    
+	    public static void voucherExcel(List<GetVoucherReport> list) throws IOException {
+	        // Create a Workbook
+	    	
+	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
+	    	Object[] strings = (Object[])declaredFields;
+	    	
+	    	String[] lrBill = (String[])strings;*/
+	    	
+	        String[] columns = {"Memo No","Date","Vehicle No", "Office Address", "To Address"};
+	        Workbook workbook = new HSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+	        /* CreationHelper helps us create instances of various things like DataFormat, 
+	           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
+	        CreationHelper createHelper = workbook.getCreationHelper();
+
+	        // Create a Sheet
+	        Sheet sheet = workbook.createSheet("LrBilling");
+
+	        // Create a Font for styling header cells
+	        Font headerFont = workbook.createFont();
+	        headerFont.setBold(true);
+	        headerFont.setFontHeightInPoints((short) 14);
+	        headerFont.setColor(IndexedColors.RED.getIndex());
+
+	        // Create a CellStyle with the font
+	        CellStyle headerCellStyle = workbook.createCellStyle();
+	        headerCellStyle.setFont(headerFont);
+
+	        // Create a Row
+	        Row headerRow = sheet.createRow(0);
+
+	        // Create cells
+	        for(int i = 0; i < columns.length; i++) {
+	            Cell cell = headerRow.createCell(i);
+	            cell.setCellValue(columns[i]);
+	            cell.setCellStyle(headerCellStyle);
+	        }
+
+	        // Create Cell Style for formatting Date
+	        CellStyle dateCellStyle = workbook.createCellStyle();
+	        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+
+	        // Create Other rows and cells with employees data'
+	        
+	        int rowNum = 1;
+	        for(GetVoucherReport billing: list) {
+	            Row row = sheet.createRow(rowNum++);
+
+	            row.createCell(0)
+	                    .setCellValue(billing.getMemoNo());
+	            
+	            row.createCell(1)
+                .setCellValue(billing.getCreateDate());
+	            
+	            row.createCell(2)
+                .setCellValue(billing.getVehNo());
+
+	            row.createCell(3)
+	                    .setCellValue(billing.getOfficeAddress());
+
+	            row.createCell(4)
+                .setCellValue(billing.getToAddress());
+	                                    
+	         	        }
+
+			// Resize all columns to fit the content size
+	        for(int i =0; i < columns.length; i++) {
+	            sheet.autoSizeColumn(i);
+	        }
+
+	        // Write the output to a file
+	        FileOutputStream fileOut = new FileOutputStream("D:\\first.xls");
+	        workbook.write(fileOut);
+	        fileOut.close();
+
+	        // Closing the workbook
+	        workbook.close();
+	    }
 	}
 
 

@@ -29,6 +29,8 @@ public interface LrBillingRepository extends JpaRepository<LrBilling,Integer>{
 			" AND l.consignee_id = m.client_id AND l.lr_header_id=c.lr_header_id GROUP BY l.lr_header_id " ,nativeQuery=true)
 	List<LrBilling> paymentPendingLrList();
 	
-	
+	@Query(value="SELECT m.client_name AS consignee_name,(SELECT client_name FROM m_clients WHERE client_id=h.consignor) AS consignor_name,(SELECT goods_name FROM m_goods WHERE goods_id = (SELECT goods_id FROM t_lr_containt_details WHERE lr_header_id=h.lr_header_id ORDER BY no_of_containts DESC LIMIT 1))AS goods, h.lr_header_id,h.consignee_id,h.consignor,h.lr_No,h.inv_header_id,h.from_id,h.lr_date,h.truck_no,h.weight,h.freight,h.gst,h.hamali,h.local_tempo,h.total,h.payment_by, \r\n" + 
+			"SUM(c.no_of_containts) AS quantity FROM t_lr_header h,t_lr_containt_details c,m_clients m,t_bill_details d WHERE d.bill_header_id=:billHeaderId AND d.lr_header_id=h.lr_header_id AND h.consignee_id = m.client_id AND h.lr_header_id=c.lr_header_id GROUP BY h.lr_header_id " ,nativeQuery=true)
+	List<LrBilling> getLrByBillHeader(@Param("billHeaderId") int billHeaderId);
 
 }
