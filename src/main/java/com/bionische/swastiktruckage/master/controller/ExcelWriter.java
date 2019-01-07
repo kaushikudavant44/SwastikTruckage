@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 /*import org.apache.poi.openxml4j.exceptions.InvalidFormatException;*/
 import org.apache.poi.ss.usermodel.*;
 /*import org.apache.poi.xssf.usermodel.XSSFWorkbook;*/
+import org.springframework.util.FileCopyUtils;
 
 import com.bionische.swastiktruckage.mastermodel.LrBilling;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
@@ -13,20 +14,30 @@ import com.bionische.swastiktruckage.model.Employee;
 import com.bionische.swastiktruckage.model.GetLrDetailsOfClient;
 import com.bionische.swastiktruckage.model.GetPaymentDetails;
 import com.bionische.swastiktruckage.model.GetVoucherReport;
-
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
 public class ExcelWriter {
 	
-	    public static void paymentPendingExcel(List<LrBilling> list) throws IOException {
+	    public static void paymentPendingExcel(List<LrBilling> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
+	    
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
 	    	Object[] strings = (Object[])declaredFields;
 	    	
@@ -110,12 +121,12 @@ public class ExcelWriter {
 	            if(billing.getPaymentBy()==0)
 	            {
 	            	 row.createCell(12)
-	                 .setCellValue("Consignee");
+	                 .setCellValue("To Be Billed");
 	            }
 	            else
 	            {
 	            	 row.createCell(12)
-	                 .setCellValue("Consigner");
+	                 .setCellValue("To Pay");
 	            }
 	            
 	            row.createCell(13)
@@ -128,15 +139,35 @@ public class ExcelWriter {
 	        }
 
 	        // Write the output to a file
-	        FileOutputStream fileOut = new FileOutputStream("D:\\first.xls");
+	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date())+" PendingPayment.xls";
+	       
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
 	        workbook.write(fileOut);
 	        fileOut.close();
-
+	       
 	        // Closing the workbook
 	        workbook.close();
+	        
+	        //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
 	    }
 	    
-	    public static void lrExcel(List<TransactionLrHeader> list) throws IOException {
+	    public static void lrExcel(List<TransactionLrHeader> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
@@ -193,12 +224,12 @@ public class ExcelWriter {
 	            if(lr.getPaymentBy()==0)
 	            {
 	            	 row.createCell(2)
-	                 .setCellValue("Consignee");
+	                 .setCellValue("To Be Billed");
 	            }
 	            else
 	            {
 	            	 row.createCell(2)
-	                 .setCellValue("Consigner");
+	                 .setCellValue("To Pay");
 	            }
 	            
 	            row.createCell(3)
@@ -211,16 +242,34 @@ public class ExcelWriter {
 	        }
 
 	        // Write the output to a file
-	        FileOutputStream fileOut = new FileOutputStream("D:\\second.xls");
+	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" LR.xls";
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
 	        workbook.write(fileOut);
 	        fileOut.close();
 
 	        // Closing the workbook
 	        workbook.close();
+	      //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
 	    }
 	    
 	    
-	    public static void totalBillExcel(List<GetPaymentDetails> list) throws IOException {
+	    public static void totalBillExcel(List<GetPaymentDetails> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
@@ -295,17 +344,35 @@ public class ExcelWriter {
 	        for(int i =0; i < columns.length; i++) {
 	            sheet.autoSizeColumn(i);
 	        }
-
+	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" Bill.xls";
 	        // Write the output to a file
-	        FileOutputStream fileOut = new FileOutputStream("D:\\third.xls");
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
 	        workbook.write(fileOut);
 	        fileOut.close();
 
 	        // Closing the workbook
 	        workbook.close();
+	        
+	      //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
 	    }
 	    
-	    public static void collectionExcel(List<TransactionLrCollection> list) throws IOException {
+	    public static void collectionExcel(List<TransactionLrCollection> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
@@ -384,16 +451,35 @@ public class ExcelWriter {
 	            sheet.autoSizeColumn(i);
 	        }
 
+	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" Collection.xls";
 	        // Write the output to a file
-	        FileOutputStream fileOut = new FileOutputStream("D:\\fourth.xls");
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
 	        workbook.write(fileOut);
 	        fileOut.close();
 
 	        // Closing the workbook
 	        workbook.close();
+	        
+	      //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
 	    }
 	
-	    public static void clientLrListExcel(List<GetLrDetailsOfClient> list) throws IOException {
+	    public static void clientLrListExcel(List<GetLrDetailsOfClient> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
@@ -481,16 +567,35 @@ public class ExcelWriter {
 	            sheet.autoSizeColumn(i);
 	        }
 
+	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" ClientLR.xls";
 	        // Write the output to a file
-	        FileOutputStream fileOut = new FileOutputStream("D:\\first.xls");
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
 	        workbook.write(fileOut);
 	        fileOut.close();
 
 	        // Closing the workbook
 	        workbook.close();
+	        
+	      //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
 	    }
 	    
-	    public static void voucherExcel(List<GetVoucherReport> list) throws IOException {
+	    public static void voucherExcel(List<GetVoucherReport> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
@@ -559,14 +664,35 @@ public class ExcelWriter {
 	        for(int i =0; i < columns.length; i++) {
 	            sheet.autoSizeColumn(i);
 	        }
+	       
+	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" Voucher.xls";
 
+	        System.out.println("fileName:"+fileName);
 	        // Write the output to a file
-	        FileOutputStream fileOut = new FileOutputStream("D:\\first.xls");
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
 	        workbook.write(fileOut);
 	        fileOut.close();
 
 	        // Closing the workbook
 	        workbook.close();
+	        
+	      //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
 	    }
 	}
 

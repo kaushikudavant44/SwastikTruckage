@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -236,7 +237,7 @@ public class ReportController {
 	  @RequestMapping(value="/showExcel/{type}", method=RequestMethod.GET)
 	  
 	  public String showExcel(@PathVariable("type") int type,HttpServletRequest 
-			  request) 
+			  request,HttpServletResponse response ) 
 	  { 
 		  String url = "redirect:/"; 
 		 try { 		  
@@ -244,35 +245,35 @@ public class ReportController {
 	if(type==1) 
 	{
 	  
-	  ExcelWriter.paymentPendingExcel(lrHeaderList);
+	  ExcelWriter.paymentPendingExcel(lrHeaderList,response);
 	  url="redirect:/showpendingPaymentLrList"; 
 	  } 
 	else if(type==2) {
 	  
-	  ExcelWriter.lrExcel(lrList);
+	  ExcelWriter.lrExcel(lrList,response);
 	  url="redirect:/showLrListByDate"; 
 	  
 	} 
 	else if(type==3) {
 	  
-	  ExcelWriter.totalBillExcel(billList); 
+	  ExcelWriter.totalBillExcel(billList,response); 
 	  url="redirect:/showPaidBills"; 
 	  }
 	else if(type==4) {
 	  
-	  ExcelWriter.collectionExcel(collectionList);
+	  ExcelWriter.collectionExcel(collectionList,response);
 	  url="redirect:/showLrListByDate"; 
 	  }else if(type==5) {
-		  ExcelWriter.lrExcel(lrList);
+		  ExcelWriter.lrExcel(lrList,response);
 		  url="redirect:/showDataLrListByDateAndVehicleWise";
 	  }
 	
 	  else if(type==6) {
-		  ExcelWriter.clientLrListExcel(clientLrList);
+		  ExcelWriter.clientLrListExcel(clientLrList,response);
 		  url="redirect:/showLrListOfClient";
 	  }
 	  else if(type==7) {
-		  ExcelWriter.voucherExcel(voucherList);
+		  ExcelWriter.voucherExcel(voucherList,response);
 		  url="redirect:/showVoucher";
 	  }
 	  

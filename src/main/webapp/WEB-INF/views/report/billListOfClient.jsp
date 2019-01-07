@@ -191,11 +191,11 @@
 								</tbody>
 							</table>
 
-<div class="col-sm-12 text-center">
+<%-- <div class="col-sm-12 text-center">
 
 													<button type="button" class="btn btn-primary" style="color:white;">
 														 <a href="${pageContext.request.contextPath}/showExcel/2" style="color:white;">excel</a></button>
-												</div>
+												</div> --%>
 							
 						</div>
 						
@@ -338,7 +338,7 @@
 tr.append($('<td></td>').html('<div class="panel-heading" role="tab"  id="h'+data.billNo+'"> <a data-toggle="collapse" data-parent="#accordion" href="#c'+data.billNo+'" aria-expanded="true" aria-controls="c'+data.billNo+'" onclick="getLr('+data.billNo+','+data.billHeaderId+')">  submit </a> </div>'));   			   	        	
     
 var tr1 = $('<tr></tr>');
-tr1.append($('<td colspan="5"></td>').html(' <div id="c'+data.billNo+'" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="h'+data.billNo+'">  <div class="panel-body"> <table width="100%" border="1" id="t'+data.billNo+'"> <tr> <th scope="col">lr No</th> <th scope="col">Date</th><th scope="col">Consignee</th><th scope="col">Consignor</th><th scope="col">Quantity</th><th scope="col">Total</th> </tr><tbody></tbody></table></div></div>'));
+tr1.append($('<td colspan="5"></td>').html(' <div id="c'+data.billNo+'" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="h'+data.billNo+'">  <div class="panel-body"> <table width="100%" border="1" id="t'+data.billNo+'"> <tr> <th scope="col">lr No</th> <th scope="col">Date</th><th scope="col">Consignee</th><th scope="col">Consignor</th><th scope="col">Quantity</th><th scope="col">Total</th> </tr></table></div></div>'));
    	     $('#billList tbody').append(tr);
    	  $('#billList tbody').append(tr1); 
    	  
@@ -389,8 +389,7 @@ tr1.append($('<td colspan="5"></td>').html(' <div id="c'+data.billNo+'" class="p
    					tr.append($('<td></td>').html(data.consignorName));
    					tr.append($('<td></td>').html(data.quantity));
    					tr.append($('<td></td>').html(data.total));
-   					
-   				  				 
+   								 
    				$('#t'+id+' tbody').append(tr);
    				 
    								})
