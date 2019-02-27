@@ -30,23 +30,25 @@
         <div class="clearfix"></div> -->
 
        
-        <div class="col-sm-3" style="margin-left:0px">
+        <div class="col-sm-6" style="margin-top:80px">
+
+   <p class="text-left"><strong>Address:</strong> ${lrDetails.officeAddress}</p>
 
 </div>
-        <div class="col-sm-6" style="margin-left:0px">
+        <div class="col-sm-1" style="margin-top:80px">
 
-    	<h5 class="text-center" style=" padding: 1px; margin:1px;" >Subject to Nashik Jurisdiction</h5>
-        <img src="${pageContext.request.contextPath}/resources/images/swastik.png" class="img-responsive" alt="logo">
+    	<h5 class="text-center" style=" padding: 1px; margin:1px;" ></h5>
+    	
+       <%--  <img src="${pageContext.request.contextPath}/resources/images/swastik.png" class="img-responsive" alt="logo"> --%>
         <!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
-        <p class="text-center"><strong>Address:</strong> ${lrDetails.officeAddress}</p>
        
        
        </div>
 
-        <div class="col-sm-3" style="margin-top:30px;">
+        <div class="col-sm-5" style="margin-top:80px;">
 
 
-        <p class="text-center"><strong>Phone No.:</strong> 2362111 / 2350287 / 2350144 <strong> <br> Tele Fax:</strong> 2350211</p>
+        <p class="text-center"><strong>Phone No.:</strong> 2362111 / 2350287 / 2350144 <strong>  Tele Fax:</strong> 2350211</p>
 
 
 </div>            
