@@ -20,6 +20,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/lr/css/style.css"
 	rel="stylesheet" type="text/css"></head> 
 	
+
 <body class="swastikBg">
 
 	<div class="swastikForm">
@@ -30,32 +31,26 @@
         <div class="clearfix"></div> -->
 
        
-        <div class="col-sm-6" style="margin-top:80px">
+        <div class="col-sm-12" style="margin-top:140px">
 
-   <p class="text-left"><strong>Address:</strong> ${lrDetails.officeAddress}</p>
-
+   <p class="text-left"><strong>Address:</strong> ${lrDetails.officeAddress}   &nbsp; &nbsp; &nbsp; &nbsp; <strong>Phone No.:</strong> 2362111 / 2350287 / 2350144 <strong>  Tele Fax:</strong> 2350211</p>
 </div>
-        <div class="col-sm-1" style="margin-top:80px">
+        <div class="col-sm-0" style="margin-top:140px">
 
-    	<h5 class="text-center" style=" padding: 1px; margin:1px;" ></h5>
-    	
-       <%--  <img src="${pageContext.request.contextPath}/resources/images/swastik.png" class="img-responsive" alt="logo"> --%>
-        <!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
-       
-       
+    
        </div>
 
-        <div class="col-sm-5" style="margin-top:80px;">
+        <div class="col-sm-5" style="margin-top:0px;">
 
 
-        <p class="text-center"><strong>Phone No.:</strong> 2362111 / 2350287 / 2350144 <strong>  Tele Fax:</strong> 2350211</p>
+       
 
 
 </div>            
         <div class="clearfix"></div>
 
-<table  width="100%"  style="border: 1px solid black;">
-  <tr height="50px;">
+<table class="printFormat"  width="100%"  style="border: 1px solid black;">
+  <tr height="20px;">
     <th style="padding-left:10px;" width="38%">FROM :  ${lrDetails.officeName}</th>
     <th width="37%">TO :  ${lrDetails.consigneeAddress}</th>
 <th width="25%">LR No.: ${lrDetails.lrNo}</th>
@@ -64,17 +59,17 @@
   
 </table>
 
-<table  width="100%">
-  <tr  height="50px;" style="border-top:0px; border-left: 1px solid #000000; border-right: 1px solid #000000;">
-    <th width="75%" width="61%" style="padding-left:10px;">CONSIGNOR : ${lrDetails.consignorName}</th>
+<table  class="printFormat"  width="100%">
+  <tr  height="20px;" style="border-top:0px; border-left: 1px solid #000000; border-right: 1px solid #000000;">
+    <th width="75%"  style="padding-left:10px;">CONSIGNOR : ${lrDetails.consignorName}</th>
     <th width="25%">DATE : ${lrDetails.lrDate}</th>
 
   </tr>
   
 </table>
 
-<table  width="100%">
-  <tr height="50px;" style="border-top:1px solid #000000; border-bottom:1px solid #000000;  border-left: 1px solid #000000; border-right: 1px solid #000000;" >
+<table  class="printFormat"  width="100%">
+  <tr height="20px;" style="border-top:1px solid #000000; border-bottom:1px solid #000000;  border-left: 1px solid #000000; border-right: 1px solid #000000;" >
     <th width="75%" style="padding-left:10px;" >CONSIGNEE : ${lrDetails.consigneeName}</th>
     <th width="25%"> TRUCK No. :  ${lrDetails.truckNo}</th>
 
@@ -86,18 +81,18 @@
         <div class="col-sm-8" style="padding-left:0px;">
 
 <br>
-       	  <table width="100%" border="1" >
-        	  <tr>
+       	  <table   class="printFormat"  width="100%" border="1"  >
+        	  <tr height="10px;">
         	    <th width="33%"><strong>No. of Containts</strong></th>
         	    <th width="33%" align="center"><strong>Good</strong></th>
         	    <th width="33%" align="center"><strong>Description</strong></th>
       	    </tr>
       	    <tbody>
            <c:forEach items="${lrContaintDetailsList}" var="lrContaintDetailsList" varStatus="count"> 
-             <tr>
-              <td class="containtTd" align="center">${lrContaintDetailsList.noOfContaints}</td>
-              <td class="containtTd" align="center">${lrContaintDetailsList.goodsName}</td>
-              <td class="containtTd" align="center">${lrContaintDetailsList.description}</td>
+             <tr height="1px;">
+              <td width="10%"  class="containtTd" align="center">${lrContaintDetailsList.noOfContaints}</td>
+              <td width="10%" class="containtTd" align="center">${lrContaintDetailsList.goodsName}</td>
+              <td width="10%" class="containtTd" align="center">${lrContaintDetailsList.description}</td>
             </tr>
            
 			</c:forEach>

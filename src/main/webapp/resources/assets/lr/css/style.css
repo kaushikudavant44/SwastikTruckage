@@ -1,10 +1,20 @@
 
 .swastikBg { width:100%;margin:0; padding:0; background:#eee}
 .swastikForm {background:#fff; padding:10px; margin:0px 00px; width:100%; float: left; border: solid 0px #ccc;}
-.swastikForm label {font-size:12px}
+.swastikForm label {font-size:8px}
 .leftwd {width: 140px; padding-left:10px;}
-.containtTd {height: 40px;}
+.containtTd {height: 20px;}
+
+table.printFormat tr td { font-size: 12px; }
+
 @media print {
+	
+	 body {transform: scale(.9);}
+	 @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+	 
    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
         float: left;
    }
