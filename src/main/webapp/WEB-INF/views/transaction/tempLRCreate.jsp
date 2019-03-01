@@ -239,12 +239,12 @@
 							<strong>Create LR</strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertTempLR"
-								method="post">
+							<form action="${pageContext.request.contextPath}/insertLR"
+								method="post" id="submitLr">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											<div class="col-md-1">From</div>
+											<div class="col-md-2">From</div>
 											<div class="col-md-2">
 												<div class="input-group">
 													<select id="fromId" name="fromId" class="standardSelect"
@@ -269,7 +269,7 @@
 												</div>
 											</div>
 
-											<div class="col-md-1">To:</div>
+											<div class="col-md-2">To:</div>
 											<div class="col-md-2">
 												<div class="input-group">
 													<input type="hidden" id="clientIdForAdd" name="clientIdF" />
@@ -315,7 +315,7 @@
 
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											<div class="col-md-1" style="max-width: 9%">CONSIGNOR:</div>
+											<div class="col-md-2">CONSIGNOR:</div>
 											<div class="col-md-2">
 												<div class="input-group">
 													<select id="consignor" name="consignor"
@@ -332,7 +332,7 @@
 												</div>
 											</div>
 
-											<div class="col-md-1">CONSIGNEE:</div>
+											<div class="col-md-2">CONSIGNEE:</div>
 											<div class="col-md-2">
 												<div class="input-group">
 													<select id="consigneeId" name="consigneeId"
@@ -351,7 +351,7 @@
 												</div>
 											</div>
 											
-													<div class="col-md-1">LR No.:</div>
+													<!-- <div class="col-md-1">LR No.:</div>
 											<div class="col-md-1">
 												<div class="input-group">
 
@@ -361,11 +361,11 @@
 
 
 												</div>
-											</div>
+											</div> -->
 
 
 											<div class="col-md-1">Invoice No.</div>
-											<div class="col-md-1">
+											<div class="col-md-2">
 												<div class="input-group">
 
 													<input class="form-control" name="invoiceNo" id="invoiceNo"
@@ -377,28 +377,14 @@
 
 										</div>
 									</div>
-
-
 									&nbsp;
-
-									<div class="col-xs-12 col-sm-12">
-										<div class="row">
-
-											<!-- <div class="col-md-5"></div> -->
-									
-
-										</div>
-									</div>
-
-
-									&nbsp;
-
+								
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 
 
-											<div class="col-md-1">Payment By:</div>
-											<div class="col-md-1" style="max-width: 5%">To Be
+											<div class="col-md-2">Payment By:</div>
+											<div class="col-md-3" style="max-width: 10%">To Be
 												Billed</div>
 											<div class="col-md-1" style="max-width: 5%">
 												<div class="input-group">
@@ -413,7 +399,7 @@
 											</div>
 
 
-											<div class="col-md-1" style="max-width: 5%">To Pay</div>
+											<div class="col-md-2" style="max-width: 7%">To Pay</div>
 
 											<div class="col-md-1" style="max-width: 5%">
 												<div class="input-group">
@@ -424,7 +410,7 @@
 
 												</div>
 											</div>
-											<div class="col-md-1" style="max-width: 5%">Paid</div>
+											<div class="col-md-2" style="max-width: 7%">Paid</div>
 											<div class="col-md-1" style="max-width: 5%;">
 												<div class="input-group">
 
@@ -438,10 +424,7 @@
 											</div>
 										</div>
 									</div>
-
-									&nbsp;
-
-									<hr>
+										&nbsp;
 
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
@@ -492,7 +475,7 @@
 												</div>
 											</div>
 
-											<div class="col-md-1">B. C. CHARGE</div>
+											<div class="col-md-2">B. C. CHARGE</div>
 											<div class="col-md-1">
 												<div class="input-group">
 
@@ -549,7 +532,7 @@
 												</div>
 											</div>
 
-											<div class="col-md-1">DD CHARGES</div>
+											<div class="col-md-2">DD CHARGES</div>
 											<div class="col-md-1">
 												<div class="input-group">
 
@@ -579,11 +562,11 @@
 										</div>
 									</div>
 
-									&nbsp;
+								
 
 									<hr>
 
-									&nbsp;
+						
 								
 
 								</div>
@@ -628,7 +611,7 @@
 										<hr
 											style="border: 0; clear: both; display: block; width: 100%; background-color: #000000; height: 1px;">
 										<div class="col-md-2">No. of Contains</div>
-										<div class="col-md-1">
+										<div class="col-md-2">
 											<div class="input-group">
 
 
@@ -695,7 +678,8 @@
 													<th>Action</th>
 												</tr>
 											</thead>
-
+											<tbody>
+											</tbody>
 										</table>
 									</div>
 								</div>
@@ -703,9 +687,9 @@
 								<div class="col-lg-12" align="center">
 
 
-									<button type="submit" class="btn btn-primary"
+									<button type="button" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;"
-										tabindex="22">Submit</button>
+										tabindex="22" onclick="validateContaint()">Submit</button>
 								</div>
 							</form>
 						</div>
@@ -1045,7 +1029,21 @@ $(document).ready(function(){
     });
 });
 
+if($("#paymentByTobe").prop("checked") == true){
+    
+	$("#freight").attr('readonly','readonly');
+	$("#gst").attr('readonly','readonly');
+	$("#hamali").attr('readonly','readonly');
+	$("#bccharge").attr('readonly','readonly');
+	$("#kata").attr('readonly','readonly');
+	$("#localtempo").attr('readonly','readonly');
+	$("#bharai").attr('readonly','readonly');
+	$("#ddcharges").attr('readonly','readonly');
+	
+	
+	
 
+}
 $(document).ready(function(){
     $('#paymentByToPay').click(function(){
         if($(this).prop("checked") == true){
@@ -1064,7 +1062,19 @@ $(document).ready(function(){
        
     });
 });
+if($('#paymentByToPay').prop("checked") == true){
+    
+    
+	$("#freight").attr('readonly','readonly');
+	$("#gst").attr('readonly','readonly');
+	$("#hamali").attr('readonly','readonly');
+	$("#bccharge").attr('readonly','readonly');
+	$("#kata").attr('readonly','readonly');
+	$("#localtempo").attr('readonly','readonly');
+	$("#bharai").attr('readonly','readonly');
+	$("#ddcharges").attr('readonly','readonly');
 
+}
 
 $(document).ready(function(){
     $('#paymentByPaid').click(function(){
@@ -1187,7 +1197,25 @@ function saveClientDetails(){
 			});
 	
 }
+
+
+	function validateContaint(){
+    
+  //gives the total number of records in table
+    var totalRecords =$("#bootstrap-data-table").DataTable().page.info().recordsTotal;
+    //test if dataTable is empty
+    (totalRecords === 0)? alert("Please add containts in table") : $("#submitLr").submit();
+	}
+
+	
+	document.getElementById("lrNo").value="";
+	document.getElementById("invoiceNo").value="";
+	document.getElementById("noOfContaint").value="";
+	document.getElementById("description").value="";
+
+	
 </script>
+
 
 
 </body>

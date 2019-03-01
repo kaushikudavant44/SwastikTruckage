@@ -1,5 +1,7 @@
 package com.bionische.swastiktruckage.mastermodel;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -7,7 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -49,6 +56,17 @@ public class ClientDetails {
 	private boolean isUsed;
 
 
+/*	@Column(name="create_date",updatable=false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreatedDate
+	private Date createDate;
+	
+	@Column(name="modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	@UpdateTimestamp
+	private Date modifiedDate;*/
+	
 	public boolean isUsed() {
 		return isUsed;
 	}

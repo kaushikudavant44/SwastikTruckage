@@ -45,7 +45,7 @@ public class LRDetails {
 	private String truckNo;
 	
 	@Column(name="weight")
-	private float weight;
+	private String weight;
 	
 	@Column(name="freight")
 	private float freight;
@@ -185,11 +185,13 @@ public class LRDetails {
 		this.truckNo = truckNo;
 	}
 
-	public float getWeight() {
+	
+
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(float weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 
@@ -300,6 +302,8 @@ public class LRDetails {
 				+ ", consigneeAddress=" + consigneeAddress + ", isUsed=" + isUsed + ", officeAddress=" + officeAddress
 				+ "]";
 	}
+
+	
 
 	
 	

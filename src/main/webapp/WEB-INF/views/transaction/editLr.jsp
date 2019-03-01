@@ -342,7 +342,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="weight" id="weight"
-														type="number" required min="0" value="${lrDetails.weight}" /> <span
+														type="text" min="0" value="${lrDetails.weight}" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
@@ -399,7 +399,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="bccharge" id="bccharge"
-														type="text" required value="${lrDetails.bcCharge}" min="0"
+														type="text" value="${lrDetails.bcCharge}" min="0"
 														onkeyup="getTotal()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 														aria-live="polite"></span>
 												</div>
@@ -446,7 +446,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="bharai" id="bharai"
-														type="text" min="0" required value="0"
+														type="text" min="0" value="0"
 														onkeyup="getTotal()" value="${lrDetails.bharai}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> <span class="error"
 														aria-live="polite"></span>
 												</div>

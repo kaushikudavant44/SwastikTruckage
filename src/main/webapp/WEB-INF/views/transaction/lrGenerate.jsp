@@ -268,7 +268,7 @@
 											</div>
 											
 
-											<div class="col-md-1">To Pay</div>
+											<div class="col-md-2">To Pay</div>
 
 											<div class="col-md-1">
 												<div class="input-group">

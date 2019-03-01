@@ -144,8 +144,19 @@ table.dataTable tbody tr.selected {
 														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
 														
 														</div> --%>
+										<c:if test="${operationOfAccessRight.mdelete==1 }"> 
+														<div class="fa-hover col-lg-3 col-md-6">
+														<a
+														href="${pageContext.request.contextPath}/deleteLr/${lrDetailsList.lrHeaderId}"><i
+														class="fa fa-trash-o"></i> <span class="text-muted"></span></a>
+														</div>
+														
+														</c:if>				
+														
 										
 										</td> 
+										
+										
 										
 										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>
 									</tr>

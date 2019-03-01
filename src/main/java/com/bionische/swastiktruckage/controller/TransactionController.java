@@ -298,7 +298,7 @@ public class TransactionController {
 					lrId=transactionLrHeaderRes.getLrNo();
 					lrId++;
 				}else {
-					lrId=180001;
+					lrId=20000;
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
