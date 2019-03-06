@@ -282,7 +282,7 @@
 								</thead>
 								<tbody>
 								<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
-									<tr data-value="${lrDetailsList.lrHeaderId}">
+									<tr data-value="${lrDetailsList.lrHeaderId}" class="selected">
 										
 										<td>${count.index+1 }</td>
 										<td>${lrDetailsList.officeName}</td>
