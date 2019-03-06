@@ -402,6 +402,10 @@ public class TransactionController {
 		
 		try {
 			lrDetailsList=getAllLrDetailsRepository.findAllLr(officeId);
+			
+			for(int i=0;i<lrDetailsList.size();i++) {
+				lrDetailsList.get(i).setLrDate(DateConverter.convertToDMY(lrDetailsList.get(i).getLrDate()));
+			}
 			System.out.println("cdydcb"+lrDetailsList.toString());
 			model.addObject("lrDetailsList", lrDetailsList);
 		} catch (Exception e) {
@@ -679,6 +683,10 @@ public class TransactionController {
 			
 			lrDetails=lRDetailsRepository.findByLrHeaderId(lrheaderId);
 			
+			
+			lrDetails.setLrDate(DateConverter.convertToDMY(lrDetails.getLrDate()));
+			
+			
 			List<LrContaintDetails> lrContaintDetailsListResult=new ArrayList<>();
 			
 			lrContaintDetailsListResult=lrContaintDetailsRepository.findByLrHeaderId(lrDetails.getLrHeaderId());
@@ -709,6 +717,9 @@ public class TransactionController {
 			System.out.println("containt"+lrContaintDetailsList.toString());
 			
 			System.out.println("invoice"+transactionLrInvoiceDetailList.toString());
+			
+			System.out.println("Lr Details"+lrDetails.toString());
+			
 			
 			model.addObject("containtTotal", total);
 			model.addObject("lrDetails", lrDetails);

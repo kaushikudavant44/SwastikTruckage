@@ -138,12 +138,17 @@
 														href="${pageContext.request.contextPath}/showVoucherReg/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-file-text-o" title="Create Voucher"></i> <span class="text-muted"></span></a>
 														</div>
-														
+														<div class="fa-hover col-lg-3 col-md-6">
 														<a
 														href="${pageContext.request.contextPath}/memoPreview/${getAllMemoList.memoHeaderId}"><i
 														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
 														</div>
-										
+														<div class="fa-hover col-lg-3 col-md-6">
+														<a
+														href="${pageContext.request.contextPath}/generateMemoExcel/${getAllMemoList.memoHeaderId}"><i
+														class="fa fa-table" title="Generate Excel"></i> <span class="text-muted"></span></a>
+													
+														</div>
 										</td>
 										
 										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>

@@ -217,7 +217,7 @@
 													</c:forEach>	
 
 
-													</select> <a href="${pageContext.request.contextPath}/showVehicleDriverReg"><span
+													</select> <a href="${pageContext.request.contextPath}/showVehicleDriverReg" onclick="openModel()"><span
 														style="color: blue">If driver not found?</span></a>
 												</div>
 											</div>
@@ -274,6 +274,7 @@
 										<th>Sr. No.</th>
 										<th>Office Name</th>
 										<th>LR Number</th>
+										<th>Invoice Number</th>
 										<th>LR Date</th>
 										<th>Consignor</th>
 										<th>Consignee</th>
@@ -292,6 +293,7 @@
 										<td>${count.index+1 }</td>
 										<td>${lrDetailsList.officeName}</td>
 										<td><strong>${lrDetailsList.lrNo}</strong></td>
+											<td>${lrDetailsList.invNo}</td>
 										<td>${lrDetailsList.lrDate}</td>
 										<td>${lrDetailsList.consignor}</td>
 										<td>${lrDetailsList.consignee}</td>
@@ -341,6 +343,129 @@
 	<!-- .content -->
 
 
+<div id="id01" class="w3-modal">
+	<div class="w3-modal-content w3-card-4">
+		<!-- <header class="w3-container w3-teal"> 
+        
+        <h2>Modal Header</h2>
+      </header> -->
+		<%-- <div class="row">
+
+			<div class="col-xs-12 col-sm-12">
+				<div class="cardview">
+					<div class="cardview-header">
+						<strong>Add New Client</strong> <span
+							onclick="document.getElementById('id01').style.display='none'"
+							class="w3-button w3-display-topright">&times;</span>
+					</div>
+					<div class="card-body card-block">
+
+						<form action="#">
+
+							<div class="row">
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">Full Name</label> <input
+											required name="name" id="name" class="form-control"
+											style="text-transform: uppercase;" onblur="nameValidation()">
+									</div>
+									<p id="validationMsg" style="position: absolute; color: red;"></p>
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">Contact No</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-phone"></i>
+											</div>
+											<input class="form-control" name="contactNo" id="contactNo">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+
+									<label class=" form-control-label">Select State</label> <select
+										data-placeholder="Choose a state" class="standardSelect"
+										id="stateId" name="stateId" onchange=getCityList()>
+
+										<option value=""></option>
+
+										<c:forEach items="${stateList}" var="state">
+
+											<option value="${state.stateId}">${state.stateName}
+											</option>
+
+										</c:forEach>
+									</select>
+
+
+
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">Select City</label> <select
+											required class="standardSelect form-control" id="cityId"
+											name="cityId">
+											<option value=""></option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">Address</label>
+										<textarea required class="form-control" name="address"
+											id="address"></textarea>
+									</div>
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">Bill Name</label> <input
+											class="form-control" name="billName" id="billName"
+											style="text-transform: uppercase;">
+									</div>
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">Pincode</label> <input
+											class="form-control" id="pincode" name="pincode">
+									</div>
+								</div>
+
+								<div class="col-sm-6 col-md-6">
+									<div class="form-group">
+										<label class=" form-control-label">GST</label> <input
+											name="gst" id="gst1" class="gstinnumber">
+									</div>
+								</div>
+
+
+
+								<br> <br>
+								<div class="clearfix"></div>
+								<br>
+								<hr>
+								<div class="col-sm-12 text-center">
+
+									<button type="button" class="btn btn-primary"
+										onclick="saveClientDetails()">Submit</button>
+								</div>
+							</div>
+
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div> --%>
+
+	</div>
+</div>
 
 
 
@@ -496,6 +621,25 @@ function getVehicalOwner(){
 	});
 }
 
+
+
+var flag;
+function openModel(type){
+	
+	flag=type;
+document.getElementById('id01').style.display='block'
+
+}
+
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 </script>
 
 </body>

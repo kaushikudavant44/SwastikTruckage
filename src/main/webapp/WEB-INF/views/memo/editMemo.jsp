@@ -413,7 +413,7 @@
     	var lrHeaderId = "<c:out value="${lrDetailsList.lrHeaderId}"/>";
 
     	selectedRowList.push(parseInt(lrHeaderId,10));
-
+		alert(lrHeaderId);
     	</c:forEach>
     		 	
     	if(selectedRowList!=null && selectedRowList!=""){

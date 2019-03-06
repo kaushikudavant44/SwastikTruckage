@@ -6,11 +6,13 @@ import org.apache.poi.ss.usermodel.*;
 /*import org.apache.poi.xssf.usermodel.XSSFWorkbook;*/
 import org.springframework.util.FileCopyUtils;
 
+import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
 import com.bionische.swastiktruckage.mastermodel.LrBilling;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.model.Employee;
+import com.bionische.swastiktruckage.model.GetAllMemo;
 import com.bionische.swastiktruckage.model.GetLrDetailsOfClient;
 import com.bionische.swastiktruckage.model.GetPaymentDetails;
 import com.bionische.swastiktruckage.model.GetVoucherReport;
@@ -123,10 +125,13 @@ public class ExcelWriter {
 	            	 row.createCell(12)
 	                 .setCellValue("To Be Billed");
 	            }
-	            else
+	            else if(billing.getPaymentBy()==1)
 	            {
 	            	 row.createCell(12)
 	                 .setCellValue("To Pay");
+	            }else {
+	            	 row.createCell(12)
+	                 .setCellValue("Paid");
 	            }
 	            
 	            row.createCell(13)
@@ -547,6 +552,10 @@ public class ExcelWriter {
 	            {
 	            	 row.createCell(4)
 	                 .setCellValue("To Pay");
+	            }else {
+	            	
+	            	row.createCell(4)
+	                 .setCellValue("Paid");
 	            }
 
 	            row.createCell(5)
@@ -666,6 +675,154 @@ public class ExcelWriter {
 	        }
 	       
 	        String fileName = "D:\\"+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" Voucher.xls";
+
+	        System.out.println("fileName:"+fileName);
+	        // Write the output to a file
+	        FileOutputStream fileOut = new FileOutputStream(fileName);
+	        workbook.write(fileOut);
+	        fileOut.close();
+
+	        // Closing the workbook
+	        workbook.close();
+	        
+	      //downlod file	
+			File file = new File(fileName);
+			
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			String mimeType =  URLConnection.guessContentTypeFromStream(inputStream);
+			
+			if(mimeType== null)
+			{
+				mimeType = "application/octet-stream";
+			}
+			
+			response.setContentType(mimeType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+			
+			FileCopyUtils.copy(inputStream,response.getOutputStream());
+			
+	    }
+	    
+	    
+	    
+	    public static void memoExcel(List<GetAllLrDetails> getAllLrlist,GetAllMemo getMemoDeatails,HttpServletResponse response ) throws IOException {
+	        // Create a Workbook
+	    	
+	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
+	    	Object[] strings = (Object[])declaredFields;
+	    	
+	    	String[] lrBill = (String[])strings;*/
+	    	
+	    	
+	    	
+	        String[] columns = {"Lr No","Invoice No", "Consignor", "Consignee", "Delivery location", "Goods", "No. of Qunt.", "Payment By"};
+	        Workbook workbook = new HSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+	        /* CreationHelper helps us create instances of various things like DataFormat, 
+	           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
+	        CreationHelper createHelper = workbook.getCreationHelper();
+
+	        // Create a Sheet
+	        Sheet sheet = workbook.createSheet("MemoDetails");
+
+	        // Create a Font for styling header cells
+	        Font headerFont = workbook.createFont();
+	        headerFont.setBold(true);
+	        headerFont.setFontHeightInPoints((short) 14);
+	        headerFont.setColor(IndexedColors.RED.getIndex());
+
+	        // Create a CellStyle with the font
+	        CellStyle headerCellStyle = workbook.createCellStyle();
+	        headerCellStyle.setFont(headerFont);
+
+	        // Create Cell Style for formatting Date
+	        CellStyle dateCellStyle = workbook.createCellStyle();
+	        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+	        
+	        Row row1 = sheet.createRow(0);
+	        
+	        
+	        row1.createCell(0).setCellValue("Memo No:- "+getMemoDeatails.getMemoNo());
+	        row1.createCell(1).setCellValue("Memo Created Date:- "+getMemoDeatails.getCreatedDate());
+	        
+	        Row row2 = sheet.createRow(1);
+	        row2.createCell(0).setCellValue("Vehical Owner Name:- "+getMemoDeatails.getOwnerName());
+	        row2.createCell(1).setCellValue("Driver Name:- "+getMemoDeatails.getDriverName());
+	        
+	        Row row3 = sheet.createRow(2);
+	        row3.createCell(0).setCellValue("Driver Liscence No:- "+getMemoDeatails.getLicenseNo());
+	        row3.createCell(1).setCellValue("Vehicle No:- "+getMemoDeatails.getVehNo());
+	        
+	        Row row4 = sheet.createRow(3);
+	        row4.createCell(0).setCellValue("Office Name:- "+getMemoDeatails.getFromOffice());
+	        row4.createCell(1).setCellValue("Delivery Office Name:- "+getMemoDeatails.getToOffice());
+	        
+	        
+	        // Create a Row
+	        Row headerRow = sheet.createRow(5);
+
+	        // Create cells
+	        for(int i = 0; i < columns.length; i++) {
+	            Cell cell = headerRow.createCell(i);
+	            cell.setCellValue(columns[i]);
+	            cell.setCellStyle(headerCellStyle);
+	        }
+
+	       
+	     
+	        
+	        // Create Other rows and cells with user data'
+	        int rowNum = 6;
+	        for(GetAllLrDetails lrDetails: getAllLrlist) {
+	            Row row = sheet.createRow(rowNum++);
+
+	            
+	            row.createCell(0)
+                .setCellValue(lrDetails.getLrNo());
+	            
+	            row.createCell(1)
+                .setCellValue(lrDetails.getInvNo());
+
+	            row.createCell(2)
+	                    .setCellValue(lrDetails.getConsignor());
+
+	            row.createCell(3)
+                .setCellValue(lrDetails.getConsignee());
+	            
+	            
+	            row.createCell(4)
+                .setCellValue(lrDetails.getClientAddress());
+	            
+	            row.createCell(5)
+                .setCellValue(lrDetails.getParticular());
+	            
+	            row.createCell(6)
+                .setCellValue(lrDetails.getQuantity());
+	            
+	            if(lrDetails.getPaymentBy().equals("0"))
+	            {
+	            	 row.createCell(7)
+	                 .setCellValue("To Be Billed");
+	            }
+	            else if(lrDetails.getPaymentBy().equals("1"))
+	            {
+	            	 row.createCell(7)
+	                 .setCellValue("To Pay");
+	            }else {
+	            	
+	            	row.createCell(7)
+	                 .setCellValue("Paid");
+	            }
+	                                    
+	         	        }
+
+			// Resize all columns to fit the content size
+	        for(int i =0; i < columns.length; i++) {
+	            sheet.autoSizeColumn(i);
+	        }
+	       
+	        String fileName = ""+new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) +" Memo.xls";
 
 	        System.out.println("fileName:"+fileName);
 	        // Write the output to a file

@@ -1,5 +1,6 @@
 package com.bionische.swastiktruckage.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.common.DateConverter;
 import com.bionische.swastiktruckage.master.controller.SMSSender;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
@@ -107,6 +109,12 @@ public class MemoController {
 			//List<ClientDetails> clientDetails=clientDetailsRepository.findByIsUsed(true);
 			staffDetails = officeStaffRepository.findByStaffId(staffId);
 			lrDetailsList=getAllLrDetailsRepository.findLrForMakeMemo(officeId);
+		
+			for(int i=0;i<lrDetailsList.size();i++) {
+				lrDetailsList.get(i).setLrDate(DateConverter.convertToDMY(lrDetailsList.get(i).getLrDate()));
+			}
+			
+			
 			vehicleDriverList=vehiclesDriversRepository.findByIsUsed(true);
 			
 			
@@ -485,14 +493,21 @@ public class MemoController {
 		
 			lrDetailsList=getAllLrDetailsRepository.getMemoLrDetailsByMemoHeaderId(memoHeaderId);
 			
+			
 			GetAllMemo getMemoDeatails=new GetAllMemo();
 			getMemoDeatails=getAllMemoRepository.findByMemoHeaderId(memoHeaderId);
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");  
+			   String strDate = formatter.format(getMemoDeatails.getCreatedDate());  
+			
+			   
+			
 			
 			System.out.println("Memo Details"+getMemoDeatails.toString());
 			System.out.println("Lr Details"+lrDetailsList.toString());
 			model.addObject("getMemoDeatails", getMemoDeatails);
 			model.addObject("lrDetailsList", lrDetailsList);
-			
+			model.addObject("strDate",strDate);
 		
 			
 		} catch (Exception e) {

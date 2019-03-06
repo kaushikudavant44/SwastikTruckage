@@ -61,7 +61,7 @@ border: 1px solid black;
 			</p>
 			
 			<p style="text-align: left">
-				<strong> <font size="4">Date : ${getMemoDeatails.createdDate}</font>
+				<strong> <font size="4">Date : ${strDate}</font>
 				</strong>
 			</p>
 			
@@ -133,6 +133,7 @@ border: 1px solid black;
 			<tr style="line-height: 20px; height: 20px;">
 				<th align="center">Sr No.</th>
 				<th>Lr No.</th>
+				<th>Invoice No.</th>
 				<th>Consignor</th>
 				<th>Consignee</th>
 				<th>Delivery location</th>
@@ -140,11 +141,12 @@ border: 1px solid black;
 				<th>No. of Quant.</th>
 				<th>Payment By</th>
 			</tr>
-			<c:forEach items="${lrDetailsList }" var="lrDetailsList" varStatus="count">
+			<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
 			<tr style="line-height: 20px; height: 20px;">
 				
 				<td align="center">${count.index+1}</td>
 				<td align="center">${lrDetailsList.lrNo}</td>
+				<td align="center">${lrDetailsList.invNo}</td>
 				<td align="center">${lrDetailsList.consignor}</td>
 				<td align="center">${lrDetailsList.consignee}</td>
 				<td align="center">${lrDetailsList.clientAddress}</td>

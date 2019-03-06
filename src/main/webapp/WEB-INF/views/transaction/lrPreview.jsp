@@ -117,9 +117,20 @@
           <div class="col-sm-4 padding0">
           	<!-- <h5><strong> SAC Code: 996511</strong> </h5> -->
             <h5><strong>PAN No.: BERPS8138B</strong> </h5>
-            <h5>www.swastiktransport.com</h5>
+            <h5><strong>
+            
+            <c:if test="${lrDetails.paymentBy==0}">
+            To Be Billed
+            </c:if>
+            <c:if test="${lrDetails.paymentBy==1}">
+            To Pay
+            </c:if>
+            <c:if test="${lrDetails.paymentBy==2}">
+            Paid
+            </c:if>
+            </strong></h5>
           <h5>Email: swastiktruckage@gmail.com</h5>
-          <h5>Helpline No.: 9890362111</h5>
+          <h5>Helpline No.: 8806807111</h5>
 
 
           </div>

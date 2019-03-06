@@ -295,7 +295,7 @@ public class VehicleController {
 	  
 	    vehiclesDrivers.setDriverContactNo(request.getParameter("contactNo"));
 	    vehiclesDrivers.setVehId(Integer.parseInt(request.getParameter("vehId")));
-	    vehiclesDrivers.setDriverLicenseNo(Integer.parseInt(request.getParameter("licenseNo")));
+	    vehiclesDrivers.setDriverLicenseNo(request.getParameter("licenseNo"));
 	    
 	    vehiclesDrivers.setUsed(true);
 		

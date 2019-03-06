@@ -390,7 +390,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy"
-														id="paymentByTobe" type="radio" value="0" tabindex="7" />
+														id="paymentByTobe1" type="radio" value="0" tabindex="7" />
 													<span class="error" aria-live="polite"></span>
 
 
@@ -405,7 +405,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy"
-														id="paymentByToPay" type="radio" value="1" tabindex="7" />
+														id="paymentByToPay1" type="radio" value="1" tabindex="7" />
 													<span class="error" aria-live="polite"></span>
 
 												</div>
@@ -415,7 +415,7 @@
 												<div class="input-group">
 
 													<input class="form-control" name="paymentBy"
-														id="paymentByPaid" type="radio" value="2" tabindex="7"
+														id="paymentByPaid1" type="radio" value="2" tabindex="7"
 														checked /> <span class="error" aria-live="polite"></span>
 
 
@@ -1190,6 +1190,7 @@ function saveClientDetails(){
 				}else if(flag==2){
 					$('#consigneeId').append("<option value='"+data.clientId+"'>"+data.clientName+"</option>");
 					$('#consigneeId').val(data.clientId);
+					$('#consignorAddress').val(data.clientAddress);
 					$('#consigneeId').trigger("chosen:updated");
 					
 				}

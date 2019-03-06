@@ -48,9 +48,18 @@ public class GetAllLrDetails {
 	@Column(name="payment_by")
 	private String paymentBy;
 	
+	@Column(name="inv_no", nullable=true)
+	private String invNo;
 	
 	
-	
+	public String getInvNo() {
+		return invNo;
+	}
+
+	public void setInvNo(String invNo) {
+		this.invNo = invNo;
+	}
+
 	public String getPaymentBy() {
 		return paymentBy;
 	}
@@ -153,8 +162,11 @@ public class GetAllLrDetails {
 		return "GetAllLrDetails [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", lrDate=" + lrDate + ", particular="
 				+ particular + ", quantity=" + quantity + ", amount=" + amount + ", goodsId=" + goodsId
 				+ ", officeName=" + officeName + ", consignor=" + consignor + ", consignee=" + consignee
-				+ ", clientAddress=" + clientAddress + ", paymentBy=" + paymentBy + "]";
+				+ ", clientAddress=" + clientAddress + ", paymentBy=" + paymentBy + ", invNo=" + invNo + "]";
 	}
+
+	
+	
 
 	
 

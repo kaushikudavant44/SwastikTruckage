@@ -104,6 +104,7 @@
 										<th>Sr. No.</th>
 										<th>Office Name</th>
 										<th>LR Number</th>
+										<th>Invoice Number</th>
 										<th>LR Date</th>
 										<th>Consignor</th>
 										<th>Consignee</th>
@@ -120,6 +121,7 @@
 										<td>${count.index+1 }</td>
 										<td>${lrDetailsList.officeName}</td>
 										<td>${lrDetailsList.lrNo}</td>
+										<td>${lrDetailsList.invNo}</td>
 										<td>${lrDetailsList.lrDate}</td>
 										<td>${lrDetailsList.consignor}</td>
 										<td>${lrDetailsList.consignee}</td>

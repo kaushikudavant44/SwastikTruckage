@@ -21,16 +21,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
+import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
 /*import com.bionische.swastiktruckage.master.controller.ExcelWriter;
 */import com.bionische.swastiktruckage.mastermodel.LrBilling;
 import com.bionische.swastiktruckage.mastermodel.TransactionBillHeader;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrCollection;
 import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 import com.bionische.swastiktruckage.mastermodel.VehicleDetails;
+import com.bionische.swastiktruckage.model.GetAllMemo;
 import com.bionische.swastiktruckage.model.GetLrDetailsOfClient;
 import com.bionische.swastiktruckage.model.GetPaymentDetails;
 import com.bionische.swastiktruckage.model.GetVoucherReport;
 import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
+import com.bionische.swastiktruckage.repository.GetAllLrDetailsRepository;
+import com.bionische.swastiktruckage.repository.GetAllMemoRepository;
 import com.bionische.swastiktruckage.repository.GetLrDetailsOfClientRepository;
 import com.bionische.swastiktruckage.repository.GetPaymentDetailsRepository;
 import com.bionische.swastiktruckage.repository.GetVoucherReportRepository;
@@ -70,6 +74,11 @@ public class ReportController {
 	@Autowired
 	GetVoucherReportRepository getVoucherReportRepository;
 	
+	@Autowired
+	GetAllLrDetailsRepository getAllLrDetailsRepository;
+	
+	@Autowired
+	GetAllMemoRepository getAllMemoRepository;
 	
 	public List<LrBilling> lrHeaderList;
 	public List<TransactionLrHeader> lrList;
@@ -78,6 +87,8 @@ public class ReportController {
 	List<GetLrDetailsOfClient> clientLrList;
 	List<TransactionBillHeader> clientBillList;
 	List<GetVoucherReport> voucherList;
+	List<GetAllLrDetails> lrDetailsList;
+	GetAllMemo getMemoDeatails;
 	
 	@RequestMapping(value="/showpendingPaymentLrList", method=RequestMethod.GET)
 	  
@@ -275,6 +286,11 @@ public class ReportController {
 	  else if(type==7) {
 		  ExcelWriter.voucherExcel(voucherList,response);
 		  url="redirect:/showVoucher";
+	  }else if(type==8) {
+		  
+		  ExcelWriter.memoExcel(lrDetailsList,getMemoDeatails,response);
+		  url="redirect:/showMemo";
+		  
 	  }
 	  
 	  } catch (IOException e) 
@@ -480,5 +496,30 @@ public class ReportController {
 		 
 			return voucherList;
 			
+		}
+	  
+	  @RequestMapping(value = "/generateMemoExcel/{memoHeaderId}", method = RequestMethod.GET)
+
+		public String memoPreview(HttpServletRequest request, @PathVariable int memoHeaderId) {
+			
+
+			
+			try {
+				
+				/*HttpSession session = request.getSession();
+				OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+				int staffId = officeStaff.getStaffId();*/
+			
+				lrDetailsList=getAllLrDetailsRepository.getMemoLrDetailsByMemoHeaderId(memoHeaderId);
+			
+				getMemoDeatails=getAllMemoRepository.findByMemoHeaderId(memoHeaderId);
+				
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return "redirect:/showExcel/8";
+
 		}
 }
