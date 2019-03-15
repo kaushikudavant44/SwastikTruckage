@@ -174,8 +174,8 @@
 
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											<div class="col-md-2">CONSIGNOR:</div>
-											<div class="col-md-3">
+											<div style="width: 102px;">CONSIGNOR:</div>
+											<div class="col-md-4">
 												<div class="input-group">
 													<select id="consignor" name="consignor"
 														class="standardSelect" tabindex="2" required="required">
@@ -212,8 +212,8 @@
 
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-											<div class="col-md-2">CONSIGNEE:</div>
-											<div class="col-md-3">
+											<div style="width: 102px;">CONSIGNEE:</div>
+											<div class="col-md-4">
 												<div class="input-group">
 													<select id="consigneeId" name="consigneeId"
 														class="standardSelect" tabindex="3" required="required"
