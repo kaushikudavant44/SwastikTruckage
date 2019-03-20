@@ -528,9 +528,89 @@
           $('#bootstrap-data-table1').DataTable();
         } );
     </script>
+    
+    
+   <!--   <script type="text/javascript">
+    var unSelectedRowList=[];
+    var selectedRowList =[];
+    
+    $(document).ready(function() {
+    	
+    	
+    	
+    	/* <c:forEach items="${lrDetailsList}" var="lrDetailsList">
+
+    	var lrHeaderId = "<c:out value="${lrDetailsList.lrHeaderId}"/>";
+
+    	var lrNo = "<c:out value="${lrDetailsList.lrNo}"/>";
+    	
+    	selectedRowList.push(parseInt(lrHeaderId,10));
+    	
+		
+    	</c:forEach> */
+    		 	
+ /* 	if(selectedRowList!=null && selectedRowList!=""){
+			$('#bootstrap-data-table1 tbody tr').addClass('selected');
+			
+		} */
+
+	    var table = $('#bootstrap-data-table1').DataTable();
+	 
+	    $('#bootstrap-data-table1 tbody').on( 'click', 'tr', function () {
+	   	
+	    	 if ( $(this).hasClass('selected') ) {
+	    		 
+	    		 
+	    		 
+	    		 var index=selectedRowList.indexOf($(this).data('value'));
+	    		 
+	    	
+	    		 
+	    		 if($.inArray($(this).data('value'), unSelectedRowList) === -1) unSelectedRowList.push($(this).data('value'));
+	    	/* 	 unSelectedRowList.push($(this).data('value')); */
+	    		 
+	    		 if(index >-1){
+	    			 
+	    			 selectedRowList.splice(index,0);
+	    			 unSelectedRowList.splice(index,0);
+	    			 
+	    		 }
+	    		 alert("selected row list = "+JSON.stringify(selectedRowList));
+	    		alert("unselected row list ="+JSON.stringify(unSelectedRowList));
+	             $(this).removeClass('selected');
+	             
+	             
+	            
+					
+	    	 }else{
+	    		 /* selectedRowList.push($(this).data('value')); */
+	    		 if($.inArray($(this).data('value'), selectedRowList) === -1) selectedRowList.push($(this).data('value'));
+	            
+	    		 alert("selected row list = "+JSON.stringify(selectedRowList));
+		    		alert("unselected row list ="+JSON.stringify(unSelectedRowList));
+	    		 
+	    		 $(this).addClass('selected');
+	    		 
+	    		 
+	            
+	            
+	            
+	    }
+	      
+	    } );
+	 	  
+	} );
+	
+    
+    </script> -->
+    
+    
 <script type="text/javascript">
 
-	var selectedRowList =[];
+	
+
+
+	 var selectedRowList =[];
 	$(document).ready(function() {
 	    var table = $('#bootstrap-data-table1').DataTable();
 	 
@@ -550,6 +630,9 @@
 	             $(this).removeClass('selected');
 					
 	    	 }else{
+	    		 
+
+	    		 
 	    		 selectedRowList.push($(this).data('value'));
 	    		 
 
@@ -558,7 +641,7 @@
 	      
 	    } );
 	 	  
-	} );
+	} ); 
 	
 	
 	function saveMemoDetails(){

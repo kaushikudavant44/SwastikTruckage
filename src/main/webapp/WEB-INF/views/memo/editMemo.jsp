@@ -72,6 +72,8 @@
 
 <c:url var="getVehicalOwnerDetails" value="/getVehicalOwnerDetails" />
 <c:url var="editMemoDetails" value="/editMemoDetails" />
+<c:url var="addLrInEditedMemo" value="/addLrInEditedMemo" />
+
 </head>
 <body>
 
@@ -251,14 +253,38 @@
 			</div>
 		
 		
-		
+			
 			<div class="row">
+			
+			
 
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
 							<strong class="card-title">Memo Details</strong>
+							
 						</div>
+						<hr>
+						
+			<div class="row">
+			
+						<div class="col-md-4 text-right"><strong>Add Extra LR</strong></div>
+											<div class="col-md-4">
+												<div class="input-group">
+													<input type="text" id="lrNo" name="lrNo" value="" style="width:100%" />
+													
+												</div>
+											</div>
+											
+									
+											<div class="col-md-4">
+												<div class="input-group">
+													<button type="button" id="addLr" value="" onclick="getReturnLrDetails()" style="background-color: rgb(51, 65, 102); color:#fff; border:none; padding:2px 20px">ADD</button>
+													
+												</div>
+											</div>
+											</div>
+											<hr>
 						<div class="card-body">
 
 							<table id="bootstrap-data-table1"
@@ -281,7 +307,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
+						<c:forEach items="${lrDetailsList}" var="lrDetailsList" varStatus="count">
 									<tr data-value="${lrDetailsList.lrHeaderId}" class="selected">
 										
 										<td>${count.index+1 }</td>
@@ -309,6 +335,54 @@
 										<%-- <td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td> --%>
 									</tr>
 								</c:forEach>
+							<!-- getAllOfficelrDetailsList -->
+
+							<%-- 	<c:forEach items="${getAllOfficelrDetailsList}" var="getAllOfficelrDetails" varStatus="count">
+									
+									<c:set var="lrHeader11" value=""/>
+									
+									
+									<c:forEach items="${lrDetailsList}" var="lrDetails" >
+										
+										<c:if test="${getAllOfficelrDetails.lrHeaderId==lrDetails.lrHeaderId}">
+										
+									<c:set var="lrHeader11" value="selected"/>
+										
+										</c:if>
+										
+										
+										
+								</c:forEach>
+									
+	
+								<tr data-value="${getAllOfficelrDetails.lrHeaderId}" class="${lrHeader11}" >
+										
+										<td>${count.index+1 }</td>
+										<td>${getAllOfficelrDetails.officeName}</td>
+										<td>${getAllOfficelrDetails.lrNo}  ${lrHeader11}</td>
+										<td>${getAllOfficelrDetails.lrDate}</td>
+										<td>${getAllOfficelrDetails.consignor}</td>
+										<td>${getAllOfficelrDetails.consignee}</td>
+										<td>${getAllOfficelrDetails.particular}</td>
+										<td>${getAllOfficelrDetails.quantity}</td>
+										<td>${getAllOfficelrDetails.amount}</td>
+										<td>
+										<c:choose>
+										
+										<c:when test="${getAllOfficelrDetails.paymentBy==0}">
+										To Be bill
+										</c:when>
+										<c:otherwise>
+										To pay
+										</c:otherwise>
+										</c:choose>
+										
+										</td>
+										
+										<td><input type="button" value="edit" onclick="editOfficeDetails()"/><input type="button" value="delete" onclick="deleteOffice(${officeList.officeId})"/></td>
+									</tr>
+			
+								</c:forEach> --%>
 
 
 								</tbody>
@@ -412,12 +486,14 @@
 
     	var lrHeaderId = "<c:out value="${lrDetailsList.lrHeaderId}"/>";
 
+    	var lrNo = "<c:out value="${lrDetailsList.lrNo}"/>";
+    	
     	selectedRowList.push(parseInt(lrHeaderId,10));
     	
 		
     	</c:forEach>
     		 	
-    	if(selectedRowList!=null && selectedRowList!=""){
+ 	if(selectedRowList!=null && selectedRowList!=""){
 			$('#bootstrap-data-table1 tbody tr').addClass('selected');
 			
 		}
@@ -439,8 +515,8 @@
 	    		 
 	    		 if(index >-1){
 	    			 
-	    			 selectedRowList.splice(index,1);
-	    			 unSelectedRowList.splice(index,1);
+	    			 selectedRowList.splice(index,0);
+	    			 unSelectedRowList.splice(index,0);
 	    			 
 	    		 }
 	    		 
@@ -453,11 +529,7 @@
 	    		 if($.inArray($(this).data('value'), selectedRowList) === -1) selectedRowList.push($(this).data('value'));
 	            
 	    		 $(this).addClass('selected');
-	    		 
-	    		 
-	            
-	            
-	            
+	    	
 	    }
 	      
 	    } );
@@ -497,6 +569,7 @@
 			driverId:driverId,
 			staffId:staffId,
 			unSelectedRowList:JSON.stringify(unSelectedRowList),
+			selectedRowList:JSON.stringify(selectedRowList),
 			
 			ajax : 'true'
 			
@@ -531,6 +604,61 @@ function getVehicalOwner(){
 		
 		document.getElementById("vehicalOwner").value=data.ownerName;
 	});
+}
+
+</script>
+
+<script type="text/javascript">
+
+var selectedLrHeaderId=[];
+var srNo=document.getElementById("bootstrap-data-table1").getElementsByTagName("tr").length-1;
+
+
+
+function getReturnLrDetails(){
+			
+	var lrNo=document.getElementById("lrNo").value;
+	
+	$.getJSON('${addLrInEditedMemo}', {
+		
+		lrNo: lrNo,
+		ajax : 'true'
+		
+	}, function(data) {
+		
+		
+		selectedRowList.push(data.lrHeaderId);
+		
+						srNo++;
+						var tr = $('<tr id="'+data.lrHeaderId+'" class="selected"></tr>');
+						tr.append($('<td></td>').html(srNo));
+						tr.append($('<td></td>').html(data.officeName));
+						tr.append($('<td></td>').html(data.lrNo));
+						tr.append($('<td></td>').html(data.lrDate));
+						tr.append($('<td></td>').html(data.consignor));
+						tr.append($('<td></td>').html(data.consignee));
+						tr.append($('<td></td>').html(data.particular));
+						tr.append($('<td></td>').html(data.quantity));
+						tr.append($('<td></td>').html(data.amount));
+						if(data.paymentBy==0){
+						tr.append($('<td></td>').html("To Be bill"));
+						}else if(data.paymentBy==1){
+							tr.append($('<td></td>').html("To Pay"));
+						}else{
+							tr.append($('<td></td>').html("Paid"));
+						}
+						/* <c:if test="${operationOfAccessRight.mdelete==1}"> 
+						tr.append($('<td></td>').html("<a style='cursor:pointer; color:blue;' onclick='deleteLr("+data.lrHeaderId+")'><i class='fa fa-trash-o'></i> </a>"));
+						</c:if> */
+			
+						$('#bootstrap-data-table1 tbody').append(tr);
+					
+						alert("Lr "+data.lrNo+" added successfully");
+					});			
+		 
+		
+	
+	
 }
 
 </script>

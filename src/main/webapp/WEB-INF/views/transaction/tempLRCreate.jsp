@@ -429,20 +429,18 @@
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
 
-											<div class="col-md-1">WEIGHT</div>
-											<div class="col-md-1">
+											<div class="col-md-2">
 												<div class="input-group">
-
+													WEIGHT &nbsp;&nbsp;
 													<input class="form-control" name="weight" id="weight"
 														type="text" min="0" value="" tabindex="8" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
-
-											<div class="col-md-1">FREIGHT</div>
-											<div class="col-md-1">
+											<div class="col-md-2">
+											
 												<div class="input-group">
-
+												FREIGHT &nbsp;&nbsp;
 													<input class="form-control" name="freight" id="freight"
 														type="number" value="0" min="0" onkeyup="getTotal()"
 														tabindex="9" /> <span class="error" aria-live="polite"></span>
@@ -450,35 +448,31 @@
 												</div>
 											</div>
 
-											<div class="col-md-1">GST</div>
-											<div class="col-md-1">
+											
+											<div class="col-md-2">
 
 												<div class="input-group">
-
+													GST &nbsp;&nbsp;
 													<input class="form-control" name="gst" id="gst"
 														type="number" value="0" min="0" onkeyup="getTotal()"
 														tabindex="10" /> <span class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-
-
-											<div class="col-md-1">HAMALI</div>
-											<div class="col-md-1">
+											<div class="col-md-3">
 
 												<div class="input-group">
-
+												HAMALI &nbsp;&nbsp;
 													<input class="form-control" name="hamali" id="hamali"
 														type="number" value="0" min="0" onkeyup="getTotal()"
 														tabindex="11" /> <span class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-
-											<div class="col-md-2">B. C. CHARGE</div>
-											<div class="col-md-1">
+											<div class="col-md-3">
 												<div class="input-group">
-
+													B. C. CHARGE &nbsp;&nbsp;
+													
 													<input class="form-control" name="bccharge" id="bccharge"
 														type="number" required value="0" min="0"
 														onkeyup="getTotal()" tabindex="12" /> <span class="error"
@@ -494,25 +488,20 @@
 									<hr>
 									<div class="col-xs-12 col-sm-12">
 										<div class="row">
-
-
-
-											<div class="col-md-1">KATA</div>
-											<div class="col-md-1">
+											<div class="col-md-2">
 												<div class="input-group">
-
+													KATA &nbsp;&nbsp;
 													<input class="form-control" name="kata" id="kata" value="0"
 														type="number" min="0" onkeyup="getTotal()" tabindex="13" />
 													<span class="error" aria-live="polite"></span>
 
 												</div>
 											</div>
-
-											<div class="col-md-1">LOCAL TEMPO</div>
-											<div class="col-md-1">
+											
+											<div class="col-md-2">
 
 												<div class="input-group">
-
+														LOCAL <br>TEMPO	&nbsp;&nbsp;
 													<input class="form-control" name="localtempo"
 														id="localtempo" value="0" type="number" min="0"
 														onkeyup="getTotal()" tabindex="14" /> <span class="error"
@@ -520,22 +509,18 @@
 
 												</div>
 											</div>
-
-											<div class="col-md-1">BHARAI</div>
-											<div class="col-md-1">
+											<div class="col-md-2">
 												<div class="input-group">
-
+													BHARAI &nbsp;&nbsp;
 													<input class="form-control" name="bharai" id="bharai"
 														type="number" min="0" required value="0"
 														onkeyup="getTotal()" value="0" tabindex="15" /> <span
 														class="error" aria-live="polite"></span>
 												</div>
 											</div>
-
-											<div class="col-md-2">DD CHARGES</div>
-											<div class="col-md-1">
+											<div class="col-md-3">
 												<div class="input-group">
-
+														DD CHARGES &nbsp;&nbsp;
 													<input class="form-control" name="ddcharges" id="ddcharges"
 														type="number" min="0" onkeyup="getTotal()" value="0"
 														tabindex="16" /> <span class="error" aria-live="polite"></span>
@@ -545,13 +530,11 @@
 
 
 
-											<div class="col-md-1">
-												<strong>TOTAL</strong>
-											</div>
-											<div class="col-md-1">
+											
+											<div class="col-md-3">
 
 												<div class="input-group">
-
+													<strong>TOTAL</strong> &nbsp;&nbsp;
 													<input class="form-control" name="total" id="total"
 														type="text" tabindex="17" readonly> <span
 														class="error" aria-live="polite"></span>

@@ -915,6 +915,5 @@ public class TransactionController {
 		return clientDetails;
 
 	}
-	
-	
+		
 }

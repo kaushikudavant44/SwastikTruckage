@@ -125,7 +125,7 @@ public class LocalMemoController {
 		
 		try {
 			
-			getAllLrDetails=getAllLrDetailsRepository.findReceiveLrBylrNoAndOfficeId(lrNo,officeId);
+			getAllLrDetails=getAllLrDetailsRepository.findReceiveLrBylrNo(lrNo);
 
 			
 		} catch (Exception e) {
@@ -466,6 +466,25 @@ public class LocalMemoController {
 		}
 
 		return info;
+
+	}
+	
+	@RequestMapping(value = "/findReceiveLr", method = RequestMethod.GET)
+
+	public ModelAndView findReceiveLr(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("transaction/findLr");
+
+		try {
+			
+			HttpSession session = request.getSession();
+			OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return model;
 
 	}
 

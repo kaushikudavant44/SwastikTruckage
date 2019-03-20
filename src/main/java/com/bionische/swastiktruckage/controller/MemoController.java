@@ -150,7 +150,6 @@ public class MemoController {
 		}
 
 		return vehicleOwners;
-
 	}
 	
 	@RequestMapping(value = "/saveMemoDetails", method = RequestMethod.GET)
@@ -282,6 +281,11 @@ public class MemoController {
 			OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
 			int staffId = officeStaff.getStaffId();
 			OfficeStaff staffDetails = new OfficeStaff();
+			List<GetAllLrDetails> getAllOfficelrDetailsList=new ArrayList<>();
+			//get All created lr by office
+			getAllOfficelrDetailsList=getAllLrDetailsRepository.findLrForEditMemo(officeStaff.getStaffOfficeId());
+			
+			
 			GetAllMemo getMemoDeatails=new GetAllMemo();
 			vehicalDetailsList.clear();
 			
@@ -316,7 +320,7 @@ public class MemoController {
 			model.addObject("lrDetailsList", lrDetailsList);
 			model.addObject("getMemoDeatails", getMemoDeatails);
 			model.addObject("staffDetails", staffDetails);
-		
+			model.addObject("getAllOfficelrDetailsList", getAllOfficelrDetailsList);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -379,11 +383,13 @@ public class MemoController {
 			memoHeader.setStatus(0);
 			MemoHeader memoHeaderResult=memoHeaderRepository.save(memoHeader);
 			System.out.println("memoHeaderResult"+memoHeaderResult.toString());
+			try {
+				
 			
 			String getLrHeaderId=request.getParameter("unSelectedRowList");
 			String getAllLrHeader=getLrHeaderId.substring(1, getLrHeaderId.length()-1);
 			
-			System.out.println(getAllLrHeader.toString());
+			System.out.println("All header ids"+getAllLrHeader.toString());
 			
 			String[] memoLrId = getAllLrHeader.split(",");
 			int deleteMemoDetails=0;
@@ -403,6 +409,32 @@ public class MemoController {
 			}
 			}
 			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			String getMemoHeaderId=request.getParameter("selectedRowList");
+			String getAllMemoHeader=getMemoHeaderId.substring(1, getMemoHeaderId.length()-1);
+			
+			System.out.println(getAllMemoHeader.toString());
+			List<MemoDetails> memoDetailsList=new ArrayList<>();
+		
+			
+			String[] memoHeaderId = getAllMemoHeader.split(",");
+			
+			for(int i=0;i<memoHeaderId.length;i++) {
+			
+				
+				MemoDetails memoDetails=new MemoDetails();
+				memoDetails.setLrHeaderId(Integer.parseInt(memoHeaderId[i]));
+				memoDetails.setMemoHeaderId(memoHeaderResult.getMemoHeaderId());
+				memoDetails.setLrStatus(0);
+				memoDetailsList.add(memoDetails);
+					
+			}
+			System.out.println("memo detail list"+memoDetailsList.toString());
+			memoDetailsList=memoDetailsRepository.saveAll(memoDetailsList);
+			
 		//	info.setMessage("Record Update Successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -692,6 +724,35 @@ public class MemoController {
 		}
 
 		return info;
+
+	}
+	
+	
+	@RequestMapping(value = "/addLrInEditedMemo", method = RequestMethod.GET)
+
+	public @ResponseBody GetAllLrDetails addLrInEditedMemo(HttpServletRequest request) {
+	
+		HttpSession session = request.getSession();
+		OfficeStaff officeStaff=(OfficeStaff) session.getAttribute("staffDetails");
+		// get staff id through session
+		// TODO
+		int officeId = officeStaff.getStaffOfficeId();
+		
+		int lrNo=Integer.parseInt(request.getParameter("lrNo"));
+		System.out.println("lrNo ="+lrNo);
+		GetAllLrDetails getAllLrDetails=new GetAllLrDetails();
+		
+		try {
+			
+			getAllLrDetails=getAllLrDetailsRepository.findLrToEditMemo(lrNo,officeId);
+			System.out.println(getAllLrDetails.toString());
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return getAllLrDetails;
 
 	}
 	

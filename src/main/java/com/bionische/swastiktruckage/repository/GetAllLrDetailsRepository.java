@@ -29,6 +29,16 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 	List<GetAllLrDetails> findLrForMakeMemo(@Param("officeId")int officeId);
 	
 	
+	
+	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,cl2.client_address,h.payment_by, SUM(c.no_of_containts) AS quantity, " + 
+			"GROUP_CONCAT(i.inv_no) AS inv_no, " + 
+			"h.total AS amount,c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee  " + 
+			"FROM t_lr_invoice_detail i,t_lr_containt_details c, m_goods g, m_office o, t_lr_header h INNER JOIN m_clients cl1 ON cl1.client_id = h.consignor  " + 
+			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id  " + 
+			"WHERE h.lr_header_id=c.lr_header_id AND i.inv_header_id=h.inv_header_id AND c.goods_id=g.goods_id AND o.office_id=h.from_id  " + 
+			"AND h.from_id=:officeId AND h.is_used=TRUE AND h.delivery_status!=3 AND h.delivery_status!=4 AND h.delivery_status!=5 GROUP BY h.lr_header_id" ,nativeQuery=true)
+	List<GetAllLrDetails> findLrForEditMemo(@Param("officeId")int officeId);
+	
 	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,cl2.client_address,h.payment_by, SUM(c.no_of_containts) AS quantity, GROUP_CONCAT(i.inv_no) AS inv_no, " + 
 			"	h.total AS amount,c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee " + 
 			"	FROM t_lr_invoice_detail i,t_lr_containt_details c, m_goods g, m_office o, t_lr_header h INNER JOIN m_clients cl1 ON cl1.client_id = h.consignor " + 
@@ -48,6 +58,8 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 	List<GetAllLrDetails> findAllReceivedLr(@Param("toId")int toId);
 	
 	
+
+	
 	/**
 	 * Temprory query for show delivered Lr
 	 * @param lrNo
@@ -62,13 +74,13 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 			"h.delivery_status=4 AND mh.to_id=:toId AND h.is_used=TRUE GROUP BY h.lr_header_id" ,nativeQuery=true)
 	List<GetAllLrDetails> findAllReceivedLr(@Param("toId")int toId);*/
 	
-	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,mh.to_id,g.goods_name AS particular, cl2.client_address, h.payment_by, SUM(c.no_of_containts) AS quantity, GROUP_CONCAT(i.inv_no) AS inv_no," + 
-			"h.total AS amount, c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee  " + 
-			"FROM t_lr_invoice_detail i, t_memo_details md,t_lr_containt_details c, m_goods g, m_office o,t_memo_header mh, t_lr_header h " + 
-			"INNER JOIN m_clients cl1 ON cl1.client_id = h.consignor " + 
-			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id   " + 
-			"WHERE h.lr_no=:lrNo AND mh.to_id=:officeId  AND mh.to_id=o.office_id AND i.inv_header_id=h.inv_header_id AND c.goods_id=g.goods_id AND md.lr_header_id=c.lr_header_id AND h.delivery_status=3 AND h.lr_header_id=md.lr_header_id" ,nativeQuery=true)
-	GetAllLrDetails findReceiveLrBylrNoAndOfficeId(@Param("lrNo")int lrNo,@Param("officeId")int officeId);
+	@Query(value="SELECT h.lr_header_id,h.lr_no, h.inv_header_id, h.lr_date,g.goods_name AS particular, cl2.client_address, h.payment_by, SUM(c.no_of_containts) AS quantity, " + 
+			"h.total AS amount, c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee , (SELECT GROUP_CONCAT(d.inv_no) FROM t_lr_invoice_detail d  WHERE d.inv_header_id=h.inv_header_id GROUP BY d.inv_header_id) AS inv_no " + 
+			"FROM t_lr_containt_details c, m_goods g, m_office o, t_lr_header h " + 
+			"INNER JOIN m_clients cl1 ON cl1.client_id = h.consignor  " + 
+			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id  " + 
+			"WHERE h.lr_no=:lrNo AND c.goods_id=g.goods_id AND h.lr_header_id=c.lr_header_id" ,nativeQuery=true)
+	GetAllLrDetails findReceiveLrBylrNo(@Param("lrNo")int lrNo);
 	
 	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,h.payment_by, SUM(c.no_of_containts) AS quantity, GROUP_CONCAT(i.inv_no) AS inv_no," + 
 			"h.total AS amount,c.goods_id, o.office_name, cl2.client_address, cl1.client_name AS consignor, cl2.client_name AS consignee " + 
@@ -86,6 +98,16 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id   " + 
 			"WHERE h.lr_no=:lrNo AND mh.to_id=:officeId  AND mh.to_id=o.office_id AND c.goods_id=g.goods_id AND md.lr_header_id=c.lr_header_id AND i.inv_header_id=h.inv_header_id AND h.delivery_status=4 AND h.lr_header_id=md.lr_header_id" ,nativeQuery=true)
 	GetAllLrDetails findReturnLrBylrNoAndOfficeId(@Param("lrNo")int lrNo,@Param("officeId")int officeId);
+	
+	
+	@Query(value="SELECT h.lr_header_id,h.lr_no, h.inv_header_id, h.lr_date,g.goods_name AS particular, cl2.client_address, h.payment_by, SUM(c.no_of_containts) AS quantity,\r\n" + 
+			"h.total AS amount, c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee , (SELECT GROUP_CONCAT(d.inv_no) FROM t_lr_invoice_detail d  WHERE d.inv_header_id=h.inv_header_id GROUP BY d.inv_header_id) AS inv_no\r\n" + 
+			"FROM t_lr_containt_details c, m_goods g, m_office o, t_lr_header h\r\n" + 
+			"INNER JOIN m_clients cl1 ON cl1.client_id = h.consignor \r\n" + 
+			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id \r\n" + 
+			"WHERE h.lr_no=:lrNo AND h.from_id=:officeId AND h.from_id=o.office_id  AND c.goods_id=g.goods_id AND \r\n" + 
+			"h.delivery_status=0 AND h.lr_header_id=c.lr_header_id" ,nativeQuery=true)
+	GetAllLrDetails findLrToEditMemo(@Param("lrNo")int lrNo,@Param("officeId")int officeId);
 	
 /*	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,cl2.client_address,h.payment_by,SUM(c.no_of_containts) AS quantity, h.total AS amount," + 
 			"c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee " + 
