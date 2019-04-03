@@ -332,16 +332,24 @@ public class ClientController {
 		
 		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
 		List<TransactionBillHeader> billHeaderList = transactionBillHeaderRepository.findAll();
-		TransactionBillHeader transactionBillHeader1=transactionBillHeaderRepository.getLastEntry();
-		if(transactionBillHeader1==null)
-		{
-			transactionBillHeader.setBillNo(000001);
+		
+		int billNo=1;
+	
+		try {
+			TransactionBillHeader transactionBillHeader1=transactionBillHeaderRepository.getLastEntry();
+		
+			if(transactionBillHeader1!=null)
+			{
+				System.out.println("transactionBillHeader1 ="+transactionBillHeader1.toString());
+				 billNo = transactionBillHeader1.getBillNo()+1;
+				//++billNo;
+				System.out.println("bill no ="+billNo);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
-		else
-		{
-			int billNo = transactionBillHeader.getBillNo()+1;
-			transactionBillHeader.setBillNo(billNo);
-		}
+		
 		if(clientBillDetails.get(0).getPaymentBy()==0 )
 		{
 			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsigneeId());
@@ -350,7 +358,7 @@ public class ClientController {
 		{
 			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsignor());
 		}	
-		
+		transactionBillHeader.setBillNo(billNo);	
 		transactionBillHeader.setBillPayableBy(clientBillDetails.get(0).getPaymentBy());
 		transactionBillHeader.setBillDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		transactionBillHeader.setBillTotal(totalBill);		

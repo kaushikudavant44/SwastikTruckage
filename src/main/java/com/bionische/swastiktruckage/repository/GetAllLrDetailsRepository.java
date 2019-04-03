@@ -74,12 +74,14 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 			"h.delivery_status=4 AND mh.to_id=:toId AND h.is_used=TRUE GROUP BY h.lr_header_id" ,nativeQuery=true)
 	List<GetAllLrDetails> findAllReceivedLr(@Param("toId")int toId);*/
 	
-	@Query(value="SELECT h.lr_header_id,h.lr_no, h.inv_header_id, h.lr_date,g.goods_name AS particular, cl2.client_address, h.payment_by, SUM(c.no_of_containts) AS quantity, " + 
-			"h.total AS amount, c.goods_id, o.office_name, cl1.client_name AS consignor, cl2.client_name AS consignee , (SELECT GROUP_CONCAT(d.inv_no) FROM t_lr_invoice_detail d  WHERE d.inv_header_id=h.inv_header_id GROUP BY d.inv_header_id) AS inv_no " + 
+	@Query(value="SELECT h.lr_header_id,h.lr_no, h.inv_header_id, h.lr_date,g.goods_name AS particular, (SELECT client_address FROM m_clients WHERE  " + 
+			"client_id= h.consignee_id) AS client_address, h.payment_by, SUM(c.no_of_containts) AS quantity, " + 
+			"h.total AS amount, c.goods_id, o.office_name,  " + 
+			"(SELECT client_name FROM m_clients WHERE client_id= h.consignor) AS consignor,  " + 
+			"(SELECT client_name FROM m_clients WHERE client_id= h.consignee_id)  AS consignee ,  " + 
+			"(SELECT GROUP_CONCAT(d.inv_no) FROM t_lr_invoice_detail d  WHERE d.inv_header_id=h.inv_header_id GROUP BY d.inv_header_id) AS inv_no " + 
 			"FROM t_lr_containt_details c, m_goods g, m_office o, t_lr_header h " + 
-			"INNER JOIN m_clients cl1 ON cl1.client_id = h.consignor  " + 
-			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id  " + 
-			"WHERE h.lr_no=:lrNo AND c.goods_id=g.goods_id AND h.lr_header_id=c.lr_header_id" ,nativeQuery=true)
+			"WHERE h.lr_no=:lrNo AND h.from_id=o.office_id  AND c.goods_id=g.goods_id AND h.lr_header_id=c.lr_header_id AND h.delivery_status=3 AND h.is_used=1" ,nativeQuery=true)
 	GetAllLrDetails findReceiveLrBylrNo(@Param("lrNo")int lrNo);
 	
 	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,h.payment_by, SUM(c.no_of_containts) AS quantity, GROUP_CONCAT(i.inv_no) AS inv_no," + 
