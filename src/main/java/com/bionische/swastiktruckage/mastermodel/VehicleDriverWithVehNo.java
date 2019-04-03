@@ -21,8 +21,8 @@ public class VehicleDriverWithVehNo {
 	@Column(name="driver_name",length=200)
 	private String driverName;
 	
-	@Column(name="driver_license_no",length=11)
-	private int driverLicenseNo;
+	@Column(name="driver_license_no",length=200)
+	private String driverLicenseNo;
 	
 	@Column(name="driver_contact_no",length=200)
 	private String driverContactNo;
@@ -57,11 +57,13 @@ public class VehicleDriverWithVehNo {
 		this.driverName = driverName;
 	}
 
-	public int getDriverLicenseNo() {
+	
+
+	public String getDriverLicenseNo() {
 		return driverLicenseNo;
 	}
 
-	public void setDriverLicenseNo(int driverLicenseNo) {
+	public void setDriverLicenseNo(String driverLicenseNo) {
 		this.driverLicenseNo = driverLicenseNo;
 	}
 
@@ -95,6 +97,8 @@ public class VehicleDriverWithVehNo {
 				+ ", driverLicenseNo=" + driverLicenseNo + ", driverContactNo=" + driverContactNo + ", isUsed=" + isUsed
 				+ ", vehNo=" + vehNo + "]";
 	}
+
+	
 	
 	
 

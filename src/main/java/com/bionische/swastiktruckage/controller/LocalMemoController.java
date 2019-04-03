@@ -110,7 +110,6 @@ public class LocalMemoController {
 	
 	
 	@RequestMapping(value = "/getLrDetails", method = RequestMethod.GET)
-
 	public @ResponseBody GetAllLrDetails getLrDetails(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("localmemo/createMemo");
 		HttpSession session = request.getSession();
@@ -186,18 +185,19 @@ public class LocalMemoController {
 			
 			DeliverMemoHeader deliverMemoHeaderRes=deliverMemoHeaderRepository.save(deliverMemoHeader);
 			
-			DeliverMemoDetails deliverMemoDetails=new DeliverMemoDetails();
+		
 			List<DeliverMemoDetails> deliverMemoDetailsList=new ArrayList<>();
 			String lrHeaderNo=request.getParameter("selectedLrHeaderId");
 			System.out.println("lrHeaderNo"+lrHeaderNo);
 			String lrHeaderId=lrHeaderNo.substring(1, lrHeaderNo.length()-1);
 			
 			String[] lrHeaderNumbers = lrHeaderId.split(",");
-			
+			System.out.println("lr numbers = "+lrHeaderNumbers.length);
 			if(deliverMemoHeaderRes!=null) {
 				
 				for(int i=0;i<lrHeaderNumbers.length;i++) {
-				
+					DeliverMemoDetails deliverMemoDetails=new DeliverMemoDetails();
+					
 				deliverMemoDetails.setDeliMemoHeaderId(deliverMemoHeaderRes.getDeliMemoHeaderId());
 				deliverMemoDetails.setDeliveryStatus(0);
 				deliverMemoDetails.setDeliveryremark(0);
@@ -278,13 +278,15 @@ public class LocalMemoController {
 
 			MemoHeader memoHeader=new MemoHeader();
 		
-			
+			System.out.println("come in delete");
 		try {
 			int isUsed=deliverMemoHeaderRepository.updateLocalMemoByMemoHeaderId(deliMemoHeaderId);
 			
-			
+			if(isUsed==1) {
+				System.out.println("delete successfully");
+			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 
 		return "redirect:/showAllLocalMemo";

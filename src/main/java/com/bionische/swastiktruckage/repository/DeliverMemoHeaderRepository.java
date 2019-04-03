@@ -18,7 +18,7 @@ public interface DeliverMemoHeaderRepository extends JpaRepository<DeliverMemoHe
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE DeliverMemoHeader m SET m.isUsed=false  WHERE m.deliMemoHeaderId=:deliMemoHeaderId")
+	@Query("UPDATE DeliverMemoHeader m SET m.isUsed=1  WHERE m.deliMemoHeaderId=:deliMemoHeaderId")
 	int updateLocalMemoByMemoHeaderId(@Param("deliMemoHeaderId")int deliMemoHeaderId);
 
 }

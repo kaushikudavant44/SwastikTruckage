@@ -27,9 +27,8 @@ public interface ClientDetailsRepository extends JpaRepository<ClientDetails, In
 	@Query("DELETE FROM ClientDetails where clientId=:clientId")
 	int deleteClientById(@Param("clientId")int clientId);
 	
-	@Query(value="SELECT c.* FROM m_clients AS c WHERE c.client_id IN(SELECT  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id \r\n" + 
-			"ELSE h.consignor \r\n" + 
-			"END ) AS client_id   FROM t_lr_header h  WHERE  h.bill_status=0 ) " ,nativeQuery=true)
+	@Query(value="SELECT c.* FROM m_clients c WHERE c.client_id IN(SELECT (CASE WHEN h.payment_by = 0 OR h.payment_by = 1 THEN h.consignor ELSE h.consignee_id END ) AS client_id \r\n" + 
+			"FROM t_lr_header h  WHERE  h.bill_status=0)" ,nativeQuery=true)
 	List<ClientDetails> getUnPaidClients();
 
 	List<ClientDetails> findAll();

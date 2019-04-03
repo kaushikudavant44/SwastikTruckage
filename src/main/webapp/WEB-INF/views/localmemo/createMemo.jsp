@@ -390,6 +390,8 @@
 			
 			selectedLrHeaderId.push(data.lrHeaderId);
 			
+			
+			
 							srNo++;
 							var tr = $('<tr id="'+data.lrHeaderId+'"></tr>');
 							tr.append($('<td></td>').html(srNo));

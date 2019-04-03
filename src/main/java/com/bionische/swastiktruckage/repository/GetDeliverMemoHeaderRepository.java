@@ -12,7 +12,7 @@ public interface GetDeliverMemoHeaderRepository extends JpaRepository<GetDeliver
 	
 	@Query(value="SELECT dh.deli_memo_header_id,dh.driver_id,d.driver_name,dh.deli_memo_date,v.veh_no,dh.vehicle_id,dh.office_id,o.office_name,dh.staff_id,s.staff_name,dh.local_memo_no " + 
 			"FROM m_office_staff s, m_vehicles v, t_delivery_memo_header dh, m_office o, m_vehicles_drivers d WHERE dh.vehicle_id=v.veh_id AND dh.office_id=:officeId AND dh.office_id=o.office_id " + 
-			"AND s.staff_id=dh.staff_id",nativeQuery=true)
+			"AND s.staff_id=dh.staff_id AND dh.is_used=0 AND d.driver_id=dh.driver_id",nativeQuery=true)
 	List<GetDeliverMemoHeader> findAllMemoByOfficeId(@Param("officeId")int officeId);
 	
 	

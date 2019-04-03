@@ -307,11 +307,11 @@ public class ClientController {
 
      if(clientBillDetails.get(0).getPaymentBy()==0 )
      {
-      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
+      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());
      }
      else 
      {
-      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());
+      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
      } 
      
 		float totalBill=0;
@@ -332,10 +332,10 @@ public class ClientController {
 		
 		TransactionBillHeader transactionBillHeader = new TransactionBillHeader();
 		List<TransactionBillHeader> billHeaderList = transactionBillHeaderRepository.findAll();
-		
-		if(billHeaderList==null)
+		TransactionBillHeader transactionBillHeader1=transactionBillHeaderRepository.getLastEntry();
+		if(transactionBillHeader1==null)
 		{
-			transactionBillHeader.setBillNo(00000001);
+			transactionBillHeader.setBillNo(000001);
 		}
 		else
 		{

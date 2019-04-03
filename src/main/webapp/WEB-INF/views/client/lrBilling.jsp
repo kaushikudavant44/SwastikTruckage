@@ -141,11 +141,11 @@
   							<td>To Pay</td>
   							
   							</c:when>
-  							 <c:when test="${transactionLrHeader.paymentBy==2}">
+  							 <%-- <c:when test="${transactionLrHeader.paymentBy==2}">
                               
   							<td>Paid</td>
   							
-  							</c:when>
+  							</c:when> --%>
   							</c:choose>
 										
 							<td>${transactionLrHeader.total}</td>

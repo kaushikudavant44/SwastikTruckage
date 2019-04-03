@@ -21,7 +21,7 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	
 	TransactionLrHeader save(TransactionLrHeader transactionLrHeader);
 	
-	@Query(value="SELECT  h.* FROM t_lr_header h  WHERE  ( CASE WHEN h.payment_by = 0 THEN h.consignee_id =:clientId ELSE h.consignor =:clientId END ) AND  h.bill_status=0 " ,nativeQuery=true)
+	@Query(value="SELECT  h.* FROM t_lr_header h  WHERE  ( CASE WHEN h.payment_by = 0 OR h.payment_by=1 THEN h.consignor =:clientId ELSE h.consignee_id =:clientId END ) AND  h.bill_status=0 AND h.payment_by !=2" ,nativeQuery=true)
 	List<TransactionLrHeader> getLrByClientId(@Param("clientId")int clientId);
 	
 
