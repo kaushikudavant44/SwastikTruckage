@@ -109,7 +109,7 @@
           <div class="col-sm-8">
 
           	<h5><strong>Invoice No.: </strong><c:forEach items="${transactionLrInvoiceDetailList}" var="transactionLrInvoiceDetailList" varStatus="count">${transactionLrInvoiceDetailList.invNo},</c:forEach> </h5>
-            <h5><strong>GSTIN :27BERP38138B1Z2 </strong></h5>
+            <h5><strong>GSTIN :27BERPS8138B1Z2 </strong></h5>
 
      <p class="red">Tax Paid on reverse charge basis will be available for input tax credit if such goods and/or service are used, or will be used, for business. The service recepient(i.e who plays reverse tax) can avail input tax credit.</p>
 

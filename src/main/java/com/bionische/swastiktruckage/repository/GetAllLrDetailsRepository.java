@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.bionische.swastiktruckage.mastermodel.GetAllLrDetails;
+import com.bionische.swastiktruckage.mastermodel.TransactionLrHeader;
 
 public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails, Integer>{
 	
@@ -84,6 +85,16 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 			"WHERE h.lr_no=:lrNo AND h.from_id=o.office_id  AND c.goods_id=g.goods_id AND h.lr_header_id=c.lr_header_id AND h.delivery_status=3 AND h.is_used=1" ,nativeQuery=true)
 	GetAllLrDetails findReceiveLrBylrNo(@Param("lrNo")int lrNo);
 	
+	@Query(value="SELECT h.lr_header_id,h.lr_no, h.inv_header_id, h.lr_date,g.goods_name AS particular, (SELECT client_address FROM m_clients WHERE  " + 
+			"client_id= h.consignee_id) AS client_address, h.payment_by, SUM(c.no_of_containts) AS quantity, " + 
+			"h.total AS amount, c.goods_id, o.office_name,  " + 
+			"(SELECT client_name FROM m_clients WHERE client_id= h.consignor) AS consignor,  " + 
+			"(SELECT client_name FROM m_clients WHERE client_id= h.consignee_id)  AS consignee ,  " + 
+			"(SELECT GROUP_CONCAT(d.inv_no) FROM t_lr_invoice_detail d  WHERE d.inv_header_id=h.inv_header_id GROUP BY d.inv_header_id) AS inv_no " + 
+			"FROM t_lr_containt_details c, m_goods g, m_office o, t_lr_header h " + 
+			"WHERE h.lr_no=:lrNo AND h.from_id=o.office_id  AND c.goods_id=g.goods_id AND h.lr_header_id=c.lr_header_id AND h.is_used=1 AND h.bill_status!=1" ,nativeQuery=true)
+	GetAllLrDetails findCreatedLrBylrNo(@Param("lrNo")int lrNo);
+	
 	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,h.payment_by, SUM(c.no_of_containts) AS quantity, GROUP_CONCAT(i.inv_no) AS inv_no," + 
 			"h.total AS amount,c.goods_id, o.office_name, cl2.client_address, cl1.client_name AS consignor, cl2.client_name AS consignee " + 
 			"FROM t_lr_invoice_detail i, t_lr_containt_details c, m_goods g, m_office o, t_delivery_memo_header mh, m_vehicles_drivers d, m_vehicles v, m_office_staff s,t_lr_header h  " + 
@@ -119,7 +130,25 @@ public interface GetAllLrDetailsRepository extends JpaRepository<GetAllLrDetails
 			"WHERE h.lr_header_id=c.lr_header_id AND c.goods_id=g.goods_id AND o.office_id=h.from_id AND h.from_id=:officeId GROUP BY h.lr_header_id order by h.lr_header_id desc" ,nativeQuery=true)
 	List<GetAllLrDetails> findAllLr(@Param("officeId")int officeId);*/
 
+	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,h.payment_by, " + 
+			"SUM(c.no_of_containts) AS quantity, h.total AS amount, GROUP_CONCAT(i.inv_no) AS inv_no,  " + 
+			"c.goods_id, o.office_name, (SELECT client_name FROM m_clients WHERE client_id =h.consignor) AS consignor, "
+			+ "(SELECT client_name FROM m_clients WHERE client_id =h.consignee_id) AS consignee, " + 
+			"(SELECT client_address FROM m_clients WHERE client_id =h.consignee_id) AS client_address " + 
+			"FROM  m_goods g, m_office o,t_lr_invoice_detail i,t_lr_header h,t_lr_containt_details c " + 
+			"WHERE h.lr_header_id=c.lr_header_id AND c.goods_id=g.goods_id AND o.office_id=h.from_id AND i.inv_header_id=h.inv_header_id " + 
+			"AND h.is_used=TRUE AND lr_date BETWEEN :fromDate AND :toDate GROUP BY h.lr_header_id ORDER BY h.lr_header_id ASC",nativeQuery=true)
+	List<GetAllLrDetails> lrListByDate(@Param("fromDate")String fromDate,@Param("toDate")String toDate);
 	
 	
+	@Query(value="SELECT h.lr_header_id,h.lr_no,h.lr_date,g.goods_name AS particular,h.payment_by, " + 
+			"SUM(c.no_of_containts) AS quantity, h.total AS amount, GROUP_CONCAT(i.inv_no) AS inv_no,  " + 
+			"c.goods_id, o.office_name, (SELECT client_name FROM m_clients WHERE client_id =h.consignor) AS consignor, "
+			+ "(SELECT client_name FROM m_clients WHERE client_id =h.consignee_id) AS consignee, " + 
+			"(SELECT client_address FROM m_clients WHERE client_id =h.consignee_id) AS client_address " + 
+			"FROM  m_goods g, m_office o,t_lr_invoice_detail i,t_lr_header h,t_lr_containt_details c " + 
+			"WHERE h.lr_header_id=c.lr_header_id AND c.goods_id=g.goods_id AND o.office_id=h.from_id AND i.inv_header_id=h.inv_header_id " + 
+			"AND h.is_used=TRUE AND h.lr_date BETWEEN :fromDate AND :toDate AND h.truck_no=:vehNo GROUP BY h.lr_header_id ORDER BY h.lr_header_id ASC",nativeQuery=true)
+	List<GetAllLrDetails> lrListByDateAndVehNo(@Param("fromDate")String fromDate,@Param("toDate")String toDate,@Param("vehNo")String vehNo);
 	
 }

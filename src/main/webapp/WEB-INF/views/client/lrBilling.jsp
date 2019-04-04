@@ -92,12 +92,12 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">Data Table</strong>
+							<strong class="card-title">Billing LR</strong>
 						</div>
 						<div class="card-body">
 <form action="${pageContext.request.contextPath}/saveClientBillDetails" method="GET" id="generateBill">
-							<table id="bootstrap-data-table"
-								class="table table-striped table-bordered">
+							<table id="bootstrap-data"
+								class="table table-bordered">
 								<thead>
 									<tr>
 									    <th>select</th>
@@ -237,6 +237,13 @@
 
 <script>
 
+
+
+$(document).ready(function () {
+    $('#bootstrap-data').dataTable({
+        "bPaginate": false
+    });
+});
 function validateType()
 {
 	

@@ -142,7 +142,7 @@
              <div class="col-sm-6 col-md-1">
 							
              <button type="button" class="btn btn-primary" onclick="getLR()">
-				Generate
+				Submit
 			 </button>							
 							</div>
 							</div>

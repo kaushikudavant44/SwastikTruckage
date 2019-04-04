@@ -66,7 +66,7 @@
 </style>
 
 <c:url var="getVehicalOwner" value="/getVehicalOwner" />
-<c:url var="getLrDetails" value="/getLrDetails" />
+<c:url var="getAllLrDetails" value="/getAllLrDetails" />
 <c:url var="saveDeliverMemoDetails" value="/saveDeliverMemoDetails" />
 
 </head>
@@ -380,7 +380,7 @@
 				
 		var lrNo=document.getElementById("lrNo").value;
 		
-		$.getJSON('${getLrDetails}', {
+		$.getJSON('${getAllLrDetails}', {
 			
 			lrNo: lrNo,
 			ajax : 'true'

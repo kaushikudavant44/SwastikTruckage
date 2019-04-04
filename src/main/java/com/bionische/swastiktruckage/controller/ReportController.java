@@ -82,6 +82,7 @@ public class ReportController {
 	
 	public List<LrBilling> lrHeaderList;
 	public List<TransactionLrHeader> lrList;
+	public List<GetAllLrDetails> lrDetailList;
 	List<GetPaymentDetails> billList;
 	List<TransactionLrCollection> collectionList;
 	List<GetLrDetailsOfClient> clientLrList;
@@ -127,24 +128,24 @@ public class ReportController {
 			
 			if(fromDate!=null && toDate!=null)
 			{
-				lrList = transactionLrHeaderRepository.lrListByDate(fromDate,toDate);
+				lrDetailList = getAllLrDetailsRepository.lrListByDate(fromDate,toDate);
 			 model.addObject("from",fromDate);
 			 model.addObject("to",toDate);
 			}
 			else
 			{
-				lrList = transactionLrHeaderRepository.lrListByDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+				lrDetailList = getAllLrDetailsRepository.lrListByDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()),new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("from",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			 model.addObject("to",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 			}
 			float totalBill = 0;
-			for(TransactionLrHeader lr:lrList)
+			for(GetAllLrDetails lr:lrDetailList)
 			{
-				totalBill+=lr.getTotal();
+				totalBill+=lr.getAmount();
 			}
 			
-			model.addObject("lrList",lrList);
-			model.addObject("totalLr",lrList.size());
+			model.addObject("lrList",lrDetailList);
+			model.addObject("totalLr",lrDetailList.size());
 			model.addObject("totalBill",totalBill);
 		}
 			catch (Exception e) {
@@ -261,7 +262,7 @@ public class ReportController {
 	  } 
 	else if(type==2) {
 	  
-	  ExcelWriter.lrExcel(lrList,response);
+	  ExcelWriter.lrExcel(lrDetailList,response);
 	  url="redirect:/showLrListByDate"; 
 	  
 	} 
@@ -275,7 +276,7 @@ public class ReportController {
 	  ExcelWriter.collectionExcel(collectionList,response);
 	  url="redirect:/showLrListByDate"; 
 	  }else if(type==5) {
-		  ExcelWriter.lrExcel(lrList,response);
+		  ExcelWriter.lrExcel(lrDetailList,response);
 		  url="redirect:/showDataLrListByDateAndVehicleWise";
 	  }
 	
@@ -346,7 +347,7 @@ public class ReportController {
 				
 				if(fromDate!=null && toDate!=null && vehNo!=null)
 				{
-					lrList = transactionLrHeaderRepository.lrListByDateAndVehNo(fromDate,toDate,vehNo);
+					lrDetailsList = getAllLrDetailsRepository.lrListByDateAndVehNo(fromDate,toDate,vehNo);
 				 model.addObject("from",fromDate);
 				 model.addObject("to",toDate);
 				

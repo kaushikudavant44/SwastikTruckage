@@ -183,6 +183,8 @@
 									<tr>
 									    <th>LR No</th>
 										<th>LR Date</th>
+										<th>Consignor</th>
+										<th>Consignee</th>
 										<th>Payment By</th>
 										<th >Total</th>
 									
@@ -195,7 +197,8 @@
 						
 						    <td>${lrList.lrNo}</td>
 							<td>${lrList.lrDate}</td>
-							
+						<td>${lrList.consignor}</td>
+							<td>${lrList.consignee}</td> 
 										 <c:choose>
                               <c:when test="${lrList.paymentBy==0}">
                               
@@ -214,7 +217,7 @@
   							</c:when>
   							</c:choose>
 										
-							<td>${lrList.total}</td>
+							<td>${lrList.amount}</td>
 										
 					   </tr>
 									

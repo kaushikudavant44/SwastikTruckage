@@ -352,11 +352,11 @@ public class ClientController {
 		
 		if(clientBillDetails.get(0).getPaymentBy()==0 )
 		{
-			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsigneeId());
+			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsignor());
 		}
 		else
 		{
-			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsignor());
+			transactionBillHeader.setBillTo(clientBillDetails.get(0).getConsigneeId());
 		}	
 		transactionBillHeader.setBillNo(billNo);	
 		transactionBillHeader.setBillPayableBy(clientBillDetails.get(0).getPaymentBy());

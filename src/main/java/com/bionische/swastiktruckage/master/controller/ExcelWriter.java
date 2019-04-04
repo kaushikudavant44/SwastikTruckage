@@ -172,14 +172,14 @@ public class ExcelWriter {
 			
 	    }
 	    
-	    public static void lrExcel(List<TransactionLrHeader> list,HttpServletResponse response ) throws IOException {
+	    public static void lrExcel(List<GetAllLrDetails> list,HttpServletResponse response ) throws IOException {
 	        // Create a Workbook
 	    	
 	   /* Field[] declaredFields = LrBilling.class.getDeclaredFields();
 	    	Object[] strings = (Object[])declaredFields;
 	    	
 	    	String[] lrBill = (String[])strings;*/
-	        String[] columns = {"LR No","LR Date","Payment By","Total"};
+	        String[] columns = {"LR No","LR Date","Consignor","Consignee","Payment By","Total"};
 	        Workbook workbook = new HSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
 	        /* CreationHelper helps us create instances of various things like DataFormat, 
@@ -216,7 +216,7 @@ public class ExcelWriter {
 	        // Create Other rows and cells with employees data'
 	    
 	        int rowNum = 1;
-	        for(TransactionLrHeader lr: list) {
+	        for(GetAllLrDetails lr: list) {
 	            Row row = sheet.createRow(rowNum++);
 
 	            row.createCell(0)
@@ -224,21 +224,28 @@ public class ExcelWriter {
 
 	            row.createCell(1)
 	                    .setCellValue(lr.getLrDate());
-
 	            
-	            if(lr.getPaymentBy()==0)
-	            {
-	            	 row.createCell(2)
-	                 .setCellValue("To Be Billed");
-	            }
-	            else
-	            {
-	            	 row.createCell(2)
-	                 .setCellValue("To Pay");
-	            }
+	            row.createCell(2)
+                .setCellValue(lr.getConsignor());
 	            
 	            row.createCell(3)
-                .setCellValue(lr.getTotal());
+                .setCellValue(lr.getConsignee());
+	            
+	            if(lr.getPaymentBy().equals("0"))
+	            {
+	            	 row.createCell(4)
+	                 .setCellValue("To Be Billed");
+	            }else if(lr.getPaymentBy().equals("1")) 
+	            {
+	            	 row.createCell(4)
+	                 .setCellValue("To Pay");
+	            }else {
+	            	row.createCell(4)
+	                 .setCellValue("Paid");
+	            }
+	            
+	            row.createCell(5)
+                .setCellValue(lr.getAmount());
 	        }
 
 			// Resize all columns to fit the content size

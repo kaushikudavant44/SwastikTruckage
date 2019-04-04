@@ -25,8 +25,7 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	List<TransactionLrHeader> getLrByClientId(@Param("clientId")int clientId);
 	
 
-	@Query(value="SELECT * from t_lr_header where lr_date between :fromDate AND :toDate ORDER BY lr_no ASC",nativeQuery=true)
-	List<TransactionLrHeader> lrListByDate(@Param("fromDate")String fromDate,@Param("toDate")String toDate);
+	
 	
 	@Transactional
 	@Modifying
@@ -69,8 +68,7 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 	int getPendingLrDeliveryCount();
 	
 	
-	@Query(value="SELECT * from t_lr_header where lr_date between :fromDate AND :toDate AND truck_no=:vehNo ORDER BY lr_no ASC",nativeQuery=true)
-	List<TransactionLrHeader> lrListByDateAndVehNo(@Param("fromDate")String fromDate,@Param("toDate")String toDate,@Param("vehNo")String vehNo);
+	
 	
 
 }
