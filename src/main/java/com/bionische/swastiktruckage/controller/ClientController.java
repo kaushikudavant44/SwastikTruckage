@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bionische.swastiktruckage.common.DateConverter;
 import com.bionische.swastiktruckage.mastermodel.City;
 import com.bionische.swastiktruckage.mastermodel.ClientDetails;
 import com.bionische.swastiktruckage.mastermodel.ClientFullDetails;
@@ -580,6 +581,8 @@ public class ClientController {
 		
         TransactionBillHeader transactionBillHeader = transactionBillHeaderRepository.findByBillHeaderId(billHeaderId);
                
+        transactionBillHeader.setBillDate(DateConverter.convertToDMY(transactionBillHeader.getBillDate()));
+        
         List<TransactionBillDetails> billDetails= transactionBillDetailsRepository.findByBillHeaderId(billHeaderId);
                    
        for(TransactionBillDetails details : billDetails)
