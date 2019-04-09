@@ -29,11 +29,16 @@
 <body class="swastikBg">
 
 	<div class="swastikForm1">
-		<img
+		<%-- <img
 			src="${pageContext.request.contextPath}/resources/images/swastik.png"
 			style="display: block; margin-left: auto; margin-right: auto; width: 50%;"
-			alt="logo">
+			alt="logo"> --%>
 		<!--<h2 class="text-center"> <img src="images/swastiklogo.png" class="img-responsive" alt="SwastikLogo">Swastik <span>Truckage Co.</span></h2>-->
+		 <div class="col-sm-12" style="margin-top:80px">
+
+    
+       </div>
+	
 		<p class="text-center">
 			<strong>Address:</strong> ${companyDetails.address}
 		</p>
@@ -42,7 +47,7 @@
 			2350211
 		</p>
 		<p class="text-center">
-			<strong>PAN No.</strong> ${companyDetails.panNo} &nbsp; &nbsp; <strong>Account
+			<%-- <strong>PAN No.</strong> ${companyDetails.panNo} --%> &nbsp; &nbsp; <strong>Account
 				Helpline:</strong> ${companyDetails.helplineNo}
 		</p>
 
@@ -90,9 +95,9 @@
 						<p>
 							<strong>Bill Date :</strong>${trBillHeader.billDate}
 						</p>
-						<p>
+						<!-- <p>
 							<strong>Page No.:</strong>
-						</p>
+						</p> -->
 
 					</div>
 				</td>
@@ -108,8 +113,9 @@
 			<tr>
 				<td><strong>LR No</strong>.</td>
 				<td><strong>LR Date</strong></td>
+				<td><strong>Station</strong></td>
+				<td><strong>Receiver Name</strong></td>
 				<td><strong>Particular</strong></td>
-				<td><strong>Vehicle No.</strong></td>
 				<td><strong>Quantity</strong></td>
 				<td><strong>Freight</strong></td>
 				<td><strong>Local Tempo</strong></td>
@@ -122,8 +128,15 @@
 <tr>
     <td> ${clientBillDetails.lrNo} </td>
     <td> ${clientBillDetails.lrDate} </td>
+    <c:if test="${clientBillDetails.paymentBy==0}">
+    <td> ${clientBillDetails.consigneeAddress}</td>
+    <td> ${clientBillDetails.consigneeName}</td>
+    </c:if>
+    <c:if test="${clientBillDetails.paymentBy==1}">
+    <td> ${clientBillDetails.consignorName}</td>
+    <td>${clientBillDetails.consignorAddress}</td>
+    </c:if>
     <td>${clientBillDetails.goods}</td>
-    <td>${clientBillDetails.truckNo}</td>
     <td>${clientBillDetails.quantity}</td>
     <td>${clientBillDetails.freight}</td>
     <td>${clientBillDetails.localTempo}</td>
@@ -137,7 +150,8 @@
   </tr>
  </c:forEach> 
 			
-			<tr>
+			<tfoot>
+				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -147,12 +161,13 @@
 				<td>&nbsp;</td>
 				<td><strong>${totalHamali}</strong></td>
 				<td><strong>&nbsp;</strong></td>
-				<td><strong>${totalBill}</strong></td>
-			</tr>
+				<td><strong id="number">${totalBill}</strong></td>
+			</tfoot>
 		</table>
 		<div class="clearfix"></div>
-		<h4 class="text-left" style="margin-left: 30px;">
-			<strong>In Words:</strong> Seventeen Thousand Only
+		
+		<h4 class="text-left" style="margin-left: 30px;" >
+			<strong >In Words: </strong><span id="words"></span>
 		</h4>
 
 		<div class="table-responsive">
@@ -216,5 +231,32 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/billing/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/billing/ie10-viewport-bug-workaround.js"></script>
+		
+		<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+		<script type="text/javascript">
+		
+		var a = ['','One ','Two ','Three ','Four ', 'Five ','Six ','Seven ','Eight ','Nine ','Ten ','Eleven ','Twelve ','Thirteen ','Fourteen ','Fifteen ','Sixteen ','Seventeen ','Eighteen ','Nineteen '];
+		var b = ['', '', 'Twenty','Thirty','Forty','Fifty', 'Sixty','Seventy','Eighty','Ninety'];
+
+		function inWords (num) {
+		    if ((num = num.toString()).length > 9) return 'overflow';
+		    n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+		    if (!n) return; var str = '';
+		    str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+		    str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+		    str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+		    str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+		    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
+		    return str;
+		}
+
+		var totalAmount=document.getElementById('number').innerHTML;
+		    
+		totalAmount=totalAmount.split(".");
+		
+		document.getElementById('words').innerHTML = inWords(totalAmount[0]);
+		//    document.getElementById('words').innerHTML;
+		</script>
 </body>
 </html>

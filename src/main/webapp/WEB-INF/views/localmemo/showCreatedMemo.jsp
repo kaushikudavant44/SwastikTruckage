@@ -136,7 +136,7 @@
 														</div>
 														
 														<a
-														href="${pageContext.request.contextPath}/memoPreview/${getAllMemoList.memoHeaderId}"><i
+														href="${pageContext.request.contextPath}/localMemoPreview/${getDeliverMemoHeaderList.deliMemoHeaderId}"><i
 														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
 														</div>
 										

@@ -60,7 +60,7 @@ public class LrBilling {
 	private float freight;
 	
 	@Column(name="weight")
-	private float weight;	
+	private String weight;	
 	
 	@Column(name="gst")
 	private float gst;
@@ -78,11 +78,11 @@ public class LrBilling {
 	@Column(name="total")
 	private float total;
 	
+	@Column(name="consignee_address")
+	private String consigneeAddress;
 	
-	
-	
-	
-
+	@Column(name="consignor_address")
+	private String consignorAddress;
 	
 	@Transient
 	List<TransactionLrInvoiceDetail> invoiceDetailList;
@@ -172,11 +172,13 @@ public class LrBilling {
 		this.truckNo = truckNo;
 	}
 
-	public float getWeight() {
+
+
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(float weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 
@@ -251,16 +253,39 @@ public class LrBilling {
 	public void setConsignorName(String consignorName) {
 		this.consignorName = consignorName;
 	}
+	
+	
+
+	public String getConsigneeAddress() {
+		return consigneeAddress;
+	}
+
+	public void setConsigneeAddress(String consigneeAddress) {
+		this.consigneeAddress = consigneeAddress;
+	}
+
+	public String getConsignorAddress() {
+		return consignorAddress;
+	}
+
+	public void setConsignorAddress(String consignorAddress) {
+		this.consignorAddress = consignorAddress;
+	}
 
 	@Override
 	public String toString() {
-		return "LrBilling [lrHeaderId=" + lrHeaderId + ", lrNo=" + lrNo + ", invHeaderId=" + invHeaderId + ", fromId="
-				+ fromId + ", lrDate=" + lrDate + ", truckNo=" + truckNo + ", weight=" + weight + ", freight=" + freight
-				+ ", gst=" + gst + ", hamali=" + hamali + ", localTempo=" + localTempo + ", total=" + total
-				+ ", paymentBy=" + paymentBy + ", quantity=" + quantity + ", consignor=" + consignor + ", consigneeId="
-				+ consigneeId + ", goods=" + goods + ", consigneeName=" + consigneeName + ", consignorName="
-				+ consignorName + ", invoiceDetailList=" + invoiceDetailList + "]";
+		return "LrBilling [lrHeaderId=" + lrHeaderId + ", invHeaderId=" + invHeaderId + ", consignor=" + consignor
+				+ ", consigneeId=" + consigneeId + ", fromId=" + fromId + ", lrNo=" + lrNo + ", consigneeName="
+				+ consigneeName + ", consignorName=" + consignorName + ", lrDate=" + lrDate + ", goods=" + goods
+				+ ", truckNo=" + truckNo + ", quantity=" + quantity + ", freight=" + freight + ", weight=" + weight
+				+ ", gst=" + gst + ", localTempo=" + localTempo + ", hamali=" + hamali + ", paymentBy=" + paymentBy
+				+ ", total=" + total + ", consigneeAddress=" + consigneeAddress + ", consignorAddress="
+				+ consignorAddress + ", invoiceDetailList=" + invoiceDetailList + "]";
 	}
+
+
+
+	
 
 	
 	

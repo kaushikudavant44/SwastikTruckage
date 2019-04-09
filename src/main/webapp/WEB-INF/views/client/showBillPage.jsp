@@ -116,11 +116,11 @@
     <td>&nbsp;</td>
     <td><strong>${totalHamali}</strong></td>
     <td><strong></strong></td>
-    <td><strong>${totalBill}</strong></td>
+    <td id="number"><strong>${totalBill}</strong></td>
   </tr>
 </table>
 <div class="clearfix"></div>
-<h4 class="text-center"><strong>In Words:</strong> Seventeen Thousand Only</h4>
+<h4 class="text-center" id="words"><strong>In Words:</strong> Only</h4>
 
     <div class="table-responsive">
     	<table width="200" border="1" class="lfttxtTbl">
@@ -203,8 +203,6 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
-		
+	
 </body>
 </html>

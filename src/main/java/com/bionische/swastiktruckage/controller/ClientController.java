@@ -299,7 +299,7 @@ public class ClientController {
     	 LrBilling lrBilling = new LrBilling();
     	 System.out.println("lrHeaderId[i]:"+lrHeaderId[i]);
     	 lrBilling = lrBillingRepository.getBillDetailByLrId(lrHeaderId[i]);
-    	 System.out.println("lrBilling:"+lrBilling.toString());
+    	 
     	 clientBillDetails.add(lrBilling);
       }
      
@@ -592,14 +592,18 @@ public class ClientController {
       }
      
      ClientFullDetails clientFullDetails = new ClientFullDetails();
+     
+     System.out.println("Client Bill Lr Details="+clientBillDetails.toString());
+    
 
      if(clientBillDetails.get(0).getPaymentBy()==0)
      {
-      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
+    	  clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());     
+    
      }
      else
      {
-      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());
+    	 clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
      } 
      
 		float totalBill=0;
@@ -615,10 +619,16 @@ public class ClientController {
 			clientBill.setInvoiceDetailList(transactionLrInvoiceDetailRepository.findByInvHeaderId(clientBill.getInvHeaderId()));
 			
 		}
-		
+		CompanyDetails	companyDetails=new CompanyDetails();
 		
 		//company details
-		CompanyDetails	companyDetails = companyDetailsRepository.findByCompanyId(1);
+		try {
+		companyDetails = companyDetailsRepository.findByCompanyId(1);
+		System.out.println("company details "+companyDetails.toString());
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
 		model.addObject("clientFullDetails",clientFullDetails);	
 		model.addObject("trBillHeader",transactionBillHeader);
@@ -723,11 +733,12 @@ public class ClientController {
 
 	     if(clientBillDetails.get(0).getPaymentBy()==0)
 	     {
-	      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
+	    	 clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());
 	     }
 	     else
 	     {
-	      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsignor());
+	     
+	      clientFullDetails = clientFullDetailsRepository.getClientDetailById(clientBillDetails.get(0).getConsigneeId());
 	     } 
 	     
 			float totalBill=0;
