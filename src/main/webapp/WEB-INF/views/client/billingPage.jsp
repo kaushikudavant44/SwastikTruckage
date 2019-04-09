@@ -67,9 +67,9 @@
 
 
 
-		<table width="100%" border="0">
+		<table border="0">
 			<tr>
-				<td border="0" align="left">
+				<td border="0" align="left" height="5px">
 					<div class="col-sm-6">
 						<h4>
 							<strong>To, ${clientFullDetails.clientName}</strong>
@@ -85,7 +85,7 @@
 						</p>
 					</div>
 				</td>
-				<td border="0" align="left">
+				<td  border="0" align="left" height="5px">
 
 					<div class="col-sm-6">
 						<span>Please Make Payment By Cheque/ NEFT/RTGS only</span>
@@ -109,7 +109,7 @@
 
 
 
-		<table width="200" border="1">
+		<table width="100%"  border="1">
 			<tr>
 				<td><strong>LR No</strong>.</td>
 				<td><strong>LR Date</strong></td>
@@ -150,7 +150,7 @@
   </tr>
  </c:forEach> 
 			
-			<tfoot>
+			<tr>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -162,7 +162,7 @@
 				<td><strong>${totalHamali}</strong></td>
 				<td><strong>&nbsp;</strong></td>
 				<td><strong id="number">${totalBill}</strong></td>
-			</tfoot>
+			</tr>
 		</table>
 		<div class="clearfix"></div>
 		
@@ -192,7 +192,7 @@
 					<td><p>BANK</p>
 						<p>ACCOUNT NO.</p>
 						<p>MICR</p>
-						<p>RTGS CODE</p>
+						<p>IFCI CODE</p>
 						<p>Email</p></td>
 					 <td><p>${companyDetails.bankName} </p>
           <p>${companyDetails.accNo} </p>
