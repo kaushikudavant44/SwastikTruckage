@@ -42,6 +42,7 @@ import com.bionische.swastiktruckage.repository.ClientDetailsRepository;
 import com.bionische.swastiktruckage.repository.ClientFullDetailsRepository;
 import com.bionische.swastiktruckage.repository.CompanyDetailsRepository;
 import com.bionische.swastiktruckage.repository.GetPaymentDetailsRepository;
+import com.bionische.swastiktruckage.repository.LRDetailsRepository;
 import com.bionische.swastiktruckage.repository.LrBillingRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillDetailsRepository;
 import com.bionische.swastiktruckage.repository.TransactionBillHeaderRepository;
@@ -101,6 +102,8 @@ public class ClientController {
 
 	@Autowired
 	GetPaymentDetailsRepository getPaymentDetailsRepository;
+	
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
 	
@@ -847,6 +850,45 @@ public class ClientController {
 		
 	}
 	
-	
+	@RequestMapping(value="/deleteBill/{billHeaderId}", method=RequestMethod.GET)
+
+	public String deleteBill(@PathVariable("billHeaderId") int billHeaderId,HttpServletRequest request)   
+	{
+		ModelAndView model=new ModelAndView("client/billingPage");
+		List<LrBilling> clientBillDetails = new ArrayList<LrBilling>();
+		try {
+        TransactionBillHeader transactionBillHeader = transactionBillHeaderRepository.findByBillHeaderId(billHeaderId);
+               
+        transactionBillHeader.setBillDate(DateConverter.convertToDMY(transactionBillHeader.getBillDate()));
+        
+        List<TransactionBillDetails> billDetails= transactionBillDetailsRepository.findByBillHeaderId(billHeaderId);
+             
+       for(TransactionBillDetails details : billDetails)
+      {
+    	 LrBilling lrBilling = new LrBilling();
+    	
+    	 lrBilling = lrBillingRepository.getBillDetailByLrId(details.getLrHeaderId());
+    	 
+    	 int delStatus=transactionLrHeaderRepository.changeLrStatus(lrBilling.getLrHeaderId());
+    	
+    	 
+    	 //clientBillDetails.add(lrBilling);
+      }
+     
+       transactionBillDetailsRepository.deleteAll(billDetails);
+       
+       int deleteTransactionBillHeader=transactionBillHeaderRepository.updateIsUsedStatus(billHeaderId);
+       
+       if(deleteTransactionBillHeader==1) {
+    	  
+    	   
+       }
+       
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/showGeneratedClientBills";
+		
+	}
 	
 }

@@ -3,8 +3,10 @@ package com.bionische.swastiktruckage.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bionische.swastiktruckage.mastermodel.LRDetails;
 
@@ -23,5 +25,6 @@ public interface LRDetailsRepository extends JpaRepository<LRDetails, Integer>{
 			"INNER JOIN m_clients cl2 ON cl2.client_id = h.consignee_id " + 
 			"WHERE o.office_id=h.from_id AND h.lr_header_id=:lrHeaderId AND h.is_used=TRUE" ,nativeQuery=true)
 	LRDetails findByLrHeaderId(@Param("lrHeaderId") int lrHeaderId);
+
 
 }

@@ -186,7 +186,9 @@
 										<th>Consignor</th>
 										<th>Consignee</th>
 										<th>Payment By</th>
+										<th>Particular</th>
 										<th >Total</th>
+										<th>Detail Preview</th>
 									
 									</tr>
 								</thead>
@@ -217,7 +219,16 @@
   							</c:when>
   							</c:choose>
 										
+							<td>${lrList.particular}</td>
+										
 							<td>${lrList.amount}</td>
+							
+							<td>
+							<a
+														href="${pageContext.request.contextPath}/showLrPreview/${lrList.lrHeaderId}"><i
+														class="fa fa-print" title="Print And Preview"></i> <span class="text-muted"></span></a>
+							
+							</td>
 										
 					   </tr>
 									

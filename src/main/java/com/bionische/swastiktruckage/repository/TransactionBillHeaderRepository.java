@@ -38,4 +38,9 @@ public interface TransactionBillHeaderRepository extends JpaRepository<Transacti
 
 	@Query(value="select * from t_bill_header where bill_to=:clientId AND bill_date between :fromDate and :toDate" ,nativeQuery=true)
 	List<TransactionBillHeader> getBillByClientId(@Param("clientId") int clientId,@Param("fromDate") String fromDate,@Param("toDate") String toDate);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE TransactionBillHeader set isUsed=1 where billHeaderId=:billHeaderId")
+	int updateIsUsedStatus(@Param("billHeaderId")int billHeaderId);
 }

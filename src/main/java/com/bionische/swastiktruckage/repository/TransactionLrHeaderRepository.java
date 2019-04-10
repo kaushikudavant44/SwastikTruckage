@@ -67,7 +67,10 @@ public interface TransactionLrHeaderRepository extends JpaRepository<Transaction
 			"AND h.delivery_status=4 AND h.is_used=TRUE ",nativeQuery=true)
 	int getPendingLrDeliveryCount();
 	
-	
+	@Transactional
+	@Modifying
+	@Query("Update TransactionLrHeader set billStatus=0 where lrHeaderId=:lrHeaderId")
+	int changeLrStatus(@Param("lrHeaderId") int lrHeaderId);
 	
 	
 

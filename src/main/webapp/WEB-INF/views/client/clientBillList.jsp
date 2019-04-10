@@ -210,7 +210,10 @@
 										
 							<td> <button type="button" class="btn btn-primary" style="font-size:13px"><a href="${pageContext.request.contextPath}/getBillDetailsOfClient/${clientBills.billHeaderId}" style="color:white;">
 										Details</a>
-									</button> &nbsp; | &nbsp;   <a href="${pageContext.request.contextPath}/showPaymentPage/${clientBills.billTotal}/${clientBills.billHeaderId} "><i class="fa fa-edit" aria-hidden="true"></i></a></td>			
+									</button> &nbsp; | &nbsp;   <a href="${pageContext.request.contextPath}/showPaymentPage/${clientBills.billTotal}/${clientBills.billHeaderId} "><i class="fa fa-edit" aria-hidden="true"></i></a>
+									&nbsp; | &nbsp;   <a href="javascript:deleteBill(${clientBills.billHeaderId})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+									
+									</td>			
 					   </tr>
 									
 									</c:forEach>
@@ -306,7 +309,18 @@
         } );
     </script>
  
+   <script type="text/javascript">
+   function deleteBill(billHeaderId){
+	   
+	   if(confirm("Do You Want To Delete Bill?")){
+	   window.open("${pageContext.request.contextPath}/deleteBill/"+billHeaderId,'_self');
+	   }else{
+		   		   
+	   }
+	   
+   }
    
+   </script>
 
 
 </body>

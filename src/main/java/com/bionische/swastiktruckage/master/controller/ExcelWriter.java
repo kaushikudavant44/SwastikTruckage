@@ -179,7 +179,7 @@ public class ExcelWriter {
 	    	Object[] strings = (Object[])declaredFields;
 	    	
 	    	String[] lrBill = (String[])strings;*/
-	        String[] columns = {"LR No","LR Date","Consignor","Consignee","Payment By","Total"};
+	        String[] columns = {"LR No","LR Date","Consignor","Consignee","Payment By","Particular","Total"};
 	        Workbook workbook = new HSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
 	        /* CreationHelper helps us create instances of various things like DataFormat, 
@@ -243,8 +243,10 @@ public class ExcelWriter {
 	            	row.createCell(4)
 	                 .setCellValue("Paid");
 	            }
-	            
 	            row.createCell(5)
+                .setCellValue(lr.getParticular());
+	            
+	            row.createCell(6)
                 .setCellValue(lr.getAmount());
 	        }
 
